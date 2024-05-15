@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b3f14e47-c46f-459c-88d5-f6780564e6df" name="Changes" comment="Bkash Pyament">
+      <change beforePath="$PROJECT_DIR$/lib/Repository/subscriptionPlanRepo.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Repository/subscriptionPlanRepo.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screen/Due List/due_popUp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Due List/due_popUp.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screen/POS Sale/show_sale_payment_popup.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/POS Sale/show_sale_payment_popup.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screen/Product/add_product.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Product/add_product.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screen/Subscription/payment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Subscription/payment.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screen/Subscription/purchase_plan.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Subscription/purchase_plan.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screen/Subscription/subscription_plan_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Subscription/subscription_plan_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api_server.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/generated/l10n.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated/l10n.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/model/subscription_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/subscription_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/subscription.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/subscription.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2ePwCSGrTrjJfzy95b5611bQveG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/agmkhair/Android Project/SponT IT/DebVai/(update)/pos-saas-web-codecanyon-master/android/app&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;dart.settings&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/android/app" />
+      <recent name="$PROJECT_DIR$/lib/model" />
+      <recent name="$PROJECT_DIR$/lib/payment" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b3f14e47-c46f-459c-88d5-f6780564e6df" name="Changes" comment="" />
+      <created>1711819393494</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711819393494</updated>
+    </task>
+    <task id="LOCAL-00001" summary="80mm , 58mm and a4 size initial done">
+      <created>1712400577753</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1712400577753</updated>
+    </task>
+    <task id="LOCAL-00002" summary="resolve hight">
+      <created>1712557030833</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1712557030833</updated>
+    </task>
+    <task id="LOCAL-00003" summary="done customize">
+      <created>1712726572187</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712726572187</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Done">
+      <created>1713273434833</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1713273434833</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Bkash Pyament">
+      <created>1714397152535</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1714397152535</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="80mm , 58mm and a4 size initial done" />
+    <MESSAGE value="resolve hight" />
+    <MESSAGE value="done customize" />
+    <MESSAGE value="Done" />
+    <MESSAGE value="Bkash Pyament" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bkash Pyament" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Screen/POS Sale/pos_sale.dart</url>
+          <line>582</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Screen/POS Sale/pos_sale.dart</url>
+          <line>1905</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Screen/POS Sale/show_sale_payment_popup.dart</url>
+          <line>534</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Screen/POS Sale/show_sale_payment_popup.dart</url>
+          <line>531</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/payment/checkout/screens/checkout_screen.dart</url>
+          <line>45</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Screen/Subscription/purchase_plan.dart</url>
+          <line>283</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Screen/POS Sale/show_sale_payment_popup.dart</url>
+          <line>415</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Screen/POS Sale/show_sale_payment_popup.dart</url>
+          <line>482</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Repository/subscriptionPlanRepo.dart</url>
+          <line>36</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Screen/Subscription/subscription_plan_page.dart</url>
+          <line>75</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
