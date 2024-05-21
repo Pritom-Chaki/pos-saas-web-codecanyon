@@ -57,7 +57,9 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
           status: 'Uploading... ',
           dismissOnTap: false,
         );
-        var snapshot = await FirebaseStorage.instance.ref('Profile Picture/${DateTime.now().millisecondsSinceEpoch}').putData(bytesFromPicker!);
+        var snapshot = await FirebaseStorage.instance
+            .ref('Profile Picture/${DateTime.now().millisecondsSinceEpoch}')
+            .putData(bytesFromPicker!);
         var url = await snapshot.ref.getDownloadURL();
         EasyLoading.showSuccess('Upload Successful!');
         setState(() {
@@ -156,7 +158,12 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
   late String customerKey;
 
   void getCustomerKey(String phoneNumber) async {
-    await FirebaseDatabase.instance.ref(await getUserID()).child('Customers').orderByKey().get().then((value) {
+    await FirebaseDatabase.instance
+        .ref(await getUserID())
+        .child('Customers')
+        .orderByKey()
+        .get()
+        .then((value) {
       for (var element in value.children) {
         var data = jsonDecode(jsonEncode(element.value));
         if (data['phoneNumber'].toString() == phoneNumber) {
@@ -174,7 +181,8 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
     companyNameController.text = widget.personalInformationModel.companyName;
     phoneNumberController.text = widget.personalInformationModel.phoneNumber!;
     addressController.text = widget.personalInformationModel.countryName;
-    shopOpeningBalanceController.text = widget.personalInformationModel.shopOpeningBalance.toString();
+    shopOpeningBalanceController.text =
+        widget.personalInformationModel.shopOpeningBalance.toString();
     getCustomerKey(widget.personalInformationModel.phoneNumber);
     super.initState();
   }
@@ -192,7 +200,8 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
       backgroundColor: kDarkWhite,
       body: res.Responsive(
         mobile: Container(),
-        tablet: TabletProfileSetUp(personalInformationModel: widget.personalInformationModel),
+        tablet: TabletProfileSetUp(
+            personalInformationModel: widget.personalInformationModel),
         desktop: SingleChildScrollView(
           child: Consumer(
             builder: (context, ref, _) {
@@ -229,7 +238,10 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                 const SizedBox(height: 10.0),
                                 Text(
                                   lang.S.of(context).editYourProfile,
-                                  style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold, fontSize: 21.0),
+                                  style: kTextStyle.copyWith(
+                                      color: kGreyTextColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 21.0),
                                   textAlign: TextAlign.center,
                                 ),
                                 const SizedBox(height: 10.0),
@@ -237,56 +249,93 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                   padding: const EdgeInsets.all(20.0),
                                   child: Column(
                                     children: [
-                                      Container(
-                                        padding: const EdgeInsets.all(20.0),
-                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            DottedBorderWidget(
-                                              color: kLitGreyColor,
-                                              child: ClipRRect(
-                                                borderRadius: const BorderRadius.all(Radius.circular(12)),
-                                                child: Container(
-                                                  width: context.width(),
-                                                  padding: const EdgeInsets.all(10.0),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(20.0),
-                                                  ),
-                                                  child: Column(
-                                                    children: [
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                        children: [
-                                                          Icon(MdiIcons.cloudUpload, size: 50.0, color: kLitGreyColor).onTap(() => uploadFile()),
-                                                        ],
-                                                      ),
-                                                      const SizedBox(height: 10.0),
-                                                      RichText(
-                                                          text: TextSpan(
-                                                              text: lang.S.of(context).uploadAImage,
-                                                              style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
-                                                              children: [
-                                                            TextSpan(
-                                                                text: lang.S.of(context).orDragAndDropPng,
-                                                                style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
-                                                          ])),
-                                                      image != null
-                                                          ? Image.memory(
-                                                              image!,
-                                                              width: 150,
-                                                              height: 150,
-                                                            )
-                                                          : Image.network(profilePicture, width: 150, height: 150),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10.0),
+                                      //pc_cng
+                                      // Container(
+                                      //   padding: const EdgeInsets.all(20.0),
+                                      //   decoration: BoxDecoration(
+                                      //       borderRadius:
+                                      //           BorderRadius.circular(10.0),
+                                      //       color: kWhiteTextColor),
+                                      //   child: Column(
+                                      //     crossAxisAlignment:
+                                      //         CrossAxisAlignment.center,
+                                      //     children: [
+                                      //       DottedBorderWidget(
+                                      //         color: kLitGreyColor,
+                                      //         child: ClipRRect(
+                                      //           borderRadius:
+                                      //               const BorderRadius.all(
+                                      //                   Radius.circular(12)),
+                                      //           child: Container(
+                                      //             width: context.width(),
+                                      //             padding: const EdgeInsets.all(
+                                      //                 10.0),
+                                      //             decoration: BoxDecoration(
+                                      //               borderRadius:
+                                      //                   BorderRadius.circular(
+                                      //                       20.0),
+                                      //             ),
+                                      //             child: Column(
+                                      //               children: [
+                                      //                 Column(
+                                      //                   crossAxisAlignment:
+                                      //                       CrossAxisAlignment
+                                      //                           .center,
+                                      //                   children: [
+                                      //                     Icon(
+                                      //                             MdiIcons
+                                      //                                 .cloudUpload,
+                                      //                             size: 50.0,
+                                      //                             color:
+                                      //                                 kLitGreyColor)
+                                      //                         .onTap(() =>
+                                      //                             uploadFile()),
+                                      //                   ],
+                                      //                 ),
+                                      //                 const SizedBox(
+                                      //                     height: 10.0),
+                                      //                 RichText(
+                                      //                     text: TextSpan(
+                                      //                         text: lang.S
+                                      //                             .of(context)
+                                      //                             .uploadAImage,
+                                      //                         style: kTextStyle.copyWith(
+                                      //                             color:
+                                      //                                 kGreenTextColor,
+                                      //                             fontWeight:
+                                      //                                 FontWeight
+                                      //                                     .bold),
+                                      //                         children: [
+                                      //                       TextSpan(
+                                      //                           text: lang.S
+                                      //                               .of(context)
+                                      //                               .orDragAndDropPng,
+                                      //                           style: kTextStyle.copyWith(
+                                      //                               color:
+                                      //                                   kGreyTextColor,
+                                      //                               fontWeight:
+                                      //                                   FontWeight
+                                      //                                       .bold))
+                                      //                     ])),
+                                      //                 image != null
+                                      //                     ? Image.memory(
+                                      //                         image!,
+                                      //                         width: 150,
+                                      //                         height: 150,
+                                      //                       )
+                                      //                     : Image.network(
+                                      //                         profilePicture,
+                                      //                         width: 150,
+                                      //                         height: 150),
+                                      //               ],
+                                      //             ),
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     ],
+                                      //   ),
+                                      // ),
+                                      // const SizedBox(height: 10.0),
                                       // SizedBox(
                                       //   height: 60.0,
                                       //   child: FormField(
@@ -307,14 +356,18 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                           child: Column(
                                             children: [
                                               AppTextField(
-                                                controller: companyNameController,
+                                                controller:
+                                                    companyNameController,
                                                 showCursor: true,
                                                 cursorColor: kTitleColor,
-                                                textFieldType: TextFieldType.EMAIL,
+                                                textFieldType:
+                                                    TextFieldType.EMAIL,
                                                 validator: (value) {
-                                                  if (value == null || value.isEmpty) {
+                                                  if (value == null ||
+                                                      value.isEmpty) {
                                                     return 'Company Name can\'n be empty';
-                                                  } else if (!value.contains('@')) {
+                                                  } else if (!value
+                                                      .contains('@')) {
                                                     return 'Please enter a Company Name';
                                                   }
                                                   return null;
@@ -324,22 +377,38 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                                     companyName = value;
                                                   });
                                                 },
-                                                decoration: kInputDecoration.copyWith(
-                                                  labelText: lang.S.of(context).companyName,
-                                                  labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                  hintText: lang.S.of(context).enterYourCompanyName,
-                                                  hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                  prefixIcon: Icon(MdiIcons.officeBuilding, color: kTitleColor),
+                                                decoration:
+                                                    kInputDecoration.copyWith(
+                                                  labelText: lang.S
+                                                      .of(context)
+                                                      .companyName,
+                                                  labelStyle:
+                                                      kTextStyle.copyWith(
+                                                          color: kTitleColor),
+                                                  hintText: lang.S
+                                                      .of(context)
+                                                      .enterYourCompanyName,
+                                                  hintStyle:
+                                                      kTextStyle.copyWith(
+                                                          color:
+                                                              kGreyTextColor),
+                                                  prefixIcon: Icon(
+                                                      MdiIcons.officeBuilding,
+                                                      color: kTitleColor),
                                                 ),
                                               ),
                                               const SizedBox(height: 10.0),
                                               AppTextField(
-                                                controller: phoneNumberController,
-                                                textFieldType: TextFieldType.PHONE,
+                                                controller:
+                                                    phoneNumberController,
+                                                textFieldType:
+                                                    TextFieldType.PHONE,
                                                 validator: (value) {
-                                                  if (value == null || value.isEmpty) {
+                                                  if (value == null ||
+                                                      value.isEmpty) {
                                                     return 'Phone Number can\'n be empty';
-                                                  } else if (!value.contains('@')) {
+                                                  } else if (!value
+                                                      .contains('@')) {
                                                     return 'Please enter Phone Number';
                                                   }
                                                   return null;
@@ -349,22 +418,37 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                                     phoneNumber = value;
                                                   });
                                                 },
-                                                decoration: kInputDecoration.copyWith(
-                                                  labelText: lang.S.of(context).phoneNumber,
-                                                  hintText: lang.S.of(context).enterYourPhoneNumber,
-                                                  hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                                                  prefixIcon: Icon(MdiIcons.phone, color: kTitleColor),
+                                                decoration:
+                                                    kInputDecoration.copyWith(
+                                                  labelText: lang.S
+                                                      .of(context)
+                                                      .phoneNumber,
+                                                  hintText: lang.S
+                                                      .of(context)
+                                                      .enterYourPhoneNumber,
+                                                  hintStyle:
+                                                      kTextStyle.copyWith(
+                                                          color:
+                                                              kGreyTextColor),
+                                                  floatingLabelBehavior:
+                                                      FloatingLabelBehavior
+                                                          .never,
+                                                  prefixIcon: Icon(
+                                                      MdiIcons.phone,
+                                                      color: kTitleColor),
                                                 ),
                                               ),
                                               const SizedBox(height: 10.0),
                                               AppTextField(
                                                 controller: addressController,
-                                                textFieldType: TextFieldType.ADDRESS,
+                                                textFieldType:
+                                                    TextFieldType.ADDRESS,
                                                 validator: (value) {
-                                                  if (value == null || value.isEmpty) {
+                                                  if (value == null ||
+                                                      value.isEmpty) {
                                                     return 'Address can\'n be empty';
-                                                  } else if (!value.contains('@')) {
+                                                  } else if (!value
+                                                      .contains('@')) {
                                                     return 'Please enter Your Address';
                                                   }
                                                   return null;
@@ -374,43 +458,77 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                                     initialCountry = value;
                                                   });
                                                 },
-                                                decoration: kInputDecoration.copyWith(
-                                                  labelText: lang.S.of(context).address,
-                                                  hintText: lang.S.of(context).enterYourAddress,
-                                                  hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                                                  prefixIcon: Icon(MdiIcons.warehouse, color: kTitleColor),
+                                                decoration:
+                                                    kInputDecoration.copyWith(
+                                                  labelText: lang.S
+                                                      .of(context)
+                                                      .address,
+                                                  hintText: lang.S
+                                                      .of(context)
+                                                      .enterYourAddress,
+                                                  hintStyle:
+                                                      kTextStyle.copyWith(
+                                                          color:
+                                                              kGreyTextColor),
+                                                  floatingLabelBehavior:
+                                                      FloatingLabelBehavior
+                                                          .never,
+                                                  prefixIcon: Icon(
+                                                      MdiIcons.warehouse,
+                                                      color: kTitleColor),
                                                 ),
                                               ),
                                               const SizedBox(height: 10.0),
                                               AppTextField(
-                                                controller: shopOpeningBalanceController,
-                                                textFieldType: TextFieldType.PHONE,
+                                                controller:
+                                                    shopOpeningBalanceController,
+                                                textFieldType:
+                                                    TextFieldType.PHONE,
                                                 validator: (value) {
-                                                  if (value == null || value.isEmpty) {
+                                                  if (value == null ||
+                                                      value.isEmpty) {
                                                     return 'Opening Balance can\'n be empty';
-                                                  } else if (double.tryParse(value) == null) {
+                                                  } else if (double.tryParse(
+                                                          value) ==
+                                                      null) {
                                                     return 'Enter a valid amount';
                                                   }
                                                   return null;
                                                 },
                                                 onChanged: (value) {
                                                   setState(() {
-                                                    opiningBalance = value.toInt();
+                                                    opiningBalance =
+                                                        value.toInt();
                                                   });
                                                 },
-                                                decoration: kInputDecoration.copyWith(
-                                                  labelText: lang.S.of(context).shopOpeningBalance,
-                                                  hintText: lang.S.of(context).enterYOurAmount,
-                                                  hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                decoration:
+                                                    kInputDecoration.copyWith(
+                                                  labelText: lang.S
+                                                      .of(context)
+                                                      .shopOpeningBalance,
+                                                  hintText: lang.S
+                                                      .of(context)
+                                                      .enterYOurAmount,
+                                                  hintStyle:
+                                                      kTextStyle.copyWith(
+                                                          color:
+                                                              kGreyTextColor),
+                                                  floatingLabelBehavior:
+                                                      FloatingLabelBehavior
+                                                          .never,
                                                   prefixIcon: SizedBox(
                                                       width: 40,
                                                       child: Center(
                                                           child: Text(
                                                         currency,
                                                         style: kTextStyle.copyWith(
-                                                            color: kTitleColor, fontSize: 16, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
+                                                            color: kTitleColor,
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis),
                                                       ))),
                                                 ),
                                               ),
@@ -434,43 +552,79 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                       const SizedBox(height: 20.0),
                                       ButtonGlobal(
                                         buttontext: lang.S.of(context).continu,
-                                        buttonDecoration: kButtonDecoration.copyWith(color: kGreenTextColor, borderRadius: BorderRadius.circular(8.0)),
+                                        buttonDecoration:
+                                            kButtonDecoration.copyWith(
+                                                color: kGreenTextColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0)),
                                         onPressed: () async {
                                           try {
-                                            EasyLoading.show(status: 'Loading...', dismissOnTap: false);
-                                            final DatabaseReference personalInformationRef =
-                                                FirebaseDatabase.instance.ref().child(await getUserID()).child('Personal Information');
+                                            EasyLoading.show(
+                                                status: 'Loading...',
+                                                dismissOnTap: false);
+                                            final DatabaseReference
+                                                personalInformationRef =
+                                                FirebaseDatabase.instance
+                                                    .ref()
+                                                    .child(await getUserID())
+                                                    .child(
+                                                        'Personal Information');
                                             PersonalInformationModel personalInformation = PersonalInformationModel(
-                                              phoneNumber: phoneNumberController.text,
-                                              pictureUrl: profilePicture,
-                                              companyName: companyNameController.text,
-                                              countryName: addressController.text,
-                                              language: selectedLanguage,
-                                              dueInvoiceCounter: widget.personalInformationModel.dueInvoiceCounter,
-                                              saleInvoiceCounter: widget.personalInformationModel.saleInvoiceCounter,
-                                              purchaseInvoiceCounter: widget.personalInformationModel.purchaseInvoiceCounter,
-                                              businessCategory: dropdownValue,
-                                              shopOpeningBalance: shopOpeningBalanceController.text.toInt(),
-                                              remainingShopBalance: double.parse(shopOpeningBalanceController.text),
-                                              currency: '\$',
-                                              currentLocale: 'en'
-                                            );
-                                            await personalInformationRef.set(personalInformation.toJson());
+                                                phoneNumber:
+                                                    phoneNumberController.text,
+                                                pictureUrl: profilePicture,
+                                                companyName:
+                                                    companyNameController.text,
+                                                countryName:
+                                                    addressController.text,
+                                                language: selectedLanguage,
+                                                dueInvoiceCounter: widget
+                                                    .personalInformationModel
+                                                    .dueInvoiceCounter,
+                                                saleInvoiceCounter: widget
+                                                    .personalInformationModel
+                                                    .saleInvoiceCounter,
+                                                purchaseInvoiceCounter: widget
+                                                    .personalInformationModel
+                                                    .purchaseInvoiceCounter,
+                                                businessCategory: dropdownValue,
+                                                shopOpeningBalance:
+                                                    shopOpeningBalanceController
+                                                        .text
+                                                        .toInt(),
+                                                remainingShopBalance: double.parse(
+                                                    shopOpeningBalanceController
+                                                        .text),
+                                                currency: '\$',
+                                                currentLocale: 'en');
+                                            await personalInformationRef.set(
+                                                personalInformation.toJson());
 
                                             // EasyLoading.showSuccess('Added Successfully', duration: const Duration(milliseconds: 1000));
 
                                             ///_______Seller_info_update___________________________________________
-                                            String? sellerUserRef = await getSaleID(id: await getUserID());
+                                            String? sellerUserRef =
+                                                await getSaleID(
+                                                    id: await getUserID());
                                             if (sellerUserRef != null) {
-                                              final DatabaseReference superAdminSellerListRepo =
-                                                  FirebaseDatabase.instance.ref().child('Admin Panel').child('Seller List').child(sellerUserRef);
+                                              final DatabaseReference
+                                                  superAdminSellerListRepo =
+                                                  FirebaseDatabase.instance
+                                                      .ref()
+                                                      .child('Admin Panel')
+                                                      .child('Seller List')
+                                                      .child(sellerUserRef);
                                               superAdminSellerListRepo.update({
-                                                'phoneNumber': phoneNumberController.text,
-                                                'companyName': companyNameController.text,
-                                                "businessCategory": dropdownValue,
+                                                'phoneNumber':
+                                                    phoneNumberController.text,
+                                                'companyName':
+                                                    companyNameController.text,
+                                                "businessCategory":
+                                                    dropdownValue,
                                                 "pictureUrl": profilePicture,
                                                 'language': selectedLanguage,
-                                                'countryName': addressController.text,
+                                                'countryName':
+                                                    addressController.text,
                                               });
                                             }
 
@@ -490,12 +644,19 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                             // );
                                             // await FirebaseDatabase.instance.ref().child('Admin Panel').child('Seller List').push().set(sellerInfoModel.toJson());
                                             ref.refresh(profileDetailsProvider);
-                                            EasyLoading.showSuccess('Added Successfully', duration: const Duration(milliseconds: 1000));
+                                            EasyLoading.showSuccess(
+                                                'Added Successfully',
+                                                duration: const Duration(
+                                                    milliseconds: 1000));
 
-                                            Navigator.pushNamed(context, SubscriptionPage.route);
+                                            Navigator.pushNamed(context,
+                                                SubscriptionPage.route);
                                           } catch (e) {
                                             EasyLoading.dismiss();
-                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                                    content:
+                                                        Text(e.toString())));
                                           }
                                           // Navigator.pushNamed(context, '/otp');
                                         },

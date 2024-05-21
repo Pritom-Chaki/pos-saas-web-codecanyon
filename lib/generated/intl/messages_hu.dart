@@ -30,8 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "POSSale": MessageLookupByLibrary.simpleMessage("POS-eladás"),
         "PRICE": MessageLookupByLibrary.simpleMessage("ÁR"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("TERMÉKNÉV"),
-        "PosSaasLoginPanel": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos Bejelentkezés panel"),
+        "PosSaasLoginPanel":
+            MessageLookupByLibrary.simpleMessage("Pix Pos Bejelentkezés panel"),
         "QTY": MessageLookupByLibrary.simpleMessage("MENNYISÉG"),
         "Quantity": MessageLookupByLibrary.simpleMessage("Mennyiség*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("ÁLLAPOT"),
@@ -376,8 +376,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "manufacturer": MessageLookupByLibrary.simpleMessage("Gyártó"),
         "mobiPosLoginPanel": MessageLookupByLibrary.simpleMessage(
             "Pix Pos Bejelentkezési panel"),
-        "mobiPosSignUpPane": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos Regisztrációs panel"),
+        "mobiPosSignUpPane":
+            MessageLookupByLibrary.simpleMessage("Pix Pos Regisztrációs panel"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "Mobilalkalmazás\n+\nAsztali alkalmazás"),
         "moneyReciept":
@@ -470,8 +470,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Válasszon ki egy ügyfelet"),
         "pleaseentervaliddata": MessageLookupByLibrary.simpleMessage(
             "Kérjük, adja meg a valid adatokat"),
-        "posSaasSingUpPanel": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos Regisztrációs panel"),
+        "posSaasSingUpPanel":
+            MessageLookupByLibrary.simpleMessage("Pix Pos Regisztrációs panel"),
         "practies": MessageLookupByLibrary.simpleMessage("Gyakorlatok"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Prémium ügyféltámogatás"),

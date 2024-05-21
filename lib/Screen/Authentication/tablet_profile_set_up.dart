@@ -174,250 +174,253 @@ class _TabletProfileSetUpState extends State<TabletProfileSetUp> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 100,
-                            width: 100,
-                            decoration:  BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(appLogo),
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 100,
+                              width: 100,
+                              decoration:  BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(appLogo),
+                                ),
                               ),
                             ),
-                          ),
-                          Divider(
-                            thickness: 1.0,
-                            color: kGreyTextColor.withOpacity(0.1),
-                          ),
-                          const SizedBox(height: 10.0),
-                          Text(
-                            lang.S.of(context).editYourProfile,
-                            style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold, fontSize: 21.0),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 10.0),
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(20.0),
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      DottedBorderWidget(
-                                        color: kLitGreyColor,
-                                        child: ClipRRect(
-                                          borderRadius: const BorderRadius.all(Radius.circular(12)),
-                                          child: Container(
-                                            width: context.width(),
-                                            padding: const EdgeInsets.all(10.0),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(20.0),
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  children: [
-                                                    Icon(MdiIcons.cloudUpload, size: 50.0, color: kLitGreyColor).onTap(() => uploadFile()),
-                                                  ],
-                                                ),
-                                                const SizedBox(height: 5.0),
-                                                RichText(
-                                                    text: TextSpan(
-                                                        text: lang.S.of(context).uploadAImage,
-                                                        style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
-                                                        children: [
-                                                      TextSpan(
-                                                          text: lang.S.of(context).orDragAndDropPng, style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
-                                                    ])),
-                                                image != null
-                                                    ? Image.memory(
-                                                        image!,
-                                                        width: 150,
-                                                        height: 150,
-                                                      )
-                                                    : Image.network(profilePicture, width: 150, height: 150),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(height: 10.0),
-                                SizedBox(
-                                  height: 60.0,
-                                  child: FormField(
-                                    builder: (FormFieldState<dynamic> field) {
-                                      return InputDecorator(
-                                        decoration: kInputDecoration.copyWith(
-                                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                                            labelText: lang.S.of(context).businessCategory,
-                                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
-                                        child: DropdownButtonHideUnderline(child: getCategories()),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(height: 10.0),
-                                Form(
-                                    key: globalKey,
-                                    child: Column(
-                                      children: [
-                                        AppTextField(
-                                          controller: companyNameController,
-                                          showCursor: true,
-                                          cursorColor: kTitleColor,
-                                          textFieldType: TextFieldType.EMAIL,
-                                          validator: (value) {
-                                            if (value == null || value.isEmpty) {
-                                              return 'Company Name can\'n be empty';
-                                            } else if (!value.contains('@')) {
-                                              return 'Please enter a Company Name';
-                                            }
-                                            return null;
-                                          },
-                                          onChanged: (value) {
-                                            setState(() {
-                                              companyName = value;
-                                            });
-                                          },
-                                          decoration: kInputDecoration.copyWith(
-                                            labelText: lang.S.of(context).companyName,
-                                            labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                            hintText: lang.S.of(context).enterYourCompanyName,
-                                            hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                            prefixIcon: Icon(MdiIcons.officeBuilding, color: kTitleColor),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 10.0),
-                                        AppTextField(
-                                          controller: phoneNumberController,
-                                          textFieldType: TextFieldType.PHONE,
-                                          validator: (value) {
-                                            if (value == null || value.isEmpty) {
-                                              return 'Phone Number can\'n be empty';
-                                            } else if (!value.contains('@')) {
-                                              return 'Please enter Phone Number';
-                                            }
-                                            return null;
-                                          },
-                                          onChanged: (value) {
-                                            setState(() {
-                                              phoneNumber = value;
-                                            });
-                                          },
-                                          decoration: kInputDecoration.copyWith(
-                                            labelText: lang.S.of(context).phoneNumber,
-                                            hintText: lang.S.of(context).enterYourPhoneNumber,
-                                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                                            prefixIcon: Icon(MdiIcons.phone, color: kTitleColor),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 10.0),
-                                        AppTextField(
-                                          controller: addressController,
-                                          textFieldType: TextFieldType.ADDRESS,
-                                          validator: (value) {
-                                            if (value == null || value.isEmpty) {
-                                              return 'Address can\'n be empty';
-                                            } else if (!value.contains('@')) {
-                                              return 'Please enter Your Address';
-                                            }
-                                            return null;
-                                          },
-                                          onChanged: (value) {
-                                            setState(() {
-                                              initialCountry = value;
-                                            });
-                                          },
-                                          decoration: kInputDecoration.copyWith(
-                                            labelText: lang.S.of(context).address,
-                                            hintText: lang.S.of(context).enterYourAddress,
-                                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                                            prefixIcon: Icon(MdiIcons.warehouse, color: kTitleColor),
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                const SizedBox(height: 10.0),
-                                SizedBox(
-                                  height: 60.0,
-                                  child: FormField(
-                                    builder: (FormFieldState<dynamic> field) {
-                                      return InputDecorator(
-                                        decoration: kInputDecoration.copyWith(
-                                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                                            labelText: lang.S.of(context).selectYourLanguage,
-                                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
-                                        child: DropdownButtonHideUnderline(child: getLanguage()),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(height: 20.0),
-                                ButtonGlobal(
-                                  buttontext: lang.S.of(context).continu,
-                                  buttonDecoration: kButtonDecoration.copyWith(color: kGreenTextColor, borderRadius: BorderRadius.circular(8.0)),
-                                  onPressed: () async {
-                                    try {
-                                      EasyLoading.show(status: 'Loading...', dismissOnTap: false);
-                                      DatabaseReference reference = FirebaseDatabase.instance.ref("${FirebaseAuth.instance.currentUser!.uid}/Customers/$customerKey");
-                                      PersonalInformationModel personalInformation = PersonalInformationModel(
-                                        phoneNumber: phoneNumberController.text,
-                                        pictureUrl: profilePicture,
-                                        companyName: companyNameController.text,
-                                        countryName: addressController.text,
-                                        language: selectedLanguage,
-                                        saleInvoiceCounter: 1,
-                                        purchaseInvoiceCounter: 1,
-                                        dueInvoiceCounter: 1,
-                                        businessCategory: dropdownValue,
-                                        shopOpeningBalance: 0,
-                                        remainingShopBalance: 0, currency: '\$',
-                                        currentLocale: 'en'
-                                      );
-                                      await reference.set(personalInformation.toJson());
-                                      EasyLoading.showSuccess('Added Successfully!');
-                                      ref.refresh(profileDetailsProvider);
-                                      // ignore: use_build_context_synchronously
-                                      Navigator.pushNamed(context, MtHomeScreen.route);
-                                    } catch (e) {
-                                      EasyLoading.dismiss();
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
-                                    }
-                                    // Navigator.pushNamed(context, '/otp');
-                                  },
-                                ),
-                              ],
+                            Divider(
+                              thickness: 1.0,
+                              color: kGreyTextColor.withOpacity(0.1),
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 10.0),
+                            Text(
+                              lang.S.of(context).editYourProfile,
+                              style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold, fontSize: 21.0),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 10.0),
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                children: [
+                                      //pc_cng
+                                  // Container(
+                                  //   padding: const EdgeInsets.all(20.0),
+                                  //   decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+                                  //   child: Column(
+                                  //     crossAxisAlignment: CrossAxisAlignment.center,
+                                  //     children: [
+                                  //       DottedBorderWidget(
+                                  //         color: kLitGreyColor,
+                                  //         child: ClipRRect(
+                                  //           borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                  //           child: Container(
+                                  //             width: context.width(),
+                                  //             padding: const EdgeInsets.all(10.0),
+                                  //             decoration: BoxDecoration(
+                                  //               borderRadius: BorderRadius.circular(20.0),
+                                  //             ),
+                                  //             child: Column(
+                                  //               children: [
+                                  //                 Column(
+                                  //                   crossAxisAlignment: CrossAxisAlignment.center,
+                                  //                   children: [
+                                  //                     Icon(MdiIcons.cloudUpload, size: 50.0, color: kLitGreyColor).onTap(() => uploadFile()),
+                                  //                   ],
+                                  //                 ),
+                                  //                 const SizedBox(height: 5.0),
+                                  //                 RichText(
+                                  //                     text: TextSpan(
+                                  //                         text: lang.S.of(context).uploadAImage,
+                                  //                         style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
+                                  //                         children: [
+                                  //                       TextSpan(
+                                  //                           text: lang.S.of(context).orDragAndDropPng, style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
+                                  //                     ])),
+                                  //                 image != null
+                                  //                     ? Image.memory(
+                                  //                         image!,
+                                  //                         width: 150,
+                                  //                         height: 150,
+                                  //                       )
+                                  //                     : Image.network(profilePicture, width: 150, height: 150),
+                                  //               ],
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
+                                  // const SizedBox(height: 10.0),
+                                  // SizedBox(
+                                  //   height: 60.0,
+                                  //   child: FormField(
+                                  //     builder: (FormFieldState<dynamic> field) {
+                                  //       return InputDecorator(
+                                  //         decoration: kInputDecoration.copyWith(
+                                  //             floatingLabelBehavior: FloatingLabelBehavior.never,
+                                  //             labelText: lang.S.of(context).businessCategory,
+                                  //             border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
+                                  //         child: DropdownButtonHideUnderline(child: getCategories()),
+                                  //       );
+                                  //     },
+                                  //   ),
+                                  // ),
+                                  // const SizedBox(height: 10.0),
+                                  Form(
+                                      key: globalKey,
+                                      child: Column(
+                                        children: [
+                                          AppTextField(
+                                            controller: companyNameController,
+                                            showCursor: true,
+                                            cursorColor: kTitleColor,
+                                            textFieldType: TextFieldType.EMAIL,
+                                            validator: (value) {
+                                              if (value == null || value.isEmpty) {
+                                                return 'Company Name can\'n be empty';
+                                              } else if (!value.contains('@')) {
+                                                return 'Please enter a Company Name';
+                                              }
+                                              return null;
+                                            },
+                                            onChanged: (value) {
+                                              setState(() {
+                                                companyName = value;
+                                              });
+                                            },
+                                            decoration: kInputDecoration.copyWith(
+                                              labelText: lang.S.of(context).companyName,
+                                              labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                              hintText: lang.S.of(context).enterYourCompanyName,
+                                              hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                              prefixIcon: Icon(MdiIcons.officeBuilding, color: kTitleColor),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10.0),
+                                          AppTextField(
+                                            controller: phoneNumberController,
+                                            textFieldType: TextFieldType.PHONE,
+                                            validator: (value) {
+                                              if (value == null || value.isEmpty) {
+                                                return 'Phone Number can\'n be empty';
+                                              } else if (!value.contains('@')) {
+                                                return 'Please enter Phone Number';
+                                              }
+                                              return null;
+                                            },
+                                            onChanged: (value) {
+                                              setState(() {
+                                                phoneNumber = value;
+                                              });
+                                            },
+                                            decoration: kInputDecoration.copyWith(
+                                              labelText: lang.S.of(context).phoneNumber,
+                                              hintText: lang.S.of(context).enterYourPhoneNumber,
+                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                              prefixIcon: Icon(MdiIcons.phone, color: kTitleColor),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10.0),
+                                          AppTextField(
+                                            controller: addressController,
+                                            textFieldType: TextFieldType.ADDRESS,
+                                            validator: (value) {
+                                              if (value == null || value.isEmpty) {
+                                                return 'Address can\'n be empty';
+                                              } else if (!value.contains('@')) {
+                                                return 'Please enter Your Address';
+                                              }
+                                              return null;
+                                            },
+                                            onChanged: (value) {
+                                              setState(() {
+                                                initialCountry = value;
+                                              });
+                                            },
+                                            decoration: kInputDecoration.copyWith(
+                                              labelText: lang.S.of(context).address,
+                                              hintText: lang.S.of(context).enterYourAddress,
+                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                              prefixIcon: Icon(MdiIcons.warehouse, color: kTitleColor),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  const SizedBox(height: 10.0),
+                                  SizedBox(
+                                    height: 60.0,
+                                    child: FormField(
+                                      builder: (FormFieldState<dynamic> field) {
+                                        return InputDecorator(
+                                          decoration: kInputDecoration.copyWith(
+                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                              labelText: lang.S.of(context).selectYourLanguage,
+                                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
+                                          child: DropdownButtonHideUnderline(child: getLanguage()),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20.0),
+                                  ButtonGlobal(
+                                    buttontext: lang.S.of(context).continu,
+                                    buttonDecoration: kButtonDecoration.copyWith(color: kGreenTextColor, borderRadius: BorderRadius.circular(8.0)),
+                                    onPressed: () async {
+                                      try {
+                                        EasyLoading.show(status: 'Loading...', dismissOnTap: false);
+                                        DatabaseReference reference = FirebaseDatabase.instance.ref("${FirebaseAuth.instance.currentUser!.uid}/Customers/$customerKey");
+                                        PersonalInformationModel personalInformation = PersonalInformationModel(
+                                          phoneNumber: phoneNumberController.text,
+                                          pictureUrl: profilePicture,
+                                          companyName: companyNameController.text,
+                                          countryName: addressController.text,
+                                          language: selectedLanguage,
+                                          saleInvoiceCounter: 1,
+                                          purchaseInvoiceCounter: 1,
+                                          dueInvoiceCounter: 1,
+                                          businessCategory: dropdownValue,
+                                          shopOpeningBalance: 0,
+                                          remainingShopBalance: 0, currency: '\$',
+                                          currentLocale: 'en'
+                                        );
+                                        await reference.set(personalInformation.toJson());
+                                        EasyLoading.showSuccess('Added Successfully!');
+                                        ref.refresh(profileDetailsProvider);
+                                        // ignore: use_build_context_synchronously
+                                        Navigator.pushNamed(context, MtHomeScreen.route);
+                                      } catch (e) {
+                                        EasyLoading.dismiss();
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                                      }
+                                      // Navigator.pushNamed(context, '/otp');
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         );
       },
     );

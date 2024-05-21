@@ -177,7 +177,10 @@ class _TopBarState extends State<TopBar> {
 
   Future<void> changeLanguage(String code) async {
     countryCode = code;
-    final DatabaseReference personalInformationRef = FirebaseDatabase.instance.ref().child(await getUserID()).child('Personal Information');
+    final DatabaseReference personalInformationRef = FirebaseDatabase.instance
+        .ref()
+        .child(await getUserID())
+        .child('Personal Information');
     final prefs = await SharedPreferences.getInstance();
     context.read<LanguageChangeProvider>().changeLocale(code);
     // setLanguage(selectedCountry);
@@ -204,7 +207,8 @@ class _TopBarState extends State<TopBar> {
 
     if (!data.isEmptyOrNull) {
       for (var element in items) {
-        if (element.substring(0, 2).contains(data!) || element.substring(0, 5).contains(data!)) {
+        if (element.substring(0, 2).contains(data!) ||
+            element.substring(0, 5).contains(data!)) {
           setState(() {
             currency = data;
             dropdownValue = element;
@@ -247,7 +251,8 @@ class _TopBarState extends State<TopBar> {
         color: kWhiteTextColor,
       ),
       child: ri.Consumer(builder: (context, ref, __) {
-        AsyncValue<PersonalInformationModel> userProfileDetails = ref.watch(profileDetailsProvider);
+        AsyncValue<PersonalInformationModel> userProfileDetails =
+            ref.watch(profileDetailsProvider);
 
         return Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -273,7 +278,8 @@ class _TopBarState extends State<TopBar> {
                   const Icon(Icons.add_rounded, color: kWhiteTextColor),
                   Text(
                     'Pos',
-                    style: kTextStyle.copyWith(color: kWhiteTextColor, fontWeight: FontWeight.bold),
+                    style: kTextStyle.copyWith(
+                        color: kWhiteTextColor, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -296,7 +302,8 @@ class _TopBarState extends State<TopBar> {
                   const Icon(Icons.add_rounded, color: kMainColor),
                   Text(
                     'Inventory',
-                    style: kTextStyle.copyWith(color: kMainColor, fontWeight: FontWeight.bold),
+                    style: kTextStyle.copyWith(
+                        color: kMainColor, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -310,14 +317,17 @@ class _TopBarState extends State<TopBar> {
               // setLocale(details.currentLocale);
 
               //  isFirstTime = false;
-              return SizedBox(
-                width: 180,
+              return Expanded(
+                // width: 180,
                 child: Text(
-                  isSubUser ? '${details.companyName ?? ''} [$constSubUserTitle]' : details.companyName ?? '',
+                  isSubUser
+                      ? '${details.companyName ?? ''} [$constSubUserTitle]'
+                      : details.companyName ?? '',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: GoogleFonts.poppins(
-                    fontSize: context.width() < 900 ? 25 : context.width() * 0.018,
+                    fontSize:
+                        context.width() < 900 ? 25 : context.width() * 0.018,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
@@ -348,7 +358,8 @@ class _TopBarState extends State<TopBar> {
                   const Icon(Icons.add_rounded, color: Color(0xFFFF2525)),
                   Text(
                     'Product',
-                    style: kTextStyle.copyWith(color: Color(0xFFFF2525), fontWeight: FontWeight.bold),
+                    style: kTextStyle.copyWith(
+                        color: Color(0xFFFF2525), fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -372,7 +383,8 @@ class _TopBarState extends State<TopBar> {
                   const Icon(Icons.add_rounded, color: Color(0xFF15CD75)),
                   Text(
                     'Purchase',
-                    style: kTextStyle.copyWith(color: Color(0xFF15CD75), fontWeight: FontWeight.bold),
+                    style: kTextStyle.copyWith(
+                        color: Color(0xFF15CD75), fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -383,11 +395,15 @@ class _TopBarState extends State<TopBar> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.0),
                   color: Colors.white,
-                  border: Border.all(color: const Color(0xFF828282).withOpacity(0.3)),
+                  border: Border.all(
+                      color: const Color(0xFF828282).withOpacity(0.3)),
                 ),
                 padding: const EdgeInsets.fromLTRB(13.0, 5.0, 13.0, 5.0),
                 child: Theme(
-                  data: ThemeData(highlightColor: dropdownItemColor, focusColor: dropdownItemColor, hoverColor: dropdownItemColor),
+                  data: ThemeData(
+                      highlightColor: dropdownItemColor,
+                      focusColor: dropdownItemColor,
+                      hoverColor: dropdownItemColor),
                   child: DropdownButton(
                     underline: const SizedBox(),
                     dropdownColor: Colors.white,
@@ -400,14 +416,17 @@ class _TopBarState extends State<TopBar> {
                         countryList.length,
                         (index) => DropdownMenuItem(
                               onTap: () async {
-                                final prefs = await SharedPreferences.getInstance();
+                                final prefs =
+                                    await SharedPreferences.getInstance();
                                 final DatabaseReference personalInformationRef =
-                                    FirebaseDatabase.instance.ref().child(await getUserID()).child('Personal Information');
-                                personalInformationRef.update({'language': selectedCountry});
-
+                                    FirebaseDatabase.instance
+                                        .ref()
+                                        .child(await getUserID())
+                                        .child('Personal Information');
+                                personalInformationRef
+                                    .update({'language': selectedCountry});
 
                                 setState(
-
                                   () {
                                     selectedCountry = countryList[index];
                                     setLanguage(selectedCountry);
@@ -560,13 +579,12 @@ class _TopBarState extends State<TopBar> {
                                         changeLanguage("en");
                                     }
                                     // saveDataOnLocal(key: 'savedLanguage', type: 'string', value: selectedCountry);
-
                                   },
                                 );
-                                personalInformationRef.update({'currentLocale': countryCode});
+                                personalInformationRef
+                                    .update({'currentLocale': countryCode});
                               },
                               value: countryList[index],
-
                               child: InkWell(
                                 child: Row(
                                   children: [
@@ -579,7 +597,9 @@ class _TopBarState extends State<TopBar> {
                                     Flexible(
                                       child: Text(
                                         countryList[index],
-                                        style: const TextStyle(fontSize: 14, overflow: TextOverflow.ellipsis),
+                                        style: const TextStyle(
+                                            fontSize: 14,
+                                            overflow: TextOverflow.ellipsis),
                                       ),
                                     ),
                                   ],
@@ -590,12 +610,13 @@ class _TopBarState extends State<TopBar> {
                       setState(() async {
                         selectedCountry = value.toString();
                         ref.refresh(profileDetailsProvider);
-                        Future.delayed(Duration(milliseconds: 600)).then((value) => Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MtHomeScreen(),
-                              ),
-                            )); // Update selectedCountry here
+                        Future.delayed(Duration(milliseconds: 600))
+                            .then((value) => Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const MtHomeScreen(),
+                                  ),
+                                )); // Update selectedCountry here
                       });
                     },
                     icon: const Icon(
@@ -614,11 +635,15 @@ class _TopBarState extends State<TopBar> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.0),
                   color: Colors.white,
-                  border: Border.all(color: const Color(0xFF828282).withOpacity(0.3)),
+                  border: Border.all(
+                      color: const Color(0xFF828282).withOpacity(0.3)),
                 ),
                 padding: const EdgeInsets.fromLTRB(13.0, 5.0, 13.0, 5.0),
                 child: Theme(
-                  data: ThemeData(highlightColor: dropdownItemColor, focusColor: dropdownItemColor, hoverColor: dropdownItemColor),
+                  data: ThemeData(
+                      highlightColor: dropdownItemColor,
+                      focusColor: dropdownItemColor,
+                      hoverColor: dropdownItemColor),
                   child: DropdownButton(
                     dropdownColor: Colors.white,
                     alignment: Alignment.center,
@@ -636,7 +661,10 @@ class _TopBarState extends State<TopBar> {
                         value: items,
                         child: Text(
                           items,
-                          style: kTextStyle.copyWith(color: kTitleColor, fontSize: 14.0, overflow: TextOverflow.ellipsis),
+                          style: kTextStyle.copyWith(
+                              color: kTitleColor,
+                              fontSize: 14.0,
+                              overflow: TextOverflow.ellipsis),
                         ),
                       );
                     }).toList(),
@@ -780,8 +808,13 @@ class _TopBarState extends State<TopBar> {
                         print(currencySymbols[newValue]!);
                         currency = currencySymbols[newValue]!;
                         await prefs.setString('currency', currency);
-                        final DatabaseReference personalInformationRef = FirebaseDatabase.instance.ref().child(await getUserID()).child('Personal Information');
-                        await personalInformationRef.update({'currency': currency});
+                        final DatabaseReference personalInformationRef =
+                            FirebaseDatabase.instance
+                                .ref()
+                                .child(await getUserID())
+                                .child('Personal Information');
+                        await personalInformationRef
+                            .update({'currency': currency});
                         // ref.refresh(profileDetailsProvider);
                       } else {
                         // Set a default currency if newValue is not found in the map
@@ -791,15 +824,17 @@ class _TopBarState extends State<TopBar> {
 
                       setState(() {
                         ref.refresh(profileDetailsProvider);
-                        Future.delayed(Duration(milliseconds: 400)).then((value) => dropdownValue = newValue.toString());
+                        Future.delayed(Duration(milliseconds: 400)).then(
+                            (value) => dropdownValue = newValue.toString());
 
                         ref.refresh(profileDetailsProvider);
-                        Future.delayed(Duration(milliseconds: 600)).then((value) => Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MtHomeScreen(),
-                              ),
-                            ));
+                        Future.delayed(Duration(milliseconds: 600))
+                            .then((value) => Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const MtHomeScreen(),
+                                  ),
+                                ));
                       });
                     },
                   ),
@@ -809,7 +844,10 @@ class _TopBarState extends State<TopBar> {
             const SizedBox(width: 10.0),
             userProfileDetails.when(data: (details) {
               return Theme(
-                data: ThemeData(highlightColor: dropdownItemColor, focusColor: dropdownItemColor, hoverColor: dropdownItemColor),
+                data: ThemeData(
+                    highlightColor: dropdownItemColor,
+                    focusColor: dropdownItemColor,
+                    hoverColor: dropdownItemColor),
                 child: PopupMenuButton(
                   surfaceTintColor: Colors.white,
                   padding: EdgeInsets.zero,
@@ -821,20 +859,27 @@ class _TopBarState extends State<TopBar> {
                       color: const Color(0xFF2DB0F6).withOpacity(0.1),
                       shape: BoxShape.rectangle,
                     ),
-                    child: const Icon(Icons.settings, color: Color(0xFF2DB0F6), size: 30.0),
+                    child: const Icon(Icons.settings,
+                        color: Color(0xFF2DB0F6), size: 30.0),
                   ),
                   itemBuilder: (BuildContext bc) => [
                     PopupMenuItem(
                       child: GestureDetector(
                         onTap: () {
-                          isSubUser ? null : ProfileUpdate(personalInformationModel: details).launch(context);
+                          isSubUser
+                              ? null
+                              : ProfileUpdate(personalInformationModel: details)
+                                  .launch(context);
                         },
                         child: Row(
                           children: [
-                            const Icon(Icons.manage_accounts_sharp, size: 18.0, color: kTitleColor),
+                            const Icon(Icons.manage_accounts_sharp,
+                                size: 18.0, color: kTitleColor),
                             const SizedBox(width: 4.0),
                             Text(
-                              isSubUser ? '${details.companyName}[$constSubUserTitle]' : lang.S.of(context).prof,
+                              isSubUser
+                                  ? '${details.companyName}[$constSubUserTitle]'
+                                  : lang.S.of(context).prof,
                               style: kTextStyle.copyWith(color: kTitleColor),
                             ),
                           ],
@@ -850,7 +895,8 @@ class _TopBarState extends State<TopBar> {
                         },
                         child: Row(
                           children: [
-                            const Icon(FeatherIcons.logOut, size: 18.0, color: kTitleColor),
+                            const Icon(FeatherIcons.logOut,
+                                size: 18.0, color: kTitleColor),
                             const SizedBox(width: 4.0),
                             Text(
                               lang.S.of(context).logOut,
@@ -888,7 +934,8 @@ class TopBarTablate extends StatelessWidget {
   Widget build(BuildContext context) {
     return ri.Consumer(
       builder: (_, ref, __) {
-        ri.AsyncValue<PersonalInformationModel> userProfileDetails = ref.watch(profileDetailsProvider);
+        ri.AsyncValue<PersonalInformationModel> userProfileDetails =
+            ref.watch(profileDetailsProvider);
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -925,7 +972,8 @@ class TopBarTablate extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(FeatherIcons.plus, color: kWhiteTextColor, size: 16.0),
+                  const Icon(FeatherIcons.plus,
+                      color: kWhiteTextColor, size: 16.0),
                   const SizedBox(width: 5.0),
                   Text(
                     lang.S.of(context).dueList,
@@ -950,7 +998,8 @@ class TopBarTablate extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(FeatherIcons.plus, color: kYellowColor, size: 16.0),
+                  const Icon(FeatherIcons.plus,
+                      color: kYellowColor, size: 16.0),
                   const SizedBox(width: 5.0),
                   Text(
                     lang.S.of(context).reports,
@@ -974,7 +1023,8 @@ class TopBarTablate extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(FeatherIcons.plus, color: kWhiteTextColor, size: 16.0),
+                  const Icon(FeatherIcons.plus,
+                      color: kWhiteTextColor, size: 16.0),
                   const SizedBox(width: 5.0),
                   Text(
                     lang.S.of(context).sale,
@@ -998,7 +1048,8 @@ class TopBarTablate extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(FeatherIcons.plus, color: kWhiteTextColor, size: 16.0),
+                  const Icon(FeatherIcons.plus,
+                      color: kWhiteTextColor, size: 16.0),
                   const SizedBox(width: 5.0),
                   Text(
                     lang.S.of(context).purchase,
@@ -1050,7 +1101,9 @@ class TopBarTablate extends StatelessWidget {
                   height: 40,
                   width: 40,
                   decoration: BoxDecoration(
-                    image: DecorationImage(image: NetworkImage(details.pictureUrl), fit: BoxFit.cover),
+                    image: DecorationImage(
+                        image: NetworkImage(details.pictureUrl),
+                        fit: BoxFit.cover),
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),

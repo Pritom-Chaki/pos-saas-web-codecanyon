@@ -30,8 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "PRICE": MessageLookupByLibrary.simpleMessage("PRET"),
         "PRODUCTNAME":
             MessageLookupByLibrary.simpleMessage("NUMELE PRODUSULUI"),
-        "PosSaasLoginPanel": MessageLookupByLibrary.simpleMessage(
-            "Panoul de conectare Pix Pos"),
+        "PosSaasLoginPanel":
+            MessageLookupByLibrary.simpleMessage("Panoul de conectare Pix Pos"),
         "QTY": MessageLookupByLibrary.simpleMessage("QTY"),
         "Quantity": MessageLookupByLibrary.simpleMessage("Cantitate*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("STATUS"),

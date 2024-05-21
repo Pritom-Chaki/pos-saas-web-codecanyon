@@ -830,8 +830,8 @@ class _AddProductState extends State<AddProduct> {
     for (var element in list) {
       dropDownItems.add(DropdownMenuItem(
         value: element,
-        child: SizedBox(
-          width: 110,
+        child: Expanded(
+        //  width: 110, //pc_cng
           child: Text(
             element.warehouseName,
             overflow: TextOverflow.ellipsis,

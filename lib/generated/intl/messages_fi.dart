@@ -29,8 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "POSSale": MessageLookupByLibrary.simpleMessage("Kassamyynti"),
         "PRICE": MessageLookupByLibrary.simpleMessage("HINTA"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("TUOTTEEN NIMI"),
-        "PosSaasLoginPanel": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos -kirjautumispaneeli"),
+        "PosSaasLoginPanel":
+            MessageLookupByLibrary.simpleMessage("Pix Pos -kirjautumispaneeli"),
         "QTY": MessageLookupByLibrary.simpleMessage("MÄÄRÄ"),
         "Quantity": MessageLookupByLibrary.simpleMessage("Määrä*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("TILA"),
@@ -363,8 +363,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "makeALastingImpression": MessageLookupByLibrary.simpleMessage(
             "Tee kestävä vaikutus asiakkaisiisi brändättyjen laskujen avulla. Rajattoman päivityksemme avulla voit mukauttaa laskujasi, lisätä ammattimaisen kosketuksen, joka vahvistaa brändisi identiteettiä ja edistää asiakasuskollisuutta."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Valmistaja"),
-        "mobiPosLoginPanel": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos -kirjautumispaneeli"),
+        "mobiPosLoginPanel":
+            MessageLookupByLibrary.simpleMessage("Pix Pos -kirjautumispaneeli"),
         "mobiPosSignUpPane": MessageLookupByLibrary.simpleMessage(
             "Pix Pos -rekisteröintipaneeli"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(

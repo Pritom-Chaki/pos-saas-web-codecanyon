@@ -17,7 +17,7 @@ final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshI
 
 String appsName = 'Pix Pos';
 String appsTitle = 'Pix Pos';
-String pdfFooter = 'acnoo.com';
+String pdfFooter = 'Pixposbd.com';
 bool isDemo = false;
 String demoText = 'You Can\'t change anything in demo mode';
 String sideBarLogo='images/pos.png';
@@ -26,7 +26,7 @@ String appLogo='images/mobipos.png';
 // String appLogo='images/mobipos.png';
 // String appsName = 'Pix Pos';
 // String appsTitle = 'Pix Pos';
-// String pdfFooter = 'acnoo.com';
+// String pdfFooter = 'Pixposb.com';
 // bool isDemo = false;
 // String demoText = 'You Can\'t change anything in demo mode';
 // String sideBarLogo='images/pos.png';

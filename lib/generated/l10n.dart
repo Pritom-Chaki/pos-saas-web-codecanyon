@@ -290,25 +290,6 @@ class S {
     );
   }
 
-  /// `Pay Bkash`
-  String get payBkash {
-    return Intl.message(
-      'Pay Bkash',
-      name: 'payBkash',
-      desc: '',
-      args: [],
-    );
-  }
-  /// `Pay Bkash`
-  String get payNow {
-    return Intl.message(
-      'Pay Now',
-      name: 'payNow',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Free Lifetime Update`
   String get freeLifeTimeUpdate {
     return Intl.message(
@@ -1524,16 +1505,6 @@ class S {
     return Intl.message(
       'Payment Type',
       name: 'paymentType',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Printer Type`
-  String get printerType {
-    return Intl.message(
-      'Printer Type',
-      name: 'printerType',
       desc: '',
       args: [],
     );
@@ -3838,7 +3809,24 @@ class S {
       args: [],
     );
   }
-
+  /// `Printer Type`
+  String get printerType {
+    return Intl.message(
+      'Printer Type',
+      name: 'printerType',
+      desc: '',
+      args: [],
+    );
+  }
+  /// `Pay Now`
+  String get payNow {
+    return Intl.message(
+      'Pay Now',
+      name: 'payNow',
+      desc: '',
+      args: [],
+    );
+  }
   /// `Please Add Customer`
   String get pleaseAddCustomer {
     return Intl.message(
