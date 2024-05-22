@@ -33,7 +33,11 @@ import 'WarebasedProduct.dart';
 import 'bulk.dart';
 
 class AddProduct extends StatefulWidget {
-  const AddProduct({super.key, required this.allProductsCodeList, required this.sideBarNumber, required this.warehouseBasedProductModel});
+  const AddProduct(
+      {super.key,
+      required this.allProductsCodeList,
+      required this.sideBarNumber,
+      required this.warehouseBasedProductModel});
 
   final List<WarehouseBasedProductModel> warehouseBasedProductModel;
   final List<String> allProductsCodeList;
@@ -47,7 +51,8 @@ class _AddProductState extends State<AddProduct> {
   bool checkProductName({required String name, required String id}) {
     for (var element in widget.warehouseBasedProductModel) {
       print('name: ${element.productName}, id: ${element.productID}');
-      if (element.productName.toLowerCase() == name.toLowerCase() && element.productID == id) {
+      if (element.productName.toLowerCase() == name.toLowerCase() &&
+          element.productID == id) {
         return false;
       }
     }
@@ -73,8 +78,10 @@ class _AddProductState extends State<AddProduct> {
   int brandTime = 0;
   int unitTime = 0;
   int categoryTime = 0;
-  TextEditingController expireDateTextEditingController = TextEditingController();
-  TextEditingController manufactureDateTextEditingController = TextEditingController();
+  TextEditingController expireDateTextEditingController =
+      TextEditingController();
+  TextEditingController manufactureDateTextEditingController =
+      TextEditingController();
   int lowerStockAlert = 5;
   String? expireDate;
   String? manufactureDate;
@@ -82,7 +89,10 @@ class _AddProductState extends State<AddProduct> {
   List<String> productSerialNumberList = [];
   bool saleButtonClicked = false;
 
-  Future<void> addCategoryShowPopUp({required WidgetRef ref, required List<String> categoryNameList, required BuildContext addProductContext}) async {
+  Future<void> addCategoryShowPopUp(
+      {required WidgetRef ref,
+      required List<String> categoryNameList,
+      required BuildContext addProductContext}) async {
     GlobalKey<FormState> categoryNameKey = GlobalKey<FormState>();
     bool categoryValidateAndSave() {
       final form = categoryNameKey.currentState;
@@ -100,7 +110,8 @@ class _AddProductState extends State<AddProduct> {
           return StatefulBuilder(builder: (context, setState1) {
             return Dialog(
               surfaceTintColor: kWhiteTextColor,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
               child: SizedBox(
                 width: 600,
                 child: Padding(
@@ -113,7 +124,8 @@ class _AddProductState extends State<AddProduct> {
                         children: [
                           Container(
                             padding: const EdgeInsets.all(4.0),
-                            decoration: const BoxDecoration(shape: BoxShape.rectangle),
+                            decoration:
+                                const BoxDecoration(shape: BoxShape.rectangle),
                             child: const Icon(
                               FeatherIcons.plus,
                               color: kTitleColor,
@@ -122,7 +134,10 @@ class _AddProductState extends State<AddProduct> {
                           const SizedBox(width: 4.0),
                           Text(
                             lang.S.of(context).addItemCategory,
-                            style: kTextStyle.copyWith(color: kTitleColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                            style: kTextStyle.copyWith(
+                                color: kTitleColor,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold),
                           ),
                           const Spacer(),
                           const Icon(
@@ -151,7 +166,8 @@ class _AddProductState extends State<AddProduct> {
                         children: [
                           Text(
                             lang.S.of(context).categoryName,
-                            style: kTextStyle.copyWith(color: kTitleColor, fontSize: 18.0),
+                            style: kTextStyle.copyWith(
+                                color: kTitleColor, fontSize: 18.0),
                           ),
                           const SizedBox(width: 20),
                           Form(
@@ -163,7 +179,9 @@ class _AddProductState extends State<AddProduct> {
                                 validator: (value) {
                                   if (value.isEmptyOrNull) {
                                     return 'Category name is required.';
-                                  } else if (categoryNameList.contains(value.removeAllWhiteSpace().toLowerCase())) {
+                                  } else if (categoryNameList.contains(value
+                                      .removeAllWhiteSpace()
+                                      .toLowerCase())) {
                                     return 'Category name is already exist.';
                                   } else {
                                     return null;
@@ -172,10 +190,14 @@ class _AddProductState extends State<AddProduct> {
                                 showCursor: true,
                                 cursorColor: kTitleColor,
                                 decoration: kInputDecoration.copyWith(
-                                  errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                  errorBorder: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.red)),
                                   labelText: lang.S.of(context).categoryName,
-                                  hintText: lang.S.of(context).enterCategoryName,
-                                  hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                  hintText:
+                                      lang.S.of(context).enterCategoryName,
+                                  hintStyle: kTextStyle.copyWith(
+                                      color: kGreyTextColor),
                                 ),
                               ),
                             ),
@@ -185,7 +207,10 @@ class _AddProductState extends State<AddProduct> {
                       const SizedBox(height: 30.0),
                       Text(
                         lang.S.of(context).selectVariations,
-                        style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, fontSize: 18.0),
+                        style: kTextStyle.copyWith(
+                            color: kTitleColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.0),
                       ),
                       Row(
                         children: [
@@ -320,10 +345,13 @@ class _AddProductState extends State<AddProduct> {
                         children: [
                           Container(
                             padding: const EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kRedTextColor),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                color: kRedTextColor),
                             child: Text(
                               lang.S.of(context).cancel,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style:
+                                  kTextStyle.copyWith(color: kWhiteTextColor),
                             ),
                           ).onTap(() {
                             itemCategoryController.clear();
@@ -339,16 +367,23 @@ class _AddProductState extends State<AddProduct> {
                           const SizedBox(width: 5.0),
                           Container(
                             padding: const EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kGreenTextColor),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                color: kGreenTextColor),
                             child: Text(
                               lang.S.of(context).submit,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style:
+                                  kTextStyle.copyWith(color: kWhiteTextColor),
                             ),
                           ).onTap(() async {
                             if (categoryValidateAndSave()) {
                               EasyLoading.show(status: 'Adding Category');
                               try {
-                                final DatabaseReference categoryInformationRef = FirebaseDatabase.instance.ref().child(await getUserID()).child('Categories');
+                                final DatabaseReference categoryInformationRef =
+                                    FirebaseDatabase.instance
+                                        .ref()
+                                        .child(await getUserID())
+                                        .child('Categories');
                                 CategoryModel categoryModel = CategoryModel(
                                   categoryName: itemCategoryController.text,
                                   size: isSize,
@@ -359,7 +394,9 @@ class _AddProductState extends State<AddProduct> {
                                   warranty: isWarranty,
                                 );
 
-                                await categoryInformationRef.push().set(categoryModel.toJson());
+                                await categoryInformationRef
+                                    .push()
+                                    .set(categoryModel.toJson());
                                 ref.refresh(categoryProvider);
 
                                 setState1(() {
@@ -398,7 +435,10 @@ class _AddProductState extends State<AddProduct> {
         });
   }
 
-  Future<void> showBrandPopUp({required WidgetRef ref, required List<String> brandNameList, required BuildContext addProductsContext}) async {
+  Future<void> showBrandPopUp(
+      {required WidgetRef ref,
+      required List<String> brandNameList,
+      required BuildContext addProductsContext}) async {
     GlobalKey<FormState> brandNameKey = GlobalKey<FormState>();
     bool brandValidateAndSave() {
       final form = brandNameKey.currentState;
@@ -431,7 +471,8 @@ class _AddProductState extends State<AddProduct> {
                         children: [
                           Container(
                             padding: const EdgeInsets.all(4.0),
-                            decoration: const BoxDecoration(shape: BoxShape.rectangle),
+                            decoration:
+                                const BoxDecoration(shape: BoxShape.rectangle),
                             child: const Icon(
                               FeatherIcons.plus,
                               color: kTitleColor,
@@ -440,7 +481,10 @@ class _AddProductState extends State<AddProduct> {
                           const SizedBox(width: 4.0),
                           Text(
                             lang.S.of(context).addBrand,
-                            style: kTextStyle.copyWith(color: kTitleColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                            style: kTextStyle.copyWith(
+                                color: kTitleColor,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold),
                           ),
                           const Spacer(),
                           const Icon(
@@ -463,7 +507,8 @@ class _AddProductState extends State<AddProduct> {
                         children: [
                           Text(
                             lang.S.of(context).brandName,
-                            style: kTextStyle.copyWith(color: kTitleColor, fontSize: 18.0),
+                            style: kTextStyle.copyWith(
+                                color: kTitleColor, fontSize: 18.0),
                           ),
                           const SizedBox(width: 50),
                           Form(
@@ -474,7 +519,9 @@ class _AddProductState extends State<AddProduct> {
                                 validator: (value) {
                                   if (value.isEmptyOrNull) {
                                     return 'Brand name is required.';
-                                  } else if (brandNameList.contains(value.removeAllWhiteSpace().toLowerCase())) {
+                                  } else if (brandNameList.contains(value
+                                      .removeAllWhiteSpace()
+                                      .toLowerCase())) {
                                     return 'Brand name is already exist.';
                                   } else {
                                     return null;
@@ -484,10 +531,13 @@ class _AddProductState extends State<AddProduct> {
                                 showCursor: true,
                                 cursorColor: kTitleColor,
                                 decoration: kInputDecoration.copyWith(
-                                  errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                  errorBorder: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.red)),
                                   labelText: lang.S.of(context).brandName,
                                   hintText: lang.S.of(context).enterBrandName,
-                                  hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                  hintStyle: kTextStyle.copyWith(
+                                      color: kGreyTextColor),
                                 ),
                               ),
                             ),
@@ -505,10 +555,13 @@ class _AddProductState extends State<AddProduct> {
                         children: [
                           Container(
                             padding: const EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kRedTextColor),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                color: kRedTextColor),
                             child: Text(
                               lang.S.of(context).cancel,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style:
+                                  kTextStyle.copyWith(color: kWhiteTextColor),
                             ),
                           ).onTap(() {
                             brandNameController.clear();
@@ -519,18 +572,28 @@ class _AddProductState extends State<AddProduct> {
                           ),
                           Container(
                             padding: const EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kGreenTextColor),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                color: kGreenTextColor),
                             child: Text(
                               lang.S.of(context).submit,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style:
+                                  kTextStyle.copyWith(color: kWhiteTextColor),
                             ),
                           ).onTap(() async {
                             if (brandValidateAndSave()) {
                               try {
                                 EasyLoading.show(status: 'Adding Brand');
-                                final DatabaseReference categoryInformationRef = FirebaseDatabase.instance.ref().child(await getUserID()).child('Brands');
-                                BrandsModel brandModel = BrandsModel(brandNameController.text);
-                                await categoryInformationRef.push().set(brandModel.toJson());
+                                final DatabaseReference categoryInformationRef =
+                                    FirebaseDatabase.instance
+                                        .ref()
+                                        .child(await getUserID())
+                                        .child('Brands');
+                                BrandsModel brandModel =
+                                    BrandsModel(brandNameController.text);
+                                await categoryInformationRef
+                                    .push()
+                                    .set(brandModel.toJson());
                                 ref.refresh(brandProvider);
                                 setState(() {
                                   // selectedBrand = brandModel.brandName;
@@ -555,7 +618,10 @@ class _AddProductState extends State<AddProduct> {
         });
   }
 
-  void showUnitPopUp({required WidgetRef ref, required List<String> unitNameList, required BuildContext addProductsContext}) {
+  void showUnitPopUp(
+      {required WidgetRef ref,
+      required List<String> unitNameList,
+      required BuildContext addProductsContext}) {
     GlobalKey<FormState> unitNameKey = GlobalKey<FormState>();
     bool unitValidateAndSave() {
       final form = unitNameKey.currentState;
@@ -586,7 +652,8 @@ class _AddProductState extends State<AddProduct> {
                       children: [
                         Container(
                           padding: const EdgeInsets.all(4.0),
-                          decoration: const BoxDecoration(shape: BoxShape.rectangle),
+                          decoration:
+                              const BoxDecoration(shape: BoxShape.rectangle),
                           child: const Icon(
                             FeatherIcons.plus,
                             color: kTitleColor,
@@ -595,7 +662,10 @@ class _AddProductState extends State<AddProduct> {
                         const SizedBox(width: 4.0),
                         Text(
                           lang.S.of(context).addUnit,
-                          style: kTextStyle.copyWith(color: kTitleColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                          style: kTextStyle.copyWith(
+                              color: kTitleColor,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
                         ),
                         const Spacer(),
                         const Icon(
@@ -619,7 +689,8 @@ class _AddProductState extends State<AddProduct> {
                       children: [
                         Text(
                           lang.S.of(context).unitName,
-                          style: kTextStyle.copyWith(color: kTitleColor, fontSize: 18.0),
+                          style: kTextStyle.copyWith(
+                              color: kTitleColor, fontSize: 18.0),
                         ),
                         const SizedBox(width: 50),
                         Form(
@@ -630,7 +701,9 @@ class _AddProductState extends State<AddProduct> {
                               validator: (value) {
                                 if (value.isEmptyOrNull) {
                                   return 'Unit name is required.';
-                                } else if (unitNameList.contains(value.removeAllWhiteSpace().toLowerCase())) {
+                                } else if (unitNameList.contains(value
+                                    .removeAllWhiteSpace()
+                                    .toLowerCase())) {
                                   return 'Unit name is already exist.';
                                 } else {
                                   return null;
@@ -640,10 +713,12 @@ class _AddProductState extends State<AddProduct> {
                               showCursor: true,
                               cursorColor: kTitleColor,
                               decoration: kInputDecoration.copyWith(
-                                errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                errorBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.red)),
                                 labelText: lang.S.of(context).unitName,
                                 hintText: lang.S.of(context).enterUnitName,
-                                hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                hintStyle:
+                                    kTextStyle.copyWith(color: kGreyTextColor),
                               ),
                             ),
                           ),
@@ -661,7 +736,9 @@ class _AddProductState extends State<AddProduct> {
                       children: [
                         Container(
                           padding: const EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kRedTextColor),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: kRedTextColor),
                           child: Text(
                             lang.S.of(context).cancel,
                             style: kTextStyle.copyWith(color: kWhiteTextColor),
@@ -673,7 +750,9 @@ class _AddProductState extends State<AddProduct> {
                         const SizedBox(width: 5.0),
                         Container(
                           padding: const EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kGreenTextColor),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: kGreenTextColor),
                           child: Text(
                             lang.S.of(context).submit,
                             style: kTextStyle.copyWith(color: kWhiteTextColor),
@@ -682,9 +761,16 @@ class _AddProductState extends State<AddProduct> {
                           if (unitValidateAndSave()) {
                             try {
                               EasyLoading.show(status: 'Adding Units');
-                              final DatabaseReference categoryInformationRef = FirebaseDatabase.instance.ref().child(await getUserID()).child('Units');
-                              UnitModel unitModel = UnitModel(unitNameController.text);
-                              await categoryInformationRef.push().set(unitModel.toJson());
+                              final DatabaseReference categoryInformationRef =
+                                  FirebaseDatabase.instance
+                                      .ref()
+                                      .child(await getUserID())
+                                      .child('Units');
+                              UnitModel unitModel =
+                                  UnitModel(unitNameController.text);
+                              await categoryInformationRef
+                                  .push()
+                                  .set(unitModel.toJson());
                               ref.refresh(unitProvider);
                               setState(() {
                                 unitTime = 0;
@@ -727,7 +813,9 @@ class _AddProductState extends State<AddProduct> {
           );
         }
 
-        var snapshot = await FirebaseStorage.instance.ref('Profile Picture/${DateTime.now().millisecondsSinceEpoch}').putData(bytesFromPicker);
+        var snapshot = await FirebaseStorage.instance
+            .ref('Profile Picture/${DateTime.now().millisecondsSinceEpoch}')
+            .putData(bytesFromPicker);
         var url = await snapshot.ref.getDownloadURL();
         EasyLoading.showSuccess('Upload Successful!');
         setState(() {
@@ -736,7 +824,8 @@ class _AddProductState extends State<AddProduct> {
         });
       } on firebase_core.FirebaseException catch (e) {
         EasyLoading.dismiss();
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.code.toString())));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.code.toString())));
       }
     }
   }
@@ -782,12 +871,18 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController productCodeController = TextEditingController();
   TextEditingController productQuantityController = TextEditingController();
   TextEditingController productSalePriceController = TextEditingController();
-  TextEditingController productPurchasePriceController = TextEditingController();
-  TextEditingController productDiscountPriceController = TextEditingController(text: '');
-  TextEditingController productWholesalePriceController = TextEditingController(text: '');
-  TextEditingController productDealerPriceController = TextEditingController(text: '');
-  TextEditingController productManufacturerController = TextEditingController(text: '');
-  TextEditingController productSerialNumberController = TextEditingController(text: '');
+  TextEditingController productPurchasePriceController =
+      TextEditingController();
+  TextEditingController productDiscountPriceController =
+      TextEditingController(text: '');
+  TextEditingController productWholesalePriceController =
+      TextEditingController(text: '');
+  TextEditingController productDealerPriceController =
+      TextEditingController(text: '');
+  TextEditingController productManufacturerController =
+      TextEditingController(text: '');
+  TextEditingController productSerialNumberController =
+      TextEditingController(text: '');
 
   TextEditingController itemCategoryController = TextEditingController();
   TextEditingController brandNameController = TextEditingController();
@@ -814,7 +909,8 @@ class _AddProductState extends State<AddProduct> {
 
   ScrollController mainScroll = ScrollController();
 
-  WareHouseModel ar = WareHouseModel(warehouseName: 'Select warehouse', warehouseAddress: '', id: '');
+  WareHouseModel ar = WareHouseModel(
+      warehouseName: 'Select warehouse', warehouseAddress: '', id: '');
   late WareHouseModel? selectedWareHouse;
 
   int i = 0;
@@ -830,8 +926,8 @@ class _AddProductState extends State<AddProduct> {
     for (var element in list) {
       dropDownItems.add(DropdownMenuItem(
         value: element,
-        child: Expanded(
-        //  width: 110, //pc_cng
+        child: SizedBox(
+          width: 140, //pc_cng
           child: Text(
             element.warehouseName,
             overflow: TextOverflow.ellipsis,
@@ -860,6 +956,7 @@ class _AddProductState extends State<AddProduct> {
     super.initState();
     checkCurrentUserAndRestartApp();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -887,7 +984,9 @@ class _AddProductState extends State<AddProduct> {
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width < 1275 ? 1275 - 240 : MediaQuery.of(context).size.width - 240,
+                    width: MediaQuery.of(context).size.width < 1275
+                        ? 1275 - 240
+                        : MediaQuery.of(context).size.width - 240,
                     // width: context.width() < 1080 ? 1080 - 240 : MediaQuery.of(context).size.width - 240,
                     decoration: const BoxDecoration(color: kDarkWhite),
                     child: SingleChildScrollView(
@@ -906,10 +1005,14 @@ class _AddProductState extends State<AddProduct> {
                                 Row(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 10.0),
+                                      padding:
+                                          const EdgeInsets.only(left: 10.0),
                                       child: Text(
                                         lang.S.of(context).addProduct,
-                                        style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, fontSize: 20.0),
+                                        style: kTextStyle.copyWith(
+                                            color: kTitleColor,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20.0),
                                       ),
                                     ),
                                     // const Spacer(),
@@ -944,13 +1047,15 @@ class _AddProductState extends State<AddProduct> {
                                           width: double.infinity,
                                           padding: const EdgeInsets.all(10.0),
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10.0),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
                                             color: kWhiteTextColor,
                                           ),
                                           child: Form(
                                             key: addProductFormKey,
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 const SizedBox(height: 10.0),
 
@@ -960,9 +1065,16 @@ class _AddProductState extends State<AddProduct> {
                                                     Expanded(
                                                       child: TextFormField(
                                                         validator: (value) {
-                                                          if (value?.removeAllWhiteSpace().toLowerCase().isEmptyOrNull ?? true) {
+                                                          if (value
+                                                                  ?.removeAllWhiteSpace()
+                                                                  .toLowerCase()
+                                                                  .isEmptyOrNull ??
+                                                              true) {
                                                             return 'Product name is required.';
-                                                          } else if (!checkProductName(name: value!, id: selectedWareHouse!.id)) {
+                                                          } else if (!checkProductName(
+                                                              name: value!,
+                                                              id: selectedWareHouse!
+                                                                  .id)) {
                                                             return 'Product Name already exists in this warehouse.';
                                                           } else {
                                                             // String cleanedValue = value!.removeAllWhiteSpace().toLowerCase().trim();
@@ -988,25 +1100,47 @@ class _AddProductState extends State<AddProduct> {
                                                           }
                                                         },
                                                         onSaved: (value) {
-                                                          productNameController.text = value!;
+                                                          productNameController
+                                                              .text = value!;
                                                         },
                                                         showCursor: true,
-                                                        controller: productNameController,
-                                                        cursorColor: kTitleColor,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                                          labelText: lang.S.of(context).productNam,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterProductName,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        controller:
+                                                            productNameController,
+                                                        cursorColor:
+                                                            kTitleColor,
+                                                        decoration:
+                                                            kInputDecoration
+                                                                .copyWith(
+                                                          errorBorder:
+                                                              const OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                          color:
+                                                                              Colors.red)),
+                                                          labelText: lang.S
+                                                              .of(context)
+                                                              .productNam,
+                                                          labelStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kTitleColor),
+                                                          hintText: lang.S
+                                                              .of(context)
+                                                              .enterProductName,
+                                                          hintStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kGreyTextColor),
                                                         ),
                                                       ),
                                                     ),
                                                     const SizedBox(width: 20.0),
                                                     categoryList.when(
                                                       data: (category) {
-                                                        List<String> editNameList = [];
-                                                        List<String> categoryName = [];
+                                                        List<String>
+                                                            editNameList = [];
+                                                        List<String>
+                                                            categoryName = [];
                                                         // if (category.isEmpty) {
                                                         //   // postGeneralCategory();
                                                         //   ref.refresh(categoryProvider);
@@ -1019,23 +1153,40 @@ class _AddProductState extends State<AddProduct> {
                                                         //         categoryTime++;
                                                         //       })
                                                         //     : null;
-                                                        for (var element in category) {
-                                                          categoryName.add(element.categoryName);
-                                                          editNameList.add(element.categoryName.toLowerCase().removeAllWhiteSpace());
+                                                        for (var element
+                                                            in category) {
+                                                          categoryName.add(
+                                                              element
+                                                                  .categoryName);
+                                                          editNameList.add(element
+                                                              .categoryName
+                                                              .toLowerCase()
+                                                              .removeAllWhiteSpace());
                                                         }
                                                         return Expanded(
                                                           child: FormField(
-                                                            builder: (FormFieldState<dynamic> field) {
+                                                            builder:
+                                                                (FormFieldState<
+                                                                        dynamic>
+                                                                    field) {
                                                               return InputDecorator(
                                                                 decoration: InputDecoration(
                                                                     enabledBorder: const OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                      borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(8.0)),
+                                                                      borderSide: BorderSide(
+                                                                          color:
+                                                                              kBorderColorTextField,
+                                                                          width:
+                                                                              2),
                                                                     ),
                                                                     suffixIcon: GestureDetector(
                                                                         onTap: () async {
                                                                           await addCategoryShowPopUp(
-                                                                              ref: ref, categoryNameList: editNameList, addProductContext: context);
+                                                                              ref: ref,
+                                                                              categoryNameList: editNameList,
+                                                                              addProductContext: context);
                                                                         },
                                                                         child: const Icon(FeatherIcons.plus, color: kTitleColor)),
                                                                     contentPadding: const EdgeInsets.all(8.0),
@@ -1043,33 +1194,57 @@ class _AddProductState extends State<AddProduct> {
                                                                     labelText: lang.S.of(context).category),
                                                                 child: Theme(
                                                                   data: ThemeData(
-                                                                      highlightColor: dropdownItemColor,
-                                                                      focusColor: dropdownItemColor,
-                                                                      hoverColor: dropdownItemColor),
-                                                                  child: DropdownButtonHideUnderline(
-                                                                      child: DropdownButton<String>(
-                                                                    hint: const Text('Select Category'),
-                                                                    onChanged: (String? value) {
-                                                                      setState(() {
-                                                                        selectedCategories = value!;
-                                                                        for (var element in category) {
-                                                                          if (element.categoryName == selectedCategories) {
-                                                                            isSizedBoxShow = element.size;
-                                                                            isColoredBoxShow = element.color;
-                                                                            isWeightsBoxShow = element.weight;
-                                                                            isCapacityBoxShow = element.capacity;
-                                                                            isTypeBoxShow = element.type;
-                                                                            isWarrantyBoxShow = element.warranty;
+                                                                      highlightColor:
+                                                                          dropdownItemColor,
+                                                                      focusColor:
+                                                                          dropdownItemColor,
+                                                                      hoverColor:
+                                                                          dropdownItemColor),
+                                                                  child:
+                                                                      DropdownButtonHideUnderline(
+                                                                          child:
+                                                                              DropdownButton<String>(
+                                                                    hint: const Text(
+                                                                        'Select Category'),
+                                                                    onChanged:
+                                                                        (String?
+                                                                            value) {
+                                                                      setState(
+                                                                          () {
+                                                                        selectedCategories =
+                                                                            value!;
+                                                                        for (var element
+                                                                            in category) {
+                                                                          if (element.categoryName ==
+                                                                              selectedCategories) {
+                                                                            isSizedBoxShow =
+                                                                                element.size;
+                                                                            isColoredBoxShow =
+                                                                                element.color;
+                                                                            isWeightsBoxShow =
+                                                                                element.weight;
+                                                                            isCapacityBoxShow =
+                                                                                element.capacity;
+                                                                            isTypeBoxShow =
+                                                                                element.type;
+                                                                            isWarrantyBoxShow =
+                                                                                element.warranty;
                                                                           }
                                                                         }
-                                                                        toast(selectedCategories);
+                                                                        toast(
+                                                                            selectedCategories);
                                                                       });
                                                                     },
-                                                                    value: selectedCategories,
-                                                                    items: categoryName.map((String items) {
+                                                                    value:
+                                                                        selectedCategories,
+                                                                    items: categoryName
+                                                                        .map((String
+                                                                            items) {
                                                                       return DropdownMenuItem(
-                                                                        value: items,
-                                                                        child: Text(items),
+                                                                        value:
+                                                                            items,
+                                                                        child: Text(
+                                                                            items),
                                                                       );
                                                                     }).toList(),
                                                                   )),
@@ -1088,7 +1263,8 @@ class _AddProductState extends State<AddProduct> {
                                                       },
                                                       loading: () {
                                                         return const Center(
-                                                          child: CircularProgressIndicator(),
+                                                          child:
+                                                              CircularProgressIndicator(),
                                                         );
                                                       },
                                                     ),
@@ -1105,36 +1281,69 @@ class _AddProductState extends State<AddProduct> {
                                                           return null;
                                                         },
                                                         onSaved: (value) {
-                                                          sizeController.text = value!;
+                                                          sizeController.text =
+                                                              value!;
                                                         },
                                                         showCursor: true,
-                                                        controller: sizeController,
-                                                        cursorColor: kTitleColor,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          labelText: lang.S.of(context).productSize,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterProductSize,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        controller:
+                                                            sizeController,
+                                                        cursorColor:
+                                                            kTitleColor,
+                                                        decoration:
+                                                            kInputDecoration
+                                                                .copyWith(
+                                                          labelText: lang.S
+                                                              .of(context)
+                                                              .productSize,
+                                                          labelStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kTitleColor),
+                                                          hintText: lang.S
+                                                              .of(context)
+                                                              .enterProductSize,
+                                                          hintStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kGreyTextColor),
                                                         ),
                                                       ),
                                                     ).visible(isSizedBoxShow),
-                                                    const SizedBox(width: 20).visible(isColoredBoxShow && isSizedBoxShow),
+                                                    const SizedBox(width: 20)
+                                                        .visible(
+                                                            isColoredBoxShow &&
+                                                                isSizedBoxShow),
                                                     Expanded(
                                                       child: TextFormField(
                                                         validator: (value) {
                                                           return null;
                                                         },
                                                         onSaved: (value) {
-                                                          colorController.text = value!;
+                                                          colorController.text =
+                                                              value!;
                                                         },
                                                         showCursor: true,
-                                                        controller: colorController,
-                                                        cursorColor: kTitleColor,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          labelText: lang.S.of(context).productColor,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterProductColor,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        controller:
+                                                            colorController,
+                                                        cursorColor:
+                                                            kTitleColor,
+                                                        decoration:
+                                                            kInputDecoration
+                                                                .copyWith(
+                                                          labelText: lang.S
+                                                              .of(context)
+                                                              .productColor,
+                                                          labelStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kTitleColor),
+                                                          hintText: lang.S
+                                                              .of(context)
+                                                              .enterProductColor,
+                                                          hintStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kGreyTextColor),
                                                         ),
                                                       ),
                                                     ).visible(isColoredBoxShow),
@@ -1146,49 +1355,89 @@ class _AddProductState extends State<AddProduct> {
                                                   children: [
                                                     Expanded(
                                                       child: Padding(
-                                                        padding: const EdgeInsets.only(top: 20.0),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                top: 20.0),
                                                         child: TextFormField(
                                                           validator: (value) {
                                                             return null;
                                                           },
                                                           onSaved: (value) {
-                                                            weightController.text = value!;
+                                                            weightController
+                                                                .text = value!;
                                                           },
                                                           showCursor: true,
-                                                          controller: weightController,
-                                                          cursorColor: kTitleColor,
-                                                          decoration: kInputDecoration.copyWith(
-                                                            labelText: lang.S.of(context).productWeight,
-                                                            labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                            hintText: lang.S.of(context).enterProductWeight,
-                                                            hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                          controller:
+                                                              weightController,
+                                                          cursorColor:
+                                                              kTitleColor,
+                                                          decoration:
+                                                              kInputDecoration
+                                                                  .copyWith(
+                                                            labelText: lang.S
+                                                                .of(context)
+                                                                .productWeight,
+                                                            labelStyle: kTextStyle
+                                                                .copyWith(
+                                                                    color:
+                                                                        kTitleColor),
+                                                            hintText: lang.S
+                                                                .of(context)
+                                                                .enterProductWeight,
+                                                            hintStyle: kTextStyle
+                                                                .copyWith(
+                                                                    color:
+                                                                        kGreyTextColor),
                                                           ),
                                                         ),
                                                       ),
                                                     ).visible(isWeightsBoxShow),
-                                                    const SizedBox(width: 20).visible(isWeightsBoxShow && isCapacityBoxShow),
+                                                    const SizedBox(width: 20)
+                                                        .visible(
+                                                            isWeightsBoxShow &&
+                                                                isCapacityBoxShow),
                                                     Expanded(
                                                       child: Padding(
-                                                        padding: const EdgeInsets.only(top: 20.0),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                top: 20.0),
                                                         child: TextFormField(
                                                           validator: (value) {
                                                             return null;
                                                           },
                                                           onSaved: (value) {
-                                                            capacityController.text = value!;
+                                                            capacityController
+                                                                .text = value!;
                                                           },
                                                           showCursor: true,
-                                                          controller: capacityController,
-                                                          cursorColor: kTitleColor,
-                                                          decoration: kInputDecoration.copyWith(
-                                                            labelText: lang.S.of(context).productcapacity,
-                                                            labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                            hintText: lang.S.of(context).enterProductCapacity,
-                                                            hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                          controller:
+                                                              capacityController,
+                                                          cursorColor:
+                                                              kTitleColor,
+                                                          decoration:
+                                                              kInputDecoration
+                                                                  .copyWith(
+                                                            labelText: lang.S
+                                                                .of(context)
+                                                                .productcapacity,
+                                                            labelStyle: kTextStyle
+                                                                .copyWith(
+                                                                    color:
+                                                                        kTitleColor),
+                                                            hintText: lang.S
+                                                                .of(context)
+                                                                .enterProductCapacity,
+                                                            hintStyle: kTextStyle
+                                                                .copyWith(
+                                                                    color:
+                                                                        kGreyTextColor),
                                                           ),
                                                         ),
                                                       ),
-                                                    ).visible(isCapacityBoxShow),
+                                                    ).visible(
+                                                        isCapacityBoxShow),
                                                   ],
                                                 ),
 
@@ -1197,85 +1446,174 @@ class _AddProductState extends State<AddProduct> {
                                                   children: [
                                                     Expanded(
                                                       child: Padding(
-                                                        padding: const EdgeInsets.only(top: 20.0, bottom: 20),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                top: 20.0,
+                                                                bottom: 20),
                                                         child: TextFormField(
                                                           validator: (value) {
                                                             return null;
                                                           },
                                                           onSaved: (value) {
-                                                            typeController.text = value!;
+                                                            typeController
+                                                                .text = value!;
                                                           },
                                                           showCursor: true,
-                                                          controller: typeController,
-                                                          cursorColor: kTitleColor,
-                                                          decoration: kInputDecoration.copyWith(
-                                                            labelText: lang.S.of(context).productType,
-                                                            labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                            hintText: lang.S.of(context).enterProductType,
-                                                            hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                          controller:
+                                                              typeController,
+                                                          cursorColor:
+                                                              kTitleColor,
+                                                          decoration:
+                                                              kInputDecoration
+                                                                  .copyWith(
+                                                            labelText: lang.S
+                                                                .of(context)
+                                                                .productType,
+                                                            labelStyle: kTextStyle
+                                                                .copyWith(
+                                                                    color:
+                                                                        kTitleColor),
+                                                            hintText: lang.S
+                                                                .of(context)
+                                                                .enterProductType,
+                                                            hintStyle: kTextStyle
+                                                                .copyWith(
+                                                                    color:
+                                                                        kGreyTextColor),
                                                           ),
                                                         ),
                                                       ),
                                                     ).visible(isTypeBoxShow),
-                                                    const SizedBox(width: 20).visible(isTypeBoxShow && isWarrantyBoxShow),
+                                                    const SizedBox(width: 20)
+                                                        .visible(isTypeBoxShow &&
+                                                            isWarrantyBoxShow),
                                                     Expanded(
                                                       child: Row(
                                                         children: [
                                                           Expanded(
                                                             child: Padding(
-                                                              padding: const EdgeInsets.only(top: 20.0, bottom: 20),
-                                                              child: TextFormField(
-                                                                validator: (value) {
-                                                                  if (double.tryParse(value!) == null && !value.isEmptyOrNull) {
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      top: 20.0,
+                                                                      bottom:
+                                                                          20),
+                                                              child:
+                                                                  TextFormField(
+                                                                validator:
+                                                                    (value) {
+                                                                  if (double.tryParse(
+                                                                              value!) ==
+                                                                          null &&
+                                                                      !value
+                                                                          .isEmptyOrNull) {
                                                                     return 'Enter Quantity in number.';
                                                                   } else {
                                                                     return null;
                                                                   }
                                                                 },
-                                                                onSaved: (value) {
-                                                                  warrantyController.text = value!;
+                                                                onSaved:
+                                                                    (value) {
+                                                                  warrantyController
+                                                                          .text =
+                                                                      value!;
                                                                 },
-                                                                showCursor: true,
-                                                                controller: warrantyController,
-                                                                cursorColor: kTitleColor,
-                                                                decoration: kInputDecoration.copyWith(
-                                                                  errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                                                  labelText: lang.S.of(context).productWaranty,
-                                                                  labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                                  hintText: lang.S.of(context).enterWarranty,
-                                                                  hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                                showCursor:
+                                                                    true,
+                                                                controller:
+                                                                    warrantyController,
+                                                                cursorColor:
+                                                                    kTitleColor,
+                                                                decoration:
+                                                                    kInputDecoration
+                                                                        .copyWith(
+                                                                  errorBorder: const OutlineInputBorder(
+                                                                      borderSide:
+                                                                          BorderSide(
+                                                                              color: Colors.red)),
+                                                                  labelText: lang
+                                                                      .S
+                                                                      .of(context)
+                                                                      .productWaranty,
+                                                                  labelStyle: kTextStyle
+                                                                      .copyWith(
+                                                                          color:
+                                                                              kTitleColor),
+                                                                  hintText: lang
+                                                                      .S
+                                                                      .of(context)
+                                                                      .enterWarranty,
+                                                                  hintStyle: kTextStyle
+                                                                      .copyWith(
+                                                                          color:
+                                                                              kGreyTextColor),
                                                                 ),
                                                               ),
                                                             ),
                                                           ),
-                                                          const SizedBox(width: 4),
+                                                          const SizedBox(
+                                                              width: 4),
                                                           SizedBox(
                                                             width: 200,
                                                             child: FormField(
-                                                              builder: (FormFieldState<dynamic> field) {
+                                                              builder:
+                                                                  (FormFieldState<
+                                                                          dynamic>
+                                                                      field) {
                                                                 return InputDecorator(
-                                                                  decoration: InputDecoration(
-                                                                    enabledBorder: const OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                      borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                                                  decoration:
+                                                                      InputDecoration(
+                                                                    enabledBorder:
+                                                                        const OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(8.0)),
+                                                                      borderSide: BorderSide(
+                                                                          color:
+                                                                              kBorderColorTextField,
+                                                                          width:
+                                                                              2),
                                                                     ),
-                                                                    contentPadding: const EdgeInsets.all(8.0),
-                                                                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                                                                    labelText: lang.S.of(context).warranty,
+                                                                    contentPadding:
+                                                                        const EdgeInsets
+                                                                            .all(
+                                                                            8.0),
+                                                                    floatingLabelBehavior:
+                                                                        FloatingLabelBehavior
+                                                                            .always,
+                                                                    labelText: lang
+                                                                        .S
+                                                                        .of(context)
+                                                                        .warranty,
                                                                   ),
-                                                                  child: DropdownButtonHideUnderline(
-                                                                      child: DropdownButton<String>(
-                                                                    onChanged: (String? value) {
-                                                                      setState(() {
-                                                                        selectedTime = value!;
+                                                                  child:
+                                                                      DropdownButtonHideUnderline(
+                                                                          child:
+                                                                              DropdownButton<String>(
+                                                                    onChanged:
+                                                                        (String?
+                                                                            value) {
+                                                                      setState(
+                                                                          () {
+                                                                        selectedTime =
+                                                                            value!;
                                                                       });
                                                                     },
-                                                                    hint: Text(lang.S.of(context).selectWarrantyTime),
-                                                                    value: selectedTime,
-                                                                    items: warrantyTime.map((String items) {
+                                                                    hint: Text(lang
+                                                                        .S
+                                                                        .of(context)
+                                                                        .selectWarrantyTime),
+                                                                    value:
+                                                                        selectedTime,
+                                                                    items: warrantyTime
+                                                                        .map((String
+                                                                            items) {
                                                                       return DropdownMenuItem(
-                                                                        value: items,
-                                                                        child: Text(items),
+                                                                        value:
+                                                                            items,
+                                                                        child: Text(
+                                                                            items),
                                                                       );
                                                                     }).toList(),
                                                                   )),
@@ -1285,7 +1623,8 @@ class _AddProductState extends State<AddProduct> {
                                                           ),
                                                         ],
                                                       ),
-                                                    ).visible(isWarrantyBoxShow),
+                                                    ).visible(
+                                                        isWarrantyBoxShow),
                                                   ],
                                                 ),
 
@@ -1293,9 +1632,12 @@ class _AddProductState extends State<AddProduct> {
                                                 const SizedBox(height: 10),
                                                 Row(
                                                   children: [
-                                                    brandList.when(data: (brand) {
-                                                      List<String> editBrandList = [];
-                                                      List<String> brandName = [];
+                                                    brandList.when(
+                                                        data: (brand) {
+                                                      List<String>
+                                                          editBrandList = [];
+                                                      List<String> brandName =
+                                                          [];
                                                       // brandTime == 0
                                                       //     // ignore: avoid_function_literals_in_foreach_calls
                                                       //     ? brand.forEach((element) {
@@ -1304,44 +1646,90 @@ class _AddProductState extends State<AddProduct> {
                                                       //         brandTime++;
                                                       //       })
                                                       //     : null;
-                                                      for (var element in brand) {
-                                                        brandName.add(element.brandName);
-                                                        editBrandList.add(element.brandName.toLowerCase().removeAllWhiteSpace());
+                                                      for (var element
+                                                          in brand) {
+                                                        brandName.add(
+                                                            element.brandName);
+                                                        editBrandList.add(element
+                                                            .brandName
+                                                            .toLowerCase()
+                                                            .removeAllWhiteSpace());
                                                       }
 
                                                       return Expanded(
                                                         child: FormField(
-                                                          builder: (FormFieldState<dynamic> field) {
+                                                          builder:
+                                                              (FormFieldState<
+                                                                      dynamic>
+                                                                  field) {
                                                             return InputDecorator(
-                                                              decoration: InputDecoration(
-                                                                  enabledBorder: const OutlineInputBorder(
-                                                                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                    borderSide: BorderSide(color: kBorderColorTextField, width: 2),
-                                                                  ),
-                                                                  suffixIcon: const Icon(FeatherIcons.plus, color: kTitleColor).onTap(() =>
-                                                                      showBrandPopUp(ref: ref, brandNameList: editBrandList, addProductsContext: context)),
-                                                                  contentPadding: const EdgeInsets.all(8.0),
-                                                                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                                                                  labelText: lang.S.of(context).brand),
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                      enabledBorder:
+                                                                          const OutlineInputBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.all(Radius.circular(8.0)),
+                                                                        borderSide: BorderSide(
+                                                                            color:
+                                                                                kBorderColorTextField,
+                                                                            width:
+                                                                                2),
+                                                                      ),
+                                                                      suffixIcon: const Icon(FeatherIcons.plus, color: kTitleColor).onTap(() => showBrandPopUp(
+                                                                          ref:
+                                                                              ref,
+                                                                          brandNameList:
+                                                                              editBrandList,
+                                                                          addProductsContext:
+                                                                              context)),
+                                                                      contentPadding:
+                                                                          const EdgeInsets
+                                                                              .all(
+                                                                              8.0),
+                                                                      floatingLabelBehavior:
+                                                                          FloatingLabelBehavior
+                                                                              .always,
+                                                                      labelText: lang
+                                                                          .S
+                                                                          .of(context)
+                                                                          .brand),
                                                               child: Theme(
                                                                 data: ThemeData(
-                                                                    highlightColor: dropdownItemColor,
-                                                                    focusColor: dropdownItemColor,
-                                                                    hoverColor: dropdownItemColor),
-                                                                child: DropdownButtonHideUnderline(
-                                                                    child: DropdownButton<String>(
-                                                                  onChanged: (String? value) {
-                                                                    setState(() {
-                                                                      selectedBrand = value!;
-                                                                      toast(selectedBrand);
+                                                                    highlightColor:
+                                                                        dropdownItemColor,
+                                                                    focusColor:
+                                                                        dropdownItemColor,
+                                                                    hoverColor:
+                                                                        dropdownItemColor),
+                                                                child:
+                                                                    DropdownButtonHideUnderline(
+                                                                        child: DropdownButton<
+                                                                            String>(
+                                                                  onChanged:
+                                                                      (String?
+                                                                          value) {
+                                                                    setState(
+                                                                        () {
+                                                                      selectedBrand =
+                                                                          value!;
+                                                                      toast(
+                                                                          selectedBrand);
                                                                     });
                                                                   },
-                                                                  hint: Text(lang.S.of(context).selectProductBrand),
-                                                                  value: selectedBrand,
-                                                                  items: brandName.map((String items) {
+                                                                  hint: Text(lang
+                                                                      .S
+                                                                      .of(context)
+                                                                      .selectProductBrand),
+                                                                  value:
+                                                                      selectedBrand,
+                                                                  items: brandName
+                                                                      .map((String
+                                                                          items) {
                                                                     return DropdownMenuItem(
-                                                                      value: items,
-                                                                      child: Text(items),
+                                                                      value:
+                                                                          items,
+                                                                      child: Text(
+                                                                          items),
                                                                     );
                                                                   }).toList(),
                                                                 )),
@@ -1352,11 +1740,13 @@ class _AddProductState extends State<AddProduct> {
                                                       );
                                                     }, error: (e, stack) {
                                                       return Center(
-                                                        child: Text(e.toString()),
+                                                        child:
+                                                            Text(e.toString()),
                                                       );
                                                     }, loading: () {
                                                       return const Center(
-                                                        child: CircularProgressIndicator(),
+                                                        child:
+                                                            CircularProgressIndicator(),
                                                       );
                                                     }),
                                                     const SizedBox(width: 20.0),
@@ -1366,29 +1756,59 @@ class _AddProductState extends State<AddProduct> {
                                                           // if (value.removeAllWhiteSpace().isEmptyOrNull) {
                                                           //   return 'Product Code is required.';
                                                           // } else
-                                                          if (widget.allProductsCodeList.contains(value.removeAllWhiteSpace().toLowerCase())) {
+                                                          if (widget
+                                                              .allProductsCodeList
+                                                              .contains(value
+                                                                  .removeAllWhiteSpace()
+                                                                  .toLowerCase())) {
                                                             return 'Product Code already exist.';
                                                           } else {
                                                             return null;
                                                           }
                                                         },
                                                         onSaved: (value) {
-                                                          if (value.removeAllWhiteSpace().isEmptyOrNull) {
-                                                            productCodeController.text = DateTime.now().toString();
+                                                          if (value
+                                                              .removeAllWhiteSpace()
+                                                              .isEmptyOrNull) {
+                                                            productCodeController
+                                                                    .text =
+                                                                DateTime.now()
+                                                                    .toString();
                                                           } else {
-                                                            productCodeController.text = value!;
+                                                            productCodeController
+                                                                .text = value!;
                                                           }
                                                         },
-                                                        controller: productCodeController,
+                                                        controller:
+                                                            productCodeController,
                                                         showCursor: true,
-                                                        cursorColor: kTitleColor,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                                          labelText: lang.S.of(context).productCod,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterProductCode,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                          suffixIcon: const Icon(
+                                                        cursorColor:
+                                                            kTitleColor,
+                                                        decoration:
+                                                            kInputDecoration
+                                                                .copyWith(
+                                                          errorBorder:
+                                                              const OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                          color:
+                                                                              Colors.red)),
+                                                          labelText: lang.S
+                                                              .of(context)
+                                                              .productCod,
+                                                          labelStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kTitleColor),
+                                                          hintText: lang.S
+                                                              .of(context)
+                                                              .enterProductCode,
+                                                          hintStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kGreyTextColor),
+                                                          suffixIcon:
+                                                              const Icon(
                                                             Icons.scanner,
                                                             color: kTitleColor,
                                                           ),
@@ -1405,84 +1825,175 @@ class _AddProductState extends State<AddProduct> {
                                                     Expanded(
                                                       child: TextFormField(
                                                         validator: (value) {
-                                                          if (value.removeAllWhiteSpace().isEmptyOrNull) {
+                                                          if (value
+                                                              .removeAllWhiteSpace()
+                                                              .isEmptyOrNull) {
                                                             return 'Product Quantity is required.';
-                                                          } else if (double.tryParse(value!) == null) {
+                                                          } else if (double
+                                                                  .tryParse(
+                                                                      value!) ==
+                                                              null) {
                                                             return 'Enter Quantity in number.';
                                                           } else {
                                                             return null;
                                                           }
                                                         },
                                                         onSaved: (value) {
-                                                          productQuantityController.text = value!;
+                                                          productQuantityController
+                                                              .text = value!;
                                                         },
-                                                        controller: productQuantityController,
+                                                        controller:
+                                                            productQuantityController,
                                                         showCursor: true,
-                                                        cursorColor: kTitleColor,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                                          labelText: lang.S.of(context).Quantity,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterProductQuantity,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        cursorColor:
+                                                            kTitleColor,
+                                                        decoration:
+                                                            kInputDecoration
+                                                                .copyWith(
+                                                          errorBorder:
+                                                              const OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                          color:
+                                                                              Colors.red)),
+                                                          labelText: lang.S
+                                                              .of(context)
+                                                              .Quantity,
+                                                          labelStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kTitleColor),
+                                                          hintText: lang.S
+                                                              .of(context)
+                                                              .enterProductQuantity,
+                                                          hintStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kGreyTextColor),
                                                         ),
                                                       ),
                                                     ),
                                                     const SizedBox(width: 20.0),
                                                     unitList.when(data: (unit) {
-                                                      List<String> editUnitNameList = [];
+                                                      List<String>
+                                                          editUnitNameList = [];
                                                       unitTime == 0
                                                           // ignore: avoid_function_literals_in_foreach_calls
-                                                          ? unit.forEach((element) {
-                                                              extraAddedUnits.add(element.unitName);
+                                                          ? unit.forEach(
+                                                              (element) {
+                                                              extraAddedUnits
+                                                                  .add(element
+                                                                      .unitName);
 
                                                               // editUnitNameList.add(element.unitName.removeAllWhiteSpace().removeAllWhiteSpace());
                                                               unitTime++;
-                                                              if (element.unitName == unit.last.unitName) {
-                                                                allUnitList = allUnitList + extraAddedUnits;
+                                                              if (element
+                                                                      .unitName ==
+                                                                  unit.last
+                                                                      .unitName) {
+                                                                allUnitList =
+                                                                    allUnitList +
+                                                                        extraAddedUnits;
                                                               }
                                                             })
                                                           : null;
 
-                                                      for (var element in allUnitList) {
-                                                        editUnitNameList.add(element.removeAllWhiteSpace().removeAllWhiteSpace());
+                                                      for (var element
+                                                          in allUnitList) {
+                                                        editUnitNameList.add(element
+                                                            .removeAllWhiteSpace()
+                                                            .removeAllWhiteSpace());
                                                       }
 
                                                       return Expanded(
                                                         child: FormField(
-                                                          builder: (FormFieldState<dynamic> field) {
+                                                          builder:
+                                                              (FormFieldState<
+                                                                      dynamic>
+                                                                  field) {
                                                             return InputDecorator(
-                                                              decoration: InputDecoration(
-                                                                suffixIcon: const Icon(FeatherIcons.plus, color: kTitleColor).onTap(
-                                                                    () => showUnitPopUp(ref: ref, unitNameList: editUnitNameList, addProductsContext: context)),
-                                                                enabledBorder: const OutlineInputBorder(
-                                                                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                  borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                suffixIcon: const Icon(
+                                                                        FeatherIcons
+                                                                            .plus,
+                                                                        color:
+                                                                            kTitleColor)
+                                                                    .onTap(() => showUnitPopUp(
+                                                                        ref:
+                                                                            ref,
+                                                                        unitNameList:
+                                                                            editUnitNameList,
+                                                                        addProductsContext:
+                                                                            context)),
+                                                                enabledBorder:
+                                                                    const OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius.all(
+                                                                          Radius.circular(
+                                                                              8.0)),
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                          color:
+                                                                              kBorderColorTextField,
+                                                                          width:
+                                                                              2),
                                                                 ),
-                                                                contentPadding: const EdgeInsets.only(left: 8.0, top: 8, bottom: 8),
-                                                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                                                labelText: lang.S.of(context).productUnit,
+                                                                contentPadding:
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                        left:
+                                                                            8.0,
+                                                                        top: 8,
+                                                                        bottom:
+                                                                            8),
+                                                                floatingLabelBehavior:
+                                                                    FloatingLabelBehavior
+                                                                        .always,
+                                                                labelText: lang
+                                                                    .S
+                                                                    .of(context)
+                                                                    .productUnit,
                                                               ),
                                                               child: Theme(
                                                                 data: ThemeData(
-                                                                    highlightColor: dropdownItemColor,
-                                                                    focusColor: dropdownItemColor,
-                                                                    hoverColor: dropdownItemColor),
-                                                                child: DropdownButtonHideUnderline(
-                                                                    child: DropdownButton<String>(
-                                                                  onChanged: (String? value) {
-                                                                    setState(() {
-                                                                      selectedUnit = value!;
-                                                                      toast(selectedUnit);
+                                                                    highlightColor:
+                                                                        dropdownItemColor,
+                                                                    focusColor:
+                                                                        dropdownItemColor,
+                                                                    hoverColor:
+                                                                        dropdownItemColor),
+                                                                child:
+                                                                    DropdownButtonHideUnderline(
+                                                                        child: DropdownButton<
+                                                                            String>(
+                                                                  onChanged:
+                                                                      (String?
+                                                                          value) {
+                                                                    setState(
+                                                                        () {
+                                                                      selectedUnit =
+                                                                          value!;
+                                                                      toast(
+                                                                          selectedUnit);
                                                                     });
                                                                   },
-                                                                  value: selectedUnit,
-                                                                  items: allUnitList.map((String items) {
+                                                                  value:
+                                                                      selectedUnit,
+                                                                  items: allUnitList
+                                                                      .map((String
+                                                                          items) {
                                                                     return DropdownMenuItem(
-                                                                      value: items,
-                                                                      child: Text(
+                                                                      value:
+                                                                          items,
+                                                                      child:
+                                                                          Text(
                                                                         items,
-                                                                        style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.normal),
+                                                                        style: kTextStyle.copyWith(
+                                                                            color:
+                                                                                kTitleColor,
+                                                                            fontWeight:
+                                                                                FontWeight.normal),
                                                                       ),
                                                                     );
                                                                   }).toList(),
@@ -1494,11 +2005,13 @@ class _AddProductState extends State<AddProduct> {
                                                       );
                                                     }, error: (e, stack) {
                                                       return Center(
-                                                        child: Text(e.toString()),
+                                                        child:
+                                                            Text(e.toString()),
                                                       );
                                                     }, loading: () {
                                                       return const Center(
-                                                        child: CircularProgressIndicator(),
+                                                        child:
+                                                            CircularProgressIndicator(),
                                                       );
                                                     })
                                                   ],
@@ -1511,34 +2024,71 @@ class _AddProductState extends State<AddProduct> {
                                                     Expanded(
                                                       child: TextFormField(
                                                         onChanged: (value) {
-                                                          productPurchasePrice = value.replaceAll(',', '');
-                                                          var formattedText = myFormat.format(double.tryParse(productPurchasePrice) ?? 0);
-                                                          productPurchasePriceController.value = productPurchasePriceController.value.copyWith(
+                                                          productPurchasePrice =
+                                                              value.replaceAll(
+                                                                  ',', '');
+                                                          var formattedText =
+                                                              myFormat.format(
+                                                                  double.tryParse(
+                                                                          productPurchasePrice) ??
+                                                                      0);
+                                                          productPurchasePriceController
+                                                                  .value =
+                                                              productPurchasePriceController
+                                                                  .value
+                                                                  .copyWith(
                                                             text: formattedText,
-                                                            selection: TextSelection.collapsed(offset: formattedText.length),
+                                                            selection: TextSelection
+                                                                .collapsed(
+                                                                    offset: formattedText
+                                                                        .length),
                                                           );
                                                         },
                                                         validator: (value) {
-                                                          if (productPurchasePrice.isEmptyOrNull) {
+                                                          if (productPurchasePrice
+                                                              .isEmptyOrNull) {
                                                             return 'Product Purchase Price is required.';
-                                                          } else if (double.tryParse(productPurchasePrice) == null) {
+                                                          } else if (double
+                                                                  .tryParse(
+                                                                      productPurchasePrice) ==
+                                                              null) {
                                                             return 'Enter price in number.';
                                                           } else {
                                                             return null;
                                                           }
                                                         },
                                                         onSaved: (value) {
-                                                          productPurchasePriceController.text = value!;
+                                                          productPurchasePriceController
+                                                              .text = value!;
                                                         },
-                                                        controller: productPurchasePriceController,
+                                                        controller:
+                                                            productPurchasePriceController,
                                                         showCursor: true,
-                                                        cursorColor: kTitleColor,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                                          labelText: lang.S.of(context).purchasePrice,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterPurchasePrice,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        cursorColor:
+                                                            kTitleColor,
+                                                        decoration:
+                                                            kInputDecoration
+                                                                .copyWith(
+                                                          errorBorder:
+                                                              const OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                          color:
+                                                                              Colors.red)),
+                                                          labelText: lang.S
+                                                              .of(context)
+                                                              .purchasePrice,
+                                                          labelStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kTitleColor),
+                                                          hintText: lang.S
+                                                              .of(context)
+                                                              .enterPurchasePrice,
+                                                          hintStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kGreyTextColor),
                                                         ),
                                                       ),
                                                     ),
@@ -1546,34 +2096,70 @@ class _AddProductState extends State<AddProduct> {
                                                     Expanded(
                                                       child: TextFormField(
                                                         onChanged: (value) {
-                                                          productSalePrice = value.replaceAll(',', '');
-                                                          var formattedText = myFormat.format(int.parse(productSalePrice));
-                                                          productSalePriceController.value = productSalePriceController.value.copyWith(
+                                                          productSalePrice =
+                                                              value.replaceAll(
+                                                                  ',', '');
+                                                          var formattedText =
+                                                              myFormat.format(
+                                                                  int.parse(
+                                                                      productSalePrice));
+                                                          productSalePriceController
+                                                                  .value =
+                                                              productSalePriceController
+                                                                  .value
+                                                                  .copyWith(
                                                             text: formattedText,
-                                                            selection: TextSelection.collapsed(offset: formattedText.length),
+                                                            selection: TextSelection
+                                                                .collapsed(
+                                                                    offset: formattedText
+                                                                        .length),
                                                           );
                                                         },
                                                         validator: (value) {
-                                                          if (productSalePrice.isEmptyOrNull) {
+                                                          if (productSalePrice
+                                                              .isEmptyOrNull) {
                                                             return 'Product Sale Price is required.';
-                                                          } else if (double.tryParse(productSalePrice) == null) {
+                                                          } else if (double
+                                                                  .tryParse(
+                                                                      productSalePrice) ==
+                                                              null) {
                                                             return 'Enter price in number.';
                                                           } else {
                                                             return null;
                                                           }
                                                         },
                                                         onSaved: (value) {
-                                                          productSalePriceController.text = value!;
+                                                          productSalePriceController
+                                                              .text = value!;
                                                         },
-                                                        controller: productSalePriceController,
+                                                        controller:
+                                                            productSalePriceController,
                                                         showCursor: true,
-                                                        cursorColor: kTitleColor,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                                          labelText: lang.S.of(context).salePrices,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterSalePrice,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        cursorColor:
+                                                            kTitleColor,
+                                                        decoration:
+                                                            kInputDecoration
+                                                                .copyWith(
+                                                          errorBorder:
+                                                              const OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                          color:
+                                                                              Colors.red)),
+                                                          labelText: lang.S
+                                                              .of(context)
+                                                              .salePrices,
+                                                          labelStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kTitleColor),
+                                                          hintText: lang.S
+                                                              .of(context)
+                                                              .enterSalePrice,
+                                                          hintStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kGreyTextColor),
                                                         ),
                                                       ),
                                                     ),
@@ -1594,34 +2180,70 @@ class _AddProductState extends State<AddProduct> {
                                                         //   }
                                                         // },
                                                         validator: (value) {
-                                                          if (productDealerPrice.isEmptyOrNull) {
+                                                          if (productDealerPrice
+                                                              .isEmptyOrNull) {
                                                             return 'Product Sale Price is required.';
-                                                          } else if (double.tryParse(productDealerPrice) == null) {
+                                                          } else if (double
+                                                                  .tryParse(
+                                                                      productDealerPrice) ==
+                                                              null) {
                                                             return 'Enter price in number.';
                                                           } else {
                                                             return null;
                                                           }
                                                         },
                                                         onSaved: (value) {
-                                                          productDealerPriceController.text = value!;
+                                                          productDealerPriceController
+                                                              .text = value!;
                                                         },
                                                         onChanged: (value) {
-                                                          productDealerPrice = value.replaceAll(',', '');
-                                                          var formattedText = myFormat.format(int.parse(productDealerPrice));
-                                                          productDealerPriceController.value = productDealerPriceController.value.copyWith(
+                                                          productDealerPrice =
+                                                              value.replaceAll(
+                                                                  ',', '');
+                                                          var formattedText =
+                                                              myFormat.format(
+                                                                  int.parse(
+                                                                      productDealerPrice));
+                                                          productDealerPriceController
+                                                                  .value =
+                                                              productDealerPriceController
+                                                                  .value
+                                                                  .copyWith(
                                                             text: formattedText,
-                                                            selection: TextSelection.collapsed(offset: formattedText.length),
+                                                            selection: TextSelection
+                                                                .collapsed(
+                                                                    offset: formattedText
+                                                                        .length),
                                                           );
                                                         },
-                                                        controller: productDealerPriceController,
+                                                        controller:
+                                                            productDealerPriceController,
                                                         showCursor: true,
-                                                        cursorColor: kTitleColor,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                                          labelText: lang.S.of(context).dealerPrice,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterDealePrice,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        cursorColor:
+                                                            kTitleColor,
+                                                        decoration:
+                                                            kInputDecoration
+                                                                .copyWith(
+                                                          errorBorder:
+                                                              const OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                          color:
+                                                                              Colors.red)),
+                                                          labelText: lang.S
+                                                              .of(context)
+                                                              .dealerPrice,
+                                                          labelStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kTitleColor),
+                                                          hintText: lang.S
+                                                              .of(context)
+                                                              .enterDealePrice,
+                                                          hintStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kGreyTextColor),
                                                         ),
                                                       ),
                                                     ),
@@ -1636,34 +2258,70 @@ class _AddProductState extends State<AddProduct> {
                                                         //   }
                                                         // },
                                                         validator: (value) {
-                                                          if (productWholeSalePrice.isEmptyOrNull) {
+                                                          if (productWholeSalePrice
+                                                              .isEmptyOrNull) {
                                                             return 'Product Sale Price is required.';
-                                                          } else if (double.tryParse(productWholeSalePrice) == null) {
+                                                          } else if (double
+                                                                  .tryParse(
+                                                                      productWholeSalePrice) ==
+                                                              null) {
                                                             return 'Enter price in number.';
                                                           } else {
                                                             return null;
                                                           }
                                                         },
                                                         onSaved: (value) {
-                                                          productWholesalePriceController.text = value!;
+                                                          productWholesalePriceController
+                                                              .text = value!;
                                                         },
                                                         onChanged: (value) {
-                                                          productWholeSalePrice = value.replaceAll(',', '');
-                                                          var formattedText = myFormat.format(int.parse(productWholeSalePrice));
-                                                          productWholesalePriceController.value = productWholesalePriceController.value.copyWith(
+                                                          productWholeSalePrice =
+                                                              value.replaceAll(
+                                                                  ',', '');
+                                                          var formattedText =
+                                                              myFormat.format(
+                                                                  int.parse(
+                                                                      productWholeSalePrice));
+                                                          productWholesalePriceController
+                                                                  .value =
+                                                              productWholesalePriceController
+                                                                  .value
+                                                                  .copyWith(
                                                             text: formattedText,
-                                                            selection: TextSelection.collapsed(offset: formattedText.length),
+                                                            selection: TextSelection
+                                                                .collapsed(
+                                                                    offset: formattedText
+                                                                        .length),
                                                           );
                                                         },
-                                                        controller: productWholesalePriceController,
+                                                        controller:
+                                                            productWholesalePriceController,
                                                         showCursor: true,
-                                                        cursorColor: kTitleColor,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                                          labelText: lang.S.of(context).wholeSaleprice,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterPrice,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        cursorColor:
+                                                            kTitleColor,
+                                                        decoration:
+                                                            kInputDecoration
+                                                                .copyWith(
+                                                          errorBorder:
+                                                              const OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                          color:
+                                                                              Colors.red)),
+                                                          labelText: lang.S
+                                                              .of(context)
+                                                              .wholeSaleprice,
+                                                          labelStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kTitleColor),
+                                                          hintText: lang.S
+                                                              .of(context)
+                                                              .enterPrice,
+                                                          hintStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kGreyTextColor),
                                                         ),
                                                       ),
                                                     ),
@@ -1680,43 +2338,79 @@ class _AddProductState extends State<AddProduct> {
                                                           return null;
                                                         },
                                                         onSaved: (value) {
-                                                          productManufacturerController.text = value!;
+                                                          productManufacturerController
+                                                              .text = value!;
                                                         },
-                                                        controller: productManufacturerController,
+                                                        controller:
+                                                            productManufacturerController,
                                                         showCursor: true,
-                                                        cursorColor: kTitleColor,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          labelText: lang.S.of(context).manufacturer,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterManufacturerName,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        cursorColor:
+                                                            kTitleColor,
+                                                        decoration:
+                                                            kInputDecoration
+                                                                .copyWith(
+                                                          labelText: lang.S
+                                                              .of(context)
+                                                              .manufacturer,
+                                                          labelStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kTitleColor),
+                                                          hintText: lang.S
+                                                              .of(context)
+                                                              .enterManufacturerName,
+                                                          hintStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kGreyTextColor),
                                                         ),
                                                       ),
                                                     ),
                                                     const SizedBox(width: 20.0),
                                                     wareHouseList.when(
                                                       data: (warehouse) {
-                                                        List<WareHouseModel> wareHouseList = warehouse;
+                                                        List<WareHouseModel>
+                                                            wareHouseList =
+                                                            warehouse;
                                                         // List<WareHouseModel> wareHouseList = [];
                                                         return Expanded(
                                                           child: FormField(
-                                                            builder: (FormFieldState<dynamic> field) {
+                                                            builder:
+                                                                (FormFieldState<
+                                                                        dynamic>
+                                                                    field) {
                                                               return InputDecorator(
-                                                                decoration: InputDecoration(
-                                                                    enabledBorder: const OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                      borderSide: BorderSide(color: kBorderColorTextField, width: 2),
-                                                                    ),
-                                                                    contentPadding: const EdgeInsets.all(8.0),
-                                                                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                                                                    labelText: 'Warehouse'),
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                        enabledBorder:
+                                                                            const OutlineInputBorder(
+                                                                          borderRadius:
+                                                                              BorderRadius.all(Radius.circular(8.0)),
+                                                                          borderSide: BorderSide(
+                                                                              color: kBorderColorTextField,
+                                                                              width: 2),
+                                                                        ),
+                                                                        contentPadding: const EdgeInsets
+                                                                            .all(
+                                                                            8.0),
+                                                                        floatingLabelBehavior:
+                                                                            FloatingLabelBehavior
+                                                                                .always,
+                                                                        labelText:
+                                                                            'Warehouse'),
                                                                 child: Theme(
                                                                   data: ThemeData(
-                                                                      highlightColor: dropdownItemColor,
-                                                                      focusColor: dropdownItemColor,
-                                                                      hoverColor: dropdownItemColor),
-                                                                  child: DropdownButtonHideUnderline(
-                                                                    child: getName(list: warehouse ?? []),
+                                                                      highlightColor:
+                                                                          dropdownItemColor,
+                                                                      focusColor:
+                                                                          dropdownItemColor,
+                                                                      hoverColor:
+                                                                          dropdownItemColor),
+                                                                  child:
+                                                                      DropdownButtonHideUnderline(
+                                                                    child: getName(
+                                                                        list: warehouse ??
+                                                                            []),
                                                                   ),
                                                                 ),
                                                               );
@@ -1733,7 +2427,8 @@ class _AddProductState extends State<AddProduct> {
                                                       },
                                                       loading: () {
                                                         return const Center(
-                                                          child: CircularProgressIndicator(),
+                                                          child:
+                                                              CircularProgressIndicator(),
                                                         );
                                                       },
                                                     ),
@@ -1746,35 +2441,65 @@ class _AddProductState extends State<AddProduct> {
                                                   children: [
                                                     Expanded(
                                                         child: AppTextField(
-                                                      textFieldType: TextFieldType.NAME,
+                                                      textFieldType:
+                                                          TextFieldType.NAME,
                                                       readOnly: true,
                                                       validator: (value) {
                                                         return null;
                                                       },
-                                                      controller: manufactureDateTextEditingController,
-                                                      decoration: kInputDecoration.copyWith(
-                                                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                                                        labelText: "Manufacture Date",
+                                                      controller:
+                                                          manufactureDateTextEditingController,
+                                                      decoration:
+                                                          kInputDecoration
+                                                              .copyWith(
+                                                        floatingLabelBehavior:
+                                                            FloatingLabelBehavior
+                                                                .always,
+                                                        labelText:
+                                                            "Manufacture Date",
                                                         hintText: 'Enter Date',
-                                                        labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                        hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                        border: const OutlineInputBorder(),
+                                                        labelStyle:
+                                                            kTextStyle.copyWith(
+                                                                color:
+                                                                    kTitleColor),
+                                                        hintStyle:
+                                                            kTextStyle.copyWith(
+                                                                color:
+                                                                    kGreyTextColor),
+                                                        border:
+                                                            const OutlineInputBorder(),
                                                         suffixIcon: IconButton(
                                                           onPressed: () async {
-                                                            final DateTime? picked = await showDatePicker(
+                                                            final DateTime?
+                                                                picked =
+                                                                await showDatePicker(
                                                               // initialDate: DateTime.now(),
-                                                              firstDate: DateTime(2015, 8),
-                                                              lastDate: DateTime(2101),
+                                                              firstDate:
+                                                                  DateTime(
+                                                                      2015, 8),
+                                                              lastDate:
+                                                                  DateTime(
+                                                                      2101),
                                                               context: context,
                                                             );
                                                             setState(() {
                                                               picked != null
-                                                                  ? manufactureDateTextEditingController.text = DateFormat.yMMMd().format(picked)
+                                                                  ? manufactureDateTextEditingController
+                                                                      .text = DateFormat
+                                                                          .yMMMd()
+                                                                      .format(
+                                                                          picked)
                                                                   : null;
-                                                              picked != null ? manufactureDate = picked.toString() : null;
+                                                              picked != null
+                                                                  ? manufactureDate =
+                                                                      picked
+                                                                          .toString()
+                                                                  : null;
                                                             });
                                                           },
-                                                          icon: const Icon(FeatherIcons.calendar),
+                                                          icon: const Icon(
+                                                              FeatherIcons
+                                                                  .calendar),
                                                         ),
                                                       ),
                                                     )),
@@ -1783,35 +2508,70 @@ class _AddProductState extends State<AddProduct> {
                                                     ),
                                                     Expanded(
                                                       child: AppTextField(
-                                                        textFieldType: TextFieldType.NAME,
+                                                        textFieldType:
+                                                            TextFieldType.NAME,
                                                         readOnly: true,
                                                         validator: (value) {
                                                           return null;
                                                         },
-                                                        controller: expireDateTextEditingController,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                                                          labelText: 'Expire Date',
-                                                          hintText: 'Enter Date',
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                          border: const OutlineInputBorder(),
-                                                          suffixIcon: IconButton(
-                                                            onPressed: () async {
-                                                              final DateTime? picked = await showDatePicker(
+                                                        controller:
+                                                            expireDateTextEditingController,
+                                                        decoration:
+                                                            kInputDecoration
+                                                                .copyWith(
+                                                          floatingLabelBehavior:
+                                                              FloatingLabelBehavior
+                                                                  .always,
+                                                          labelText:
+                                                              'Expire Date',
+                                                          hintText:
+                                                              'Enter Date',
+                                                          labelStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kTitleColor),
+                                                          hintStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kGreyTextColor),
+                                                          border:
+                                                              const OutlineInputBorder(),
+                                                          suffixIcon:
+                                                              IconButton(
+                                                            onPressed:
+                                                                () async {
+                                                              final DateTime?
+                                                                  picked =
+                                                                  await showDatePicker(
                                                                 // initialDate: DateTime.now(),
-                                                                firstDate: DateTime(2015, 8),
-                                                                lastDate: DateTime(2101),
-                                                                context: context,
+                                                                firstDate:
+                                                                    DateTime(
+                                                                        2015,
+                                                                        8),
+                                                                lastDate:
+                                                                    DateTime(
+                                                                        2101),
+                                                                context:
+                                                                    context,
                                                               );
                                                               setState(() {
                                                                 picked != null
-                                                                    ? expireDateTextEditingController.text = DateFormat.yMMMd().format(picked)
+                                                                    ? expireDateTextEditingController
+                                                                        .text = DateFormat
+                                                                            .yMMMd()
+                                                                        .format(
+                                                                            picked)
                                                                     : null;
-                                                                picked != null ? expireDate = picked.toString() : null;
+                                                                picked != null
+                                                                    ? expireDate =
+                                                                        picked
+                                                                            .toString()
+                                                                    : null;
                                                               });
                                                             },
-                                                            icon: const Icon(FeatherIcons.calendar),
+                                                            icon: const Icon(
+                                                                FeatherIcons
+                                                                    .calendar),
                                                           ),
                                                         ),
                                                       ),
@@ -1822,32 +2582,49 @@ class _AddProductState extends State<AddProduct> {
 
                                                 ///_______Lower_stock___________________________
                                                 TextFormField(
-                                                  initialValue: lowerStockAlert.toString(),
+                                                  initialValue: lowerStockAlert
+                                                      .toString(),
                                                   onSaved: (value) {
-                                                    lowerStockAlert = int.tryParse(value ?? '') ?? 5;
+                                                    lowerStockAlert =
+                                                        int.tryParse(
+                                                                value ?? '') ??
+                                                            5;
                                                   },
-                                                  decoration: kInputDecoration.copyWith(
-                                                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                                                    labelText: 'Low Stock Alert',
-                                                    hintText: 'Enter Low Stock Alert Quantity',
-                                                    border: const OutlineInputBorder(),
+                                                  decoration:
+                                                      kInputDecoration.copyWith(
+                                                    floatingLabelBehavior:
+                                                        FloatingLabelBehavior
+                                                            .always,
+                                                    labelText:
+                                                        'Low Stock Alert',
+                                                    hintText:
+                                                        'Enter Low Stock Alert Quantity',
+                                                    border:
+                                                        const OutlineInputBorder(),
                                                   ),
-                                                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                                  inputFormatters: [
+                                                    FilteringTextInputFormatter
+                                                        .digitsOnly
+                                                  ],
                                                 ),
                                                 const SizedBox(height: 20.0),
 
                                                 ///_________product_serial____________________________________________
                                                 Row(
                                                   children: [
-                                                    Text(lang.S.of(context).enterSerialNumber),
+                                                    Text(lang.S
+                                                        .of(context)
+                                                        .enterSerialNumber),
                                                     const SizedBox(
                                                       width: 30,
                                                     ),
                                                     CupertinoSwitch(
-                                                        value: isSerialNumberTaken,
+                                                        value:
+                                                            isSerialNumberTaken,
                                                         onChanged: (value) {
                                                           setState(() {
-                                                            isSerialNumberTaken = value;
+                                                            isSerialNumberTaken =
+                                                                value;
                                                           });
                                                         })
                                                   ],
@@ -1856,8 +2633,10 @@ class _AddProductState extends State<AddProduct> {
 
                                                 ///____________serial_add_system_____________________________________________
                                                 Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisSize: MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
                                                   children: [
                                                     ///________serial_add_textField______________________________________________
                                                     Expanded(
@@ -1865,25 +2644,48 @@ class _AddProductState extends State<AddProduct> {
                                                         validator: (value) {
                                                           return null;
                                                         },
-                                                        controller: productSerialNumberController,
+                                                        controller:
+                                                            productSerialNumberController,
                                                         showCursor: true,
-                                                        cursorColor: kTitleColor,
-                                                        onFieldSubmitted: (value) {
-                                                          if (isSerialNumberUnique(allList: productSerialNumberList, newSerial: value)) {
+                                                        cursorColor:
+                                                            kTitleColor,
+                                                        onFieldSubmitted:
+                                                            (value) {
+                                                          if (isSerialNumberUnique(
+                                                              allList:
+                                                                  productSerialNumberList,
+                                                              newSerial:
+                                                                  value)) {
                                                             setState(() {
-                                                              productSerialNumberList.add(value);
+                                                              productSerialNumberList
+                                                                  .add(value);
                                                             });
-                                                            productSerialNumberController.clear();
+                                                            productSerialNumberController
+                                                                .clear();
                                                           } else {
-                                                            EasyLoading.showError('Serial number already added!');
+                                                            EasyLoading.showError(
+                                                                'Serial number already added!');
                                                           }
                                                         },
-                                                        textFieldType: TextFieldType.NAME,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          labelText: lang.S.of(context).serialNumber,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterSerialNumber,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        textFieldType:
+                                                            TextFieldType.NAME,
+                                                        decoration:
+                                                            kInputDecoration
+                                                                .copyWith(
+                                                          labelText: lang.S
+                                                              .of(context)
+                                                              .serialNumber,
+                                                          labelStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kTitleColor),
+                                                          hintText: lang.S
+                                                              .of(context)
+                                                              .enterSerialNumber,
+                                                          hintStyle: kTextStyle
+                                                              .copyWith(
+                                                                  color:
+                                                                      kGreyTextColor),
                                                         ),
                                                       ),
                                                     ),
@@ -1893,23 +2695,42 @@ class _AddProductState extends State<AddProduct> {
                                                     GestureDetector(
                                                       onTap: () {
                                                         if (isSerialNumberUnique(
-                                                            allList: productSerialNumberList, newSerial: productSerialNumberController.text)) {
+                                                            allList:
+                                                                productSerialNumberList,
+                                                            newSerial:
+                                                                productSerialNumberController
+                                                                    .text)) {
                                                           setState(() {
-                                                            productSerialNumberList.add(productSerialNumberController.text);
+                                                            productSerialNumberList
+                                                                .add(
+                                                                    productSerialNumberController
+                                                                        .text);
                                                           });
-                                                          productSerialNumberController.clear();
+                                                          productSerialNumberController
+                                                              .clear();
                                                         } else {
-                                                          EasyLoading.showError('Serial number already added!');
+                                                          EasyLoading.showError(
+                                                              'Serial number already added!');
                                                         }
                                                       },
                                                       child: Container(
                                                         width: 70,
                                                         height: 53,
-                                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: kMainColor),
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8),
+                                                            color: kMainColor),
                                                         child: Center(
                                                           child: Text(
-                                                            lang.S.of(context).add,
-                                                            style: const TextStyle(color: Colors.white),
+                                                            lang.S
+                                                                .of(context)
+                                                                .add,
+                                                            style:
+                                                                const TextStyle(
+                                                                    color: Colors
+                                                                        .white),
                                                           ),
                                                         ),
                                                       ),
@@ -1922,49 +2743,79 @@ class _AddProductState extends State<AddProduct> {
                                                       width: 400,
                                                       height: 150,
                                                       decoration: BoxDecoration(
-                                                        border: Border.all(width: 1, color: Colors.grey),
-                                                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                                        border: Border.all(
+                                                            width: 1,
+                                                            color: Colors.grey),
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                .all(
+                                                                Radius.circular(
+                                                                    8)),
                                                       ),
                                                       child: GridView.builder(
                                                           shrinkWrap: true,
-                                                          itemCount: productSerialNumberList.length,
-                                                          itemBuilder: (BuildContext context, int index) {
-                                                            if (productSerialNumberList.isNotEmpty) {
+                                                          itemCount:
+                                                              productSerialNumberList
+                                                                  .length,
+                                                          itemBuilder:
+                                                              (BuildContext
+                                                                      context,
+                                                                  int index) {
+                                                            if (productSerialNumberList
+                                                                .isNotEmpty) {
                                                               return Padding(
-                                                                padding: const EdgeInsets.all(5.0),
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        5.0),
                                                                 child: Row(
                                                                   children: [
                                                                     SizedBox(
-                                                                      width: 170,
-                                                                      child: Text(
-                                                                        productSerialNumberList[index],
-                                                                        maxLines: 1,
-                                                                        overflow: TextOverflow.ellipsis,
+                                                                      width:
+                                                                          170,
+                                                                      child:
+                                                                          Text(
+                                                                        productSerialNumberList[
+                                                                            index],
+                                                                        maxLines:
+                                                                            1,
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
                                                                       ),
                                                                     ),
                                                                     GestureDetector(
-                                                                      onTap: () {
-                                                                        setState(() {
-                                                                          productSerialNumberList.removeAt(index);
+                                                                      onTap:
+                                                                          () {
+                                                                        setState(
+                                                                            () {
+                                                                          productSerialNumberList
+                                                                              .removeAt(index);
                                                                         });
                                                                       },
-                                                                      child: const Icon(
-                                                                        Icons.cancel,
-                                                                        color: Colors.red,
-                                                                        size: 15,
+                                                                      child:
+                                                                          const Icon(
+                                                                        Icons
+                                                                            .cancel,
+                                                                        color: Colors
+                                                                            .red,
+                                                                        size:
+                                                                            15,
                                                                       ),
                                                                     ),
                                                                   ],
                                                                 ),
                                                               );
                                                             } else {
-                                                              return const Text('No Serial Number Found');
+                                                              return const Text(
+                                                                  'No Serial Number Found');
                                                             }
                                                           },
-                                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                          gridDelegate:
+                                                              const SliverGridDelegateWithFixedCrossAxisCount(
                                                             crossAxisCount: 2,
                                                             childAspectRatio: 6,
-                                                            crossAxisSpacing: .5,
+                                                            crossAxisSpacing:
+                                                                .5,
                                                             mainAxisSpacing: .5,
                                                             // mainAxisExtent: 1,
                                                           )),
@@ -1976,83 +2827,150 @@ class _AddProductState extends State<AddProduct> {
                                                 const SizedBox(height: 20.0),
                                                 Center(
                                                   child: SizedBox(
-                                                    width: MediaQuery.of(context).size.width < 1080 ? 1080 * .30 : MediaQuery.of(context).size.width * .30,
-                                                    child: ButtonGlobalWithoutIcon(
-                                                      buttontext: lang.S.of(context).saveAndPublished,
-                                                      buttonDecoration: kButtonDecoration.copyWith(color: kMainColor),
-                                                      onPressed: saleButtonClicked
-                                                          ? () {}
-                                                          : () async {
-                                                        final availableSubscription = await Subscription.availableSubscription(context: context);
-                                                        final availableLimit = await Subscription.availableLimit(itemType: 'products', context: context);
-                                                        if (!availableSubscription) {
-                                                          return  EasyLoading.showError("Please update your subscription. Subscription date is expired.");
-                                                        } else if (!availableLimit) {
-                                                          return  EasyLoading.showError("Please Update Your Subscription. Your products limit is expired.");
-                                                        }
-                                                              if (!isDemo) {
-                                                                if (await checkUserRolePermission(type: 'product')) {
-                                                                  if (validateAndSave() && selectedCategories != null && selectedCategories!.isNotEmpty) {
-                                                                    try {
-                                                                      setState(() {
-                                                                        saleButtonClicked = true;
-                                                                      });
-                                                                      EasyLoading.show(status: 'Loading...', dismissOnTap: false);
-                                                                      final DatabaseReference productInformationRef =
-                                                                          FirebaseDatabase.instance.ref().child(await getUserID()).child('Products');
-                                                                      ProductModel productModel = ProductModel(
-                                                                        productNameController.text,
-                                                                        selectedCategories ?? '',
-                                                                        sizeController.text,
-                                                                        colorController.text,
-                                                                        weightController.text,
-                                                                        capacityController.text,
-                                                                        typeController.text,
-                                                                        warrantyController.text == '' ? '' : '${warrantyController.text} $selectedTime',
-                                                                        selectedBrand ?? '',
-                                                                        productCodeController.text,
-                                                                        productQuantityController.text,
-                                                                        selectedUnit ?? '',
-                                                                        productSalePrice,
-                                                                        productPurchasePrice,
-                                                                        productDiscountPriceController.text,
-                                                                        productWholeSalePrice,
-                                                                        productDealerPrice,
-                                                                        productManufacturerController.text,
-                                                                        selectedWareHouse!.warehouseName,
-                                                                        selectedWareHouse!.id,
-                                                                        productPicture,
-                                                                        productSerialNumberList,
-                                                                        expiringDate: expireDate,
-                                                                        lowerStockAlert: lowerStockAlert,
-                                                                        manufacturingDate: manufactureDate,
-                                                                      );
-                                                                      await productInformationRef.push().set(productModel.toJson());
+                                                    width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width <
+                                                            1080
+                                                        ? 1080 * .30
+                                                        : MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            .30,
+                                                    child:
+                                                        ButtonGlobalWithoutIcon(
+                                                      buttontext: lang.S
+                                                          .of(context)
+                                                          .saveAndPublished,
+                                                      buttonDecoration:
+                                                          kButtonDecoration
+                                                              .copyWith(
+                                                                  color:
+                                                                      kMainColor),
+                                                      onPressed:
+                                                          saleButtonClicked
+                                                              ? () {}
+                                                              : () async {
+                                                                  final availableSubscription =
+                                                                      await Subscription.availableSubscription(
+                                                                          context:
+                                                                              context);
+                                                                  final availableLimit = await Subscription.availableLimit(
+                                                                      itemType:
+                                                                          'products',
+                                                                      context:
+                                                                          context);
+                                                                  if (!availableSubscription) {
+                                                                    return EasyLoading
+                                                                        .showError(
+                                                                            "Please update your subscription. Subscription date is expired.");
+                                                                  } else if (!availableLimit) {
+                                                                    return EasyLoading
+                                                                        .showError(
+                                                                            "Please Update Your Subscription. Your products limit is expired.");
+                                                                  }
+                                                                  if (!isDemo) {
+                                                                    if (await checkUserRolePermission(
+                                                                        type:
+                                                                            'product')) {
+                                                                      if (validateAndSave() &&
+                                                                          selectedCategories !=
+                                                                              null &&
+                                                                          selectedCategories!
+                                                                              .isNotEmpty) {
+                                                                        try {
+                                                                          setState(
+                                                                              () {
+                                                                            saleButtonClicked =
+                                                                                true;
+                                                                          });
+                                                                          EasyLoading.show(
+                                                                              status: 'Loading...',
+                                                                              dismissOnTap: false);
+                                                                          final DatabaseReference productInformationRef = FirebaseDatabase
+                                                                              .instance
+                                                                              .ref()
+                                                                              .child(await getUserID())
+                                                                              .child('Products');
+                                                                          ProductModel
+                                                                              productModel =
+                                                                              ProductModel(
+                                                                            productNameController.text,
+                                                                            selectedCategories ??
+                                                                                '',
+                                                                            sizeController.text,
+                                                                            colorController.text,
+                                                                            weightController.text,
+                                                                            capacityController.text,
+                                                                            typeController.text,
+                                                                            warrantyController.text == ''
+                                                                                ? ''
+                                                                                : '${warrantyController.text} $selectedTime',
+                                                                            selectedBrand ??
+                                                                                '',
+                                                                            productCodeController.text,
+                                                                            productQuantityController.text,
+                                                                            selectedUnit ??
+                                                                                '',
+                                                                            productSalePrice,
+                                                                            productPurchasePrice,
+                                                                            productDiscountPriceController.text,
+                                                                            productWholeSalePrice,
+                                                                            productDealerPrice,
+                                                                            productManufacturerController.text,
+                                                                            selectedWareHouse!.warehouseName,
+                                                                            selectedWareHouse!.id,
+                                                                            productPicture,
+                                                                            productSerialNumberList,
+                                                                            expiringDate:
+                                                                                expireDate,
+                                                                            lowerStockAlert:
+                                                                                lowerStockAlert,
+                                                                            manufacturingDate:
+                                                                                manufactureDate,
+                                                                          );
+                                                                          await productInformationRef
+                                                                              .push()
+                                                                              .set(productModel.toJson());
 
-                                                                      Subscription.decreaseSubscriptionLimits(itemType: 'products', context: context);
+                                                                          Subscription.decreaseSubscriptionLimits(
+                                                                              itemType: 'products',
+                                                                              context: context);
 
-                                                                      EasyLoading.showSuccess('Added Successfully',
-                                                                          duration: const Duration(milliseconds: 500));
-                                                                      ref.refresh(productProvider);
-                                                                      Future.delayed(const Duration(milliseconds: 100), () {
-                                                                        Navigator.pop(context);
-                                                                      });
-                                                                    } catch (e) {
-                                                                      setState(() {
-                                                                        saleButtonClicked = false;
-                                                                      });
-                                                                      EasyLoading.dismiss();
-                                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                                                                          EasyLoading.showSuccess(
+                                                                              'Added Successfully',
+                                                                              duration: const Duration(milliseconds: 500));
+                                                                          ref.refresh(
+                                                                              productProvider);
+                                                                          Future.delayed(
+                                                                              const Duration(milliseconds: 100),
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          });
+                                                                        } catch (e) {
+                                                                          setState(
+                                                                              () {
+                                                                            saleButtonClicked =
+                                                                                false;
+                                                                          });
+                                                                          EasyLoading
+                                                                              .dismiss();
+                                                                          ScaffoldMessenger.of(context)
+                                                                              .showSnackBar(SnackBar(content: Text(e.toString())));
+                                                                        }
+                                                                      } else {
+                                                                        EasyLoading.showInfo(
+                                                                            'Fill all required field');
+                                                                      }
                                                                     }
                                                                   } else {
-                                                                    EasyLoading.showInfo('Fill all required field');
+                                                                    EasyLoading
+                                                                        .showInfo(
+                                                                            demoText);
                                                                   }
-                                                                }
-                                                              } else {
-                                                                EasyLoading.showInfo(demoText);
-                                                              }
-                                                            },
-                                                      buttonTextColor: Colors.white,
+                                                                },
+                                                      buttonTextColor:
+                                                          Colors.white,
                                                     ),
                                                   ),
                                                 ),
@@ -2065,75 +2983,75 @@ class _AddProductState extends State<AddProduct> {
                                     ),
 
                                     ///__________Image_and_Excel_____________________________________________________
-                                    Expanded(
-                                      flex: 2,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Column(
-                                          children: [
-                                            ///____Image__________________
-                                            Container(
-                                              padding: const EdgeInsets.all(20.0),
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                children: [
-                                                  const SizedBox(height: 10.0),
-                                                  DottedBorderWidget(
-                                                    padding: const EdgeInsets.all(6),
-                                                    color: kLitGreyColor,
-                                                    child: ClipRRect(
-                                                      borderRadius: const BorderRadius.all(Radius.circular(12)),
-                                                      child: Container(
-                                                        width: context.width(),
-                                                        padding: const EdgeInsets.all(10.0),
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(20.0),
-                                                        ),
-                                                        child: Column(
-                                                          children: [
-                                                            Column(
-                                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                              children: [
-                                                                Icon(MdiIcons.cloudUpload, size: 50.0, color: kLitGreyColor).onTap(() => uploadFile()),
-                                                              ],
-                                                            ),
-                                                            const SizedBox(height: 5.0),
-                                                            RichText(
-                                                                text: TextSpan(
-                                                                    text: lang.S.of(context).uploadAImage,
-                                                                    style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
-                                                                    children: [
-                                                                  TextSpan(
-                                                                      text: lang.S.of(context).orDragAndDropPng,
-                                                                      style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
-                                                                ]))
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  image != null
-                                                      ? Image.memory(
-                                                          image!,
-                                                          width: 150,
-                                                          height: 150,
-                                                        )
-                                                      : Image.network(
-                                                          productPicture,
-                                                          width: 150,
-                                                          height: 150,
-                                                        ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    // Expanded(
+                                    //   flex: 2,
+                                    //   child: Padding(
+                                    //     padding: const EdgeInsets.all(10.0),
+                                    //     child: Column(
+                                    //       children: [
+                                    //         ///____Image__________________
+                                    //         Container(
+                                    //           padding: const EdgeInsets.all(20.0),
+                                    //           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+                                    //           child: Column(
+                                    //             crossAxisAlignment: CrossAxisAlignment.center,
+                                    //             children: [
+                                    //               const SizedBox(height: 10.0),
+                                    //               DottedBorderWidget(
+                                    //                 padding: const EdgeInsets.all(6),
+                                    //                 color: kLitGreyColor,
+                                    //                 child: ClipRRect(
+                                    //                   borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                    //                   child: Container(
+                                    //                     width: context.width(),
+                                    //                     padding: const EdgeInsets.all(10.0),
+                                    //                     decoration: BoxDecoration(
+                                    //                       borderRadius: BorderRadius.circular(20.0),
+                                    //                     ),
+                                    //                     child: Column(
+                                    //                       children: [
+                                    //                         Column(
+                                    //                           crossAxisAlignment: CrossAxisAlignment.center,
+                                    //                           children: [
+                                    //                             Icon(MdiIcons.cloudUpload, size: 50.0, color: kLitGreyColor).onTap(() => uploadFile()),
+                                    //                           ],
+                                    //                         ),
+                                    //                         const SizedBox(height: 5.0),
+                                    //                         RichText(
+                                    //                             text: TextSpan(
+                                    //                                 text: lang.S.of(context).uploadAImage,
+                                    //                                 style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
+                                    //                                 children: [
+                                    //                               TextSpan(
+                                    //                                   text: lang.S.of(context).orDragAndDropPng,
+                                    //                                   style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
+                                    //                             ]))
+                                    //                       ],
+                                    //                     ),
+                                    //                   ),
+                                    //                 ),
+                                    //               ),
+                                    //               const SizedBox(
+                                    //                 height: 10,
+                                    //               ),
+                                    //               image != null
+                                    //                   ? Image.memory(
+                                    //                       image!,
+                                    //                       width: 150,
+                                    //                       height: 150,
+                                    //                     )
+                                    //                   : Image.network(
+                                    //                       productPicture,
+                                    //                       width: 150,
+                                    //                       height: 150,
+                                    //                     ),
+                                    //             ],
+                                    //           ),
+                                    //         ),
+                                    //       ],
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ],
@@ -2154,9 +3072,11 @@ class _AddProductState extends State<AddProduct> {
     );
   }
 
-  bool isSerialNumberUnique({required List<String> allList, required String newSerial}) {
+  bool isSerialNumberUnique(
+      {required List<String> allList, required String newSerial}) {
     for (var element in allList) {
-      if (element.toLowerCase().removeAllWhiteSpace() == newSerial.toLowerCase().removeAllWhiteSpace()) {
+      if (element.toLowerCase().removeAllWhiteSpace() ==
+          newSerial.toLowerCase().removeAllWhiteSpace()) {
         return false;
       }
     }

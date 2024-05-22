@@ -19,6 +19,7 @@ import 'package:salespro_admin/generated/l10n.dart' as lang;
 import '../../Provider/product_provider.dart';
 import '../../const.dart';
 import '../../subscription.dart';
+import '../WareHouse/warehouse_model.dart';
 import '../Widgets/Constant Data/constant.dart';
 import '../Widgets/Constant Data/export_button.dart';
 import '../Widgets/Footer/footer.dart';
@@ -47,7 +48,10 @@ class _ProductState extends State<Product> {
 
   String isSelected = 'Product List';
 
-  void productStockEditPopUp({required ProductModel product, required BuildContext popUp, required WidgetRef pref}) {
+  void productStockEditPopUp(
+      {required ProductModel product,
+      required BuildContext popUp,
+      required WidgetRef pref}) {
     final ref = FirebaseDatabase.instance.ref(constUserId).child('Products');
     String productKey = '';
     ref.keepSynced(true);
@@ -62,10 +66,17 @@ class _ProductState extends State<Product> {
     });
 
     TextEditingController stockController = TextEditingController(text: '0');
-    TextEditingController saleController = TextEditingController(text: myFormat.format(double.tryParse(product.productSalePrice) ?? 0));
-    TextEditingController purchaseController = TextEditingController(text: myFormat.format(double.tryParse(product.productPurchasePrice) ?? 0));
-    TextEditingController wholeSeller = TextEditingController(text: myFormat.format(double.tryParse(product.productWholeSalePrice) ?? 0));
-    TextEditingController dealer = TextEditingController(text: myFormat.format(double.tryParse(product.productDealerPrice) ?? 0));
+    TextEditingController saleController = TextEditingController(
+        text: myFormat.format(double.tryParse(product.productSalePrice) ?? 0));
+    TextEditingController purchaseController = TextEditingController(
+        text: myFormat
+            .format(double.tryParse(product.productPurchasePrice) ?? 0));
+    TextEditingController wholeSeller = TextEditingController(
+        text: myFormat
+            .format(double.tryParse(product.productWholeSalePrice) ?? 0));
+    TextEditingController dealer = TextEditingController(
+        text:
+            myFormat.format(double.tryParse(product.productDealerPrice) ?? 0));
 
     String stock = '0';
     String productSalePrice = product.productSalePrice;
@@ -104,16 +115,22 @@ class _ProductState extends State<Product> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+                          padding: const EdgeInsets.only(
+                              top: 10.0, left: 10.0, right: 10.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
                                 "${product.productName} (${product.productStock})",
-                                style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, fontSize: 20.0),
+                                style: kTextStyle.copyWith(
+                                    color: kTitleColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0),
                               ),
                               const Spacer(),
-                              const Icon(FeatherIcons.x, color: kTitleColor, size: 25.0).onTap(() => {finish(context)})
+                              const Icon(FeatherIcons.x,
+                                      color: kTitleColor, size: 25.0)
+                                  .onTap(() => {finish(context)})
                             ],
                           ),
                         ),
@@ -127,16 +144,20 @@ class _ProductState extends State<Product> {
                                 controller: stockController,
                                 onChanged: (value) {
                                   stock = value.replaceAll(',', '');
-                                  var formattedText = myFormat.format(int.parse(stock));
-                                  stockController.value = stockController.value.copyWith(
+                                  var formattedText =
+                                      myFormat.format(int.parse(stock));
+                                  stockController.value =
+                                      stockController.value.copyWith(
                                     text: formattedText,
-                                    selection: TextSelection.collapsed(offset: formattedText.length),
+                                    selection: TextSelection.collapsed(
+                                        offset: formattedText.length),
                                   );
                                 },
                                 validator: (value) {
                                   if (stock.isEmptyOrNull) {
                                     return 'Please enter Stock';
-                                  } else if (double.tryParse(stock) == null && stock.isEmptyOrNull) {
+                                  } else if (double.tryParse(stock) == null &&
+                                      stock.isEmptyOrNull) {
                                     return 'Enter Stock in number.';
                                   } else {
                                     return null;
@@ -145,11 +166,17 @@ class _ProductState extends State<Product> {
                                 showCursor: true,
                                 cursorColor: kTitleColor,
                                 decoration: kInputDecoration.copyWith(
-                                  border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
+                                  border: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(30))),
                                   labelText: lang.S.of(context).productStock,
-                                  hintText: lang.S.of(context).pleaseEnterProductStock,
-                                  hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                  labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                  hintText: lang.S
+                                      .of(context)
+                                      .pleaseEnterProductStock,
+                                  hintStyle: kTextStyle.copyWith(
+                                      color: kGreyTextColor),
+                                  labelStyle:
+                                      kTextStyle.copyWith(color: kTitleColor),
                                 ),
                               ),
                               const SizedBox(height: 20),
@@ -159,17 +186,26 @@ class _ProductState extends State<Product> {
                                     child: TextFormField(
                                       controller: purchaseController,
                                       onChanged: (value) {
-                                        productPurchasePrice = value.replaceAll(',', '');
-                                        var formattedText = myFormat.format(int.parse(productPurchasePrice));
-                                        purchaseController.value = purchaseController.value.copyWith(
+                                        productPurchasePrice =
+                                            value.replaceAll(',', '');
+                                        var formattedText = myFormat.format(
+                                            int.parse(productPurchasePrice));
+                                        purchaseController.value =
+                                            purchaseController.value.copyWith(
                                           text: formattedText,
-                                          selection: TextSelection.collapsed(offset: formattedText.length),
+                                          selection: TextSelection.collapsed(
+                                              offset: formattedText.length),
                                         );
                                       },
                                       validator: (value) {
-                                        if (productPurchasePrice.isEmptyOrNull) {
+                                        if (productPurchasePrice
+                                            .isEmptyOrNull) {
                                           return 'Please enter Purchase Price';
-                                        } else if (double.tryParse(productPurchasePrice) == null && productPurchasePrice.isEmptyOrNull) {
+                                        } else if (double.tryParse(
+                                                    productPurchasePrice) ==
+                                                null &&
+                                            productPurchasePrice
+                                                .isEmptyOrNull) {
                                           return 'Enter Price in number.';
                                         } else {
                                           return null;
@@ -178,11 +214,18 @@ class _ProductState extends State<Product> {
                                       showCursor: true,
                                       cursorColor: kTitleColor,
                                       decoration: kInputDecoration.copyWith(
-                                        border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
-                                        labelText: lang.S.of(context).purchasePrice,
-                                        hintText: lang.S.of(context).enterPurchasePrice,
-                                        hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                        labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                        border: const OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(30))),
+                                        labelText:
+                                            lang.S.of(context).purchasePrice,
+                                        hintText: lang.S
+                                            .of(context)
+                                            .enterPurchasePrice,
+                                        hintStyle: kTextStyle.copyWith(
+                                            color: kGreyTextColor),
+                                        labelStyle: kTextStyle.copyWith(
+                                            color: kTitleColor),
                                       ),
                                     ),
                                   ),
@@ -191,17 +234,24 @@ class _ProductState extends State<Product> {
                                     child: TextFormField(
                                       controller: saleController,
                                       onChanged: (value) {
-                                        productSalePrice = value.replaceAll(',', '');
-                                        var formattedText = myFormat.format(int.parse(productSalePrice));
-                                        saleController.value = saleController.value.copyWith(
+                                        productSalePrice =
+                                            value.replaceAll(',', '');
+                                        var formattedText = myFormat.format(
+                                            int.parse(productSalePrice));
+                                        saleController.value =
+                                            saleController.value.copyWith(
                                           text: formattedText,
-                                          selection: TextSelection.collapsed(offset: formattedText.length),
+                                          selection: TextSelection.collapsed(
+                                              offset: formattedText.length),
                                         );
                                       },
                                       validator: (value) {
                                         if (productSalePrice.isEmptyOrNull) {
                                           return 'Please enter Sale Price';
-                                        } else if (double.tryParse(productSalePrice) == null && productSalePrice.isEmptyOrNull) {
+                                        } else if (double.tryParse(
+                                                    productSalePrice) ==
+                                                null &&
+                                            productSalePrice.isEmptyOrNull) {
                                           return 'Enter Price in number.';
                                         } else {
                                           return null;
@@ -210,11 +260,17 @@ class _ProductState extends State<Product> {
                                       showCursor: true,
                                       cursorColor: kTitleColor,
                                       decoration: kInputDecoration.copyWith(
-                                        border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
-                                        labelText: lang.S.of(context).salePrices,
-                                        hintText: lang.S.of(context).enterSalePrice,
-                                        hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                        labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                        border: const OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(30))),
+                                        labelText:
+                                            lang.S.of(context).salePrices,
+                                        hintText:
+                                            lang.S.of(context).enterSalePrice,
+                                        hintStyle: kTextStyle.copyWith(
+                                            color: kGreyTextColor),
+                                        labelStyle: kTextStyle.copyWith(
+                                            color: kTitleColor),
                                       ),
                                     ),
                                   ),
@@ -227,11 +283,14 @@ class _ProductState extends State<Product> {
                                     child: TextFormField(
                                       controller: dealer,
                                       onChanged: (value) {
-                                        productDealerPrice = value.replaceAll(',', '');
-                                        var formattedText = myFormat.format(int.parse(productDealerPrice));
+                                        productDealerPrice =
+                                            value.replaceAll(',', '');
+                                        var formattedText = myFormat.format(
+                                            int.parse(productDealerPrice));
                                         dealer.value = dealer.value.copyWith(
                                           text: formattedText,
-                                          selection: TextSelection.collapsed(offset: formattedText.length),
+                                          selection: TextSelection.collapsed(
+                                              offset: formattedText.length),
                                         );
                                       },
                                       validator: (value) {
@@ -240,11 +299,17 @@ class _ProductState extends State<Product> {
                                       showCursor: true,
                                       cursorColor: kTitleColor,
                                       decoration: kInputDecoration.copyWith(
-                                        border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
-                                        labelText: lang.S.of(context).dealerPrice,
-                                        hintText: lang.S.of(context).enterDealePrice,
-                                        hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                        labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                        border: const OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(30))),
+                                        labelText:
+                                            lang.S.of(context).dealerPrice,
+                                        hintText:
+                                            lang.S.of(context).enterDealePrice,
+                                        hintStyle: kTextStyle.copyWith(
+                                            color: kGreyTextColor),
+                                        labelStyle: kTextStyle.copyWith(
+                                            color: kTitleColor),
                                       ),
                                     ),
                                   ),
@@ -253,11 +318,15 @@ class _ProductState extends State<Product> {
                                     child: TextFormField(
                                       controller: wholeSeller,
                                       onChanged: (value) {
-                                        productWholePrice = value.replaceAll(',', '');
-                                        var formattedText = myFormat.format(int.parse(productWholePrice));
-                                        wholeSeller.value = wholeSeller.value.copyWith(
+                                        productWholePrice =
+                                            value.replaceAll(',', '');
+                                        var formattedText = myFormat.format(
+                                            int.parse(productWholePrice));
+                                        wholeSeller.value =
+                                            wholeSeller.value.copyWith(
                                           text: formattedText,
-                                          selection: TextSelection.collapsed(offset: formattedText.length),
+                                          selection: TextSelection.collapsed(
+                                              offset: formattedText.length),
                                         );
                                       },
                                       validator: (value) {
@@ -266,11 +335,16 @@ class _ProductState extends State<Product> {
                                       showCursor: true,
                                       cursorColor: kTitleColor,
                                       decoration: kInputDecoration.copyWith(
-                                        border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
-                                        labelText: lang.S.of(context).wholeSaleprice,
+                                        border: const OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(30))),
+                                        labelText:
+                                            lang.S.of(context).wholeSaleprice,
                                         hintText: lang.S.of(context).enterPrice,
-                                        hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                        labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                        hintStyle: kTextStyle.copyWith(
+                                            color: kGreyTextColor),
+                                        labelStyle: kTextStyle.copyWith(
+                                            color: kTitleColor),
                                       ),
                                     ),
                                   ),
@@ -284,14 +358,19 @@ class _ProductState extends State<Product> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                                padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 10.0, bottom: 10.0),
+                                padding: const EdgeInsets.only(
+                                    left: 30.0,
+                                    right: 30.0,
+                                    top: 10.0,
+                                    bottom: 10.0),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5.0),
                                   color: kRedTextColor,
                                 ),
                                 child: Text(
                                   lang.S.of(context).cancel,
-                                  style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                  style: kTextStyle.copyWith(
+                                      color: kWhiteTextColor),
                                 )).onTap(() {
                               Navigator.pop(context);
                             }),
@@ -299,13 +378,21 @@ class _ProductState extends State<Product> {
                             GestureDetector(
                               onTap: () {
                                 if (validateAndSave()) {
-                                  DatabaseReference ref = FirebaseDatabase.instance.ref("$constUserId/Products/$productKey");
+                                  DatabaseReference ref = FirebaseDatabase
+                                      .instance
+                                      .ref("$constUserId/Products/$productKey");
                                   ref.keepSynced(true);
                                   ref.update({
-                                    'productStock': ((int.tryParse(stock) ?? 0) + (int.tryParse(product.productStock) ?? 0)).toString(),
+                                    'productStock':
+                                        ((int.tryParse(stock) ?? 0) +
+                                                (int.tryParse(
+                                                        product.productStock) ??
+                                                    0))
+                                            .toString(),
                                     // 'productStock': stockController.text,
                                     'productSalePrice': productSalePrice,
-                                    'productPurchasePrice': productPurchasePrice,
+                                    'productPurchasePrice':
+                                        productPurchasePrice,
                                     'productWholeSalePrice': productWholePrice,
                                     'productDealerPrice': productDealerPrice,
                                   });
@@ -316,14 +403,19 @@ class _ProductState extends State<Product> {
                                 }
                               },
                               child: Container(
-                                padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 10.0, bottom: 10.0),
+                                padding: const EdgeInsets.only(
+                                    left: 30.0,
+                                    right: 30.0,
+                                    top: 10.0,
+                                    bottom: 10.0),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5.0),
                                   color: kBlueTextColor,
                                 ),
                                 child: Text(
                                   lang.S.of(context).submit,
-                                  style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                  style: kTextStyle.copyWith(
+                                      color: kWhiteTextColor),
                                 ),
                               ),
                             )
@@ -341,10 +433,18 @@ class _ProductState extends State<Product> {
     );
   }
 
-  void deleteProduct({required String productCode, required WidgetRef updateProduct, required BuildContext context}) async {
+  void deleteProduct(
+      {required String productCode,
+      required WidgetRef updateProduct,
+      required BuildContext context}) async {
     EasyLoading.show(status: 'Deleting..');
     String customerKey = '';
-    await FirebaseDatabase.instance.ref(await getUserID()).child('Products').orderByKey().get().then((value) {
+    await FirebaseDatabase.instance
+        .ref(await getUserID())
+        .child('Products')
+        .orderByKey()
+        .get()
+        .then((value) {
       for (var element in value.children) {
         var data = jsonDecode(jsonEncode(element.value));
         if (data['productCode'].toString() == productCode) {
@@ -352,7 +452,8 @@ class _ProductState extends State<Product> {
         }
       }
     });
-    DatabaseReference ref = FirebaseDatabase.instance.ref("${await getUserID()}/Products/$customerKey");
+    DatabaseReference ref = FirebaseDatabase.instance
+        .ref("${await getUserID()}/Products/$customerKey");
     await ref.remove();
     updateProduct.refresh(productProvider);
     Navigator.pop(context);
@@ -363,12 +464,13 @@ class _ProductState extends State<Product> {
 
   int _productsPerPage = 10; // Default number of items to display
   int _currentPage = 1;
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     checkCurrentUserAndRestartApp();
   }
+
   @override
   Widget build(BuildContext context) {
     print('Build Called');
@@ -384,23 +486,38 @@ class _ProductState extends State<Product> {
           scrollDirection: Axis.horizontal,
           child: Consumer(
             builder: (_, ref, watch) {
-              AsyncValue<List<ProductModel>> productList = ref.watch(productProvider);
+              AsyncValue<List<ProductModel>> productList =
+                  ref.watch(productProvider);
+              AsyncValue<List<WareHouseModel>> wareHouseList =
+                  ref.watch(warehouseProvider);
               return productList.when(data: (allProducts) {
                 List<ProductModel> showAbleProducts = [];
                 for (var element in allProducts) {
-                  allProductsNameList.add(element.productName.removeAllWhiteSpace().toLowerCase());
-                  allProductsCodeList.add(element.productCode.removeAllWhiteSpace().toLowerCase());
-                  warehouseBasedProductModel.add(WarehouseBasedProductModel(element.productName, element.warehouseId));
+                  allProductsNameList.add(
+                      element.productName.removeAllWhiteSpace().toLowerCase());
+                  allProductsCodeList.add(
+                      element.productCode.removeAllWhiteSpace().toLowerCase());
+                  warehouseBasedProductModel.add(WarehouseBasedProductModel(
+                      element.productName, element.warehouseId));
                   if (!isRegularSelected) {
-                    if (((element.productName.removeAllWhiteSpace().toLowerCase().contains(searchItem.toLowerCase()) ||
-                        element.productName.contains(searchItem))) &&
+                    if (((element.productName
+                                .removeAllWhiteSpace()
+                                .toLowerCase()
+                                .contains(searchItem.toLowerCase()) ||
+                            element.productName.contains(searchItem))) &&
                         element.expiringDate != null &&
-                        ((DateTime.tryParse(element.expiringDate ?? '') ?? DateTime.now()).isBefore(DateTime.now().add(const Duration(days: 7))))) {
+                        ((DateTime.tryParse(element.expiringDate ?? '') ??
+                                DateTime.now())
+                            .isBefore(
+                                DateTime.now().add(const Duration(days: 7))))) {
                       showAbleProducts.add(element);
                     }
                   } else {
                     if (searchItem != '' &&
-                        (element.productName.removeAllWhiteSpace().toLowerCase().contains(searchItem.toLowerCase()) ||
+                        (element.productName
+                                .removeAllWhiteSpace()
+                                .toLowerCase()
+                                .contains(searchItem.toLowerCase()) ||
                             element.productName.contains(searchItem))) {
                       showAbleProducts.add(element);
                     } else if (searchItem == '') {
@@ -421,7 +538,9 @@ class _ProductState extends State<Product> {
                     ),
                     Container(
                       // width: context.width() < 1080 ? 1080 - 240 : MediaQuery.of(context).size.width - 240,
-                      width: MediaQuery.of(context).size.width < 1275 ? 1275 - 240 : MediaQuery.of(context).size.width - 240,
+                      width: MediaQuery.of(context).size.width < 1275
+                          ? 1275 - 240
+                          : MediaQuery.of(context).size.width - 240,
                       decoration: const BoxDecoration(color: kDarkWhite),
                       child: SingleChildScrollView(
                         child: Column(
@@ -434,8 +553,15 @@ class _ProductState extends State<Product> {
                                 Padding(
                                   padding: const EdgeInsets.all(20.0),
                                   child: Container(
-                                    padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhiteTextColor),
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0,
+                                        right: 20.0,
+                                        top: 10.0,
+                                        bottom: 10.0),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                        color: kWhiteTextColor),
                                     child: Column(
                                       children: [
                                         ///________title and add product_______________________________________
@@ -447,10 +573,14 @@ class _ProductState extends State<Product> {
                                             // ),
                                             // const SizedBox(width: 10.0),
                                             Container(
-                                              padding: const EdgeInsets.fromLTRB(8.0, 4, 8.0, 4.0),
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      8.0, 4, 8.0, 4.0),
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(8.0),
-                                                border: Border.all(color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                                border: Border.all(
+                                                    color: Colors.grey),
                                               ),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.min,
@@ -465,21 +595,38 @@ class _ProductState extends State<Product> {
                                                       Icons.keyboard_arrow_down,
                                                       color: Colors.black,
                                                     ),
-                                                    items: [10, 20, 50, 100, -1].map<DropdownMenuItem<int>>((int value) {
-                                                      return DropdownMenuItem<int>(
+                                                    items: [
+                                                      10,
+                                                      20,
+                                                      50,
+                                                      100,
+                                                      -1
+                                                    ].map<
+                                                        DropdownMenuItem<
+                                                            int>>((int value) {
+                                                      return DropdownMenuItem<
+                                                          int>(
                                                         value: value,
                                                         child: Text(
-                                                          value == -1 ? "All" : value.toString(),
-                                                          style: const TextStyle(color: Colors.black),
+                                                          value == -1
+                                                              ? "All"
+                                                              : value
+                                                                  .toString(),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .black),
                                                         ),
                                                       );
                                                     }).toList(),
                                                     onChanged: (int? newValue) {
                                                       setState(() {
                                                         if (newValue == -1) {
-                                                          _productsPerPage = -1; // Set to -1 for "All"
+                                                          _productsPerPage =
+                                                              -1; // Set to -1 for "All"
                                                         } else {
-                                                          _productsPerPage = newValue ?? 10;
+                                                          _productsPerPage =
+                                                              newValue ?? 10;
                                                         }
                                                         _currentPage = 1;
                                                       });
@@ -493,9 +640,17 @@ class _ProductState extends State<Product> {
                                             ///___________search________________________________________________-
                                             Container(
                                               height: 40.0,
-                                              width: MediaQuery.of(context).size.width *.20,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  .20,
                                               decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(30.0), border: Border.all(color: kGreyTextColor.withOpacity(0.1))),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30.0),
+                                                  border: Border.all(
+                                                      color: kGreyTextColor
+                                                          .withOpacity(0.1))),
                                               child: AppTextField(
                                                 showCursor: true,
                                                 cursorColor: kTitleColor,
@@ -504,27 +659,59 @@ class _ProductState extends State<Product> {
                                                     searchItem = value;
                                                   });
                                                 },
-                                                textFieldType: TextFieldType.NAME,
-                                                decoration: kInputDecoration.copyWith(
-                                                  contentPadding: const EdgeInsets.all(10.0),
-                                                  hintText: (lang.S.of(context).searchByName),
-                                                  hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                textFieldType:
+                                                    TextFieldType.NAME,
+                                                decoration:
+                                                    kInputDecoration.copyWith(
+                                                  contentPadding:
+                                                      const EdgeInsets.all(
+                                                          10.0),
+                                                  hintText: (lang.S
+                                                      .of(context)
+                                                      .searchByName),
+                                                  hintStyle:
+                                                      kTextStyle.copyWith(
+                                                          color:
+                                                              kGreyTextColor),
                                                   border: InputBorder.none,
-                                                  enabledBorder: const OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                                    borderSide: BorderSide(color: kBorderColorTextField, width: 1),
+                                                  enabledBorder:
+                                                      const OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                30.0)),
+                                                    borderSide: BorderSide(
+                                                        color:
+                                                            kBorderColorTextField,
+                                                        width: 1),
                                                   ),
-                                                  focusedBorder: const OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                                    borderSide: BorderSide(color: kBorderColorTextField, width: 1),
+                                                  focusedBorder:
+                                                      const OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                30.0)),
+                                                    borderSide: BorderSide(
+                                                        color:
+                                                            kBorderColorTextField,
+                                                        width: 1),
                                                   ),
                                                   suffixIcon: Padding(
-                                                    padding: const EdgeInsets.all(4.0),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
                                                     child: Container(
-                                                        padding: const EdgeInsets.all(2.0),
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(30.0),
-                                                          color: kGreyTextColor.withOpacity(0.1),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(2.0),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      30.0),
+                                                          color: kGreyTextColor
+                                                              .withOpacity(0.1),
                                                         ),
                                                         child: const Icon(
                                                           FeatherIcons.search,
@@ -541,31 +728,56 @@ class _ProductState extends State<Product> {
                                                   itemCount: 2,
                                                   shrinkWrap: true,
                                                   padding: EdgeInsets.zero,
-                                                  scrollDirection: Axis.horizontal,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
                                                   itemBuilder: (_, index) {
                                                     return InkWell(
                                                       onTap: () {
                                                         setState(() {
                                                           // isRegularSelected = index == 0;
                                                           _currentPage = 1;
-                                                          isSelected = title[index];
-                                                          isRegularSelected = index == 0;
+                                                          isSelected =
+                                                              title[index];
+                                                          isRegularSelected =
+                                                              index == 0;
                                                         });
                                                       },
                                                       child: Padding(
-                                                        padding: const EdgeInsets.only(left: 10.0),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                left: 10.0),
                                                         child: Container(
-                                                          padding: const EdgeInsets.all(10.0),
-                                                          decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.circular(5.0),
-                                                              color: isSelected == title[index] ? kBlueTextColor : white,
-                                                              border: Border.all(
-                                                                color: isSelected == title[index] ? kBlueTextColor : kBorderColorTextField,
-                                                              )),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(10.0),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              5.0),
+                                                                  color: isSelected ==
+                                                                          title[
+                                                                              index]
+                                                                      ? kBlueTextColor
+                                                                      : white,
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: isSelected ==
+                                                                            title[index]
+                                                                        ? kBlueTextColor
+                                                                        : kBorderColorTextField,
+                                                                  )),
                                                           child: Text(
                                                             title[index],
-                                                            style: kTextStyle.copyWith(
-                                                              color: isSelected == title[index] ? kWhiteTextColor : kTitleColor,
+                                                            style: kTextStyle
+                                                                .copyWith(
+                                                              color: isSelected ==
+                                                                      title[
+                                                                          index]
+                                                                  ? kWhiteTextColor
+                                                                  : kTitleColor,
                                                             ),
                                                           ),
                                                         ),
@@ -603,21 +815,32 @@ class _ProductState extends State<Product> {
                                             const SizedBox(width: 10),
 
                                             Container(
-                                              padding: const EdgeInsets.all(10.0),
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kWhiteTextColor,border: Border.all(color: kBorderColorTextField)),
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
+                                                  color: kWhiteTextColor,
+                                                  border: Border.all(
+                                                      color:
+                                                          kBorderColorTextField)),
                                               child: Text(
                                                 "Bulk Upload",
-                                                style: kTextStyle.copyWith(color: kTitleColor),
+                                                style: kTextStyle.copyWith(
+                                                    color: kTitleColor),
                                               ),
                                             ).onTap(() async {
                                               await showDialog(
                                                 context: context,
                                                 builder: (context) =>
-                                                    BulkProductUploadPopup(allProductsCodeList: allProductsCodeList, allProductsNameList: allProductsNameList),
+                                                    BulkProductUploadPopup(
+                                                        allProductsCodeList:
+                                                            allProductsCodeList,
+                                                        allProductsNameList:
+                                                            allProductsNameList),
                                               );
-                                              setState(() {
-
-                                              });
+                                              setState(() {});
 
                                               // if (await Subscription.subscriptionChecker(item: Product.route)) {
                                               //   AddProduct(
@@ -633,44 +856,240 @@ class _ProductState extends State<Product> {
 
                                             ///________________add_productS________________________________________________
                                             Container(
-                                              padding: const EdgeInsets.all(10.0),
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kWhiteTextColor,border: Border.all(color: kBorderColorTextField)),
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
+                                                  color: kWhiteTextColor,
+                                                  border: Border.all(
+                                                      color:
+                                                          kBorderColorTextField)),
                                               child: Row(
                                                 children: [
-                                                  const Icon(FeatherIcons.plus, color: kTitleColor, size: 18.0),
+                                                  const Icon(FeatherIcons.plus,
+                                                      color: kTitleColor,
+                                                      size: 18.0),
                                                   const SizedBox(width: 5.0),
                                                   Text(
-                                                    lang.S.of(context).addProduct,
-                                                    style: kTextStyle.copyWith(color: kTitleColor),
+                                                    lang.S
+                                                        .of(context)
+                                                        .addProduct,
+                                                    style: kTextStyle.copyWith(
+                                                        color: kTitleColor),
                                                   ),
                                                 ],
                                               ),
                                             ).onTap(() async {
-                                              if (await Subscription.subscriptionChecker(item: Product.route)) {
+                                              if (await Subscription
+                                                  .subscriptionChecker(
+                                                      item: Product.route)) {
                                                 AddProduct(
-                                                  allProductsCodeList: allProductsCodeList,
+                                                  allProductsCodeList:
+                                                      allProductsCodeList,
                                                   warehouseBasedProductModel: [],
                                                   sideBarNumber: 3,
                                                 ).launch(context);
                                               } else {
-                                                EasyLoading.showError(lang.S.of(context).updateYourPlanFirst);
+                                                EasyLoading.showError(lang.S
+                                                    .of(context)
+                                                    .updateYourPlanFirst);
                                               }
                                             }),
                                             const SizedBox(width: 10),
 
                                             ///________________add_productS________________________________________________
                                             InkWell(
-                                              onTap: () => Navigator.pushNamed(context, BarcodeGenerate.route),
+                                              onTap: () => Navigator.pushNamed(
+                                                  context,
+                                                  BarcodeGenerate.route),
                                               child: Container(
-                                                padding: const EdgeInsets.all(10.0),
-                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kWhiteTextColor,border: Border.all(color: kBorderColorTextField)),
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                    color: kWhiteTextColor,
+                                                    border: Border.all(
+                                                        color:
+                                                            kBorderColorTextField)),
                                                 child: Row(
                                                   children: [
-                                                    const Icon(Icons.qr_code, color: kTitleColor, size: 18.0),
+                                                    const Icon(Icons.qr_code,
+                                                        color: kTitleColor,
+                                                        size: 18.0),
                                                     const SizedBox(width: 5.0),
                                                     Text(
                                                       'Barcode Generate',
-                                                      style: kTextStyle.copyWith(color: kTitleColor),
+                                                      style:
+                                                          kTextStyle.copyWith(
+                                                              color:
+                                                                  kTitleColor),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 10),
+
+                                            ///________________updates Warehouse________________________________________________
+                                            InkWell(
+                                              onTap: () async {
+                                                List<WareHouseModel>
+                                                    wareHouseAbleList = [];
+                                                wareHouseList.when(
+                                                    data: (warehouse) {
+                                                  wareHouseAbleList = warehouse;
+                                                }, error: (e, stack) {
+                                                  return Center(
+                                                    child: Text(
+                                                      e.toString(),
+                                                    ),
+                                                  );
+                                                }, loading: () {
+                                                  return const Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  );
+                                                });
+                                                debugPrint(
+                                                    "******WareHouse List ${wareHouseAbleList[0]}");
+                                                debugPrint(
+                                                    "******Product List ${showAbleProducts.length}");
+                                                int count = 0;
+                                                List<String> productCodeList =
+                                                    [];
+                                                List<DatabaseReference>
+                                                    databaseReferenceList = [];
+                                                //is warehouse
+                                                if (wareHouseAbleList
+                                                    .isNotEmpty) {
+                                                  //run loop on product list
+                                                  for (int i = 0;
+                                                      i <
+                                                          showAbleProducts
+                                                              .length;
+                                                      i++) {
+                                                    debugPrint(
+                                                        "******Product = $i - ${showAbleProducts[i].warehouseId}");
+                                                    if (showAbleProducts[i]
+                                                                .warehouseId ==
+                                                            'null' ||
+                                                        showAbleProducts[i]
+                                                            .warehouseId
+                                                            .isEmpty) {
+                                                      late String productKey =
+                                                          '';
+//get product key section
+
+                                                      await FirebaseDatabase
+                                                          .instance
+                                                          .ref(
+                                                              await getUserID())
+                                                          .child('Products')
+                                                          .orderByKey()
+                                                          .get()
+                                                          .then((value) {
+                                                        for (var element
+                                                            in value.children) {
+                                                          var data = jsonDecode(
+                                                              jsonEncode(element
+                                                                  .value));
+                                                          if (data['productCode']
+                                                                  .toString() ==
+                                                              showAbleProducts[
+                                                                      i]
+                                                                  .productCode) {
+                                                            productKey = element
+                                                                .key
+                                                                .toString();
+                                                          }
+                                                        }
+                                                      });
+
+                                                      if (productKey
+                                                          .isNotEmpty) {
+                                                        productCodeList
+                                                            .add(productKey);
+                                                        final DatabaseReference
+                                                            productInformationRef =
+                                                            FirebaseDatabase
+                                                                .instance
+                                                                .ref(
+                                                                    "${await getUserID()}/Products/$productKey");
+//add warehouse
+                                                        showAbleProducts[i]
+                                                                .warehouseName =
+                                                            wareHouseAbleList[0]
+                                                                .warehouseName;
+                                                        showAbleProducts[i]
+                                                                .warehouseId =
+                                                            wareHouseAbleList[0]
+                                                                .id;
+                                                        //update to data base
+                                                        await productInformationRef
+                                                            .set(
+                                                                showAbleProducts[
+                                                                        i]
+                                                                    .toJson());
+                                                        databaseReferenceList.add(
+                                                            productInformationRef);
+                                                      }
+
+                                                      count++;
+                                                    }
+                                               
+                                                  }
+                                                } else {
+                                                  EasyLoading.showError(
+                                                      'Please add Warehouse',
+                                                      duration: const Duration(
+                                                          milliseconds: 500));
+                                                }
+
+                                                debugPrint(
+                                                    "******Product List count $count ");
+                                                debugPrint(
+                                                    "******Product product Code List ${productCodeList.length}");
+                                                debugPrint(
+                                                    "******Product Database Reference List ${databaseReferenceList.length}");
+                                                  EasyLoading.showSuccess(
+                                                        '$count Products  Warehouse Update Successfully',
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    500));
+                                                    ref.refresh(
+                                                        productProvider);
+                                             
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                    color: kWhiteTextColor,
+                                                    border: Border.all(
+                                                        color:
+                                                            kBorderColorTextField)),
+                                                child: Row(
+                                                  children: [
+                                                    const Icon(
+                                                        Icons
+                                                            .warehouse_outlined,
+                                                        color: kTitleColor,
+                                                        size: 18.0),
+                                                    const SizedBox(width: 5.0),
+                                                    Text(
+                                                      'Bulk Warehouse',
+                                                      style:
+                                                          kTextStyle.copyWith(
+                                                              color:
+                                                                  kTitleColor),
                                                     ),
                                                   ],
                                                 ),
@@ -681,7 +1100,8 @@ class _ProductState extends State<Product> {
                                         const SizedBox(height: 5.0),
                                         Divider(
                                           thickness: 1.0,
-                                          color: kGreyTextColor.withOpacity(0.2),
+                                          color:
+                                              kGreyTextColor.withOpacity(0.2),
                                         ),
 
                                         ///_______product_list______________________________________________________
@@ -689,388 +1109,589 @@ class _ProductState extends State<Product> {
 
                                         showAbleProducts.isNotEmpty
                                             ? Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              height:
-                                              (MediaQuery.of(context).size.height - 315).isNegative ? 0 : MediaQuery.of(context).size.height - 315,
-                                              width: MediaQuery.of(context).size.width < 1275 ? 1275 - 240 : MediaQuery.of(context).size.width - 240,
-                                              child: SingleChildScrollView(
-                                                child: DataTable(
-                                                  border: const TableBorder(
-                                                    horizontalInside: BorderSide(
-                                                      width: 1,
-                                                      color: kBorderColorTextField,
-                                                    ),
-                                                  ),
-                                                  showCheckboxColumn: true,
-                                                  dividerThickness: 1.0,
-                                                  dataRowColor: const MaterialStatePropertyAll(Colors.white),
-                                                  headingRowColor: MaterialStateProperty.all(kbgColor),
-                                                  showBottomBorder: true,
-                                                  headingTextStyle: const TextStyle(color: Colors.black, overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                  dataTextStyle: const TextStyle(color: Colors.black),
-                                                  columns:  [
-                                                    const DataColumn(
-                                                      label: Text('S.L'),
-                                                    ),
-                                                    const DataColumn(label: Text('Image')),
-                                                    DataColumn(label: Flexible(child: Text('Product Name',style: kTextStyle.copyWith(color: Colors.black, overflow: TextOverflow.ellipsis),))),
-                                                    const DataColumn(label: Text('Category')),
-                                                    const DataColumn(label: Text('Retailer')),
-                                                    const DataColumn(label: Text('Dealer')),
-                                                    const DataColumn(label: Text('Wholesale')),
-                                                    const DataColumn(label: Text('Warehouse')),
-                                                    const DataColumn(label: Text('Stock')),
-                                                    const DataColumn(label: Icon(Icons.settings)),
-                                                  ],
-                                                  rows: List.generate(
-                                                    _productsPerPage == -1
-                                                        ? showAbleProducts.length
-                                                        : (_currentPage - 1) * _productsPerPage + _productsPerPage <= showAbleProducts.length
-                                                        ? _productsPerPage
-                                                        : showAbleProducts.length - (_currentPage - 1) * _productsPerPage,
-                                                        (index) {
-                                                      final dataIndex = (_currentPage - 1) * _productsPerPage + index;
-                                                      final product = showAbleProducts[dataIndex];
-                                                      return DataRow(
-                                                        cells: [
-                                                          DataCell(
-                                                            Text('${(_currentPage - 1) * _productsPerPage + index + 1}'),
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(
+                                                    height: (MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height -
+                                                                315)
+                                                            .isNegative
+                                                        ? 0
+                                                        : MediaQuery.of(context)
+                                                                .size
+                                                                .height -
+                                                            315,
+                                                    width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width <
+                                                            1275
+                                                        ? 1275 - 240
+                                                        : MediaQuery.of(context)
+                                                                .size
+                                                                .width -
+                                                            240,
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: DataTable(
+                                                        border:
+                                                            const TableBorder(
+                                                          horizontalInside:
+                                                              BorderSide(
+                                                            width: 1,
+                                                            color:
+                                                                kBorderColorTextField,
                                                           ),
-                                                          DataCell(
-                                                            Container(
-                                                              height: 40,
-                                                              width: 40,
-                                                              decoration: BoxDecoration(
-                                                                shape: BoxShape.circle,
-                                                                border: Border.all(color: kBorderColorTextField),
-                                                                image: DecorationImage(
-                                                                    image: NetworkImage(
-                                                                      product.productPicture,
-                                                                    ),
-                                                                    fit: BoxFit.cover),
-                                                              ),
-                                                            ),
+                                                        ),
+                                                        showCheckboxColumn:
+                                                            true,
+                                                        dividerThickness: 1.0,
+                                                        dataRowColor:
+                                                            const MaterialStatePropertyAll(
+                                                                Colors.white),
+                                                        headingRowColor:
+                                                            MaterialStateProperty
+                                                                .all(kbgColor),
+                                                        showBottomBorder: true,
+                                                        headingTextStyle:
+                                                            const TextStyle(
+                                                          color: Colors.black,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
+                                                        dataTextStyle:
+                                                            const TextStyle(
+                                                                color: Colors
+                                                                    .black),
+                                                        columns: [
+                                                          const DataColumn(
+                                                            label: Text('S.L'),
                                                           ),
-                                                          DataCell(
-                                                            Text(product.productName, style: kTextStyle.copyWith(color: kGreyTextColor),
-                                                              maxLines: 2,
-                                                              overflow: TextOverflow.ellipsis,),
-                                                          ),
-                                                          DataCell(
-                                                            Text(
-                                                              (!isRegularSelected && product.expiringDate != null)
-                                                                  ? ((DateTime.tryParse(product.expiringDate ?? '') ?? DateTime.now()).isBefore(
-                                                                  DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day))
-                                                                  ? 'Expired'
-                                                                  : "Will Expire at\n${DateFormat.yMMMd().format(DateTime.tryParse(product.expiringDate ?? '') ?? DateTime.now())}")
-                                                                  : product.productCategory,
-                                                              maxLines: 2,
-                                                              overflow: TextOverflow.ellipsis,
-                                                              style: kTextStyle.copyWith(
-                                                                  color:
-                                                                  (!isRegularSelected && product.expiringDate != null) ? Colors.red : kGreyTextColor),
-                                                            ),
-                                                          ),
-                                                          DataCell(
-                                                            Text(
-                                                              "$currency ${myFormat.format(double.tryParse(product.productSalePrice) ?? 0)}",
-                                                              style: kTextStyle.copyWith(color: kGreyTextColor),
-                                                              maxLines: 2,
-                                                              overflow: TextOverflow.ellipsis,
-                                                            ),
-                                                          ),
-                                                          DataCell(
-                                                            Text(
-                                                              "$currency ${myFormat.format(double.tryParse(product.productDealerPrice) ?? 0)}",
-                                                              style: kTextStyle.copyWith(color: kGreyTextColor),
-                                                              maxLines: 2,
-                                                              overflow: TextOverflow.ellipsis,
-                                                            ),
-                                                          ),
-                                                          DataCell(
-                                                            Text(
-                                                              "$currency ${myFormat.format(double.tryParse(product.productWholeSalePrice) ?? 0)}",
-                                                              style: kTextStyle.copyWith(color: kGreyTextColor),
-                                                              maxLines: 2,
-                                                              overflow: TextOverflow.ellipsis,
-                                                            ),
-                                                          ),
-                                                          DataCell(
-                                                            Text(
-                                                              product.warehouseName,
-                                                              style: kTextStyle.copyWith(color: kGreyTextColor),
-                                                              maxLines: 2,
-                                                              overflow: TextOverflow.ellipsis,
-                                                            ),
-                                                          ),
-                                                          DataCell(
-                                                            Text(
-                                                              myFormat.format(double.tryParse(product.productStock) ?? 0),
-                                                              style: kTextStyle.copyWith(color: kGreyTextColor),
-                                                              maxLines: 2,
-                                                              overflow: TextOverflow.ellipsis,
-                                                            ),
-                                                          ),
-                                                          DataCell(
-                                                            StatefulBuilder(
-                                                              builder: (BuildContext context, void Function(void Function()) setState) {
-                                                                return Theme(
-                                                                  data: ThemeData(
-                                                                      highlightColor: dropdownItemColor,
-                                                                      focusColor: dropdownItemColor,
-                                                                      hoverColor: dropdownItemColor),
-                                                                  child: PopupMenuButton(
-                                                                    surfaceTintColor: Colors.white,
-                                                                    padding: EdgeInsets.zero,
-                                                                    itemBuilder: (BuildContext bc) => [
-                                                                      PopupMenuItem(
-                                                                        child: Row(
-                                                                          children: [
-                                                                            const Icon(FeatherIcons.edit3, size: 18.0, color: kTitleColor),
-                                                                            const SizedBox(width: 4.0),
-                                                                            Text(
-                                                                              lang.S.of(context).edit,
-                                                                              style: kTextStyle.copyWith(color: kGreyTextColor),
-                                                                            ),
-                                                                          ],
-                                                                        ).onTap(
-                                                                              () => EditProduct(
-                                                                            productModel: product,
-                                                                            allProductsNameList: allProductsNameList,
-                                                                          ).launch(context),
-                                                                        ),
-                                                                      ),
-                                                                      PopupMenuItem(
-                                                                          child: Row(
-                                                                            children: [
-                                                                              const Icon(Icons.add, size: 18.0, color: kTitleColor),
-                                                                              const SizedBox(width: 4.0),
-                                                                              Text(
-                                                                                lang.S.of(context).increaseStock,
-                                                                                style: kTextStyle.copyWith(color: kGreyTextColor),
-                                                                              ),
-                                                                            ],
-                                                                          ).onTap(
-                                                                                () {
-                                                                              productStockEditPopUp(product: product, popUp: bc, pref: ref);
-                                                                            },
-                                                                          )),
-                                                                      PopupMenuItem(
-                                                                        child: GestureDetector(
-                                                                          onTap: () {
-                                                                            showDialog(
-                                                                                barrierDismissible: false,
-                                                                                context: context,
-                                                                                builder: (BuildContext dialogContext) {
-                                                                                  return Center(
-                                                                                    child: Container(
-                                                                                      decoration: const BoxDecoration(
-                                                                                        color: Colors.white,
-                                                                                        borderRadius: BorderRadius.all(
-                                                                                          Radius.circular(15),
-                                                                                        ),
-                                                                                      ),
-                                                                                      child: Padding(
-                                                                                        padding: const EdgeInsets.all(20.0),
-                                                                                        child: Column(
-                                                                                          mainAxisSize: MainAxisSize.min,
-                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                                                          children: [
-                                                                                            Text(
-                                                                                              lang.S.of(context).areYouWantToDeleteThisProduct,
-                                                                                              style: const TextStyle(fontSize: 22),
-                                                                                            ),
-                                                                                            const SizedBox(height: 30),
-                                                                                            Row(
-                                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                                              mainAxisSize: MainAxisSize.min,
-                                                                                              children: [
-                                                                                                GestureDetector(
-                                                                                                  child: Container(
-                                                                                                    width: 130,
-                                                                                                    height: 50,
-                                                                                                    decoration: const BoxDecoration(
-                                                                                                      color: Colors.green,
-                                                                                                      borderRadius: BorderRadius.all(
-                                                                                                        Radius.circular(15),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                    child: Center(
-                                                                                                      child: Text(
-                                                                                                        lang.S.of(context).cancel,
-                                                                                                        style: const TextStyle(color: Colors.white),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                  onTap: () {
-                                                                                                    Navigator.pop(dialogContext);
-                                                                                                    Navigator.pop(bc);
-                                                                                                  },
-                                                                                                ),
-                                                                                                const SizedBox(width: 30),
-                                                                                                GestureDetector(
-                                                                                                  child: Container(
-                                                                                                    width: 130,
-                                                                                                    height: 50,
-                                                                                                    decoration: const BoxDecoration(
-                                                                                                      color: Colors.red,
-                                                                                                      borderRadius: BorderRadius.all(
-                                                                                                        Radius.circular(15),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                    child: Center(
-                                                                                                      child: Text(
-                                                                                                        lang.S.of(context).delete,
-                                                                                                        style: const TextStyle(color: Colors.white),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                  onTap: () {
-                                                                                                    if (!isDemo) {
-                                                                                                      deleteProduct(
-                                                                                                        productCode: product.productCode,
-                                                                                                        updateProduct: ref,
-                                                                                                        context: bc,
-                                                                                                      );
-                                                                                                      Navigator.pop(dialogContext);
-                                                                                                    } else {
-                                                                                                      EasyLoading.showInfo(demoText);
-                                                                                                    }
-                                                                                                  },
-                                                                                                ),
-                                                                                              ],
-                                                                                            )
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  );
-                                                                                });
-                                                                          },
-                                                                          child: Row(
-                                                                            children: [
-                                                                              const Icon(
-                                                                                Icons.delete_outline,
-                                                                                size: 18,color: kTitleColor,
-                                                                              ),
-                                                                              const SizedBox(
-                                                                                width: 5,
-                                                                              ),
-                                                                              Text(
-                                                                                lang.S.of(context).delete,style: kTextStyle.copyWith(color: kGreyTextColor),
-                                                                              )
-                                                                            ],
+                                                          const DataColumn(
+                                                              label: Text(
+                                                                  'Image')),
+                                                          DataColumn(
+                                                              label: Flexible(
+                                                                  child: Text(
+                                                            'Product Name',
+                                                            style: kTextStyle.copyWith(
+                                                                color: Colors
+                                                                    .black,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis),
+                                                          ))),
+                                                          const DataColumn(
+                                                              label: Text(
+                                                                  'Category')),
+                                                          const DataColumn(
+                                                              label: Text(
+                                                                  'Retailer')),
+                                                          const DataColumn(
+                                                              label: Text(
+                                                                  'Dealer')),
+                                                          const DataColumn(
+                                                              label: Text(
+                                                                  'Wholesale')),
+                                                          const DataColumn(
+                                                              label: Text(
+                                                                  'Warehouse')),
+                                                          const DataColumn(
+                                                              label: Text(
+                                                                  'Stock')),
+                                                          const DataColumn(
+                                                              label: Icon(Icons
+                                                                  .settings)),
+                                                        ],
+                                                        rows: List.generate(
+                                                          _productsPerPage == -1
+                                                              ? showAbleProducts
+                                                                  .length
+                                                              : (_currentPage - 1) *
+                                                                              _productsPerPage +
+                                                                          _productsPerPage <=
+                                                                      showAbleProducts
+                                                                          .length
+                                                                  ? _productsPerPage
+                                                                  : showAbleProducts
+                                                                          .length -
+                                                                      (_currentPage -
+                                                                              1) *
+                                                                          _productsPerPage,
+                                                          (index) {
+                                                            final dataIndex =
+                                                                (_currentPage -
+                                                                            1) *
+                                                                        _productsPerPage +
+                                                                    index;
+                                                            final product =
+                                                                showAbleProducts[
+                                                                    dataIndex];
+                                                            return DataRow(
+                                                              cells: [
+                                                                DataCell(
+                                                                  Text(
+                                                                      '${(_currentPage - 1) * _productsPerPage + index + 1}'),
+                                                                ),
+                                                                DataCell(
+                                                                  Container(
+                                                                    height: 40,
+                                                                    width: 40,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                      border: Border.all(
+                                                                          color:
+                                                                              kBorderColorTextField),
+                                                                      image: DecorationImage(
+                                                                          image: NetworkImage(
+                                                                            product.productPicture,
                                                                           ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                    onSelected: (value) {
-                                                                      Navigator.pushNamed(context, '$value');
-                                                                    },
-                                                                    child: Center(
-                                                                      child: Container(
-                                                                          height: 18,
-                                                                          width: 18,
-                                                                          alignment: Alignment.centerRight,
-                                                                          child: const Icon(
-                                                                            Icons.more_vert_sharp,
-                                                                            size: 18,
-                                                                          )),
+                                                                          fit: BoxFit.cover),
                                                                     ),
                                                                   ),
-                                                                );
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
+                                                                ),
+                                                                DataCell(
+                                                                  Text(
+                                                                    product
+                                                                        .productName,
+                                                                    style: kTextStyle
+                                                                        .copyWith(
+                                                                            color:
+                                                                                kGreyTextColor),
+                                                                    maxLines: 2,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                  ),
+                                                                ),
+                                                                DataCell(
+                                                                  Text(
+                                                                    (!isRegularSelected &&
+                                                                            product.expiringDate !=
+                                                                                null)
+                                                                        ? ((DateTime.tryParse(product.expiringDate ?? '') ?? DateTime.now()).isBefore(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day))
+                                                                            ? 'Expired'
+                                                                            : "Will Expire at\n${DateFormat.yMMMd().format(DateTime.tryParse(product.expiringDate ?? '') ?? DateTime.now())}")
+                                                                        : product
+                                                                            .productCategory,
+                                                                    maxLines: 2,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    style: kTextStyle.copyWith(
+                                                                        color: (!isRegularSelected &&
+                                                                                product.expiringDate != null)
+                                                                            ? Colors.red
+                                                                            : kGreyTextColor),
+                                                                  ),
+                                                                ),
+                                                                DataCell(
+                                                                  Text(
+                                                                    "$currency ${myFormat.format(double.tryParse(product.productSalePrice) ?? 0)}",
+                                                                    style: kTextStyle
+                                                                        .copyWith(
+                                                                            color:
+                                                                                kGreyTextColor),
+                                                                    maxLines: 2,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                  ),
+                                                                ),
+                                                                DataCell(
+                                                                  Text(
+                                                                    "$currency ${myFormat.format(double.tryParse(product.productDealerPrice) ?? 0)}",
+                                                                    style: kTextStyle
+                                                                        .copyWith(
+                                                                            color:
+                                                                                kGreyTextColor),
+                                                                    maxLines: 2,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                  ),
+                                                                ),
+                                                                DataCell(
+                                                                  Text(
+                                                                    "$currency ${myFormat.format(double.tryParse(product.productWholeSalePrice) ?? 0)}",
+                                                                    style: kTextStyle
+                                                                        .copyWith(
+                                                                            color:
+                                                                                kGreyTextColor),
+                                                                    maxLines: 2,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                  ),
+                                                                ),
+                                                                DataCell(
+                                                                  Text(
+                                                                    product
+                                                                        .warehouseName,
+                                                                    style: kTextStyle
+                                                                        .copyWith(
+                                                                            color:
+                                                                                kGreyTextColor),
+                                                                    maxLines: 2,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                  ),
+                                                                ),
+                                                                DataCell(
+                                                                  Text(
+                                                                    myFormat.format(
+                                                                        double.tryParse(product.productStock) ??
+                                                                            0),
+                                                                    style: kTextStyle
+                                                                        .copyWith(
+                                                                            color:
+                                                                                kGreyTextColor),
+                                                                    maxLines: 2,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                  ),
+                                                                ),
+                                                                DataCell(
+                                                                  StatefulBuilder(
+                                                                    builder: (BuildContext
+                                                                            context,
+                                                                        void Function(void Function())
+                                                                            setState) {
+                                                                      return Theme(
+                                                                        data: ThemeData(
+                                                                            highlightColor:
+                                                                                dropdownItemColor,
+                                                                            focusColor:
+                                                                                dropdownItemColor,
+                                                                            hoverColor:
+                                                                                dropdownItemColor),
+                                                                        child:
+                                                                            PopupMenuButton(
+                                                                          surfaceTintColor:
+                                                                              Colors.white,
+                                                                          padding:
+                                                                              EdgeInsets.zero,
+                                                                          itemBuilder:
+                                                                              (BuildContext bc) => [
+                                                                            PopupMenuItem(
+                                                                              child: Row(
+                                                                                children: [
+                                                                                  const Icon(FeatherIcons.edit3, size: 18.0, color: kTitleColor),
+                                                                                  const SizedBox(width: 4.0),
+                                                                                  Text(
+                                                                                    lang.S.of(context).edit,
+                                                                                    style: kTextStyle.copyWith(color: kGreyTextColor),
+                                                                                  ),
+                                                                                ],
+                                                                              ).onTap(
+                                                                                () => EditProduct(
+                                                                                  productModel: product,
+                                                                                  allProductsNameList: allProductsNameList,
+                                                                                ).launch(context),
+                                                                              ),
+                                                                            ),
+                                                                            PopupMenuItem(
+                                                                                child: Row(
+                                                                              children: [
+                                                                                const Icon(Icons.add, size: 18.0, color: kTitleColor),
+                                                                                const SizedBox(width: 4.0),
+                                                                                Text(
+                                                                                  lang.S.of(context).increaseStock,
+                                                                                  style: kTextStyle.copyWith(color: kGreyTextColor),
+                                                                                ),
+                                                                              ],
+                                                                            ).onTap(
+                                                                              () {
+                                                                                productStockEditPopUp(product: product, popUp: bc, pref: ref);
+                                                                              },
+                                                                            )),
+                                                                            PopupMenuItem(
+                                                                              child: GestureDetector(
+                                                                                onTap: () {
+                                                                                  showDialog(
+                                                                                      barrierDismissible: false,
+                                                                                      context: context,
+                                                                                      builder: (BuildContext dialogContext) {
+                                                                                        return Center(
+                                                                                          child: Container(
+                                                                                            decoration: const BoxDecoration(
+                                                                                              color: Colors.white,
+                                                                                              borderRadius: BorderRadius.all(
+                                                                                                Radius.circular(15),
+                                                                                              ),
+                                                                                            ),
+                                                                                            child: Padding(
+                                                                                              padding: const EdgeInsets.all(20.0),
+                                                                                              child: Column(
+                                                                                                mainAxisSize: MainAxisSize.min,
+                                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                children: [
+                                                                                                  Text(
+                                                                                                    lang.S.of(context).areYouWantToDeleteThisProduct,
+                                                                                                    style: const TextStyle(fontSize: 22),
+                                                                                                  ),
+                                                                                                  const SizedBox(height: 30),
+                                                                                                  Row(
+                                                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                    mainAxisSize: MainAxisSize.min,
+                                                                                                    children: [
+                                                                                                      GestureDetector(
+                                                                                                        child: Container(
+                                                                                                          width: 130,
+                                                                                                          height: 50,
+                                                                                                          decoration: const BoxDecoration(
+                                                                                                            color: Colors.green,
+                                                                                                            borderRadius: BorderRadius.all(
+                                                                                                              Radius.circular(15),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                          child: Center(
+                                                                                                            child: Text(
+                                                                                                              lang.S.of(context).cancel,
+                                                                                                              style: const TextStyle(color: Colors.white),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        onTap: () {
+                                                                                                          Navigator.pop(dialogContext);
+                                                                                                          Navigator.pop(bc);
+                                                                                                        },
+                                                                                                      ),
+                                                                                                      const SizedBox(width: 30),
+                                                                                                      GestureDetector(
+                                                                                                        child: Container(
+                                                                                                          width: 130,
+                                                                                                          height: 50,
+                                                                                                          decoration: const BoxDecoration(
+                                                                                                            color: Colors.red,
+                                                                                                            borderRadius: BorderRadius.all(
+                                                                                                              Radius.circular(15),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                          child: Center(
+                                                                                                            child: Text(
+                                                                                                              lang.S.of(context).delete,
+                                                                                                              style: const TextStyle(color: Colors.white),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        onTap: () {
+                                                                                                          if (!isDemo) {
+                                                                                                            deleteProduct(
+                                                                                                              productCode: product.productCode,
+                                                                                                              updateProduct: ref,
+                                                                                                              context: bc,
+                                                                                                            );
+                                                                                                            Navigator.pop(dialogContext);
+                                                                                                          } else {
+                                                                                                            EasyLoading.showInfo(demoText);
+                                                                                                          }
+                                                                                                        },
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  )
+                                                                                                ],
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        );
+                                                                                      });
+                                                                                },
+                                                                                child: Row(
+                                                                                  children: [
+                                                                                    const Icon(
+                                                                                      Icons.delete_outline,
+                                                                                      size: 18,
+                                                                                      color: kTitleColor,
+                                                                                    ),
+                                                                                    const SizedBox(
+                                                                                      width: 5,
+                                                                                    ),
+                                                                                    Text(
+                                                                                      lang.S.of(context).delete,
+                                                                                      style: kTextStyle.copyWith(color: kGreyTextColor),
+                                                                                    )
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                          onSelected:
+                                                                              (value) {
+                                                                            Navigator.pushNamed(context,
+                                                                                '$value');
+                                                                          },
+                                                                          child:
+                                                                              Center(
+                                                                            child: Container(
+                                                                                height: 18,
+                                                                                width: 18,
+                                                                                alignment: Alignment.centerRight,
+                                                                                child: const Icon(
+                                                                                  Icons.more_vert_sharp,
+                                                                                  size: 18,
+                                                                                )),
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(10.0),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'showing ${((_currentPage - 1) * _productsPerPage + 1).toString()} to ${((_currentPage - 1) * _productsPerPage + _productsPerPage).clamp(0, showAbleProducts.length)} of ${showAbleProducts.length} entries',
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10.0),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          'showing ${((_currentPage - 1) * _productsPerPage + 1).toString()} to ${((_currentPage - 1) * _productsPerPage + _productsPerPage).clamp(0, showAbleProducts.length)} of ${showAbleProducts.length} entries',
+                                                        ),
+                                                        const Spacer(),
+                                                        Row(
+                                                          children: [
+                                                            InkWell(
+                                                              overlayColor:
+                                                                  MaterialStateProperty.all<
+                                                                          Color>(
+                                                                      Colors
+                                                                          .grey),
+                                                              hoverColor:
+                                                                  Colors.grey,
+                                                              onTap: _currentPage >
+                                                                      1
+                                                                  ? () => setState(
+                                                                      () =>
+                                                                          _currentPage--)
+                                                                  : null,
+                                                              child: Container(
+                                                                height: 32,
+                                                                width: 90,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  border: Border
+                                                                      .all(
+                                                                          color:
+                                                                              kBorderColorTextField),
+                                                                  borderRadius:
+                                                                      const BorderRadius
+                                                                          .only(
+                                                                    bottomLeft:
+                                                                        Radius.circular(
+                                                                            4.0),
+                                                                    topLeft: Radius
+                                                                        .circular(
+                                                                            4.0),
+                                                                  ),
+                                                                ),
+                                                                child:
+                                                                    const Center(
+                                                                  child: Text(
+                                                                      'Previous'),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              height: 32,
+                                                              width: 32,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                border: Border.all(
+                                                                    color:
+                                                                        kMainColor),
+                                                                color:
+                                                                    kMainColor,
+                                                              ),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  '$_currentPage',
+                                                                  style: const TextStyle(
+                                                                      color: Colors
+                                                                          .white),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            InkWell(
+                                                              hoverColor: Colors
+                                                                  .blue
+                                                                  .withOpacity(
+                                                                      0.1),
+                                                              overlayColor:
+                                                                  MaterialStateProperty.all<
+                                                                          Color>(
+                                                                      Colors
+                                                                          .blue),
+                                                              onTap: _currentPage *
+                                                                          _productsPerPage <
+                                                                      showAbleProducts
+                                                                          .length
+                                                                  ? () => setState(
+                                                                      () =>
+                                                                          _currentPage++)
+                                                                  : null,
+                                                              child: Container(
+                                                                height: 32,
+                                                                width: 90,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  border: Border
+                                                                      .all(
+                                                                          color:
+                                                                              kBorderColorTextField),
+                                                                  borderRadius:
+                                                                      const BorderRadius
+                                                                          .only(
+                                                                    bottomRight:
+                                                                        Radius.circular(
+                                                                            4.0),
+                                                                    topRight: Radius
+                                                                        .circular(
+                                                                            4.0),
+                                                                  ),
+                                                                ),
+                                                                child: const Center(
+                                                                    child: Text(
+                                                                        'Next')),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
-                                                  const Spacer(),
-                                                  Row(
-                                                    children: [
-                                                      InkWell(
-                                                        overlayColor: MaterialStateProperty.all<Color>(Colors.grey),
-                                                        hoverColor: Colors.grey,
-                                                        onTap: _currentPage > 1 ? () => setState(() => _currentPage--) : null,
-                                                        child: Container(
-                                                          height: 32,
-                                                          width: 90,
-                                                          decoration: BoxDecoration(
-                                                            border: Border.all(color: kBorderColorTextField),
-                                                            borderRadius: const BorderRadius.only(
-                                                              bottomLeft: Radius.circular(4.0),
-                                                              topLeft: Radius.circular(4.0),
-                                                            ),
-                                                          ),
-                                                          child: const Center(
-                                                            child: Text('Previous'),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        height: 32,
-                                                        width: 32,
-                                                        decoration: BoxDecoration(
-                                                          border: Border.all(color: kMainColor),
-                                                          color: kMainColor,
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            '$_currentPage',
-                                                            style: const TextStyle(color: Colors.white),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      InkWell(
-                                                        hoverColor: Colors.blue.withOpacity(0.1),
-                                                        overlayColor: MaterialStateProperty.all<Color>(Colors.blue),
-                                                        onTap: _currentPage * _productsPerPage < showAbleProducts.length
-                                                            ? () => setState(() => _currentPage++)
-                                                            : null,
-                                                        child: Container(
-                                                          height: 32,
-                                                          width: 90,
-                                                          decoration: BoxDecoration(
-                                                            border: Border.all(color: kBorderColorTextField),
-                                                            borderRadius: const BorderRadius.only(
-                                                              bottomRight: Radius.circular(4.0),
-                                                              topRight: Radius.circular(4.0),
-                                                            ),
-                                                          ),
-                                                          child: const Center(child: Text('Next')),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
                                                 ],
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                            : EmptyWidget(title: lang.S.of(context).noProductFound),
+                                              )
+                                            : EmptyWidget(
+                                                title: lang.S
+                                                    .of(context)
+                                                    .noProductFound),
                                       ],
                                     ),
                                   ),
                                 ),
                               ],
                             ),
-                            Visibility(visible: MediaQuery.of(context).size.height != 0, child: const Footer()),
+                            Visibility(
+                                visible:
+                                    MediaQuery.of(context).size.height != 0,
+                                child: const Footer()),
                           ],
                         ),
                       ),
