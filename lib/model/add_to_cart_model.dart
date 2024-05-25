@@ -48,22 +48,22 @@ class AddToCartModel {
   factory AddToCartModel.fromMap(Map<String, dynamic> json) => AddToCartModel(
       uuid: json["uuid"],
       productId: json["product_id"],
-      productName: json["product_name"],
-      warehouseName: json["warehouseName"],
-      warehouseId: json["warehouseId"],
-      productBrandName: json["product_brand_name"],
-      unitPrice: json["unit_price"],
-      subTotal: json["sub_total"],
-      uniqueCheck: json["unique_check"],
-      quantity: json["quantity"],
-      productDetails: json["product_details"],
-      itemCartIndex: json["item_cart_index"],
-      stock: json["stock"],
+      productName: json["product_name"] ?? '',
+      warehouseName: json["warehouseName"] ?? '',
+      warehouseId: json["warehouseId"] ?? '0',
+      productBrandName: json["product_brand_name"] ?? '',
+      unitPrice: json["unit_price"] ?? 0,
+      subTotal: json["sub_total"] ?? 0,
+      uniqueCheck: json["unique_check"] ?? 0,
+      quantity: json["quantity"] ?? 0,
+      productDetails: json["product_details"] ?? '',
+      itemCartIndex: json["item_cart_index"] ?? 0,
+      stock: json["stock"] ?? 0,
       productImage: json["productImage"] ??
           'https://firebasestorage.googleapis.com/v0/b/maanpos.appspot.com/o/Product%20No%20Image%2Fno-image-found-360x250.png?alt=media&token=9299964e-22b3-4d88-924e-5eeb285ae672',
       productPurchasePrice: json["productPurchasePrice"],
-      serialNumber: json["serialNumber"],
-      productWarranty: json['productWarranty']);
+      serialNumber: json["serialNumber"] ?? [],
+      productWarranty: json['productWarranty'] ?? '');
 
   Map<String, dynamic> toMap() => {
         "uuid": uuid,

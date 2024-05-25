@@ -3,7 +3,13 @@ import 'package:salespro_admin/model/product_model.dart';
 import 'add_to_cart_model.dart';
 
 class SaleTransactionModel {
-  late String customerName, customerPhone, customerAddress, customerType, customerImage, invoiceNumber, purchaseDate;
+  late String customerName,
+      customerPhone,
+      customerAddress,
+      customerType,
+      customerImage,
+      invoiceNumber,
+      purchaseDate;
   double? totalAmount;
   double? dueAmount;
   double? returnAmount;
@@ -42,30 +48,33 @@ class SaleTransactionModel {
   });
 
   SaleTransactionModel.fromJson(Map<dynamic, dynamic> json) {
-    customerName = json['customerName'] as String;
-    customerPhone = json['customerPhone'].toString();
+    customerName = (json['customerName'] ?? '') as String;
+    customerPhone = (json['customerPhone'] ?? '').toString();
     customerAddress = json['customerAddress'] ?? '';
     customerImage = json['customerImage'] ??
         'https://firebasestorage.googleapis.com/v0/b/maanpos.appspot.com/o/Profile%20Picture%2Fblank-profile-picture-973460_1280.webp?alt=media&token=3578c1e0-7278-4c03-8b56-dd007a9befd3';
-    invoiceNumber = json['invoiceNumber'].toString();
-    customerType = json['customerType'].toString();
-    purchaseDate = json['purchaseDate'].toString();
-    totalAmount = double.parse(json['totalAmount'].toString());
-    discountAmount = double.parse(json['discountAmount'].toString());
-    serviceCharge = double.parse(json['serviceCharge'].toString());
-    vat = double.parse(json['vat'].toString());
-    lossProfit = double.parse(json['lossProfit'].toString());
-    totalQuantity = json['totalQuantity'];
-    sellerName = json['sellerName'];
-    dueAmount = double.parse(json['dueAmount'].toString());
-    returnAmount = double.parse(json['returnAmount'].toString());
-    isPaid = json['isPaid'];
-    paymentType = json['paymentType'].toString();
-    if (json['productList'] != null) {
+    invoiceNumber = (json['invoiceNumber'] ?? '').toString();
+    customerType = (json['customerType'] ?? '').toString();
+    purchaseDate = (json['purchaseDate'] ?? '').toString();
+    totalAmount = double.parse((json['totalAmount'] ?? 0).toString());
+    discountAmount = double.parse((json['discountAmount'] ?? 0).toString());
+    serviceCharge = double.parse((json['serviceCharge'] ?? 0).toString());
+    vat = double.parse((json['vat'] ?? 0).toString());
+    lossProfit = double.parse((json['lossProfit'] ?? 0).toString());
+    totalQuantity = json['totalQuantity'] ?? 0;
+    sellerName = json['sellerName'] ?? '';
+    dueAmount = double.parse((json['dueAmount'] ?? 0).toString());
+    returnAmount = double.parse((json['returnAmount'] ?? 0).toString());
+    isPaid = json['isPaid'] ?? false;
+    paymentType = (json['paymentType'] ?? '').toString();
+   
+    if (json['productList'] != null ) {
       productList = <AddToCartModel>[];
-      json['productList'].forEach((v) {
-        productList!.add(AddToCartModel.fromJson(v));
-      });
+       json['productList'].forEach((v) {
+         productList!.add(AddToCartModel.fromJson(v));
+       });
+    }else{
+       productList = <AddToCartModel>[];
     }
   }
 
