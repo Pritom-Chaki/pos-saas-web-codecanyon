@@ -12,10 +12,6 @@
 #include <firebase_core/firebase_core_plugin_c_api.h>
 #include <firebase_storage/firebase_storage_plugin_c_api.h>
 #include <nb_utils/nb_utils_plugin.h>
-#include <permission_handler_windows/permission_handler_windows_plugin.h>
-#include <printing/printing_plugin.h>
-#include <smart_auth/smart_auth_plugin.h>
-#include <webview_windows/webview_windows_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   ConnectivityPlusWindowsPluginRegisterWithRegistrar(
@@ -30,12 +26,4 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("FirebaseStoragePluginCApi"));
   NbUtilsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("NbUtilsPlugin"));
-  PermissionHandlerWindowsPluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("PermissionHandlerWindowsPlugin"));
-  PrintingPluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("PrintingPlugin"));
-  SmartAuthPluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("SmartAuthPlugin"));
-  WebviewWindowsPluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("WebviewWindowsPlugin"));
 }

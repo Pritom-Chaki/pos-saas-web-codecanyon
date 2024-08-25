@@ -1,6 +1,6 @@
 {
-    "name": "salespro_admin",
-    "short_name": "salespro_admin",
+    "name": "salespro_saas_admin",
+    "short_name": "salespro_saas_admin",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

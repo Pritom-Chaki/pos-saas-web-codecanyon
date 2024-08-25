@@ -14,7 +14,7 @@ class SubscriptionModel {
   int saleNumber, purchaseNumber, partiesNumber, dueNumber, duration, products;
 
   SubscriptionModel.fromJson(Map<dynamic, dynamic> json)
-      : subscriptionName = json['subscriptionName'] as String,
+      : subscriptionName = json['subscriptionName'],
         saleNumber = json['saleNumber'],
         subscriptionDate = json['subscriptionDate'],
         purchaseNumber = json['purchaseNumber'],

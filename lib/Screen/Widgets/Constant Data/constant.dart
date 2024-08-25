@@ -1,43 +1,51 @@
 import 'dart:convert';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:salespro_admin/model/daily_transaction_model.dart';
+import 'package:intl/intl.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:restart_app/restart_app.dart';
 
-import '../../../const.dart';
+const kAdminEmail = 'acnooteam@gmail.com';
+///apps name
+String appsName = 'Pos Saas';
+String appsTitle = 'Poss Saas Super Admin';
+String appsLogo = 'images/logo.png';
+String sideBarLogo='images/pos.png';
+String version='3.1.0';
 
-String paypalClientId = '';
-String paypalClientSecret = '';
-const bool sandbox = true;
-// const String currency = 'USD';
-String countryName = 'Bangladesh';
-String selectedCountry = 'English';
+bool isDemo = false;
+String demoText = 'You Can\'t change anything in demo mode';
+
+Future<String> getSaleID({required String id}) async {
+  String key = '';
+  await FirebaseDatabase.instance.ref().child('Admin Panel').child('Seller List').orderByKey().get().then((value) async {
+    for (var element in value.children) {
+      var data = jsonDecode(jsonEncode(element.value));
+      if (data['userId'].toString() == id) {
+        key = element.key.toString();
+      }
+    }
+  });
+  return key;
+}
 
 // const kMainColor = Color(0xFF3F8CFF);
 const kMainColor = Color(0xff8424FF);
 const kDarkGreyColor = Color(0xFF2E2E3E);
 const kLitGreyColor = Color(0xFFD4D4D8);
-const kGreyTextColor = Color(0xFF585865);
+const kGreyTextColor = Color(0xFF828282);
 const kBorderColorTextField = Color(0xFFE8E7E5);
-const kDarkWhite = Color(0xFFF2F6F8);
-const kbgColor = Color(0xFFF8F3FF);
-const kWhite = Color(0xFFFFFFFF);
+const kDarkWhite = Color(0xFFF5F5F5);
+const kWhiteTextColor = Color(0xFFFFFFFF);
 const kRedTextColor = Color(0xFFFE2525);
 const kBlueTextColor = Color(0xff8424FF);
 const kYellowColor = Color(0xFFFF8C00);
-const kGreenTextColor = Color(0xff8424FF);
+const kGreenTextColor = Color(0xFF15CD75);
 const kTitleColor = Color(0xFF2E2E3E);
-const kPremiumPlanColor = Color(0xFF8752EE);
-const kPremiumPlanColor2 = Color(0xFFFF5F00);
-const lightGreyColor = Color(0xFFF8F3FF);
-const dropdownItemColor = Color(0xFFF2F6F8);
 final kTextStyle = GoogleFonts.manrope(
   color: Colors.white,
-);
-final bTextStyle = GoogleFonts.manrope(
-  color: Colors.black,
 );
 const kButtonDecoration = BoxDecoration(
   color: kMainColor,
@@ -47,37 +55,30 @@ const kButtonDecoration = BoxDecoration(
 );
 
 const kInputDecoration = InputDecoration(
-    hintStyle: TextStyle(color: kBorderColorTextField),
-    filled: true,
-    fillColor: Colors.white70,
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(6.0)),
-      borderSide: BorderSide(color: kBorderColorTextField, width: 2),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(6.0)),
-      borderSide: BorderSide(color: kBorderColorTextField, width: 2),
-    ),
-    errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(6.0)),
-      borderSide: BorderSide(color: Colors.red, width: 2),
-    ),
-    focusedErrorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(6.0)),
-      borderSide: BorderSide(color: Colors.red, width: 2),
-    ));
+  hintStyle: TextStyle(color: kBorderColorTextField),
+  filled: true,
+  fillColor: Colors.white70,
+  enabledBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+    borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(6.0)),
+    borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+  ),
+);
 
-const bInputDecoration = InputDecoration(
+const sInputDecoration = InputDecoration(
   hintStyle: TextStyle(color: kGreyTextColor),
   filled: true,
   fillColor: Colors.white70,
   enabledBorder: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(8.0)),
-    borderSide: BorderSide(color: kBorderColorTextField, width: 1),
+    borderSide: BorderSide(color: kBorderColorTextField, width: 2),
   ),
   focusedBorder: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(6.0)),
-    borderSide: BorderSide(color: kBorderColorTextField, width: 1),
+    borderSide: BorderSide(color: kBorderColorTextField, width: 2),
   ),
 );
 
@@ -124,37 +125,33 @@ List<String> saleStats = [
   'Yearly',
 ];
 
-void updateInvoice({required String typeOfInvoice, required int invoice}) async {
-  ///_______invoice_Update_____________________________________________
-  final DatabaseReference personalInformationRef = FirebaseDatabase.instance.ref().child(await getUserID()).child('Personal Information');
+Future<String> getUserID() async {
+  final prefs = await SharedPreferences.getInstance();
+  final String? uid = prefs.getString('userId');
 
-  await personalInformationRef.update({typeOfInvoice: invoice + 1});
+  return uid ?? '';
 }
 
-void postDailyTransaction({required DailyTransactionModel dailyTransactionModel}) async {
-  final DatabaseReference personalInformationRef = FirebaseDatabase.instance.ref().child(await getUserID()).child('Personal Information');
-  double remainingBalance = 0;
+DateFormat dateTypeFormat = DateFormat.yMMMd();
+DateFormat timeFormat = DateFormat.jm();
+DateTime now = DateTime.now();
 
-  await personalInformationRef.orderByKey().get().then((value) {
-    var data = jsonDecode(jsonEncode(value.value));
-    remainingBalance = data['remainingShopBalance'];
-  });
+final currentDate = DateTime.now();
+final thirtyDaysAgo = currentDate.subtract(const Duration(days: 30));
+final sevenDays = currentDate.subtract(const Duration(days: 7));
 
-  if (dailyTransactionModel.type == 'Sale' ||
-      dailyTransactionModel.type == 'Due Collection' ||
-      dailyTransactionModel.type == 'Income' ||
-      dailyTransactionModel.type == 'Purchase Return') {
-    remainingBalance += dailyTransactionModel.paymentIn;
-  } else {
-    remainingBalance -= dailyTransactionModel.paymentOut;
+final firstDayOfCurrentMonth = DateTime(currentDate.year, currentDate.month, 1);
+final firstDayOfCurrentYear = DateTime(currentDate.year, 1, 1);
+final firstDayOfPreviousYear = firstDayOfCurrentYear.subtract(const Duration(days: 1));
+final lastDayOfPreviousMonth = firstDayOfCurrentMonth.subtract(const Duration(days: 1));
+final firstDayOfPreviousMonth = DateTime(lastDayOfPreviousMonth.year, lastDayOfPreviousMonth.month, 1);
+
+void checkCurrentUserAndRestartApp() {
+  final User? user = FirebaseAuth.instance.currentUser;
+  if (user?.uid == null) {
+    Restart.restartApp();
   }
-
-  dailyTransactionModel.remainingBalance = remainingBalance;
-
-  ///________post_remaining Balance_on_personal_information___________________________________________________
-  await personalInformationRef.update({'remainingShopBalance': remainingBalance});
-
-  ///_________dailyTransaction_Posting________________________________________________________________________
-  DatabaseReference dailyTransactionRef = FirebaseDatabase.instance.ref("${await getUserID()}/Daily Transaction");
-  await dailyTransactionRef.push().set(dailyTransactionModel.toJson());
 }
+
+String mainLoginPassword = '';
+String mainLoginEmail = '';

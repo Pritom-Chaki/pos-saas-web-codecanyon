@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../Repository/subscriptionPlanRepo.dart';
+import '../Repo/subscriptionPlanRepo.dart';
 import '../model/subscription_plan_model.dart';
 
 SubscriptionPlanRepo subscriptionRepo = SubscriptionPlanRepo();

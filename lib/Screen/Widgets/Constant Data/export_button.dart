@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:nb_utils/nb_utils.dart';
+
 import 'constant.dart';
-import 'package:salespro_admin/generated/l10n.dart' as lang;
 
 class ExportButton extends StatelessWidget {
   const ExportButton({
@@ -14,48 +13,18 @@ class ExportButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          height: 40.0,
-          width: 300,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.0), border: Border.all(color: kGreyTextColor.withOpacity(0.1))),
-          child: AppTextField(
-            showCursor: true,
-            cursorColor: kTitleColor,
-            textFieldType: TextFieldType.NAME,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(10.0),
-              hintText: ('Search...'),
-              hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-              border: InputBorder.none,
-              suffixIcon: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Container(
-                    padding: const EdgeInsets.all(2.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: kGreyTextColor.withOpacity(0.1),
-                    ),
-                    child: const Icon(
-                      FeatherIcons.search,
-                      color: kTitleColor,
-                    )),
-              ),
-            ),
-          ),
-        ),
-        const Spacer(),
         Icon(
           MdiIcons.contentCopy,
-          color: kTitleColor,
+          color: kGreyTextColor,
         ),
         const SizedBox(width: 5.0),
-        Icon(MdiIcons.microsoftExcel, color: kTitleColor),
+        Icon(MdiIcons.microsoftExcel, color: kGreyTextColor),
         const SizedBox(width: 5.0),
-        Icon(MdiIcons.fileDelimited, color: kTitleColor),
+        Icon(MdiIcons.fileDelimited, color: kGreyTextColor),
         const SizedBox(width: 5.0),
-        Icon(MdiIcons.filePdfBox, color: kTitleColor),
+        Icon(MdiIcons.filePdfBox, color: kGreyTextColor),
         const SizedBox(width: 5.0),
-        const Icon(FeatherIcons.printer, color: kTitleColor),
+        const Icon(FeatherIcons.printer, color: kGreyTextColor),
       ],
     );
   }
@@ -84,46 +53,6 @@ class ExportButton2 extends StatelessWidget {
         const SizedBox(width: 5.0),
         const Icon(FeatherIcons.printer, color: kTitleColor),
       ],
-    );
-  }
-}
-
-
-
-class EmptyWidget extends StatelessWidget {
-  const EmptyWidget({
-    super.key, required this.title,
-  });
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Visibility(child: SizedBox(height: 20)),
-          Container(
-            height:(MediaQuery.of(context).size.height - 315).isNegative? 0:MediaQuery.of(context).size.height - 315,
-            width: 600,
-            decoration: const BoxDecoration(
-              image: DecorationImage(image: AssetImage('images/empty_screen.png'),fit: BoxFit.contain),
-
-            ),
-          ),
-
-          Visibility(
-              visible: MediaQuery.of(context).size.height != 0,
-              child: const SizedBox(height: 20)),
-          Text(
-            title,
-            style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18.0),
-          ),
-          Visibility(
-              visible: MediaQuery.of(context).size.height != 0,
-              child: const SizedBox(height: 20)),
-        ],
-      ),
     );
   }
 }

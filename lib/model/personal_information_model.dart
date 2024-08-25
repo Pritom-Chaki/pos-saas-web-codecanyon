@@ -1,19 +1,20 @@
 class PersonalInformationModel {
   PersonalInformationModel({
-    required this.phoneNumber,
-    required this.companyName,
-    required this.pictureUrl,
-    required this.businessCategory,
-    required this.language,
-    required this.countryName,
-    required this.saleInvoiceCounter,
-    required this.purchaseInvoiceCounter,
-    required this.dueInvoiceCounter,
-    required this.shopOpeningBalance,
-    required this.remainingShopBalance,
+    this.phoneNumber,
+    this.companyName,
+    this.pictureUrl,
+    this.businessCategory,
+    this.language,
+    this.countryName,
+    this.saleInvoiceCounter,
+    this.purchaseInvoiceCounter,
+    this.dueInvoiceCounter,
+    this.smsBalance,
+    this.verificationStatus,
+    this.shopOpeningBalance,
+    this.remainingShopBalance,
     required this.currency,
     required this.currentLocale,
-    required this.gst,
   });
 
   PersonalInformationModel.fromJson(dynamic json) {
@@ -26,27 +27,29 @@ class PersonalInformationModel {
     saleInvoiceCounter = json['saleInvoiceCounter'];
     purchaseInvoiceCounter = json['purchaseInvoiceCounter'];
     dueInvoiceCounter = json['dueInvoiceCounter'];
-    shopOpeningBalance = json['shopOpeningBalance'] ?? 0;
-    remainingShopBalance = json['remainingShopBalance'] ?? 0;
+    smsBalance = json['smsBalance'] ?? 50;
+    verificationStatus = json['verificationStatus'] ?? 'pending';
+    shopOpeningBalance = json['shopOpeningBalance'];
+    remainingShopBalance = json['remainingShopBalance'];
     currency = json['currency'] ?? '\$';
     currentLocale = json['currentLocale'] ?? 'en';
-    gst = json['gst'] ?? '';
   }
 
-  late dynamic phoneNumber;
-  late String companyName;
-  late String pictureUrl;
-  late String businessCategory;
-  late String language;
-  late String countryName;
-  late int dueInvoiceCounter;
-  late int saleInvoiceCounter;
-  late int purchaseInvoiceCounter;
-  late num shopOpeningBalance;
-  late num remainingShopBalance;
+  dynamic phoneNumber;
+  String? companyName;
+  String? pictureUrl;
+  String? businessCategory;
+  String? language;
+  String? countryName;
+  int? saleInvoiceCounter;
+  int? purchaseInvoiceCounter;
+  int? dueInvoiceCounter;
+  int? smsBalance;
+  String? verificationStatus;
+  num? shopOpeningBalance;
+  num? remainingShopBalance;
   late String currency;
   late String currentLocale;
-  late String gst;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -59,12 +62,12 @@ class PersonalInformationModel {
     map['saleInvoiceCounter'] = saleInvoiceCounter;
     map['purchaseInvoiceCounter'] = purchaseInvoiceCounter;
     map['dueInvoiceCounter'] = dueInvoiceCounter;
+    map['smsBalance'] = smsBalance;
+    map['verificationStatus'] = verificationStatus ?? 'pending';
     map['shopOpeningBalance'] = shopOpeningBalance;
     map['remainingShopBalance'] = remainingShopBalance;
     map['currency'] = currency;
     map['currentLocale'] = currentLocale;
-    map['gst'] = gst;
     return map;
-
   }
 }

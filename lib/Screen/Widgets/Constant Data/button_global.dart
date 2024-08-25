@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'constant.dart';
@@ -54,15 +55,20 @@ class ButtonGlobalWithoutIcon extends StatelessWidget {
       onPressed: onPressed,
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+        padding: const EdgeInsets.only(top: 08.0, bottom: 08.0),
         decoration: buttonDecoration,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               buttontext,
-              style: GoogleFonts.jost(fontSize: 20.0, color: buttonTextColor),
+              style: GoogleFonts.jost(fontSize: 18.0, color: buttonTextColor),
             ),
+            const SizedBox(width: 4.0),
+            const Icon(
+              FeatherIcons.arrowRight,
+              color: Colors.white,
+            )
           ],
         ),
       ),
