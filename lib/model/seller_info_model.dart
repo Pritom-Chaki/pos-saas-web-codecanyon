@@ -12,6 +12,7 @@ class SellerInfoModel {
     this.subscriptionDate,
     this.subscriptionMethod,
     this.email,
+    required this.gst,
   });
 
   SellerInfoModel.fromJson(dynamic json) {
@@ -27,6 +28,7 @@ class SellerInfoModel {
     subscriptionDate = json['subscriptionDate'];
     subscriptionMethod = json['subscriptionMethod'];
     email = json['email'];
+    gst = json['gst'];
   }
   dynamic phoneNumber;
   String? companyName;
@@ -40,6 +42,7 @@ class SellerInfoModel {
   String? subscriptionMethod;
   String? email;
   String? userRegistrationDate;
+  late String gst;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -55,6 +58,7 @@ class SellerInfoModel {
     map['subscriptionDate'] = subscriptionDate;
     map['subscriptionMethod'] = subscriptionMethod;
     map['email'] = email;
+    map['gst'] = gst;
     return map;
   }
 }

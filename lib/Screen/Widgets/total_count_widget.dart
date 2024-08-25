@@ -31,7 +31,7 @@ class TotalCountWidget extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
-          color: kWhiteTextColor,
+          color: kWhite,
         ),
         child: ListTile(
           contentPadding: EdgeInsets.zero,
@@ -100,7 +100,7 @@ class CustomerCountWidget extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
-          color: kWhiteTextColor,
+          color: kWhite,
         ),
         child: ListTile(
           contentPadding: EdgeInsets.zero,
@@ -447,7 +447,7 @@ class _StatisticsDataState extends State<StatisticsData> {
                             position: LegendPosition.top,
                           ),
                           tooltipBehavior: TooltipBehavior(enable: true),
-                          series: <ChartSeries<MonthlyIncomeData, String>>[
+                          series: <SplineSeries<MonthlyIncomeData, String>>[
                             SplineSeries<MonthlyIncomeData, String>(
                               splineType: SplineType.natural,
                               legendIconType: LegendIconType.circle,
@@ -459,7 +459,6 @@ class _StatisticsDataState extends State<StatisticsData> {
                               enableTooltip: true,
                               isVisibleInLegend: true,
                               markerSettings: const MarkerSettings(color: Colors.red),
-                              isVisible: true,
                               // borderRadius: const BorderRadius.only(
                               //   topRight: Radius.circular(30.0),
                               //   topLeft: Radius.circular(30.0),
@@ -479,7 +478,6 @@ class _StatisticsDataState extends State<StatisticsData> {
                               enableTooltip: true,
                               isVisibleInLegend: true,
                               markerSettings: const MarkerSettings(color: Colors.red),
-                              isVisible: true,
                               // borderRadius: const BorderRadius.only(
                               //   topRight: Radius.circular(30.0),
                               //   topLeft: Radius.circular(30.0),
@@ -499,8 +497,8 @@ class _StatisticsDataState extends State<StatisticsData> {
                           borderWidth: 1.0,
                           backgroundColor: Colors.white,
                           borderColor: Colors.transparent,
-                          primaryXAxis: CategoryAxis(
-                            majorGridLines: const MajorGridLines(width: 0),
+                          primaryXAxis: const CategoryAxis(
+                            majorGridLines: MajorGridLines(width: 0),
                           ),
                           plotAreaBorderColor: Colors.transparent,
                           legend: const Legend(
@@ -509,7 +507,7 @@ class _StatisticsDataState extends State<StatisticsData> {
                             position: LegendPosition.top,
                           ),
                           tooltipBehavior: TooltipBehavior(enable: true),
-                          series: <ChartSeries<DailyIncomeData, String>>[
+                          series: <SplineSeries<DailyIncomeData, String>>[
                             SplineSeries<DailyIncomeData, String>(
                               splineType: SplineType.natural,
                               legendIconType: LegendIconType.circle,

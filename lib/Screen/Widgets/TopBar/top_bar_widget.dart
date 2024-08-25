@@ -244,7 +244,7 @@ class _TopBarState extends State<TopBar> {
       height: 70.0,
       width: double.infinity,
       decoration: const BoxDecoration(
-        color: kWhiteTextColor,
+        color: kWhite,
       ),
       child: ri.Consumer(builder: (context, ref, __) {
         AsyncValue<PersonalInformationModel> userProfileDetails = ref.watch(profileDetailsProvider);
@@ -261,7 +261,7 @@ class _TopBarState extends State<TopBar> {
 
                 backgroundColor: const Color(0xFF8424FF),
                 // side: const BorderSide(color: kBorderColorTextField, width: 1),
-                textStyle: kTextStyle.copyWith(color: kWhiteTextColor),
+                textStyle: kTextStyle.copyWith(color: kWhite),
                 surfaceTintColor: const Color(0xFF8424FF).withOpacity(0.5),
                 shadowColor: const Color(0xFF8424FF).withOpacity(0.1),
               ),
@@ -270,10 +270,10 @@ class _TopBarState extends State<TopBar> {
               },
               child: Row(
                 children: [
-                  const Icon(Icons.add_rounded, color: kWhiteTextColor),
+                  const Icon(Icons.add_rounded, color: kWhite),
                   Text(
                     'Pos',
-                    style: kTextStyle.copyWith(color: kWhiteTextColor, fontWeight: FontWeight.bold),
+                    style: kTextStyle.copyWith(color: kWhite, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -282,9 +282,9 @@ class _TopBarState extends State<TopBar> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
-                backgroundColor: kWhiteTextColor,
+                backgroundColor: kWhite,
                 side: const BorderSide(color: kMainColor, width: 1),
-                textStyle: kTextStyle.copyWith(color: kWhiteTextColor),
+                textStyle: kTextStyle.copyWith(color: kWhite),
                 surfaceTintColor: lightGreyColor,
                 shadowColor: lightGreyColor.withOpacity(0.1),
               ),
@@ -333,10 +333,10 @@ class _TopBarState extends State<TopBar> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
-                backgroundColor: kWhiteTextColor,
+                backgroundColor: kWhite,
                 side: const BorderSide(color: Color(0xFFFF2525), width: 1),
                 textStyle: kTextStyle.copyWith(color: const Color(0xFFFF2525)),
-                surfaceTintColor: kWhiteTextColor,
+                surfaceTintColor: kWhite,
                 shadowColor: const Color(0xFFFF2525).withOpacity(0.1),
                 foregroundColor: const Color(0xFFFF2525).withOpacity(0.1),
               ),
@@ -357,10 +357,10 @@ class _TopBarState extends State<TopBar> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
-                backgroundColor: kWhiteTextColor,
+                backgroundColor: kWhite,
                 side: const BorderSide(color: Color(0xFF15CD75), width: 1),
                 textStyle: kTextStyle.copyWith(color: const Color(0xFF15CD75)),
-                surfaceTintColor: kWhiteTextColor,
+                surfaceTintColor: kWhite,
                 shadowColor: const Color(0xFF15CD75).withOpacity(0.1),
                 foregroundColor: const Color(0xFF15CD75).withOpacity(0.1),
               ),
@@ -925,11 +925,11 @@ class TopBarTablate extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(FeatherIcons.plus, color: kWhiteTextColor, size: 16.0),
+                  const Icon(FeatherIcons.plus, color: kWhite, size: 16.0),
                   const SizedBox(width: 5.0),
                   Text(
                     lang.S.of(context).dueList,
-                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                    style: kTextStyle.copyWith(color: kWhite),
                   ),
                 ],
               ),
@@ -945,7 +945,7 @@ class TopBarTablate extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.0),
                 border: Border.all(color: kYellowColor),
-                color: kWhiteTextColor,
+                color: kWhite,
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -974,11 +974,11 @@ class TopBarTablate extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(FeatherIcons.plus, color: kWhiteTextColor, size: 16.0),
+                  const Icon(FeatherIcons.plus, color: kWhite, size: 16.0),
                   const SizedBox(width: 5.0),
                   Text(
                     lang.S.of(context).sale,
-                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                    style: kTextStyle.copyWith(color: kWhite),
                   ),
                 ],
               ),
@@ -998,11 +998,11 @@ class TopBarTablate extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(FeatherIcons.plus, color: kWhiteTextColor, size: 16.0),
+                  const Icon(FeatherIcons.plus, color: kWhite, size: 16.0),
                   const SizedBox(width: 5.0),
                   Text(
                     lang.S.of(context).purchase,
-                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                    style: kTextStyle.copyWith(color: kWhite),
                   ),
                 ],
               ),

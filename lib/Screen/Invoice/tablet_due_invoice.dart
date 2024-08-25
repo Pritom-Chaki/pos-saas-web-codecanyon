@@ -36,13 +36,13 @@ class _TabDueInvoiceState extends State<TabDueInvoice> {
               children: [
                 const Icon(
                   FeatherIcons.x,
-                  color: kWhiteTextColor,
+                  color: kWhite,
                   size: 25,
                 ),
                 const SizedBox(width: 4.0),
                 Text(
                   lang.S.of(context).cancel,
-                  style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 20.0),
+                  style: kTextStyle.copyWith(color: kWhite, fontSize: 20.0),
                 ),
               ],
             ),
@@ -56,13 +56,13 @@ class _TabDueInvoiceState extends State<TabDueInvoice> {
               children: [
                 Icon(
                   MdiIcons.printer,
-                  color: kWhiteTextColor,
+                  color: kWhite,
                   size: 25,
                 ),
                 const SizedBox(width: 4.0),
                 Text(
                   lang.S.of(context).printInvoice,
-                  style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 20.0),
+                  style: kTextStyle.copyWith(color: kWhite, fontSize: 20.0),
                 ),
               ],
             ),
@@ -186,7 +186,7 @@ class _TabDueInvoiceState extends State<TabDueInvoice> {
                               child: DataTable(
                                 headingRowColor: MaterialStateProperty.all(kRedTextColor),
                                 showBottomBorder: false,
-                                headingTextStyle: kTextStyle.copyWith(color: kWhiteTextColor, fontWeight: FontWeight.bold),
+                                headingTextStyle: kTextStyle.copyWith(color: kWhite, fontWeight: FontWeight.bold),
                                 horizontalMargin: null,
                                 dividerThickness: 0,
                                 headingRowHeight: 40.0,
@@ -227,7 +227,7 @@ class _TabDueInvoiceState extends State<TabDueInvoice> {
                                       Text(
                                         lang.S.of(context).totalDue,
                                         maxLines: 1,
-                                        style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                        style: kTextStyle.copyWith(color: kWhite),
                                       ),
                                       const SizedBox(width: 20.0),
                                       SizedBox(
@@ -235,7 +235,7 @@ class _TabDueInvoiceState extends State<TabDueInvoice> {
                                         child: Text(
                                           '$currency ${widget.dueTransactionModel.totalDue}',
                                           maxLines: 2,
-                                          style: kTextStyle.copyWith(color: kWhiteTextColor, fontWeight: FontWeight.bold),
+                                          style: kTextStyle.copyWith(color: kWhite, fontWeight: FontWeight.bold),
                                           textAlign: TextAlign.end,
                                         ),
                                       ),

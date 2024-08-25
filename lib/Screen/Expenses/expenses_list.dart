@@ -173,7 +173,7 @@ class _ExpensesListState extends State<ExpensesList> {
                                     padding: const EdgeInsets.all(10.0),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10.0),
-                                      color: kWhiteTextColor,
+                                      color: kWhite,
                                     ),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -210,7 +210,7 @@ class _ExpensesListState extends State<ExpensesList> {
                                                         padding: const EdgeInsets.all(8.0),
                                                         child: Text(
                                                           lang.S.of(context).between,
-                                                          style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                                          style: kTextStyle.copyWith(color: kWhite),
                                                         ),
                                                       ),
                                                     ),
@@ -262,7 +262,7 @@ class _ExpensesListState extends State<ExpensesList> {
                                   padding: const EdgeInsets.all(20.0),
                                   child: Container(
                                     padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhiteTextColor),
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhite),
                                     child: Column(
                                       children: [
                                         Row(
@@ -324,7 +324,7 @@ class _ExpensesListState extends State<ExpensesList> {
                                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kBlueTextColor),
                                               child: Text(
                                                 'Expense Category',
-                                                style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                                style: kTextStyle.copyWith(color: kWhite),
                                               ),
                                             ).onTap(
                                               () => const ExpenseCategory().launch(context),
@@ -335,11 +335,11 @@ class _ExpensesListState extends State<ExpensesList> {
                                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kBlueTextColor),
                                               child: Row(
                                                 children: [
-                                                  const Icon(FeatherIcons.plus, color: kWhiteTextColor, size: 18.0),
+                                                  const Icon(FeatherIcons.plus, color: kWhite, size: 18.0),
                                                   const SizedBox(width: 5.0),
                                                   Text(
                                                     'New Expenses',
-                                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                                    style: kTextStyle.copyWith(color: kWhite),
                                                   ),
                                                 ],
                                               ),

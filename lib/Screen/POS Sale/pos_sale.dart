@@ -18,6 +18,7 @@ import 'package:salespro_admin/Screen/Customer%20List/add_customer.dart';
 import 'package:salespro_admin/Screen/Home/home_screen.dart';
 import 'package:salespro_admin/Screen/POS%20Sale/show_sale_payment_popup.dart';
 import 'package:salespro_admin/Screen/Widgets/Constant%20Data/constant.dart';
+import 'package:salespro_admin/Screen/tax%20rates/tax_model.dart';
 import '../../PDF/print_pdf.dart';
 import '../../Provider/customer_provider.dart';
 import '../../Provider/product_provider.dart';
@@ -54,6 +55,20 @@ class PosSale extends StatefulWidget {
 
 class _PosSaleState extends State<PosSale> {
   List<AddToCartModel> cartList = [];
+  addFocus() {
+    FocusNode f = FocusNode();
+    f.addListener(
+          () {
+        if (!f.hasFocus) {
+          setState(() {
+
+          });
+        }
+      },
+    );
+    productFocusNode.add(f);
+  }
+  List<FocusNode> productFocusNode = [];
 
   String searchProductCode = '';
 
@@ -70,6 +85,7 @@ class _PosSaleState extends State<PosSale> {
     openingBalance: '0',
     remainedBalance: '0',
     dueAmount: '0',
+    gst: '',
   );
   String? invoiceNumber;
   String previousDue = "0";
@@ -94,7 +110,7 @@ class _PosSaleState extends State<PosSale> {
             if (element.phoneNumber == selectedUserId) {
               selectedUserName = element;
               previousDue = element.dueAmount;
-              selectedCustomerType == element.type ? null : {selectedCustomerType = element.type, cartList.clear()};
+              selectedCustomerType == element.type ? null : {selectedCustomerType = element.type, cartList.clear(),productFocusNode.clear()};
             } else if (selectedUserId == 'Guest') {
               previousDue = '0';
               selectedCustomerType = 'Retailer';
@@ -130,7 +146,7 @@ class _PosSaleState extends State<PosSale> {
     bool isUnique = false;
     for (var item in cartList) {
       if (item.productId == code) {
-        if (item.quantity < item.stock!.toInt()) {
+        if (item.quantity < item.stock!) {
           item.quantity += 1;
         } else {
           EasyLoading.showError('Out of Stock');
@@ -313,7 +329,7 @@ class _PosSaleState extends State<PosSale> {
                                   ),
                                   child: Text(
                                     lang.S.of(context).cancel,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   )).onTap(() => {finish(context)}),
                               const SizedBox(width: 10.0),
                               Container(
@@ -324,7 +340,7 @@ class _PosSaleState extends State<PosSale> {
                                   ),
                                   child: Text(
                                     lang.S.of(context).submit,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   )).onTap(() => {finish(context)})
                             ],
                           ),
@@ -345,10 +361,10 @@ class _PosSaleState extends State<PosSale> {
   double discountAmount = 0;
 
   TextEditingController discountAmountEditingController = TextEditingController();
-  TextEditingController vatAmountEditingController = TextEditingController();
+  // TextEditingController vatAmountEditingController = TextEditingController();
   TextEditingController discountPercentageEditingController = TextEditingController();
   TextEditingController vatPercentageEditingController = TextEditingController();
-  double vatGst = 0;
+  // double vatGst = 0;
 
   @override
   void initState() {
@@ -360,11 +376,12 @@ class _PosSaleState extends State<PosSale> {
     if (widget.quotation != null) {
       for (var element in widget.quotation!.productList!) {
         cartList.add(element);
+        addFocus();
       }
       discountAmountEditingController.text = widget.quotation!.discountAmount!.toStringAsFixed(2);
       discountAmount = widget.quotation!.discountAmount!;
-      vatAmountEditingController.text = widget.quotation!.vat!.toStringAsFixed(2);
-      vatGst = widget.quotation!.vat!;
+      // vatAmountEditingController.text = widget.quotation!.vat!.toStringAsFixed(2);
+      // vatGst = widget.quotation!.vat!;
       serviceCharge = widget.quotation!.discountAmount!;
 
       selectedUserName.customerName = widget.quotation!.customerName;
@@ -396,7 +413,8 @@ class _PosSaleState extends State<PosSale> {
   }
 
   void showSerialNumberPopUp({required ProductModel productModel}) {
-    AddToCartModel productInCart = AddToCartModel(productPurchasePrice: 0, serialNumber: [], productImage: '', warehouseName: '', warehouseId: '');
+    AddToCartModel productInCart = AddToCartModel(
+        productPurchasePrice: 0, serialNumber: [], productImage: '', warehouseName: '', warehouseId: '', subTaxes: [], excTax: 0, groupTaxName: '', groupTaxRate: 0, incTax: 0, margin: 0, taxType: '');
     List<dynamic> selectedSerialNumbers = [];
     List<String> list = [];
     for (var element in cartList) {
@@ -572,7 +590,7 @@ class _PosSaleState extends State<PosSale> {
                                   ),
                                   child: Text(
                                     lang.S.of(context).cancel,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   )).onTap(() {
                                 Navigator.pop(context);
                               }),
@@ -590,14 +608,22 @@ class _PosSaleState extends State<PosSale> {
                                       subTotal: productPriceChecker(product: productModel, customerType: selectedCustomerType),
                                       serialNumber: selectedSerialNumbers,
                                       quantity: selectedSerialNumbers.isEmpty ? 1 : selectedSerialNumbers.length,
-                                      stock: productModel.productStock.toInt(),
+                                      stock: num.parse(productModel.productStock),
                                       productWarranty: productModel.warranty,
+                                      subTaxes: productModel.subTaxes,
+                                      excTax: productModel.excTax,
+                                      groupTaxName: productModel.groupTaxName,
+                                      groupTaxRate: productModel.groupTaxRate,
+                                      incTax: productModel.incTax,
+                                      margin: productModel.margin,
+                                      taxType: productModel.taxType,
                                     );
                                     if (!uniqueCheckForSerial(code: productModel.productCode, newSerialNumbers: selectedSerialNumbers)) {
                                       if (productModel.productStock == '0') {
                                         EasyLoading.showError('Product Out Of Stock');
                                       } else {
                                         cartList.add(addToCartModel);
+                                        addFocus();
                                       }
                                     }
                                   });
@@ -611,7 +637,7 @@ class _PosSaleState extends State<PosSale> {
                                   ),
                                   child: Text(
                                     lang.S.of(context).submit,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   ),
                                 ),
                               )
@@ -873,7 +899,7 @@ class _PosSaleState extends State<PosSale> {
                                           height: 40,
                                           padding: const EdgeInsets.all(10),
                                           decoration: BoxDecoration(
-                                              color: kWhiteTextColor,
+                                              color: kWhite,
                                               border: Border.all(
                                                 color: kBorderColorTextField,
                                               ),
@@ -1040,9 +1066,16 @@ class _PosSaleState extends State<PosSale> {
                                                       productImage: product[i].productPicture,
                                                       productPurchasePrice: product[i].productPurchasePrice.toDouble(),
                                                       subTotal: productPriceChecker(product: product[i], customerType: selectedCustomerType),
-                                                      stock: product[i].productStock.toInt(),
+                                                      stock: num.parse(product[i].productStock),
                                                       productWarranty: product[i].warranty,
                                                       serialNumber: [],
+                                                      subTaxes: product[i].subTaxes,
+                                                      excTax: product[i].excTax,
+                                                      groupTaxName: product[i].groupTaxName,
+                                                      groupTaxRate: product[i].groupTaxRate,
+                                                      incTax: product[i].incTax,
+                                                      margin: product[i].margin,
+                                                      taxType: product[i].taxType,
                                                       // productName: product[i].productName,
                                                       // warehouseName: product[i].warehouseName,
                                                       // warehouseId: product[i].warehouseId,
@@ -1056,6 +1089,7 @@ class _PosSaleState extends State<PosSale> {
                                                     setState(() {
                                                       if (!uniqueCheck(product[i].productCode)) {
                                                         cartList.add(addToCartModel);
+                                                        addFocus();
                                                         nameCodeCategoryController.clear();
                                                         nameFocus.requestFocus();
                                                         searchProductCode = '';
@@ -1147,7 +1181,7 @@ class _PosSaleState extends State<PosSale> {
                                   IntrinsicWidth(
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: kWhiteTextColor,
+                                        color: kWhite,
                                         border: Border.all(width: 1, color: kGreyTextColor.withOpacity(0.3)),
                                         borderRadius: const BorderRadius.all(
                                           Radius.circular(15),
@@ -1241,8 +1275,9 @@ class _PosSaleState extends State<PosSale> {
                                                                         child: TextFormField(
                                                                           controller: quantityController,
                                                                           textAlign: TextAlign.center,
+                                                                          focusNode: productFocusNode[index],
                                                                           onChanged: (value) {
-                                                                            if (cartList[index].stock!.toInt() < value.toInt()) {
+                                                                            if (cartList[index].stock! < num.parse(value)) {
                                                                               EasyLoading.showError('Out of Stock');
                                                                               quantityController.clear();
                                                                             } else if (value == '') {
@@ -1250,7 +1285,7 @@ class _PosSaleState extends State<PosSale> {
                                                                             } else if (value == '0') {
                                                                               cartList[index].quantity = 1;
                                                                             } else {
-                                                                              cartList[index].quantity = value.toInt();
+                                                                              cartList[index].quantity = num.parse(value);
                                                                             }
                                                                           },
                                                                           onFieldSubmitted: (value) {
@@ -1260,7 +1295,7 @@ class _PosSaleState extends State<PosSale> {
                                                                               });
                                                                             } else {
                                                                               setState(() {
-                                                                                cartList[index].quantity = value.toInt();
+                                                                                cartList[index].quantity = num.parse(value);
                                                                               });
                                                                             }
                                                                           },
@@ -1268,7 +1303,7 @@ class _PosSaleState extends State<PosSale> {
                                                                         ),
                                                                       ),
                                                                       const Icon(FontAwesomeIcons.solidSquarePlus, color: kBlueTextColor).onTap(() {
-                                                                        if (cartList[index].quantity < cartList[index].stock!.toInt()) {
+                                                                        if (cartList[index].quantity < cartList[index].stock!) {
                                                                           setState(() {
                                                                             cartList[index].quantity += 1;
                                                                             toast(cartList[index].quantity.toString());
@@ -1321,8 +1356,7 @@ class _PosSaleState extends State<PosSale> {
                                                               SizedBox(
                                                                 width: 100,
                                                                 child: Text(
-                                                                  myFormat.format(
-                                                                      double.tryParse((double.parse(cartList[index].subTotal) * cartList[index].quantity).toStringAsFixed(2)) ?? 0),
+                                                                  myFormat.format(double.tryParse((double.parse(cartList[index].subTotal) * cartList[index].quantity).toStringAsFixed(2)) ?? 0),
                                                                   style: kTextStyle.copyWith(color: kTitleColor),
                                                                 ),
                                                               ),
@@ -1336,6 +1370,8 @@ class _PosSaleState extends State<PosSale> {
                                                                 ).onTap(() {
                                                                   setState(() {
                                                                     cartList.removeAt(index);
+                                                                    productFocusNode.removeAt(index);
+
                                                                   });
                                                                 }),
                                                               ),
@@ -1359,6 +1395,8 @@ class _PosSaleState extends State<PosSale> {
                                           Padding(
                                             padding: const EdgeInsets.all(10.0),
                                             child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment: CrossAxisAlignment.end,
                                               children: [
                                                 ///__________total__________________________________________
                                                 Row(
@@ -1372,7 +1410,7 @@ class _PosSaleState extends State<PosSale> {
                                                     SizedBox(
                                                       width: context.width() < 1080 ? 1080 * .10 : MediaQuery.of(context).size.width * .10,
                                                       child: Padding(
-                                                        padding: EdgeInsets.only(right: 20),
+                                                        padding: const EdgeInsets.only(right: 20),
                                                         child: Text(
                                                           'Sub Total',
                                                           textAlign: TextAlign.end,
@@ -1387,13 +1425,78 @@ class _PosSaleState extends State<PosSale> {
                                                         decoration: const BoxDecoration(color: kGreenTextColor, borderRadius: BorderRadius.all(Radius.circular(8))),
                                                         child: Center(
                                                           child: Text(
-                                                            '$currency ${myFormat.format(double.tryParse((getTotalAmount().toDouble() + serviceCharge - discountAmount + vatGst).toStringAsFixed(2)) ?? 0)}',
-                                                            style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                            '$currency ${myFormat.format(double.tryParse((getTotalAmount().toDouble() + serviceCharge - discountAmount).toStringAsFixed(2)) ?? 0)}',
+                                                            style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
                                                   ],
+                                                ),
+                                                const SizedBox(height: 10.0),
+
+                                                ///_________Taxes__________________________________________
+
+                                                SizedBox(
+                                                  height: 50.00 * getAllTaxFromCartList(cart: cartList).length,
+                                                  width: context.width() < 1080 ? 1080 * .10 : MediaQuery.of(context).size.width * .10 + 204,
+                                                  child: ListView.builder(
+                                                    itemCount: getAllTaxFromCartList(cart: cartList).length,
+                                                    shrinkWrap: true,
+                                                    itemBuilder: (context, index) {
+                                                      return Container(
+                                                        height: 40,
+                                                        margin: const EdgeInsets.only(top: 5, bottom: 5),
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            SizedBox(
+                                                              width: context.width() < 1080 ? 1080 * .10 : MediaQuery.of(context).size.width * .10,
+                                                              child: Padding(
+                                                                padding: const EdgeInsets.only(right: 20),
+                                                                child: Text(
+                                                                  getAllTaxFromCartList(cart: cartList)[index].name,
+                                                                  textAlign: TextAlign.end,
+                                                                  style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 204,
+                                                              height: 40.0,
+                                                              child: Center(
+                                                                child: AppTextField(
+                                                                  initialValue: getAllTaxFromCartList(cart: cartList)[index].taxRate.toString(),
+                                                                  readOnly: true,
+                                                                  textAlign: TextAlign.right,
+                                                                  decoration: InputDecoration(
+                                                                    contentPadding: const EdgeInsets.only(right: 6.0),
+                                                                    hintText: '0',
+                                                                    border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                    enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                    disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                    focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                    prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
+                                                                    prefixIcon: Container(
+                                                                      padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                                                                      height: 40,
+                                                                      decoration: const BoxDecoration(
+                                                                          color: Color(0xFFff5f00), borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                                                      child: const Text(
+                                                                        '%',
+                                                                        style: TextStyle(fontSize: 20.0, color: Colors.white),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  textFieldType: TextFieldType.NUMBER,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
                                                 ),
                                                 const SizedBox(height: 10.0),
 
@@ -1492,8 +1595,7 @@ class _PosSaleState extends State<PosSale> {
                                                                   padding: const EdgeInsets.only(top: 8.0, left: 8.0),
                                                                   height: 40,
                                                                   decoration: const BoxDecoration(
-                                                                      color: Color(0xFFff5f00),
-                                                                      borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                                                      color: Color(0xFFff5f00), borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
                                                                   child: const Text(
                                                                     '%',
                                                                     style: TextStyle(fontSize: 20.0, color: Colors.white),
@@ -1523,8 +1625,7 @@ class _PosSaleState extends State<PosSale> {
                                                                   if (value.toInt() <= getTotalAmount().toDouble()) {
                                                                     setState(() {
                                                                       discountAmount = double.parse(value);
-                                                                      discountPercentageEditingController.text =
-                                                                          ((discountAmount * 100) / getTotalAmount().toDouble()).toStringAsFixed(1);
+                                                                      discountPercentageEditingController.text = ((discountAmount * 100) / getTotalAmount().toDouble()).toStringAsFixed(1);
                                                                     });
                                                                   } else {
                                                                     setState(() {
@@ -1549,8 +1650,7 @@ class _PosSaleState extends State<PosSale> {
                                                                   padding: const EdgeInsets.only(top: 8.0, left: 8.0),
                                                                   height: 40,
                                                                   decoration: const BoxDecoration(
-                                                                      color: kMainColor,
-                                                                      borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                                                      color: kMainColor, borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
                                                                   child: Text(
                                                                     currency,
                                                                     style: const TextStyle(fontSize: 20.0, color: Colors.white),
@@ -1569,117 +1669,117 @@ class _PosSaleState extends State<PosSale> {
                                                 const SizedBox(height: 10.0),
 
                                                 ///___________vat____________________________________
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                  children: [
-                                                    SizedBox(
-                                                      width: context.width() < 1080 ? 1080 * .10 : MediaQuery.of(context).size.width * .10,
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.only(right: 20),
-                                                        child: Text(
-                                                          lang.S.of(context).vatOrgst,
-                                                          textAlign: TextAlign.end,
-                                                          style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        SizedBox(
-                                                          width: 100,
-                                                          height: 40.0,
-                                                          child: Center(
-                                                            child: AppTextField(
-                                                              controller: vatPercentageEditingController,
-                                                              onChanged: (value) {
-                                                                if (value == '') {
-                                                                  setState(() {
-                                                                    vatGst = 0.0;
-                                                                    vatAmountEditingController.text = 0.toString();
-                                                                  });
-                                                                } else {
-                                                                  setState(() {
-                                                                    vatGst = double.parse(((value.toDouble() / 100) * getTotalAmount().toDouble()).toStringAsFixed(1));
-                                                                    vatAmountEditingController.text = vatGst.toString();
-                                                                  });
-                                                                }
-                                                              },
-                                                              textAlign: TextAlign.right,
-                                                              decoration: InputDecoration(
-                                                                contentPadding: const EdgeInsets.only(right: 6.0),
-                                                                hintText: '0',
-                                                                border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
-                                                                enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
-                                                                disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
-                                                                focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
-                                                                prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
-                                                                prefixIcon: Container(
-                                                                  padding: const EdgeInsets.only(top: 8.0, left: 8.0),
-                                                                  height: 40,
-                                                                  decoration: const BoxDecoration(
-                                                                      color: kTitleColor,
-                                                                      borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
-                                                                  child: const Text(
-                                                                    '%',
-                                                                    style: TextStyle(fontSize: 20.0, color: Colors.white),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              textFieldType: TextFieldType.NUMBER,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          width: 4.0,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 100,
-                                                          height: 40.0,
-                                                          child: Center(
-                                                            child: AppTextField(
-                                                              controller: vatAmountEditingController,
-                                                              onChanged: (value) {
-                                                                if (value == '') {
-                                                                  setState(() {
-                                                                    vatGst = 0;
-                                                                    vatPercentageEditingController.text = 0.toString();
-                                                                  });
-                                                                } else {
-                                                                  setState(() {
-                                                                    vatGst = double.parse(value);
-                                                                    vatPercentageEditingController.text = ((vatGst * 100) / getTotalAmount().toDouble()).toStringAsFixed(1);
-                                                                  });
-                                                                }
-                                                              },
-                                                              textAlign: TextAlign.right,
-                                                              decoration: InputDecoration(
-                                                                contentPadding: const EdgeInsets.only(right: 6.0),
-                                                                hintText: '0',
-                                                                border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
-                                                                enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
-                                                                disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
-                                                                focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
-                                                                prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
-                                                                prefixIcon: Container(
-                                                                  padding: const EdgeInsets.only(top: 8.0, left: 8.0),
-                                                                  height: 40,
-                                                                  decoration: const BoxDecoration(
-                                                                      color: kMainColor,
-                                                                      borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
-                                                                  child: Text(
-                                                                    currency,
-                                                                    style: const TextStyle(fontSize: 20.0, color: Colors.white),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              textFieldType: TextFieldType.NUMBER,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
+                                                // Row(
+                                                //   mainAxisAlignment: MainAxisAlignment.end,
+                                                //   children: [
+                                                //     SizedBox(
+                                                //       width: context.width() < 1080 ? 1080 * .10 : MediaQuery.of(context).size.width * .10,
+                                                //       child: Padding(
+                                                //         padding: const EdgeInsets.only(right: 20),
+                                                //         child: Text(
+                                                //           lang.S.of(context).vatOrgst,
+                                                //           textAlign: TextAlign.end,
+                                                //           style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                                //         ),
+                                                //       ),
+                                                //     ),
+                                                //     Row(
+                                                //       children: [
+                                                //         SizedBox(
+                                                //           width: 100,
+                                                //           height: 40.0,
+                                                //           child: Center(
+                                                //             child: AppTextField(
+                                                //               controller: vatPercentageEditingController,
+                                                //               onChanged: (value) {
+                                                //                 if (value == '') {
+                                                //                   setState(() {
+                                                //                     // vatGst = 0.0;
+                                                //                     vatAmountEditingController.text = 0.toString();
+                                                //                   });
+                                                //                 } else {
+                                                //                   setState(() {
+                                                //                     vatGst = double.parse(((value.toDouble() / 100) * getTotalAmount().toDouble()).toStringAsFixed(1));
+                                                //                     vatAmountEditingController.text = vatGst.toString();
+                                                //                   });
+                                                //                 }
+                                                //               },
+                                                //               textAlign: TextAlign.right,
+                                                //               decoration: InputDecoration(
+                                                //                 contentPadding: const EdgeInsets.only(right: 6.0),
+                                                //                 hintText: '0',
+                                                //                 border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
+                                                //                 enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
+                                                //                 disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
+                                                //                 focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
+                                                //                 prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
+                                                //                 prefixIcon: Container(
+                                                //                   padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                                                //                   height: 40,
+                                                //                   decoration: const BoxDecoration(
+                                                //                       color: kTitleColor,
+                                                //                       borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                                //                   child: const Text(
+                                                //                     '%',
+                                                //                     style: TextStyle(fontSize: 20.0, color: Colors.white),
+                                                //                   ),
+                                                //                 ),
+                                                //               ),
+                                                //               textFieldType: TextFieldType.NUMBER,
+                                                //             ),
+                                                //           ),
+                                                //         ),
+                                                //         const SizedBox(
+                                                //           width: 4.0,
+                                                //         ),
+                                                //         SizedBox(
+                                                //           width: 100,
+                                                //           height: 40.0,
+                                                //           child: Center(
+                                                //             child: AppTextField(
+                                                //               controller: vatAmountEditingController,
+                                                //               onChanged: (value) {
+                                                //                 if (value == '') {
+                                                //                   setState(() {
+                                                //                     vatGst = 0;
+                                                //                     vatPercentageEditingController.text = 0.toString();
+                                                //                   });
+                                                //                 } else {
+                                                //                   setState(() {
+                                                //                     vatGst = double.parse(value);
+                                                //                     vatPercentageEditingController.text = ((vatGst * 100) / getTotalAmount().toDouble()).toStringAsFixed(1);
+                                                //                   });
+                                                //                 }
+                                                //               },
+                                                //               textAlign: TextAlign.right,
+                                                //               decoration: InputDecoration(
+                                                //                 contentPadding: const EdgeInsets.only(right: 6.0),
+                                                //                 hintText: '0',
+                                                //                 border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                                //                 enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                                //                 disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                                //                 focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                                //                 prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
+                                                //                 prefixIcon: Container(
+                                                //                   padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                                                //                   height: 40,
+                                                //                   decoration: const BoxDecoration(
+                                                //                       color: kMainColor,
+                                                //                       borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                                //                   child: Text(
+                                                //                     currency,
+                                                //                     style: const TextStyle(fontSize: 20.0, color: Colors.white),
+                                                //                   ),
+                                                //                 ),
+                                                //               ),
+                                                //               textFieldType: TextFieldType.NUMBER,
+                                                //             ),
+                                                //           ),
+                                                //         ),
+                                                //       ],
+                                                //     ),
+                                                //   ],
+                                                // ),
 
                                                 const SizedBox(height: 20.0),
 
@@ -1704,7 +1804,7 @@ class _PosSaleState extends State<PosSale> {
                                                           child: Text(
                                                             lang.S.of(context).cancel,
                                                             textAlign: TextAlign.center,
-                                                            style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                            style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                           ),
                                                         ),
                                                       ),
@@ -1788,6 +1888,7 @@ class _PosSaleState extends State<PosSale> {
                                                                                     onTap: () async {
                                                                                       SaleTransactionModel transitionModel = SaleTransactionModel(
                                                                                         customerName: selectedUserName.customerName,
+                                                                                        customerGst: selectedUserName.gst,
                                                                                         customerType: selectedUserName.type,
                                                                                         customerImage: selectedUserName.profilePicture,
                                                                                         customerAddress: selectedUserName.customerAddress,
@@ -1795,18 +1896,15 @@ class _PosSaleState extends State<PosSale> {
                                                                                         invoiceNumber: data.saleInvoiceCounter.toString(),
                                                                                         purchaseDate: DateTime.now().toString(),
                                                                                         productList: cartList,
-                                                                                        totalAmount: double.parse(
-                                                                                            (getTotalAmount().toDouble() + serviceCharge - discountAmount + vatGst)
-                                                                                                .toStringAsFixed(1)),
+                                                                                        totalAmount: double.parse((getTotalAmount().toDouble() + serviceCharge - discountAmount).toStringAsFixed(1)),
                                                                                         discountAmount: discountAmount,
                                                                                         serviceCharge: serviceCharge,
-                                                                                        vat: vatGst,
+                                                                                        vat: 0,
                                                                                       );
 
                                                                                       try {
                                                                                         EasyLoading.show(status: 'Loading...', dismissOnTap: false);
-                                                                                        DatabaseReference ref =
-                                                                                            FirebaseDatabase.instance.ref("${await getUserID()}/Sales Quotation");
+                                                                                        DatabaseReference ref = FirebaseDatabase.instance.ref("${await getUserID()}/Sales Quotation");
 
                                                                                         transitionModel.isPaid = false;
                                                                                         transitionModel.dueAmount = 0;
@@ -1819,16 +1917,13 @@ class _PosSaleState extends State<PosSale> {
                                                                                         await ref.push().set(transitionModel.toJson());
 
                                                                                         ///_________Invoice Increase____________________________________________________________________________
-                                                                                        updateInvoice(
-                                                                                            typeOfInvoice: 'saleInvoiceCounter', invoice: transitionModel.invoiceNumber.toInt());
+                                                                                        updateInvoice(typeOfInvoice: 'saleInvoiceCounter', invoice: transitionModel.invoiceNumber.toInt());
 
                                                                                         consumerRef.refresh(profileDetailsProvider);
 
                                                                                         EasyLoading.showSuccess('Added Successfully');
                                                                                         await GeneratePdfAndPrint().printQuotationInvoice(
-                                                                                            personalInformationModel: data,
-                                                                                            saleTransactionModel: transitionModel,
-                                                                                            context: context);
+                                                                                            personalInformationModel: data, saleTransactionModel: transitionModel, context: context);
                                                                                       } catch (e) {
                                                                                         EasyLoading.dismiss();
                                                                                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
@@ -1858,7 +1953,7 @@ class _PosSaleState extends State<PosSale> {
                                                           child: Text(
                                                             lang.S.of(context).quotation,
                                                             textAlign: TextAlign.center,
-                                                            style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                            style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                           ),
                                                         ),
                                                       ),
@@ -1876,7 +1971,7 @@ class _PosSaleState extends State<PosSale> {
                                                         child: Text(
                                                           lang.S.of(context).hold,
                                                           textAlign: TextAlign.center,
-                                                          style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                          style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                         ),
                                                       ).onTap(() => showHoldPopUp()),
                                                     ).visible(false),
@@ -1895,7 +1990,7 @@ class _PosSaleState extends State<PosSale> {
                                                         child: Text(
                                                           lang.S.of(context).payment,
                                                           textAlign: TextAlign.center,
-                                                          style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                          style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                         ),
                                                       ).onTap(() async {
                                                         if (await checkUserRolePermission(type: 'sale')) {
@@ -1906,23 +2001,20 @@ class _PosSaleState extends State<PosSale> {
                                                               SaleTransactionModel transitionModel = SaleTransactionModel(
                                                                 customerName: selectedUserName.customerName,
                                                                 customerType: selectedUserName.type,
+                                                                customerGst: selectedUserName.gst,
                                                                 customerImage: selectedUserName.profilePicture,
                                                                 customerAddress: selectedUserName.customerAddress,
                                                                 customerPhone: selectedUserName.phoneNumber,
                                                                 invoiceNumber: widget.quotation == null ? data.saleInvoiceCounter.toString() : widget.quotation!.invoiceNumber,
                                                                 purchaseDate: DateTime.now().toString(),
                                                                 productList: cartList,
-                                                                totalAmount:
-                                                                    double.parse((getTotalAmount().toDouble() + serviceCharge - discountAmount + vatGst).toStringAsFixed(1)),
+                                                                totalAmount: double.parse((getTotalAmount().toDouble() + serviceCharge - discountAmount).toStringAsFixed(1)),
                                                                 discountAmount: double.parse(discountAmount.toStringAsFixed(2)),
                                                                 serviceCharge: double.parse(serviceCharge.toStringAsFixed(2)),
-                                                                vat: double.parse(vatGst.toStringAsFixed(2)),
+                                                                // vat: double.parse(vatGst.toStringAsFixed(2)),
+                                                                vat: 0,
                                                               );
-
-                                                              // print(transitionModel);
-
-
-
+                                                              print(transitionModel);
                                                               ShowPaymentPopUp(
                                                                 transitionModel: transitionModel,
                                                                 isFromQuotation: widget.quotation == null ? false : true,
@@ -1955,17 +2047,14 @@ class _PosSaleState extends State<PosSale> {
                                           height: context.height() < 720 ? 720 - 142 : context.height() - 142,
                                           padding: const EdgeInsets.all(8.0),
                                           decoration: BoxDecoration(
-                                              color: kWhiteTextColor,
-                                              border: Border.all(width: 1, color: kGreyTextColor.withOpacity(0.3)),
-                                              borderRadius: const BorderRadius.all(Radius.circular(15))),
+                                              color: kWhite, border: Border.all(width: 1, color: kGreyTextColor.withOpacity(0.3)), borderRadius: const BorderRadius.all(Radius.circular(15))),
                                           child: SingleChildScrollView(
                                             child: Column(
                                               children: [
                                                 GestureDetector(
                                                   child: Container(
-                                                    decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(5.0),
-                                                        color: isSelected == 'Categories' ? kBlueTextColor : kBlueTextColor.withOpacity(0.1)),
+                                                    decoration:
+                                                        BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: isSelected == 'Categories' ? kBlueTextColor : kBlueTextColor.withOpacity(0.1)),
                                                     height: 35,
                                                     width: 150,
                                                     padding: const EdgeInsets.only(left: 15, right: 8),
@@ -1976,8 +2065,7 @@ class _PosSaleState extends State<PosSale> {
                                                         Text(
                                                           'Categories',
                                                           textAlign: TextAlign.start,
-                                                          style:
-                                                              kTextStyle.copyWith(color: isSelected == 'Categories' ? Colors.white : kDarkGreyColor, fontWeight: FontWeight.bold),
+                                                          style: kTextStyle.copyWith(color: isSelected == 'Categories' ? Colors.white : kDarkGreyColor, fontWeight: FontWeight.bold),
                                                         ),
                                                         Icon(
                                                           Icons.keyboard_arrow_right,
@@ -2019,8 +2107,7 @@ class _PosSaleState extends State<PosSale> {
                                                             children: [
                                                               Text(
                                                                 category[i].categoryName,
-                                                                style: kTextStyle.copyWith(
-                                                                    color: isSelected == category[i].categoryName ? Colors.white : kDarkGreyColor, fontWeight: FontWeight.bold),
+                                                                style: kTextStyle.copyWith(color: isSelected == category[i].categoryName ? Colors.white : kDarkGreyColor, fontWeight: FontWeight.bold),
                                                               ),
                                                               Icon(
                                                                 Icons.keyboard_arrow_right,
@@ -2056,7 +2143,7 @@ class _PosSaleState extends State<PosSale> {
                                     if (widget.quotation != null) {
                                       for (var cart in cartList) {
                                         for (var pro in products) {
-                                          if (cart.productId == pro.productCode && cart.stock! > int.parse(pro.productStock)) {
+                                          if (cart.productId == pro.productCode && cart.stock! > num.parse(pro.productStock)) {
                                             cartList.removeWhere((element) {
                                               return element.productId == cart.productId;
                                             });
@@ -2072,7 +2159,8 @@ class _PosSaleState extends State<PosSale> {
                                         if (element.productCode.toLowerCase().contains(searchProductCode) ||
                                             element.productCategory.toLowerCase().contains(searchProductCode) ||
                                             element.productName.toLowerCase().contains(searchProductCode)) {
-                                          productPriceChecker(product: element, customerType: selectedCustomerType) != '0' && (selectedWareHouse?.id == element.warehouseId)
+                                          productPriceChecker(product: element, customerType: selectedCustomerType) != '0' &&
+                                                  ((selectedWareHouse?.warehouseName == 'InHouse' && element.warehouseId == '') ? true : selectedWareHouse?.id == element.warehouseId)
                                               ? showProductVsCategory.add(element)
                                               : null;
                                         }
@@ -2080,7 +2168,8 @@ class _PosSaleState extends State<PosSale> {
                                     } else {
                                       for (var element in products) {
                                         if (element.productCategory == selectedCategory) {
-                                          productPriceChecker(product: element, customerType: selectedCustomerType) != '0' && (selectedWareHouse?.id == element.warehouseId)
+                                          productPriceChecker(product: element, customerType: selectedCustomerType) != '0' &&
+                                                  ((selectedWareHouse?.warehouseName == 'InHouse' && element.warehouseId == '') ? true : selectedWareHouse?.id == element.warehouseId)
                                               ? showProductVsCategory.add(element)
                                               : null;
                                         }
@@ -2110,7 +2199,7 @@ class _PosSaleState extends State<PosSale> {
                                                       height: 170.0,
                                                       decoration: BoxDecoration(
                                                         borderRadius: BorderRadius.circular(10.0),
-                                                        color: kWhiteTextColor,
+                                                        color: kWhite,
                                                         border: Border.all(
                                                           color: kLitGreyColor,
                                                         ),
@@ -2137,13 +2226,12 @@ class _PosSaleState extends State<PosSale> {
                                                                 top: 5,
                                                                 child: Container(
                                                                   padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-                                                                  decoration: BoxDecoration(
-                                                                      color: showProductVsCategory[i].productStock == '0' ? kRedTextColor : kBlueTextColor.withOpacity(0.8)),
+                                                                  decoration: BoxDecoration(color: showProductVsCategory[i].productStock == '0' ? kRedTextColor : kBlueTextColor.withOpacity(0.8)),
                                                                   child: Text(
                                                                     showProductVsCategory[i].productStock != '0'
                                                                         ? '${myFormat.format(double.tryParse(showProductVsCategory[i].productStock) ?? 0)} pc'
                                                                         : 'Out of stock',
-                                                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                                                    style: kTextStyle.copyWith(color: kWhite),
                                                                   ),
                                                                 ),
                                                               ),
@@ -2174,10 +2262,9 @@ class _PosSaleState extends State<PosSale> {
                                                                   child: Text(
                                                                     // ignore: prefer_interpolation_to_compose_strings
                                                                     'Price: $currency ' +
-                                                                        myFormat.format(double.tryParse(
-                                                                                productPriceChecker(product: showProductVsCategory[i], customerType: selectedCustomerType)) ??
-                                                                            0),
-                                                                    style: kTextStyle.copyWith(color: kWhiteTextColor, fontWeight: FontWeight.bold, fontSize: 14.0),
+                                                                        myFormat
+                                                                            .format(double.tryParse(productPriceChecker(product: showProductVsCategory[i], customerType: selectedCustomerType)) ?? 0),
+                                                                    style: kTextStyle.copyWith(color: kWhite, fontWeight: FontWeight.bold, fontSize: 14.0),
                                                                   ),
                                                                 ),
                                                               ],
@@ -2191,21 +2278,30 @@ class _PosSaleState extends State<PosSale> {
                                                       } else {
                                                         setState(() {
                                                           AddToCartModel addToCartModel = AddToCartModel(
-                                                              productName: showProductVsCategory[i].productName,
-                                                              warehouseName: showProductVsCategory[i].warehouseName,
-                                                              warehouseId: showProductVsCategory[i].warehouseId,
-                                                              productId: showProductVsCategory[i].productCode,
-                                                              productImage: showProductVsCategory[i].productPicture,
-                                                              productPurchasePrice: showProductVsCategory[i].productPurchasePrice.toDouble(),
-                                                              subTotal: productPriceChecker(product: showProductVsCategory[i], customerType: selectedCustomerType),
-                                                              stock: showProductVsCategory[i].productStock.toInt(),
-                                                              productWarranty: showProductVsCategory[i].warranty,
-                                                              serialNumber: []);
+                                                            productName: showProductVsCategory[i].productName,
+                                                            warehouseName: showProductVsCategory[i].warehouseName,
+                                                            warehouseId: showProductVsCategory[i].warehouseId,
+                                                            productId: showProductVsCategory[i].productCode,
+                                                            productImage: showProductVsCategory[i].productPicture,
+                                                            productPurchasePrice: showProductVsCategory[i].productPurchasePrice.toDouble(),
+                                                            subTotal: productPriceChecker(product: showProductVsCategory[i], customerType: selectedCustomerType),
+                                                            stock: num.parse(showProductVsCategory[i].productStock),
+                                                            productWarranty: showProductVsCategory[i].warranty,
+                                                            serialNumber: [],
+                                                            subTaxes: showProductVsCategory[i].subTaxes,
+                                                            excTax: showProductVsCategory[i].excTax,
+                                                            groupTaxName: showProductVsCategory[i].groupTaxName,
+                                                            groupTaxRate: showProductVsCategory[i].groupTaxRate,
+                                                            incTax: showProductVsCategory[i].incTax,
+                                                            margin: showProductVsCategory[i].margin,
+                                                            taxType: showProductVsCategory[i].taxType,
+                                                          );
                                                           if (!uniqueCheck(showProductVsCategory[i].productCode)) {
                                                             if (showProductVsCategory[i].productStock == '0') {
                                                               EasyLoading.showError('Product Out Of Stock');
                                                             } else {
                                                               cartList.add(addToCartModel);
+                                                              addFocus();
                                                             }
                                                           } else {}
                                                         });

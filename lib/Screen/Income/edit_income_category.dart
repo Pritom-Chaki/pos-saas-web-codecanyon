@@ -67,7 +67,7 @@ class _EditIncomeCategoryState extends State<EditIncomeCategory> {
             child: Container(
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: kWhiteTextColor,
+                color: kWhite,
               ),
               width: 600,
               child: Column(
@@ -156,7 +156,7 @@ class _EditIncomeCategoryState extends State<EditIncomeCategory> {
                                 children: [
                                   Text(
                                     lang.S.of(context).cancel,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   ),
                                 ],
                               ),
@@ -176,7 +176,7 @@ class _EditIncomeCategoryState extends State<EditIncomeCategory> {
                                 children: [
                                   Text(
                                     lang.S.of(context).saveAndPublished,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   ),
                                 ],
                               ),

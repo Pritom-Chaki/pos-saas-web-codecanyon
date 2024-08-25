@@ -62,7 +62,7 @@ class _SalesReturnWidgetState extends State<SalesReturnWidget> {
                 padding: const EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,7 +142,7 @@ class _SalesReturnWidgetState extends State<SalesReturnWidget> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

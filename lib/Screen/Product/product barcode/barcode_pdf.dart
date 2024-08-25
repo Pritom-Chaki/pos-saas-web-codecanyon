@@ -42,7 +42,7 @@ FutureOr<Uint8List> generateBarCode({required List<AddToCartModel> products,requ
             spacing: 20,
             runSpacing: 10,
             children: List.generate(
-              product.quantity,
+              product.quantity.round(),
                   (index) =>
                   pw.Padding(
                     padding:  const pw.EdgeInsets.only(bottom: 10.0),

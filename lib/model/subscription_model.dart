@@ -10,19 +10,19 @@ class SubscriptionModel {
     required this.products,
   });
 
-  String subscriptionName, subscriptionDate = '';
-
+  String subscriptionName, subscriptionDate;
   int saleNumber, purchaseNumber, partiesNumber, dueNumber, duration, products;
 
   SubscriptionModel.fromJson(Map<dynamic, dynamic> json)
-      : subscriptionName = json['subscriptionName'] ?? 'Error',
-        saleNumber = json['saleNumber'] ?? 0,
-        subscriptionDate = json['subscriptionDate'] ?? DateTime.now().toString(),
-        purchaseNumber = json['purchaseNumber'] ?? 0,
-        partiesNumber = json['partiesNumber'] ?? 0,
-        dueNumber = json['dueNumber'] ?? 0,
-        duration = json['duration'] ?? 0,
-        products = json['products'] ?? 0;
+      : subscriptionName = json['subscriptionName'] as String,
+        saleNumber = json['saleNumber'],
+        subscriptionDate = json['subscriptionDate'],
+        purchaseNumber = json['purchaseNumber'],
+        partiesNumber = json['partiesNumber'],
+        dueNumber = json['dueNumber'],
+        duration = json['duration'],
+        products = json['products'];
+
   Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
         'subscriptionName': subscriptionName,
         'subscriptionDate': subscriptionDate,

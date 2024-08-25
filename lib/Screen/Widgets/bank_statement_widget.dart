@@ -13,7 +13,7 @@ class CashBank extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

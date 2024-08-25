@@ -1,3 +1,5 @@
+import 'package:salespro_admin/Screen/tax%20rates/tax_model.dart';
+
 class ProductModel {
   late String productName,
       productCategory,
@@ -21,8 +23,15 @@ class ProductModel {
       warehouseId,
       productPicture;
   String? expiringDate, manufacturingDate;
-  late int lowerStockAlert;
+  late num lowerStockAlert;
   List<String> serialNumber = [];
+  late String taxType;
+  late num margin;
+  late num excTax;
+  late num incTax;
+  late String groupTaxName;
+  late num groupTaxRate;
+  late List<TaxModel> subTaxes;
 
   ProductModel(
     this.productName,
@@ -50,6 +59,13 @@ class ProductModel {
     this.expiringDate,
     required this.lowerStockAlert,
     this.manufacturingDate,
+    required this.taxType,
+    required this.margin,
+    required this.excTax,
+    required this.incTax,
+    required this.groupTaxName,
+    required this.groupTaxRate,
+    required this.subTaxes,
   });
 
   ProductModel.fromJson(Map<dynamic, dynamic> json) {
@@ -83,6 +99,20 @@ class ProductModel {
     expiringDate = json['expiringDate'];
     manufacturingDate = json['manufacturingDate'];
     lowerStockAlert = json['lowerStockAlert'] ?? 5;
+    taxType = json['taxType'] ?? '';
+    margin = json['margin'] ?? '';
+    excTax = json['excTax'] ?? '';
+    incTax = json['incTax'] ?? '';
+    groupTaxName = json['groupTaxName'] ?? '';
+    groupTaxRate = json['groupTaxRate'] ?? '';
+    if (json['subTax'] != null) {
+      subTaxes = <TaxModel>[];
+      json['subTax'].forEach((v) {
+        subTaxes.add(TaxModel.fromJson(v));
+      });
+    }else{
+      subTaxes = [];
+    }
   }
 
   Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
@@ -111,5 +141,12 @@ class ProductModel {
         'manufacturingDate': manufacturingDate,
         'expiringDate': expiringDate,
         'lowerStockAlert': lowerStockAlert,
+        'taxType': taxType,
+        'margin': margin,
+        'excTax': excTax,
+        'incTax': incTax,
+        'groupTaxName': groupTaxName,
+        'groupTaxRate': groupTaxRate,
+        'subTax': subTaxes.map((e) => e.toJson()).toList(),
       };
 }

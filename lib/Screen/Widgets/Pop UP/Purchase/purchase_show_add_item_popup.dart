@@ -297,7 +297,7 @@ class _ShowAddItemPopUpState extends State<PurchaseShowAddItemPopUp> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kRedTextColor),
                             child: Text(
                               lang.S.of(context).cancel,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() {
                             finish(context);
@@ -310,7 +310,7 @@ class _ShowAddItemPopUpState extends State<PurchaseShowAddItemPopUp> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kGreenTextColor),
                             child: Text(
                               lang.S.of(context).submit,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() {
                             finish(context);
@@ -412,7 +412,7 @@ class _ShowAddItemPopUpState extends State<PurchaseShowAddItemPopUp> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kRedTextColor),
                             child: Text(
                               lang.S.of(context).cancel,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() {
                             finish(context);
@@ -425,7 +425,7 @@ class _ShowAddItemPopUpState extends State<PurchaseShowAddItemPopUp> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kGreenTextColor),
                             child: Text(
                               lang.S.of(context).submit,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() {
                             finish(context);
@@ -549,7 +549,7 @@ class _ShowAddItemPopUpState extends State<PurchaseShowAddItemPopUp> {
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kRedTextColor),
                           child: Text(
                             lang.S.of(context).cancel,
-                            style: kTextStyle.copyWith(color: kWhiteTextColor),
+                            style: kTextStyle.copyWith(color: kWhite),
                           ),
                         ).onTap(() {
                           finish(context);
@@ -562,7 +562,7 @@ class _ShowAddItemPopUpState extends State<PurchaseShowAddItemPopUp> {
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kGreenTextColor),
                           child: Text(
                             lang.S.of(context).submit,
-                            style: kTextStyle.copyWith(color: kWhiteTextColor),
+                            style: kTextStyle.copyWith(color: kWhite),
                           ),
                         ).onTap(() {
                           finish(context);
@@ -882,7 +882,7 @@ class _ShowAddItemPopUpState extends State<PurchaseShowAddItemPopUp> {
                         ),
                         child: Text(
                           lang.S.of(context).cancel,
-                          style: kTextStyle.copyWith(color: kWhiteTextColor),
+                          style: kTextStyle.copyWith(color: kWhite),
                         )).onTap(() => {finish(context)}),
                     const SizedBox(width: 10.0),
                     Container(
@@ -893,7 +893,7 @@ class _ShowAddItemPopUpState extends State<PurchaseShowAddItemPopUp> {
                         ),
                         child: Text(
                           lang.S.of(context).submit,
-                          style: kTextStyle.copyWith(color: kWhiteTextColor),
+                          style: kTextStyle.copyWith(color: kWhite),
                         )).onTap(() => {finish(context)})
                   ],
                 ),

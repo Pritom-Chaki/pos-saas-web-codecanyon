@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -17,6 +15,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:nb_utils/nb_utils.dart';
 import 'package:salespro_admin/Screen/Product/product.dart';
 import 'package:salespro_admin/Screen/Widgets/Constant%20Data/button_global.dart';
+import 'package:salespro_admin/Screen/tax%20rates/tax_model.dart';
 import 'package:salespro_admin/generated/l10n.dart' as lang;
 import '../../Provider/product_provider.dart';
 import '../../const.dart';
@@ -27,10 +26,11 @@ import '../Widgets/Sidebar/sidebar_widget.dart';
 import '../Widgets/TopBar/top_bar_widget.dart';
 
 class EditProduct extends StatefulWidget {
-  const EditProduct({Key? key, required this.productModel, required this.allProductsNameList}) : super(key: key);
+  const EditProduct({super.key, required this.productModel, required this.groupTaxModel, required this.allProductsNameList});
 
   final ProductModel productModel;
   final List<String> allProductsNameList;
+  final List<GroupTaxModel> groupTaxModel;
 
   @override
   State<EditProduct> createState() => _AddProductState();
@@ -97,7 +97,13 @@ class _AddProductState extends State<EditProduct> {
   TextEditingController productSerialNumberController = TextEditingController(text: '');
   TextEditingController expireDateTextEditingController = TextEditingController();
   TextEditingController manufactureDateTextEditingController = TextEditingController();
-  int lowerStockAlert = 5;
+
+  TextEditingController totalAmountController = TextEditingController();
+  TextEditingController incTaxController = TextEditingController();
+  TextEditingController excTaxController = TextEditingController();
+  TextEditingController marginController = TextEditingController();
+
+  num lowerStockAlert = 5;
   String? expireDate;
   String? manufactureDate;
 
@@ -163,11 +169,142 @@ class _AddProductState extends State<EditProduct> {
     productPicture = widget.productModel.productPicture;
 
     widget.productModel.serialNumber.isNotEmpty ? isSerialNumberTaken = true : isSerialNumberTaken = false;
+    marginController.text = widget.productModel.margin.toString();
+    incTaxController.text = widget.productModel.incTax.toString();
+    excTaxController.text = widget.productModel.excTax.toString();
+    selectedTaxType = widget.productModel.taxType;
+
+    GroupTaxModel groupTaxModel = GroupTaxModel(
+        name: widget.productModel.groupTaxName, taxRate: widget.productModel.groupTaxRate, id: '', subTaxes: widget.productModel.subTaxes);
+    bool isInList = false;
+    for (var element in widget.groupTaxModel) {
+      if (element.name == groupTaxModel.name) {
+        isInList = true;
+        groupTaxModel = element;
+        continue;
+      }
+    }
+    if (isInList) {
+      selectedGroupTaxModel = groupTaxModel;
+    }
+
     super.initState();
     checkCurrentUserAndRestartApp();
   }
 
   ScrollController mainScroll = ScrollController();
+
+  //___________________________________tax_dropdown________________________________
+  DropdownButton<GroupTaxModel> getTax({required List<GroupTaxModel> list}) {
+    return DropdownButton(
+      hint: const Text('Select Tax'),
+      items: list.map((e) {
+        return DropdownMenuItem(
+          value: e,
+          child: Text(e.name),
+        );
+      }).toList(),
+      value: selectedGroupTaxModel,
+      onChanged: (value) {
+        setState(() {
+          selectedGroupTaxModel = value!;
+        });
+      },
+    );
+  }
+
+  GroupTaxModel? selectedGroupTaxModel;
+
+  //___________________________________tax_type____________________________________
+  List<String> status = [
+    'Inclusive',
+    'Exclusive',
+  ];
+
+  String selectedTaxType = 'Exclusive';
+  DropdownButton<String> getTaxType() {
+    List<DropdownMenuItem<String>> dropDownItems = [];
+    for (String des in status) {
+      var item = DropdownMenuItem(
+        value: des,
+        child: Text(des),
+      );
+      dropDownItems.add(item);
+    }
+    return DropdownButton(
+      hint: const Text('Select Tax type'),
+      items: dropDownItems,
+      value: selectedTaxType,
+      onChanged: (value) {
+        setState(() {
+          selectedTaxType = value!;
+          adjustSalesPrices();
+        });
+      },
+    );
+  }
+
+  //___________________________________calculate_total_with_tax____________________
+  double totalAmount = 0.0;
+  void calculateTotal() {
+    String saleAmountText = productPurchasePriceController.text.replaceAll(',', '');
+    double saleAmount = double.tryParse(saleAmountText) ?? 0.0;
+    if (selectedGroupTaxModel != null) {
+      double taxRate = double.parse(selectedGroupTaxModel!.taxRate.toString());
+      double totalAmount = calculateTotalAmount(saleAmount, taxRate);
+      setState(() {
+        totalAmountController.text = totalAmount.toStringAsFixed(2);
+        this.totalAmount = totalAmount;
+      });
+    }
+  }
+
+  double calculateTotalAmount(double saleAmount, double taxRate) {
+    double taxDecimal = taxRate / 100;
+    double totalAmount = saleAmount + (saleAmount * taxDecimal);
+    return totalAmount;
+  }
+
+  void adjustSalesPrices() {
+    // double taxAmount = double.tryParse(selectedGroupTaxModel?.taxRate.toString() ?? '') ?? 0.0;
+    double margin = double.tryParse(marginController.text) ?? 0;
+    double purchasePrice = double.tryParse(productPurchasePriceController.text) ?? 0;
+    double salesPrice = 0;
+    double excPrice = 0;
+    double taxAmount = calculateAmountFromPercentage((selectedGroupTaxModel?.taxRate.toString() ?? '').toDouble(), purchasePrice);
+
+    if (selectedTaxType == 'Inclusive') {
+      salesPrice = purchasePrice + calculateAmountFromPercentage(margin, purchasePrice);
+      // salesPrice -= calculateAmountFromPercentage(double.parse(selectedGroupTaxModel!.taxRate.toString()), purchasePrice);
+      productSalePriceController.text = salesPrice.toString();
+      productDealerPriceController.text = salesPrice.toString();
+      productWholesalePriceController.text = salesPrice.toString();
+      incTaxController.text = purchasePrice.toString();
+      excTaxController.text = salesPrice.toString();
+    } else {
+      salesPrice = purchasePrice + calculateAmountFromPercentage(margin, purchasePrice) + taxAmount;
+      excPrice = purchasePrice + taxAmount;
+      productSalePriceController.text = salesPrice.toString();
+      productDealerPriceController.text = salesPrice.toString();
+      productWholesalePriceController.text = salesPrice.toString();
+      incTaxController.text = purchasePrice.toString();
+      excTaxController.text = excPrice.toString();
+    }
+
+    // Add margin to prices if margin is provided
+
+    // Update controllers with adjusted prices
+    productSalePriceController.text = salesPrice.toStringAsFixed(2);
+    productWholesalePriceController.text = salesPrice.toStringAsFixed(2);
+    productDealerPriceController.text = salesPrice.toStringAsFixed(2);
+    incTaxController.text = salesPrice.toStringAsFixed(2);
+    excTaxController.text = excPrice.toStringAsFixed(2);
+  }
+
+  // Function to calculate the amount from a given percentage
+  double calculateAmountFromPercentage(double percentage, double price) {
+    return price * (percentage / 100);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -229,7 +366,7 @@ class _AddProductState extends State<EditProduct> {
                                           padding: const EdgeInsets.all(10.0),
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10.0),
-                                            color: kWhiteTextColor,
+                                            color: kWhite,
                                           ),
                                           child: Form(
                                             key: addProductFormKey,
@@ -306,7 +443,8 @@ class _AddProductState extends State<EditProduct> {
                                                         ),
                                                       ),
                                                     ).visible(widget.productModel.size.isNotEmpty),
-                                                    const SizedBox(width: 20).visible(widget.productModel.color.isNotEmpty && widget.productModel.size.isNotEmpty),
+                                                    const SizedBox(width: 20)
+                                                        .visible(widget.productModel.color.isNotEmpty && widget.productModel.size.isNotEmpty),
                                                     Expanded(
                                                       child: AppTextField(
                                                         validator: (value) {
@@ -350,7 +488,8 @@ class _AddProductState extends State<EditProduct> {
                                                         ),
                                                       ),
                                                     ).visible(widget.productModel.weight.isNotEmpty),
-                                                    const SizedBox(width: 20).visible(widget.productModel.weight.isNotEmpty && widget.productModel.capacity.isNotEmpty),
+                                                    const SizedBox(width: 20)
+                                                        .visible(widget.productModel.weight.isNotEmpty && widget.productModel.capacity.isNotEmpty),
                                                     Expanded(
                                                       child: Padding(
                                                         padding: const EdgeInsets.only(top: 20.0),
@@ -397,7 +536,8 @@ class _AddProductState extends State<EditProduct> {
                                                         ),
                                                       ),
                                                     ).visible(widget.productModel.type.isNotEmpty),
-                                                    const SizedBox(width: 20).visible(widget.productModel.type.isNotEmpty && widget.productModel.warranty.isNotEmpty),
+                                                    const SizedBox(width: 20)
+                                                        .visible(widget.productModel.type.isNotEmpty && widget.productModel.warranty.isNotEmpty),
                                                     Expanded(
                                                       child: Row(
                                                         children: [
@@ -547,11 +687,393 @@ class _AddProductState extends State<EditProduct> {
                                                 ),
                                                 const SizedBox(height: 20.0),
 
+                                                ///________Manufacturer_______________________________________________
+                                                SizedBox(
+                                                  child: TextFormField(
+                                                    validator: (value) {
+                                                      return null;
+                                                    },
+                                                    onSaved: (value) {
+                                                      productManufacturerController.text = value!;
+                                                    },
+                                                    controller: productManufacturerController,
+                                                    showCursor: true,
+                                                    cursorColor: kTitleColor,
+                                                    decoration: kInputDecoration.copyWith(
+                                                      labelText: lang.S.of(context).manufacturer,
+                                                      labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                      hintText: lang.S.of(context).enterManufacturerName,
+                                                      hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 20.0),
+
+                                                ///______________ExpireDate______________________
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                        child: AppTextField(
+                                                      textFieldType: TextFieldType.NAME,
+                                                      readOnly: true,
+                                                      validator: (value) {
+                                                        return null;
+                                                      },
+                                                      controller: manufactureDateTextEditingController,
+                                                      decoration: kInputDecoration.copyWith(
+                                                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                        labelText: "Manufacture Date",
+                                                        hintText: 'Enter Date',
+                                                        labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                        hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        border: const OutlineInputBorder(),
+                                                        suffixIcon: IconButton(
+                                                          onPressed: () async {
+                                                            final DateTime? picked = await showDatePicker(
+                                                              // initialDate: DateTime.now(),
+                                                              firstDate: DateTime(2015, 8),
+                                                              lastDate: DateTime(2101),
+                                                              context: context,
+                                                            );
+                                                            setState(() {
+                                                              picked != null
+                                                                  ? manufactureDateTextEditingController.text = DateFormat.yMMMd().format(picked)
+                                                                  : null;
+                                                              picked != null ? manufactureDate = picked.toString() : null;
+                                                            });
+                                                          },
+                                                          icon: const Icon(FeatherIcons.calendar),
+                                                        ),
+                                                      ),
+                                                    )),
+                                                    const SizedBox(
+                                                      width: 20,
+                                                    ),
+                                                    Expanded(
+                                                      child: AppTextField(
+                                                        textFieldType: TextFieldType.NAME,
+                                                        readOnly: true,
+                                                        validator: (value) {
+                                                          return null;
+                                                        },
+                                                        controller: expireDateTextEditingController,
+                                                        decoration: kInputDecoration.copyWith(
+                                                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                          labelText: 'Expire Date',
+                                                          hintText: 'Enter Date',
+                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                          border: const OutlineInputBorder(),
+                                                          suffixIcon: IconButton(
+                                                            onPressed: () async {
+                                                              final DateTime? picked = await showDatePicker(
+                                                                // initialDate: DateTime.now(),
+                                                                firstDate: DateTime(2015, 8),
+                                                                lastDate: DateTime(2101),
+                                                                context: context,
+                                                              );
+                                                              setState(() {
+                                                                picked != null
+                                                                    ? expireDateTextEditingController.text = DateFormat.yMMMd().format(picked)
+                                                                    : null;
+                                                                picked != null ? expireDate = picked.toString() : null;
+                                                              });
+                                                            },
+                                                            icon: const Icon(FeatherIcons.calendar),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 20.0),
+
+                                                ///_______Lower_stock___________________________
+                                                TextFormField(
+                                                  initialValue: lowerStockAlert.toString(),
+                                                  onSaved: (value) {
+                                                    lowerStockAlert = int.tryParse(value ?? '') ?? 5;
+                                                  },
+                                                  decoration: kInputDecoration.copyWith(
+                                                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                    labelText: 'Low Stock Alert',
+                                                    hintText: 'Enter Low Stock Alert Quantity',
+                                                    border: const OutlineInputBorder(),
+                                                  ),
+                                                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                                ),
+                                                const SizedBox(height: 20.0),
+
+                                                ///_________product_serial____________________________________________
+                                                Row(
+                                                  children: [
+                                                    Text(lang.S.of(context).enterSerialNumber),
+                                                    const SizedBox(
+                                                      width: 30,
+                                                    ),
+                                                    CupertinoSwitch(
+                                                        value: isSerialNumberTaken,
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            isSerialNumberTaken = value;
+                                                          });
+                                                        })
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 20.0),
+                                                Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    Expanded(
+                                                      child: AppTextField(
+                                                        validator: (value) {
+                                                          return null;
+                                                        },
+                                                        controller: productSerialNumberController,
+                                                        showCursor: true,
+                                                        cursorColor: kTitleColor,
+                                                        onFieldSubmitted: (value) {
+                                                          if (isSerialNumberUnique(allList: widget.productModel.serialNumber, newSerial: value)) {
+                                                            setState(() {
+                                                              widget.productModel.serialNumber.add(value);
+                                                            });
+                                                            productSerialNumberController.clear();
+                                                          } else {
+                                                            EasyLoading.showError('Serial number already added!');
+                                                          }
+                                                        },
+                                                        textFieldType: TextFieldType.NAME,
+                                                        decoration: kInputDecoration.copyWith(
+                                                          labelText: lang.S.of(context).serialNumber,
+                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                          hintText: lang.S.of(context).enterSerialNumber,
+                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 10),
+
+                                                    ///__________serial_add_button_______________________________________________
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        if (isSerialNumberUnique(
+                                                            allList: widget.productModel.serialNumber,
+                                                            newSerial: productSerialNumberController.text)) {
+                                                          setState(() {
+                                                            widget.productModel.serialNumber.add(productSerialNumberController.text);
+                                                          });
+                                                          productSerialNumberController.clear();
+                                                        } else {
+                                                          EasyLoading.showError('Serial number already added!');
+                                                        }
+                                                      },
+                                                      child: Container(
+                                                        width: 70,
+                                                        height: 53,
+                                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: kMainColor),
+                                                        child: Center(
+                                                          child: Text(
+                                                            lang.S.of(context).add,
+                                                            style: TextStyle(color: Colors.white),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 10),
+                                                    Container(
+                                                      width: 400,
+                                                      height: 150,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(width: 1, color: Colors.grey),
+                                                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                                      ),
+                                                      child: GridView.builder(
+                                                          shrinkWrap: true,
+                                                          itemCount: productModel.serialNumber.length,
+                                                          itemBuilder: (BuildContext context, int index) {
+                                                            if (productModel.serialNumber.isNotEmpty) {
+                                                              return Padding(
+                                                                padding: const EdgeInsets.all(5.0),
+                                                                child: Row(
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      width: 170,
+                                                                      child: Text(
+                                                                        productModel.serialNumber[index],
+                                                                        maxLines: 1,
+                                                                        overflow: TextOverflow.ellipsis,
+                                                                      ),
+                                                                    ),
+                                                                    GestureDetector(
+                                                                      onTap: () {
+                                                                        setState(() {
+                                                                          productModel.serialNumber.removeAt(index);
+                                                                        });
+                                                                      },
+                                                                      child: const Icon(
+                                                                        Icons.cancel,
+                                                                        color: Colors.red,
+                                                                        size: 15,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              );
+                                                            } else {
+                                                              return const Text('No Serial Number Found');
+                                                            }
+                                                          },
+                                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                            crossAxisCount: 2,
+                                                            childAspectRatio: 6,
+                                                            crossAxisSpacing: .5,
+                                                            mainAxisSpacing: .5,
+                                                            // mainAxisExtent: 1,
+                                                          )),
+                                                    ),
+                                                  ],
+                                                ).visible(isSerialNumberTaken),
+
+                                                ///________Tax && Type____________________________________________________
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: FormField(
+                                                        builder: (FormFieldState<dynamic> field) {
+                                                          return InputDecorator(
+                                                            decoration: const InputDecoration(
+                                                              enabledBorder: OutlineInputBorder(
+                                                                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                                              ),
+                                                              contentPadding: EdgeInsets.all(8.0),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                              labelText: 'Applicable Tax',
+                                                            ),
+                                                            child: DropdownButtonHideUnderline(
+                                                              child: DropdownButton<GroupTaxModel>(
+                                                                hint: const Text('Select Tax'),
+                                                                items: widget.groupTaxModel.map((e) {
+                                                                  return DropdownMenuItem<GroupTaxModel>(
+                                                                    value: e,
+                                                                    child: Text(e.name),
+                                                                  );
+                                                                }).toList(),
+                                                                value: selectedGroupTaxModel,
+                                                                onChanged: (value) {
+                                                                  setState(() {
+                                                                    selectedGroupTaxModel = value;
+                                                                    calculateTotal();
+                                                                    adjustSalesPrices(); // Update total amount when tax changes
+                                                                  });
+                                                                },
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 10.0),
+                                                    Expanded(
+                                                      child: FormField(
+                                                        builder: (FormFieldState<dynamic> field) {
+                                                          return InputDecorator(
+                                                            decoration: const InputDecoration(
+                                                                enabledBorder: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                  borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                                                ),
+                                                                contentPadding: EdgeInsets.all(8.0),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                                labelText: 'Tax Type'),
+                                                            child: DropdownButtonHideUnderline(
+                                                              child: getTaxType(),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 20.0),
+
+                                                ///________Margin____________________________________________________
+
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: TextFormField(
+                                                        keyboardType: TextInputType.number,
+                                                        controller: marginController,
+                                                        onSaved: (value) {
+                                                          marginController.text = value!;
+                                                        },
+                                                        onChanged: (value) {
+                                                          adjustSalesPrices();
+                                                        },
+                                                        showCursor: true,
+                                                        cursorColor: kTitleColor,
+                                                        decoration: kInputDecoration.copyWith(
+                                                          labelText: 'Margin %',
+                                                          hintText: '0',
+                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 20.0),
+                                                    Visibility(
+                                                      visible: selectedTaxType == 'Inclusive',
+                                                      child: Expanded(
+                                                        child: TextFormField(
+                                                          readOnly: true,
+                                                          controller: incTaxController,
+                                                          keyboardType: TextInputType.number,
+                                                          showCursor: true,
+                                                          cursorColor: kTitleColor,
+                                                          decoration: kInputDecoration.copyWith(
+                                                            labelText: 'Inc. tax:',
+                                                            hintText: '0',
+                                                            labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                            hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Visibility(
+                                                      visible: selectedTaxType == 'Exclusive',
+                                                      child: Expanded(
+                                                        child: TextFormField(
+                                                          readOnly: true,
+                                                          controller: excTaxController,
+                                                          keyboardType: TextInputType.number,
+                                                          showCursor: true,
+                                                          cursorColor: kTitleColor,
+                                                          decoration: kInputDecoration.copyWith(
+                                                            labelText: 'Exc. tax:',
+                                                            hintText: '0',
+                                                            labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                            hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 20.0),
+
                                                 ///__________Sale_Price_&_Purchase_Price_______________________________
                                                 Row(
                                                   children: [
                                                     Expanded(
                                                       child: TextFormField(
+                                                        onChanged: (value) {
+                                                          adjustSalesPrices();
+                                                        },
                                                         validator: (value) {
                                                           if (value.removeAllWhiteSpace().isEmptyOrNull) {
                                                             return 'Product Purchase Price is required.';
@@ -663,261 +1185,23 @@ class _AddProductState extends State<EditProduct> {
                                                 ),
                                                 const SizedBox(height: 20.0),
 
-                                                ///________Manufacturer_______________________________________________
-                                                SizedBox(
-                                                  child: TextFormField(
-                                                    validator: (value) {
-                                                      return null;
-                                                    },
-                                                    onSaved: (value) {
-                                                      productManufacturerController.text = value!;
-                                                    },
-                                                    controller: productManufacturerController,
-                                                    showCursor: true,
-                                                    cursorColor: kTitleColor,
-                                                    decoration: kInputDecoration.copyWith(
-                                                      labelText: lang.S.of(context).manufacturer,
-                                                      labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                      hintText: lang.S.of(context).enterManufacturerName,
-                                                      hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 20.0),
-                                                ///______________ExpireDate______________________
-                                                Row(
-                                                  children: [
-                                                    Expanded(
-                                                        child: AppTextField(
-                                                          textFieldType: TextFieldType.NAME,
-                                                          readOnly: true,
-                                                          validator: (value) {
-                                                            return null;
-                                                          },
-                                                          controller: manufactureDateTextEditingController,
-                                                          decoration:  kInputDecoration.copyWith(
-                                                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                                                            labelText: "Manufacture Date",
-                                                            hintText: 'Enter Date',
-                                                            labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                            hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                            border: const OutlineInputBorder(),
-                                                            suffixIcon: IconButton(
-                                                              onPressed: () async {
-                                                                final DateTime? picked = await showDatePicker(
-                                                                  // initialDate: DateTime.now(),
-                                                                  firstDate: DateTime(2015, 8),
-                                                                  lastDate: DateTime(2101),
-                                                                  context: context,
-                                                                );
-                                                                setState(() {
-                                                                  picked != null ?   manufactureDateTextEditingController.text = DateFormat.yMMMd().format(picked):null;
-                                                                  picked != null ? manufactureDate = picked.toString():null;
-                                                                });
-                                                              },
-                                                              icon: const Icon(FeatherIcons.calendar),
-                                                            ),
-                                                          ),
-                                                        )
-                                                    ),
-                                                    const SizedBox(width: 20,),
-                                                    Expanded(
-                                                      child: AppTextField(
-                                                        textFieldType: TextFieldType.NAME,
-                                                        readOnly: true,
-                                                        validator: (value) {
-                                                          return null;
-                                                        },
-                                                        controller: expireDateTextEditingController,
-                                                        decoration:  kInputDecoration.copyWith(
-                                                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                                                          labelText: 'Expire Date',
-                                                          hintText: 'Enter Date',
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                          border: const OutlineInputBorder(),
-                                                          suffixIcon: IconButton(
-                                                            onPressed: () async {
-                                                              final DateTime? picked = await showDatePicker(
-                                                                // initialDate: DateTime.now(),
-                                                                firstDate: DateTime(2015, 8),
-                                                                lastDate: DateTime(2101),
-                                                                context: context,
-                                                              );
-                                                              setState(() {
-                                                                picked != null ? expireDateTextEditingController.text = DateFormat.yMMMd().format(picked) : null;
-                                                                picked != null ? expireDate = picked.toString():null;
-                                                              });
-                                                            },
-                                                            icon: const Icon(FeatherIcons.calendar),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(height: 20.0),
-
-                                                ///_______Lower_stock___________________________
-                                                TextFormField(
-                                                  initialValue: lowerStockAlert.toString(),
-                                                  onSaved: (value) {
-                                                    lowerStockAlert = int.tryParse(value ?? '') ?? 5;
-                                                  },
-                                                  decoration:   kInputDecoration.copyWith(
-                                                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                                                    labelText: 'Low Stock Alert',
-                                                    hintText: 'Enter Low Stock Alert Quantity',
-                                                    border: const OutlineInputBorder(),
-                                                  ),
-                                                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                                                ),
-                                                const SizedBox(height: 20.0),
-
-                                                ///_________product_serial____________________________________________
-                                                Row(
-                                                  children: [
-                                                    Text(lang.S.of(context).enterSerialNumber),
-                                                    const SizedBox(
-                                                      width: 30,
-                                                    ),
-                                                    CupertinoSwitch(
-                                                        value: isSerialNumberTaken,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            isSerialNumberTaken = value;
-                                                          });
-                                                        })
-                                                  ],
-                                                ),
-                                                const SizedBox(height: 20.0),
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  children: [
-                                                    Expanded(
-                                                      child: AppTextField(
-                                                        validator: (value) {
-                                                          return null;
-                                                        },
-                                                        controller: productSerialNumberController,
-                                                        showCursor: true,
-                                                        cursorColor: kTitleColor,
-                                                        onFieldSubmitted: (value) {
-                                                          if (isSerialNumberUnique(allList: widget.productModel.serialNumber, newSerial: value)) {
-                                                            setState(() {
-                                                              widget.productModel.serialNumber.add(value);
-                                                            });
-                                                            productSerialNumberController.clear();
-                                                          } else {
-                                                            EasyLoading.showError('Serial number already added!');
-                                                          }
-                                                        },
-                                                        textFieldType: TextFieldType.NAME,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          labelText: lang.S.of(context).serialNumber,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterSerialNumber,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(width: 10),
-
-                                                    ///__________serial_add_button_______________________________________________
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        if (isSerialNumberUnique(allList: widget.productModel.serialNumber, newSerial: productSerialNumberController.text)) {
-                                                          setState(() {
-                                                            widget.productModel.serialNumber.add(productSerialNumberController.text);
-                                                          });
-                                                          productSerialNumberController.clear();
-                                                        } else {
-                                                          EasyLoading.showError('Serial number already added!');
-                                                        }
-                                                      },
-                                                      child: Container(
-                                                        width: 70,
-                                                        height: 53,
-                                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: kMainColor),
-                                                        child: Center(
-                                                          child: Text(
-                                                            lang.S.of(context).add,
-                                                            style: TextStyle(color: Colors.white),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(width: 10),
-                                                    Container(
-                                                      width: 400,
-                                                      height: 150,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(width: 1, color: Colors.grey),
-                                                        borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                                      ),
-                                                      child: GridView.builder(
-                                                          shrinkWrap: true,
-                                                          itemCount: productModel.serialNumber.length,
-                                                          itemBuilder: (BuildContext context, int index) {
-                                                            if (productModel.serialNumber.isNotEmpty) {
-                                                              return Padding(
-                                                                padding: const EdgeInsets.all(5.0),
-                                                                child: Row(
-                                                                  children: [
-                                                                    SizedBox(
-                                                                      width: 170,
-                                                                      child: Text(
-                                                                        productModel.serialNumber[index],
-                                                                        maxLines: 1,
-                                                                        overflow: TextOverflow.ellipsis,
-                                                                      ),
-                                                                    ),
-                                                                    GestureDetector(
-                                                                      onTap: () {
-                                                                        setState(() {
-                                                                          productModel.serialNumber.removeAt(index);
-                                                                        });
-                                                                      },
-                                                                      child: const Icon(
-                                                                        Icons.cancel,
-                                                                        color: Colors.red,
-                                                                        size: 15,
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              );
-                                                            } else {
-                                                              return const Text('No Serial Number Found');
-                                                            }
-                                                          },
-                                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                            crossAxisCount: 2,
-                                                            childAspectRatio: 6,
-                                                            crossAxisSpacing: .5,
-                                                            mainAxisSpacing: .5,
-                                                            // mainAxisExtent: 1,
-                                                          )),
-                                                    ),
-                                                  ],
-                                                ).visible(isSerialNumberTaken),
-
                                                 ///__________save_Button___________________________________________
                                                 const SizedBox(height: 30.0),
                                                 Center(
                                                   child: SizedBox(
-                                                    width: MediaQuery.of(context).size.width < 1080 ? 1080 * .30 : MediaQuery.of(context).size.width * .30,
+                                                    width: MediaQuery.of(context).size.width < 1080
+                                                        ? 1080 * .30
+                                                        : MediaQuery.of(context).size.width * .30,
                                                     child: ButtonGlobalWithoutIcon(
                                                       buttontext: lang.S.of(context).saveAndPublished,
                                                       buttonDecoration: kButtonDecoration.copyWith(color: kMainColor),
                                                       onPressed: () async {
-                                                        if(!isDemo){
+                                                        if (!isDemo) {
                                                           if (categoryValidateAndSave()) {
                                                             try {
                                                               EasyLoading.show(status: 'Loading...', dismissOnTap: false);
                                                               final DatabaseReference productInformationRef =
-                                                              FirebaseDatabase.instance.ref("${await getUserID()}/Products/$productKey");
+                                                                  FirebaseDatabase.instance.ref("${await getUserID()}/Products/$productKey");
                                                               productModel.productName = productNameController.text;
                                                               productModel.size = sizeController.text;
                                                               productModel.color = colorController.text;
@@ -932,14 +1216,22 @@ class _AddProductState extends State<EditProduct> {
                                                               productModel.productWholeSalePrice = productWholesalePriceController.text;
 
                                                               productModel.productManufacturer = productManufacturerController.text;
-                                                              productModel.warranty = warrantyController.text == '' ? '' : '${warrantyController.text} $selectedTime';
+                                                              productModel.warranty =
+                                                                  warrantyController.text == '' ? '' : '${warrantyController.text} $selectedTime';
                                                               productModel.productPicture = productPicture;
                                                               productModel.manufacturingDate = manufactureDate;
                                                               productModel.expiringDate = expireDate;
                                                               productModel.lowerStockAlert = lowerStockAlert;
-
+                                                              productModel.taxType = selectedTaxType;
+                                                              productModel.margin = num.tryParse(marginController.text) ?? 0;
+                                                              productModel.excTax = num.tryParse(excTaxController.text) ?? 0;
+                                                              productModel.incTax = num.tryParse(incTaxController.text) ?? 0;
+                                                              productModel.groupTaxName = selectedGroupTaxModel?.name.toString() ?? '';
+                                                              productModel.groupTaxRate = selectedGroupTaxModel?.taxRate ?? 0;
+                                                              productModel.subTaxes = selectedGroupTaxModel?.subTaxes ?? [];
                                                               await productInformationRef.set(productModel.toJson());
-                                                              EasyLoading.showSuccess('Added Successfully', duration: const Duration(milliseconds: 500));
+                                                              EasyLoading.showSuccess('Added Successfully',
+                                                                  duration: const Duration(milliseconds: 500));
                                                               ref.refresh(productProvider);
                                                               Future.delayed(const Duration(milliseconds: 100), () {
                                                                 const Product().launch(context, isNewTask: true);
@@ -949,7 +1241,9 @@ class _AddProductState extends State<EditProduct> {
                                                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
                                                             }
                                                           }
-                                                        }else{ EasyLoading.showInfo(demoText);}
+                                                        } else {
+                                                          EasyLoading.showInfo(demoText);
+                                                        }
                                                       },
                                                       buttonTextColor: Colors.white,
                                                     ),
@@ -970,7 +1264,7 @@ class _AddProductState extends State<EditProduct> {
                                         padding: const EdgeInsets.all(10.0),
                                         child: Container(
                                           padding: const EdgeInsets.all(20.0),
-                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
@@ -1030,7 +1324,7 @@ class _AddProductState extends State<EditProduct> {
                               ],
                             ),
                           ),
-                          const SizedBox(height:20.0),
+                          const SizedBox(height: 20.0),
                           const Footer(),
                         ],
                       ),

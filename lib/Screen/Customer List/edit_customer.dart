@@ -22,7 +22,7 @@ import '../Widgets/Sidebar/sidebar_widget.dart';
 import '../Widgets/TopBar/top_bar_widget.dart';
 
 class EditCustomer extends StatefulWidget {
-  const EditCustomer({Key? key, required this.customerModel, required this.typeOfCustomerAdd, required this.popupContext, required this.allPreviousCustomer}) : super(key: key);
+  const EditCustomer({super.key, required this.customerModel, required this.typeOfCustomerAdd, required this.popupContext, required this.allPreviousCustomer});
   final List<CustomerModel> allPreviousCustomer;
   final CustomerModel customerModel;
   final String typeOfCustomerAdd;
@@ -108,6 +108,7 @@ class _EditCustomerState extends State<EditCustomer> {
   TextEditingController customerNameController = TextEditingController();
   TextEditingController customerPhoneController = TextEditingController();
   TextEditingController customerEmailController = TextEditingController();
+  TextEditingController gstController = TextEditingController();
   TextEditingController customerAddressController = TextEditingController();
 
   @override
@@ -132,6 +133,7 @@ class _EditCustomerState extends State<EditCustomer> {
     customerPhoneController.text = widget.customerModel.phoneNumber;
     customerEmailController.text = widget.customerModel.emailAddress;
     customerAddressController.text = widget.customerModel.customerAddress;
+    gstController.text = widget.customerModel.gst;
     getCustomerKey(widget.customerModel.phoneNumber);
     super.initState();
   }
@@ -221,7 +223,7 @@ class _EditCustomerState extends State<EditCustomer> {
                                             padding: const EdgeInsets.all(10.0),
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10.0),
-                                              color: kWhiteTextColor,
+                                              color: kWhite,
                                             ),
                                             child: Form(
                                               key: addCustomer,
@@ -367,11 +369,7 @@ class _EditCustomerState extends State<EditCustomer> {
                                                                   floatingLabelBehavior: FloatingLabelBehavior.always,
                                                                   labelText: lang.S.of(context).type),
                                                               child: Theme(
-                                                                  data: ThemeData(
-                                                                      highlightColor: dropdownItemColor,
-                                                                      focusColor: dropdownItemColor,
-                                                                      hoverColor: dropdownItemColor
-                                                                  ),
+                                                                  data: ThemeData(highlightColor: dropdownItemColor, focusColor: dropdownItemColor, hoverColor: dropdownItemColor),
                                                                   child: DropdownButtonHideUnderline(child: getCategories())),
                                                             );
                                                           },
@@ -379,6 +377,33 @@ class _EditCustomerState extends State<EditCustomer> {
                                                       ),
                                                     ],
                                                   ),
+
+                                                  ///_________GST___________________________________
+                                                  const SizedBox(height: 20.0),
+                                                  Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: TextFormField(
+                                                          validator: (value) {
+                                                            return null;
+                                                          },
+                                                          onSaved: (value) {
+                                                            gstController.text = value!;
+                                                          },
+                                                          controller: gstController,
+                                                          showCursor: true,
+                                                          cursorColor: kTitleColor,
+                                                          decoration: kInputDecoration.copyWith(
+                                                            labelText: 'Customer GST',
+                                                            labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                            hintText: 'Enter customer GST number',
+                                                            hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 20.0),
 
                                                   ///_______Button_______________________________________________________
 
@@ -404,85 +429,71 @@ class _EditCustomerState extends State<EditCustomer> {
                                                           buttontext: lang.S.of(context).saveAndPublish,
                                                           buttonDecoration: kButtonDecoration.copyWith(color: kGreenTextColor),
                                                           onPressed: () async {
-                                                           if(!isDemo){
-                                                             if (validateAndSave()) {
-                                                               try {
-                                                                 EasyLoading.show(status: 'Loading...', dismissOnTap: false);
-                                                                 DatabaseReference reference = FirebaseDatabase.instance.ref("${await getUserID()}/Customers/$customerKey");
+                                                            if (!isDemo) {
+                                                              if (validateAndSave()) {
+                                                                try {
+                                                                  EasyLoading.show(status: 'Loading...', dismissOnTap: false);
+                                                                  DatabaseReference reference = FirebaseDatabase.instance.ref("${await getUserID()}/Customers/$customerKey");
 
-                                                                 CustomerModel customerModel = CustomerModel(
-                                                                   customerName: customerNameController.text,
-                                                                   phoneNumber: customerPhoneController.text,
-                                                                   type: selectedCategories,
-                                                                   profilePicture: profilePicture,
-                                                                   emailAddress: customerEmailController.text,
-                                                                   customerAddress: customerAddressController.text,
-                                                                   dueAmount: widget.customerModel.dueAmount,
-                                                                   remainedBalance: widget.customerModel.remainedBalance,
-                                                                   openingBalance: widget.customerModel.openingBalance,
-                                                                 );
+                                                                  CustomerModel customerModel = CustomerModel(
+                                                                    customerName: customerNameController.text,
+                                                                    phoneNumber: customerPhoneController.text,
+                                                                    type: selectedCategories,
+                                                                    profilePicture: profilePicture,
+                                                                    emailAddress: customerEmailController.text,
+                                                                    customerAddress: customerAddressController.text,
+                                                                    dueAmount: widget.customerModel.dueAmount,
+                                                                    remainedBalance: widget.customerModel.remainedBalance,
+                                                                    openingBalance: widget.customerModel.openingBalance,
+                                                                    gst: gstController.text,
+                                                                  );
 
-                                                                 ///___________update_customer_________________________________________________________
-                                                                 await reference.set(customerModel.toJson());
+                                                                  ///___________update_customer_________________________________________________________
+                                                                  await reference.set(customerModel.toJson());
 
-                                                                 ///_________chanePhone in All invoice_________________________________________________
-                                                                 String key = '';
-                                                                 widget.customerModel.phoneNumber != customerModel.phoneNumber ||
-                                                                     widget.customerModel.customerName != customerModel.customerName
-                                                                     ? widget.customerModel.type != 'Supplier'
-                                                                     ? await FirebaseDatabase.instance
-                                                                     .ref(await getUserID())
-                                                                     .child('Sales Transition')
-                                                                     .orderByKey()
-                                                                     .get()
-                                                                     .then((value) async {
-                                                                   for (var element in value.children) {
-                                                                     var data = jsonDecode(jsonEncode(element.value));
-                                                                     if (data['customerPhone'].toString() == widget.customerModel.phoneNumber) {
-                                                                       key = element.key.toString();
-                                                                       DatabaseReference reference =
-                                                                       FirebaseDatabase.instance.ref("${await getUserID()}/Sales Transition/$key");
-                                                                       await reference
-                                                                           .update({'customerName': customerModel.customerName, 'customerPhone': customerModel.phoneNumber});
-                                                                     }
-                                                                   }
-                                                                 })
-                                                                     : await FirebaseDatabase.instance
-                                                                     .ref(await getUserID())
-                                                                     .child('Purchase Transition')
-                                                                     .orderByKey()
-                                                                     .get()
-                                                                     .then((value) async {
-                                                                   for (var element in value.children) {
-                                                                     var data = jsonDecode(jsonEncode(element.value));
-                                                                     if (data['customerPhone'].toString() == widget.customerModel.phoneNumber) {
-                                                                       key = element.key.toString();
-                                                                       DatabaseReference reference =
-                                                                       FirebaseDatabase.instance.ref("${await getUserID()}/Purchase Transition/$key");
-                                                                       await reference
-                                                                           .update({'customerName': customerModel.customerName, 'customerPhone': customerModel.phoneNumber});
-                                                                     }
-                                                                   }
-                                                                 })
-                                                                     : null;
+                                                                  ///_________chanePhone in All invoice_________________________________________________
+                                                                  String key = '';
+                                                                  widget.customerModel.phoneNumber != customerModel.phoneNumber || widget.customerModel.customerName != customerModel.customerName
+                                                                      ? widget.customerModel.type != 'Supplier'
+                                                                          ? await FirebaseDatabase.instance.ref(await getUserID()).child('Sales Transition').orderByKey().get().then((value) async {
+                                                                              for (var element in value.children) {
+                                                                                var data = jsonDecode(jsonEncode(element.value));
+                                                                                if (data['customerPhone'].toString() == widget.customerModel.phoneNumber) {
+                                                                                  key = element.key.toString();
+                                                                                  DatabaseReference reference = FirebaseDatabase.instance.ref("${await getUserID()}/Sales Transition/$key");
+                                                                                  await reference.update({'customerName': customerModel.customerName, 'customerPhone': customerModel.phoneNumber});
+                                                                                }
+                                                                              }
+                                                                            })
+                                                                          : await FirebaseDatabase.instance.ref(await getUserID()).child('Purchase Transition').orderByKey().get().then((value) async {
+                                                                              for (var element in value.children) {
+                                                                                var data = jsonDecode(jsonEncode(element.value));
+                                                                                if (data['customerPhone'].toString() == widget.customerModel.phoneNumber) {
+                                                                                  key = element.key.toString();
+                                                                                  DatabaseReference reference = FirebaseDatabase.instance.ref("${await getUserID()}/Purchase Transition/$key");
+                                                                                  await reference.update({'customerName': customerModel.customerName, 'customerPhone': customerModel.phoneNumber});
+                                                                                }
+                                                                              }
+                                                                            })
+                                                                      : null;
 
-                                                                 EasyLoading.showSuccess('Added Successfully!');
+                                                                  EasyLoading.showSuccess('Added Successfully!');
 
-                                                                 ref.refresh(allCustomerProvider);
-                                                                 // ignore: use_build_context_synchronously
-                                                                 Navigator.pop(widget.popupContext);
+                                                                  ref.refresh(allCustomerProvider);
+                                                                  // ignore: use_build_context_synchronously
+                                                                  Navigator.pop(widget.popupContext);
 
-                                                                 Future.delayed(const Duration(milliseconds: 100), () {
-                                                                   Navigator.pop(context);
-                                                                 });
-                                                               } catch (e) {
-                                                                 EasyLoading.dismiss();
-                                                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
-                                                               }
-                                                             }
-                                                           }else {
-                                                             EasyLoading.showInfo(demoText);
-                                                           }
+                                                                  Future.delayed(const Duration(milliseconds: 100), () {
+                                                                    Navigator.pop(context);
+                                                                  });
+                                                                } catch (e) {
+                                                                  EasyLoading.dismiss();
+                                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                                                                }
+                                                              }
+                                                            } else {
+                                                              EasyLoading.showInfo(demoText);
+                                                            }
                                                           },
                                                         ),
                                                       ),
@@ -503,7 +514,7 @@ class _EditCustomerState extends State<EditCustomer> {
                                           padding: const EdgeInsets.all(10.0),
                                           child: Container(
                                             padding: const EdgeInsets.all(20.0),
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
@@ -533,9 +544,7 @@ class _EditCustomerState extends State<EditCustomer> {
                                                                   text: lang.S.of(context).uploadAImage,
                                                                   style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
                                                                   children: [
-                                                                TextSpan(
-                                                                    text: lang.S.of(context).orDragAndDropPng,
-                                                                    style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
+                                                                TextSpan(text: lang.S.of(context).orDragAndDropPng, style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
                                                               ]))
                                                         ],
                                                       ),

@@ -67,8 +67,8 @@ class _SalesReturnState extends State<SalesReturn> {
         String productPath = data.snapshot.value.toString().substring(1, 21);
 
         var data1 = await stockRef.child('$productPath/productStock').once();
-        int stock = int.parse(data1.snapshot.value.toString());
-        int remainStock = stock + element.quantity;
+        num stock = num.parse(data1.snapshot.value.toString());
+        num remainStock = stock + element.quantity;
 
         stockRef.child(productPath).update({'productStock': '$remainStock'});
 
@@ -199,7 +199,7 @@ class _SalesReturnState extends State<SalesReturn> {
                               padding: const EdgeInsets.all(20.0),
                               child: Container(
                                 padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhiteTextColor),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhite),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [

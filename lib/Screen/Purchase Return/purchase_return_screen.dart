@@ -48,8 +48,7 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
     return returnAmount;
   }
 
-  Future<void> purchaseReturn(
-      {required PurchaseTransactionModel purchase, required PurchaseTransactionModel orginal, required WidgetRef consumerRef, required BuildContext context}) async {
+  Future<void> purchaseReturn({required PurchaseTransactionModel purchase, required PurchaseTransactionModel orginal, required WidgetRef consumerRef, required BuildContext context}) async {
     try {
       EasyLoading.show(status: 'Loading...', dismissOnTap: false);
 
@@ -67,8 +66,8 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
         String productPath = data.snapshot.value.toString().substring(1, 21);
 
         var data1 = await stockRef.child('$productPath/productStock').once();
-        int stock = int.parse(data1.snapshot.value.toString());
-        int remainStock = stock - element.lowerStockAlert;
+        num stock = num.parse(data1.snapshot.value.toString());
+        num remainStock = stock - element.lowerStockAlert;
 
         stockRef.child(productPath).update({'productStock': '$remainStock'});
 
@@ -91,12 +90,8 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
         date: purchase.purchaseDate,
         type: 'Purchase Return',
         total: purchase.totalAmount!.toDouble(),
-        paymentIn: ((orginal.totalAmount ?? 0) - (orginal.dueAmount ?? 0)) > (purchase.totalAmount ?? 0)
-            ? (purchase.totalAmount ?? 0)
-            : ((orginal.totalAmount ?? 0) - (orginal.dueAmount ?? 0)),
-        remainingBalance: ((orginal.totalAmount ?? 0) - (orginal.dueAmount ?? 0)) > (purchase.totalAmount ?? 0)
-            ? (purchase.totalAmount ?? 0)
-            : ((orginal.totalAmount ?? 0) - (orginal.dueAmount ?? 0)),
+        paymentIn: ((orginal.totalAmount ?? 0) - (orginal.dueAmount ?? 0)) > (purchase.totalAmount ?? 0) ? (purchase.totalAmount ?? 0) : ((orginal.totalAmount ?? 0) - (orginal.dueAmount ?? 0)),
+        remainingBalance: ((orginal.totalAmount ?? 0) - (orginal.dueAmount ?? 0)) > (purchase.totalAmount ?? 0) ? (purchase.totalAmount ?? 0) : ((orginal.totalAmount ?? 0) - (orginal.dueAmount ?? 0)),
         paymentOut: 0,
         id: purchase.invoiceNumber,
         purchaseTransactionModel: purchase,
@@ -210,7 +205,7 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
                             padding: const EdgeInsets.all(20.0),
                             child: Container(
                               padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhiteTextColor),
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhite),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -327,7 +322,7 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
                                       IntrinsicWidth(
                                         child: Container(
                                           decoration: BoxDecoration(
-                                            color: kWhiteTextColor,
+                                            color: kWhite,
                                             border: Border.all(width: 1, color: kGreyTextColor.withOpacity(0.3)),
                                             borderRadius: const BorderRadius.all(
                                               Radius.circular(15),
@@ -426,9 +421,7 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
                                                                         children: [
                                                                           const Icon(FontAwesomeIcons.solidSquareMinus, color: kBlueTextColor).onTap(() {
                                                                             setState(() {
-                                                                              returnList[index].lowerStockAlert > 0
-                                                                                  ? returnList[index].lowerStockAlert--
-                                                                                  : returnList[index].lowerStockAlert = 0;
+                                                                              returnList[index].lowerStockAlert > 0 ? returnList[index].lowerStockAlert-- : returnList[index].lowerStockAlert = 0;
                                                                             });
                                                                           }),
                                                                           Container(
@@ -442,7 +435,7 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
                                                                               controller: quantityController,
                                                                               textAlign: TextAlign.center,
                                                                               onChanged: (value) {
-                                                                                if (returnList[index].productStock.toInt() < value.toInt()) {
+                                                                                if ((num.tryParse(returnList[index].productStock) ?? 0) <(num.tryParse(value) ?? 0)) {
                                                                                   EasyLoading.showError('Out of Stock');
                                                                                   quantityController.clear();
                                                                                 } else if (value == '') {
@@ -450,7 +443,7 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
                                                                                 } else if (value == '0') {
                                                                                   returnList[index].lowerStockAlert = 1;
                                                                                 } else {
-                                                                                  returnList[index].lowerStockAlert = value.toInt();
+                                                                                  returnList[index].lowerStockAlert =(num.tryParse(value) ?? 0);
                                                                                 }
                                                                               },
                                                                               onFieldSubmitted: (value) {
@@ -460,7 +453,7 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
                                                                                   });
                                                                                 } else {
                                                                                   setState(() {
-                                                                                    returnList[index].lowerStockAlert = value.toInt();
+                                                                                    returnList[index].lowerStockAlert = (num.tryParse(value) ?? 0);
                                                                                   });
                                                                                 }
                                                                               },
@@ -468,7 +461,7 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
                                                                             ),
                                                                           ),
                                                                           const Icon(FontAwesomeIcons.solidSquarePlus, color: kBlueTextColor).onTap(() {
-                                                                            if (returnList[index].lowerStockAlert < returnList[index].productStock.toInt()) {
+                                                                            if (returnList[index].lowerStockAlert <(num.tryParse(returnList[index].productStock)??0)) {
                                                                               setState(() {
                                                                                 returnList[index].lowerStockAlert += 1;
                                                                                 toast(returnList[index].lowerStockAlert.toString());
@@ -581,7 +574,7 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
                                                     child: Center(
                                                       child: Text(
                                                         '$currency ${myFormat.format(getTotalReturnAmount())}',
-                                                        style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                        style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                       ),
                                                     ),
                                                   ),
@@ -611,7 +604,7 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
                                                       child: Text(
                                                         lang.S.of(context).cancel,
                                                         textAlign: TextAlign.center,
-                                                        style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                        style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                       ),
                                                     ),
                                                   ),
@@ -629,7 +622,7 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
                                                     child: Text(
                                                       lang.S.of(context).hold,
                                                       textAlign: TextAlign.center,
-                                                      style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                      style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                     ),
                                                   ),
                                                 ).visible(false),
@@ -644,9 +637,56 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
                                                         EasyLoading.showError('Select a product for return');
                                                       } else {
                                                         returnList.removeWhere((element) => element.lowerStockAlert <= 0);
+
+                                                        ///____________Invoice_edit______________________________________
+                                                        PurchaseTransactionModel myTransitionModel = widget.purchaseTransactionModel;
+                                                        final userId = await getUserID();
+
+                                                        (num.tryParse(getTotalReturnAmount().toString()) ?? 0) > (widget.purchaseTransactionModel.dueAmount ?? 0)
+                                                            ? myTransitionModel.isPaid = true
+                                                            : myTransitionModel.isPaid = false;
+                                                        if ((widget.purchaseTransactionModel.dueAmount ?? 0) > 0) {
+                                                          (num.tryParse(getTotalReturnAmount().toString()) ?? 0) >= (widget.purchaseTransactionModel.dueAmount ?? 0)
+                                                              ? myTransitionModel.dueAmount = 0
+                                                              : myTransitionModel.dueAmount = (widget.purchaseTransactionModel.dueAmount ?? 0) - (num.tryParse(getTotalReturnAmount().toString()) ?? 0);
+                                                        }
+                                                        List<ProductModel> newProductList = [];
+                                                        for (var p in widget.purchaseTransactionModel.productList!) {
+                                                          if (returnList.any((element) => element.productCode == p.productCode)) {
+                                                            int index = returnList.indexWhere((element) => element.productCode == p.productCode);
+                                                            p.productStock = ((double.tryParse(p.productStock) ?? 0) - returnList[index].lowerStockAlert).toString();
+                                                          }
+
+                                                          if ((double.tryParse(p.productStock) ?? 0) > 0) newProductList.add(p);
+                                                        }
+                                                        myTransitionModel.productList = newProductList;
+
+                                                        myTransitionModel.totalAmount = (myTransitionModel.totalAmount ?? 0) - (double.tryParse(getTotalReturnAmount().toString()) ?? 0);
+
+                                                        ///________________updateInvoice___________________________________________________________ok
+                                                        String? key;
+                                                        await FirebaseDatabase.instance.ref(userId).child('Purchase Transition').orderByKey().get().then((value) {
+                                                          for (var element in value.children) {
+                                                            final t = PurchaseTransactionModel.fromJson(jsonDecode(jsonEncode(element.value)));
+                                                            if (widget.purchaseTransactionModel.invoiceNumber == t.invoiceNumber) {
+                                                              key = element.key;
+                                                            }
+                                                          }
+                                                        });
+                                                        if (newProductList.isEmpty) {
+                                                          await FirebaseDatabase.instance.ref(userId).child('Purchase Transition').child(key!).remove();
+                                                        } else {
+                                                          ///__________total LossProfit & quantity________________________________________________________________
+                                                          await FirebaseDatabase.instance.ref(userId).child('Purchase Transition').child(key!).update(myTransitionModel.toJson());
+                                                        }
+                                                        for (var element in returnList) {
+                                                          element.productStock = element.lowerStockAlert.toString();
+                                                        }
+                                                        returnList.removeWhere((element) => element.lowerStockAlert <= 0);
                                                         PurchaseTransactionModel invoice = PurchaseTransactionModel(
                                                           customerName: widget.purchaseTransactionModel.customerName,
                                                           customerType: widget.purchaseTransactionModel.customerType,
+                                                          customerGst: widget.purchaseTransactionModel.customerGst,
                                                           customerPhone: widget.purchaseTransactionModel.customerPhone,
                                                           invoiceNumber: widget.purchaseTransactionModel.invoiceNumber,
                                                           purchaseDate: widget.purchaseTransactionModel.purchaseDate,
@@ -673,7 +713,7 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
                                                       child: Text(
                                                         'Conform Return',
                                                         textAlign: TextAlign.center,
-                                                        style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                        style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                       ),
                                                     ),
                                                   ),

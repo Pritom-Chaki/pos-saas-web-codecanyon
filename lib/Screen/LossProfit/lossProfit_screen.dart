@@ -29,16 +29,44 @@ class LossProfitScreen extends StatefulWidget {
 class _LossProfitScreenState extends State<LossProfitScreen> {
   void showLossProfitDetails({required SaleTransactionModel transitionModel}) {
     double profit({required AddToCartModel productModel}) {
-      return (double.parse(productModel.subTotal.toString()) - double.parse(productModel.productPurchasePrice.toString())) * productModel.quantity.toDouble();
+      if (productModel.taxType == 'Exclusive'){
+        return (double.parse(productModel.subTotal.toString()) -
+            (double.parse(productModel.productPurchasePrice.toString()) +
+            calculateAmountFromPercentage((productModel.groupTaxRate.toString() ?? '').toDouble(), productModel.productPurchasePrice))) *
+            productModel.quantity.toDouble();
+      }
+      else{
+        return (double.parse(productModel.subTotal.toString()) -
+                double.parse(productModel.productPurchasePrice.toString())) *
+            productModel.quantity.toDouble();
+      }
     }
 
     double allProductTotalProfit({required SaleTransactionModel transitionModel}) {
       double profit = 0;
-
       for (var element in transitionModel.productList!) {
-        ((double.parse(element.subTotal.toString()) - double.parse(element.productPurchasePrice.toString())) * element.quantity.toDouble()).isNegative
-            ? null
-            : profit += (double.parse(element.subTotal.toString()) - double.parse(element.productPurchasePrice.toString())) * element.quantity.toDouble();
+        if (element.taxType == 'Exclusive'){
+          ((double.parse(element.subTotal.toString()) -
+              (double.parse(element.productPurchasePrice.toString()) +
+              calculateAmountFromPercentage((element.groupTaxRate.toString() ?? '').toDouble(), element.productPurchasePrice))) *
+              element.quantity.toDouble())
+              .isNegative
+              ? null
+              : profit += (double.parse(element.subTotal.toString()) -
+              (double.parse(element.productPurchasePrice.toString()) +
+              calculateAmountFromPercentage((element.groupTaxRate.toString() ?? '').toDouble(), element.productPurchasePrice))) *
+              element.quantity.toDouble();
+        }else{
+          ((double.parse(element.subTotal.toString()) -
+              double.parse(element.productPurchasePrice.toString()) ) *
+              element.quantity.toDouble())
+              .isNegative
+              ? null
+              : profit += (double.parse(element.subTotal.toString()) -
+              double.parse(element.productPurchasePrice.toString()) ) *
+              element.quantity.toDouble();
+        }
+
       }
       return profit;
     }
@@ -47,9 +75,22 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
       double loss = 0;
 
       for (var element in transitionModel.productList!) {
-        ((double.parse(element.subTotal.toString()) - double.parse(element.productPurchasePrice.toString())) * element.quantity.toDouble()).isNegative
-            ? loss += ((double.parse(element.subTotal.toString()) - double.parse(element.productPurchasePrice.toString())) * element.quantity.toDouble()).abs()
-            : null;
+        if (element.taxType == 'Exclusive') {
+          ((double.parse(element.subTotal.toString()) -
+                          double.parse(element.productPurchasePrice.toString()) +
+                          calculateAmountFromPercentage((element.groupTaxRate.toString() ?? '').toDouble(), element.productPurchasePrice)) *
+                      element.quantity.toDouble())
+                  .isNegative
+              ? loss += ((double.parse(element.subTotal.toString()) -
+                          (double.parse(element.productPurchasePrice.toString()) + calculateAmountFromPercentage((element.groupTaxRate.toString() ?? '').toDouble(), element.productPurchasePrice))) *
+                      element.quantity.toDouble())
+                  .abs()
+              : null;
+        } else {
+          ((double.parse(element.subTotal.toString()) - double.parse(element.productPurchasePrice.toString())) * element.quantity.toDouble()).isNegative
+              ? loss += ((double.parse(element.subTotal.toString()) - double.parse(element.productPurchasePrice.toString())) * element.quantity.toDouble()).abs()
+              : null;
+        }
       }
       return loss;
     }
@@ -61,7 +102,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
         return StatefulBuilder(
           builder: (context, setState) {
             return Dialog(
-              surfaceTintColor: kWhiteTextColor,
+              surfaceTintColor: kWhite,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0),
               ),
@@ -158,8 +199,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                         lang.S.of(context).total,
                                         style: const TextStyle(fontWeight: FontWeight.bold),
                                       )
-                                    : Text(transitionModel.productList![index].productName.toString(),
-                                        maxLines: 2, overflow: TextOverflow.ellipsis, style: kTextStyle.copyWith(color: kGreyTextColor)),
+                                    : Text(transitionModel.productList![index].productName.toString(), maxLines: 2, overflow: TextOverflow.ellipsis, style: kTextStyle.copyWith(color: kGreyTextColor)),
                               ),
                               DataCell(
                                 index == transitionModel.productList!.length
@@ -169,28 +209,31 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                               DataCell(
                                 index == transitionModel.productList!.length
                                     ? const Text('')
-                                    : Text(myFormat.format(double.tryParse(transitionModel.productList![index].productPurchasePrice.toString())??0), style: kTextStyle.copyWith(color: kGreyTextColor)),
-                              ),
-                              DataCell(
-                                index == transitionModel.productList!.length
-                                    ? const Text('')
-                                    : Text(myFormat.format(double.tryParse(transitionModel.productList![index].subTotal.toString())??0), style: kTextStyle.copyWith(color: kGreyTextColor)),
-                              ),
-                              DataCell(
-                                index == transitionModel.productList!.length
-                                    ? Text(myFormat.format(double.tryParse(allProductTotalProfit(transitionModel: transitionModel).toStringAsFixed(2))??0), style: const TextStyle(fontWeight: FontWeight.bold))
-                                    : Text(
-                                        profit(productModel: transitionModel.productList![index]).isNegative
-                                            ? ''
-                                            : myFormat.format(double.tryParse(profit(productModel: transitionModel.productList![index]).toStringAsFixed(2))??0),
+                                    : Text(myFormat.format(double.tryParse(transitionModel.productList![index].productPurchasePrice.toString()) ?? 0),
                                         style: kTextStyle.copyWith(color: kGreyTextColor)),
                               ),
                               DataCell(
                                 index == transitionModel.productList!.length
-                                    ? Text(myFormat.format(double.tryParse(allProductTotalLoss(transitionModel: transitionModel).toStringAsFixed(2))??0), style: const TextStyle(fontWeight: FontWeight.bold))
+                                    ? const Text('')
+                                    : Text(myFormat.format(double.tryParse(transitionModel.productList![index].subTotal.toString()) ?? 0), style: kTextStyle.copyWith(color: kGreyTextColor)),
+                              ),
+                              DataCell(
+                                index == transitionModel.productList!.length
+                                    ? Text(myFormat.format(double.tryParse(allProductTotalProfit(transitionModel: transitionModel).toStringAsFixed(2)) ?? 0),
+                                        style: const TextStyle(fontWeight: FontWeight.bold))
                                     : Text(
                                         profit(productModel: transitionModel.productList![index]).isNegative
-                                            ? myFormat.format(double.tryParse(profit(productModel: transitionModel.productList![index]).abs().toString())??0)
+                                            ? ''
+                                            : myFormat.format(double.tryParse(profit(productModel: transitionModel.productList![index]).toStringAsFixed(2)) ?? 0),
+                                        style: kTextStyle.copyWith(color: kGreyTextColor)),
+                              ),
+                              DataCell(
+                                index == transitionModel.productList!.length
+                                    ? Text(myFormat.format(double.tryParse(allProductTotalLoss(transitionModel: transitionModel).toStringAsFixed(2)) ?? 0),
+                                        style: const TextStyle(fontWeight: FontWeight.bold))
+                                    : Text(
+                                        profit(productModel: transitionModel.productList![index]).isNegative
+                                            ? myFormat.format(double.tryParse(profit(productModel: transitionModel.productList![index]).abs().toString()) ?? 0)
                                             : '',
                                         style: kTextStyle.copyWith(color: kGreyTextColor)),
                               ),
@@ -202,7 +245,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(lang.S.of(context).totalProfit),
-                            Text(myFormat.format(double.tryParse(allProductTotalProfit(transitionModel: transitionModel).toStringAsFixed(2))??0)),
+                            Text(myFormat.format(double.tryParse(allProductTotalProfit(transitionModel: transitionModel).toStringAsFixed(2)) ?? 0)),
                           ],
                         ),
                         const SizedBox(height: 20.0),
@@ -210,7 +253,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(lang.S.of(context).totalLoss),
-                            Text('- ${myFormat.format(double.tryParse(allProductTotalLoss(transitionModel: transitionModel).toStringAsFixed(2))??0)}'),
+                            Text('- ${myFormat.format(double.tryParse(allProductTotalLoss(transitionModel: transitionModel).toStringAsFixed(2)) ?? 0)}'),
                           ],
                         ),
                         const SizedBox(height: 20.0),
@@ -238,7 +281,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                   style: const TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  myFormat.format(double.tryParse(transitionModel.lossProfit!.abs().toStringAsFixed(2))??0),
+                                  myFormat.format(double.tryParse(transitionModel.lossProfit!.abs().toStringAsFixed(2)) ?? 0),
                                   style: const TextStyle(fontWeight: FontWeight.bold),
                                 )
                               ],
@@ -373,6 +416,11 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
     checkCurrentUserAndRestartApp();
   }
 
+  // Function to calculate the amount from a given percentage
+  double calculateAmountFromPercentage(double percentage, double price) {
+    return (percentage * price) / 100;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -422,7 +470,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                 padding: const EdgeInsets.all(10.0),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  color: kWhiteTextColor,
+                                  color: kWhite,
                                 ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -440,11 +488,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                                   border: InputBorder.none,
                                                 ),
                                                 child: Theme(
-                                                    data: ThemeData(
-                                                        highlightColor: dropdownItemColor,
-                                                        focusColor: dropdownItemColor,
-                                                        hoverColor: dropdownItemColor
-                                                    ),
+                                                    data: ThemeData(highlightColor: dropdownItemColor, focusColor: dropdownItemColor, hoverColor: dropdownItemColor),
                                                     child: DropdownButtonHideUnderline(child: getMonth())),
                                               );
                                             },
@@ -463,7 +507,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                                   child: Center(
                                                     child: Text(
                                                       lang.S.of(context).between,
-                                                      style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                                      style: kTextStyle.copyWith(color: kWhite),
                                                     ),
                                                   ),
                                                 ),
@@ -520,7 +564,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                '$currency ${myFormat.format(double.tryParse(getTotalDue(transaction).toString())??0)}',
+                                                '$currency ${myFormat.format(double.tryParse(getTotalDue(transaction).toString()) ?? 0)}',
                                                 style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, fontSize: 18.0),
                                               ),
                                               Text(
@@ -541,7 +585,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                '$currency ${myFormat.format(double.tryParse(calculateTotalSale(transaction).toStringAsFixed(2))??0)}',
+                                                '$currency ${myFormat.format(double.tryParse(calculateTotalSale(transaction).toStringAsFixed(2)) ?? 0)}',
                                                 style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, fontSize: 18.0),
                                               ),
                                               Text(
@@ -562,7 +606,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                '$currency ${myFormat.format(double.tryParse(calculateTotalProfit(transaction).toStringAsFixed(2))??0)}',
+                                                '$currency ${myFormat.format(double.tryParse(calculateTotalProfit(transaction).toStringAsFixed(2)) ?? 0)}',
                                                 style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, fontSize: 18.0),
                                               ),
                                               Text(
@@ -583,7 +627,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                '$currency ${myFormat.format(double.tryParse(calculateTotalLoss(transaction).toStringAsFixed(2))??0)}',
+                                                '$currency ${myFormat.format(double.tryParse(calculateTotalLoss(transaction).toStringAsFixed(2)) ?? 0)}',
                                                 style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, fontSize: 18.0),
                                               ),
                                               Text(
@@ -606,7 +650,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  color: kWhiteTextColor,
+                                  color: kWhite,
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -694,7 +738,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                                 ),
                                               ),
                                               SizedBox(
-                                                height:(MediaQuery.of(context).size.height - 315).isNegative? 0:MediaQuery.of(context).size.height - 315,
+                                                height: (MediaQuery.of(context).size.height - 315).isNegative ? 0 : MediaQuery.of(context).size.height - 315,
                                                 child: ListView.builder(
                                                   shrinkWrap: true,
                                                   physics: const AlwaysScrollableScrollPhysics(),
@@ -746,7 +790,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                                               SizedBox(
                                                                 width: 70,
                                                                 child: Text(
-                                                                  myFormat.format(double.tryParse(showAbleSaleTransactions[index].totalAmount.toString())??0),
+                                                                  myFormat.format(double.tryParse(showAbleSaleTransactions[index].totalAmount.toString()) ?? 0),
                                                                   style: kTextStyle.copyWith(color: kGreyTextColor),
                                                                   maxLines: 2,
                                                                   overflow: TextOverflow.ellipsis,
@@ -758,7 +802,10 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                                               SizedBox(
                                                                 width: 70,
                                                                 child: Text(
-                                                                  myFormat.format(double.tryParse((showAbleSaleTransactions[index].totalAmount!.toDouble() - showAbleSaleTransactions[index].dueAmount!.toDouble()).toString())??0),
+                                                                  myFormat.format(double.tryParse(
+                                                                          (showAbleSaleTransactions[index].totalAmount!.toDouble() - showAbleSaleTransactions[index].dueAmount!.toDouble())
+                                                                              .toString()) ??
+                                                                      0),
                                                                   style: kTextStyle.copyWith(color: kGreyTextColor),
                                                                   maxLines: 2,
                                                                   overflow: TextOverflow.ellipsis,
@@ -770,7 +817,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                                               SizedBox(
                                                                 width: 70,
                                                                 child: Text(
-                                                                  myFormat.format(double.tryParse(showAbleSaleTransactions[index].dueAmount.toString())??0),
+                                                                  myFormat.format(double.tryParse(showAbleSaleTransactions[index].dueAmount.toString()) ?? 0),
                                                                   style: kTextStyle.copyWith(color: kGreyTextColor),
                                                                   maxLines: 2,
                                                                   overflow: TextOverflow.ellipsis,
@@ -784,7 +831,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                                                 child: Text(
                                                                   showAbleSaleTransactions[index].lossProfit!.isNegative
                                                                       ? ''
-                                                                      : myFormat.format(double.tryParse(showAbleSaleTransactions[index].lossProfit!.toStringAsFixed(2))??0),
+                                                                      : myFormat.format(double.tryParse(showAbleSaleTransactions[index].lossProfit!.toStringAsFixed(2)) ?? 0),
                                                                   style: kTextStyle.copyWith(color: kGreyTextColor),
                                                                   maxLines: 2,
                                                                   overflow: TextOverflow.ellipsis,
@@ -797,7 +844,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                                                 width: 70,
                                                                 child: Text(
                                                                   showAbleSaleTransactions[index].lossProfit!.isNegative
-                                                                      ? myFormat.format(double.tryParse(showAbleSaleTransactions[index].lossProfit!.toStringAsFixed(2))??0)
+                                                                      ? myFormat.format(double.tryParse(showAbleSaleTransactions[index].lossProfit!.toStringAsFixed(2)) ?? 0)
                                                                       : '',
                                                                   style: kTextStyle.copyWith(color: kGreyTextColor),
                                                                   maxLines: 2,
@@ -833,8 +880,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                               ),
                                             ],
                                           )
-                                        : EmptyWidget(title:  lang.S.of(context).noTransactionFound),
-
+                                        : EmptyWidget(title: lang.S.of(context).noTransactionFound),
                                   ],
                                 ),
                               ),

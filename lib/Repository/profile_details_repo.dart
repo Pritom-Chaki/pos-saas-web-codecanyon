@@ -24,7 +24,8 @@ class ProfileRepo {
       saleInvoiceCounter: 1,
       remainingShopBalance: 0,
       currency: '\$',
-      currentLocale: 'en'
+      currentLocale: 'en',
+      gst: '',
     );
     final model = await ref.child('${await getUserID()}/Personal Information').get();
     var data = jsonDecode(jsonEncode(model.value));

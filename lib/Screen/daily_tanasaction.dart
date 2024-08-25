@@ -9,7 +9,7 @@ import 'Widgets/TopBar/top_bar_widget.dart';
 import 'package:salespro_admin/generated/l10n.dart' as lang;
 
 class DailyTransactionScreen extends StatefulWidget {
-  const DailyTransactionScreen({Key? key}) : super(key: key);
+  const DailyTransactionScreen({super.key});
   static const String route = '/transaction';
 
   @override

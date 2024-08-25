@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,23 +15,23 @@ import 'package:image_picker_web/image_picker_web.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:salespro_admin/Provider/product_provider.dart';
-import 'package:salespro_admin/Screen/WareHouse/warehouse_model.dart';
 import 'package:salespro_admin/Screen/Widgets/Constant%20Data/button_global.dart';
-import 'package:salespro_admin/Screen/Widgets/Constant%20Data/constant.dart';
-import 'package:salespro_admin/Screen/Widgets/Footer/footer.dart';
-import 'package:salespro_admin/Screen/Widgets/Sidebar/sidebar_widget.dart';
-import 'package:salespro_admin/Screen/Widgets/TopBar/top_bar_widget.dart';
-import 'package:salespro_admin/commas.dart';
-import 'package:salespro_admin/const.dart';
-import 'package:salespro_admin/model/brands_model.dart';
 import 'package:salespro_admin/model/category_model.dart';
-import 'package:salespro_admin/model/product_model.dart';
 import 'package:salespro_admin/model/unit_model.dart';
 import 'package:salespro_admin/generated/l10n.dart' as lang;
-import 'package:salespro_admin/subscription.dart';
+import '../../Provider/product_provider.dart';
+import '../../commas.dart';
+import '../../const.dart';
+import '../../model/brands_model.dart';
+import '../../model/product_model.dart';
+import '../../subscription.dart';
+import '../WareHouse/warehouse_model.dart';
+import '../Widgets/Constant Data/constant.dart';
+import '../Widgets/Footer/footer.dart';
+import '../Widgets/Sidebar/sidebar_widget.dart';
+import '../Widgets/TopBar/top_bar_widget.dart';
+import '../tax rates/tax_model.dart';
 import 'WarebasedProduct.dart';
-import 'bulk.dart';
 
 class AddProduct extends StatefulWidget {
   const AddProduct({super.key, required this.allProductsCodeList, required this.sideBarNumber, required this.warehouseBasedProductModel});
@@ -38,6 +39,8 @@ class AddProduct extends StatefulWidget {
   final List<WarehouseBasedProductModel> warehouseBasedProductModel;
   final List<String> allProductsCodeList;
   final int sideBarNumber;
+
+  // final bool inventorySales;
 
   @override
   State<AddProduct> createState() => _AddProductState();
@@ -99,7 +102,7 @@ class _AddProductState extends State<AddProduct> {
         builder: (BuildContext context) {
           return StatefulBuilder(builder: (context, setState1) {
             return Dialog(
-              surfaceTintColor: kWhiteTextColor,
+              surfaceTintColor: kWhite,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
               child: SizedBox(
                 width: 600,
@@ -323,7 +326,7 @@ class _AddProductState extends State<AddProduct> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kRedTextColor),
                             child: Text(
                               lang.S.of(context).cancel,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() {
                             itemCategoryController.clear();
@@ -342,13 +345,14 @@ class _AddProductState extends State<AddProduct> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kGreenTextColor),
                             child: Text(
                               lang.S.of(context).submit,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() async {
                             if (categoryValidateAndSave()) {
                               EasyLoading.show(status: 'Adding Category');
                               try {
-                                final DatabaseReference categoryInformationRef = FirebaseDatabase.instance.ref().child(await getUserID()).child('Categories');
+                                final DatabaseReference categoryInformationRef =
+                                    FirebaseDatabase.instance.ref().child(await getUserID()).child('Categories');
                                 CategoryModel categoryModel = CategoryModel(
                                   categoryName: itemCategoryController.text,
                                   size: isSize,
@@ -415,7 +419,7 @@ class _AddProductState extends State<AddProduct> {
         builder: (BuildContext context) {
           return StatefulBuilder(builder: (context, setState) {
             return Dialog(
-              surfaceTintColor: kWhiteTextColor,
+              surfaceTintColor: kWhite,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -508,7 +512,7 @@ class _AddProductState extends State<AddProduct> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kRedTextColor),
                             child: Text(
                               lang.S.of(context).cancel,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() {
                             brandNameController.clear();
@@ -522,13 +526,14 @@ class _AddProductState extends State<AddProduct> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kGreenTextColor),
                             child: Text(
                               lang.S.of(context).submit,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() async {
                             if (brandValidateAndSave()) {
                               try {
                                 EasyLoading.show(status: 'Adding Brand');
-                                final DatabaseReference categoryInformationRef = FirebaseDatabase.instance.ref().child(await getUserID()).child('Brands');
+                                final DatabaseReference categoryInformationRef =
+                                    FirebaseDatabase.instance.ref().child(await getUserID()).child('Brands');
                                 BrandsModel brandModel = BrandsModel(brandNameController.text);
                                 await categoryInformationRef.push().set(brandModel.toJson());
                                 ref.refresh(brandProvider);
@@ -571,7 +576,7 @@ class _AddProductState extends State<AddProduct> {
         context: addProductsContext,
         builder: (BuildContext context) {
           return Dialog(
-            surfaceTintColor: kWhiteTextColor,
+            surfaceTintColor: kWhite,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -664,7 +669,7 @@ class _AddProductState extends State<AddProduct> {
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kRedTextColor),
                           child: Text(
                             lang.S.of(context).cancel,
-                            style: kTextStyle.copyWith(color: kWhiteTextColor),
+                            style: kTextStyle.copyWith(color: kWhite),
                           ),
                         ).onTap(() {
                           unitNameController.clear();
@@ -676,13 +681,14 @@ class _AddProductState extends State<AddProduct> {
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kGreenTextColor),
                           child: Text(
                             lang.S.of(context).submit,
-                            style: kTextStyle.copyWith(color: kWhiteTextColor),
+                            style: kTextStyle.copyWith(color: kWhite),
                           ),
                         ).onTap(() async {
                           if (unitValidateAndSave()) {
                             try {
                               EasyLoading.show(status: 'Adding Units');
-                              final DatabaseReference categoryInformationRef = FirebaseDatabase.instance.ref().child(await getUserID()).child('Units');
+                              final DatabaseReference categoryInformationRef =
+                                  FirebaseDatabase.instance.ref().child(await getUserID()).child('Units');
                               UnitModel unitModel = UnitModel(unitNameController.text);
                               await categoryInformationRef.push().set(unitModel.toJson());
                               ref.refresh(unitProvider);
@@ -743,6 +749,28 @@ class _AddProductState extends State<AddProduct> {
 
   List<String> warrantyTime = ['Day', 'Month', 'Year'];
 
+  // List<String> fixedUnitList = [
+  //   "PIECES (Pcs)",
+  //   "BAGS (Bag)",
+  //   "BOX ( Box )",
+  //   "PACKS (Pac)",
+  //   "PAIRS (Prs)",
+  //   "LITRE (Ltr)",
+  //   "CANS (Can)",
+  //   "ROLLS (Rol)",
+  //   "QUINTAL (Qtl)",
+  //   "CARTONS (Ctn)",
+  //   "DOZENS (Dzn)",
+  //   "MILILITRE (Mr)",
+  //   "BOTTLES (Blt)",
+  //   "BUNDLES (Bdl)",
+  //   "GRAMMES (Gm)",
+  //   "KILOGRAMS (Kg)",
+  //   "NUMBERS (Nos)",
+  //   "TABLETS (Tbs)",
+  //   "SQUARE FEET (Sqf)",
+  //   "SQUARE METERS (Sqm)"
+  // ];
   List<String> extraAddedUnits = [];
   List<String> allUnitList = [
     "PIECES (Pcs)",
@@ -777,6 +805,8 @@ class _AddProductState extends State<AddProduct> {
   String productPurchasePrice = '';
   String productDealerPrice = '';
   String productWholeSalePrice = '';
+  String excTaxAmount = '';
+  String incTaxAmount = '';
 
   TextEditingController productNameController = TextEditingController();
   TextEditingController productCodeController = TextEditingController();
@@ -800,6 +830,11 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController capacityController = TextEditingController(text: '');
   TextEditingController typeController = TextEditingController(text: '');
   TextEditingController warrantyController = TextEditingController(text: '');
+
+  TextEditingController totalAmountController = TextEditingController();
+  TextEditingController incTaxController = TextEditingController();
+  TextEditingController excTaxController = TextEditingController();
+  TextEditingController marginController = TextEditingController();
 
   GlobalKey<FormState> addProductFormKey = GlobalKey<FormState>();
 
@@ -859,7 +894,136 @@ class _AddProductState extends State<AddProduct> {
     // TODO: implement initState
     super.initState();
     checkCurrentUserAndRestartApp();
+    productPurchasePriceController.addListener(calculateTotal);
+    marginController.addListener(() {
+      setState(() {
+        adjustSalesPrices();
+      });
+    });
   }
+
+  @override
+  void dispose() {
+    productPurchasePriceController.removeListener(calculateTotal);
+    productPurchasePriceController.dispose();
+    totalAmountController.dispose();
+    marginController.dispose();
+    productSalePriceController.dispose();
+    productDealerPriceController.dispose();
+    super.dispose();
+  }
+
+  //___________________________________tax_dropdown________________________________
+  DropdownButton<GroupTaxModel> getTax({required List<GroupTaxModel> list}) {
+    return DropdownButton(
+      hint: const Text('Select Tax'),
+      items: list.map((e) {
+        return DropdownMenuItem(
+          value: e,
+          child: Text(e.name),
+        );
+      }).toList(),
+      value: selectedGroupTaxModel,
+      onChanged: (value) {
+        setState(() {
+          selectedGroupTaxModel = value!;
+        });
+      },
+    );
+  }
+
+  GroupTaxModel? selectedGroupTaxModel;
+
+  //___________________________________tax_type____________________________________
+  List<String> status = [
+    'Inclusive',
+    'Exclusive',
+  ];
+
+  String selectedTaxType = 'Exclusive';
+  DropdownButton<String> getTaxType() {
+    List<DropdownMenuItem<String>> dropDownItems = [];
+    for (String des in status) {
+      var item = DropdownMenuItem(
+        value: des,
+        child: Text(des),
+      );
+      dropDownItems.add(item);
+    }
+    return DropdownButton(
+      hint: const Text('Select Tax type'),
+      items: dropDownItems,
+      value: selectedTaxType,
+      onChanged: (value) {
+        setState(() {
+          selectedTaxType = value!;
+          adjustSalesPrices();
+        });
+      },
+    );
+  }
+
+  //___________________________________calculate_total_with_tax____________________
+  double totalAmount = 0.0;
+  void calculateTotal() {
+    String saleAmountText = productPurchasePriceController.text.replaceAll(',', '');
+    double saleAmount = double.tryParse(saleAmountText) ?? 0.0;
+    if (selectedGroupTaxModel != null) {
+      double taxRate = double.parse(selectedGroupTaxModel!.taxRate.toString());
+      double totalAmount = calculateTotalAmount(saleAmount, taxRate);
+      setState(() {
+        totalAmountController.text = totalAmount.toStringAsFixed(2);
+        this.totalAmount = totalAmount;
+      });
+    }
+  }
+
+  double calculateTotalAmount(double saleAmount, double taxRate) {
+    double taxDecimal = taxRate / 100;
+    double totalAmount = saleAmount + (saleAmount * taxDecimal);
+    return totalAmount;
+  }
+
+  void adjustSalesPrices() {
+    double margin = double.tryParse(marginController.text) ?? 0;
+    double purchasePrice = double.tryParse(productPurchasePrice) ?? 0;
+    double salesPrice = 0;
+    double excPrice = 0;
+    double taxAmount = calculateAmountFromPercentage((selectedGroupTaxModel?.taxRate.toString() ?? '').toDouble(), purchasePrice);
+
+    if (selectedTaxType == 'Inclusive') {
+      salesPrice = purchasePrice + calculateAmountFromPercentage(margin, purchasePrice);
+      // salesPrice -= calculateAmountFromPercentage(double.parse(selectedGroupTaxModel!.taxRate.toString()), purchasePrice);
+      productSalePrice = salesPrice.toString();
+      productDealerPrice = salesPrice.toString();
+      productWholeSalePrice = salesPrice.toString();
+      incTaxAmount = purchasePrice.toString();
+      excTaxAmount = salesPrice.toString();
+    } else {
+      salesPrice = purchasePrice + calculateAmountFromPercentage(margin, purchasePrice) + taxAmount;
+      excPrice = purchasePrice + taxAmount;
+      productSalePrice = salesPrice.toString();
+      productDealerPrice = salesPrice.toString();
+      productWholeSalePrice = salesPrice.toString();
+      incTaxAmount = purchasePrice.toString();
+      excTaxAmount = excPrice.toString();
+    }
+
+    // Add margin to prices if margin is provided
+
+    // Update controllers with adjusted prices
+    productSalePriceController.text = salesPrice.toStringAsFixed(2);
+    productWholesalePriceController.text = salesPrice.toStringAsFixed(2);
+    productDealerPriceController.text = salesPrice.toStringAsFixed(2);
+    incTaxController.text = salesPrice.toStringAsFixed(2);
+    excTaxController.text = excPrice.toStringAsFixed(2);
+  }
+
+  // Function to calculate the amount from a given percentage
+  double calculateAmountFromPercentage(double percentage, double price) {
+    return price * (percentage / 100);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -875,6 +1039,7 @@ class _AddProductState extends State<AddProduct> {
               final brandList = ref.watch(brandProvider);
               final categoryList = ref.watch(categoryProvider);
               final wareHouseList = ref.watch(warehouseProvider);
+              final groupTax = ref.watch(groupTaxProvider);
               return Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -945,7 +1110,7 @@ class _AddProductState extends State<AddProduct> {
                                           padding: const EdgeInsets.all(10.0),
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10.0),
-                                            color: kWhiteTextColor,
+                                            color: kWhite,
                                           ),
                                           child: Form(
                                             key: addProductFormKey,
@@ -1319,7 +1484,8 @@ class _AddProductState extends State<AddProduct> {
                                                                     borderSide: BorderSide(color: kBorderColorTextField, width: 2),
                                                                   ),
                                                                   suffixIcon: const Icon(FeatherIcons.plus, color: kTitleColor).onTap(() =>
-                                                                      showBrandPopUp(ref: ref, brandNameList: editBrandList, addProductsContext: context)),
+                                                                      showBrandPopUp(
+                                                                          ref: ref, brandNameList: editBrandList, addProductsContext: context)),
                                                                   contentPadding: const EdgeInsets.all(8.0),
                                                                   floatingLabelBehavior: FloatingLabelBehavior.always,
                                                                   labelText: lang.S.of(context).brand),
@@ -1453,8 +1619,9 @@ class _AddProductState extends State<AddProduct> {
                                                           builder: (FormFieldState<dynamic> field) {
                                                             return InputDecorator(
                                                               decoration: InputDecoration(
-                                                                suffixIcon: const Icon(FeatherIcons.plus, color: kTitleColor).onTap(
-                                                                    () => showUnitPopUp(ref: ref, unitNameList: editUnitNameList, addProductsContext: context)),
+                                                                suffixIcon: const Icon(FeatherIcons.plus, color: kTitleColor).onTap(() =>
+                                                                    showUnitPopUp(
+                                                                        ref: ref, unitNameList: editUnitNameList, addProductsContext: context)),
                                                                 enabledBorder: const OutlineInputBorder(
                                                                   borderRadius: BorderRadius.all(Radius.circular(8.0)),
                                                                   borderSide: BorderSide(color: kBorderColorTextField, width: 2),
@@ -1505,173 +1672,7 @@ class _AddProductState extends State<AddProduct> {
                                                 ),
                                                 const SizedBox(height: 20.0),
 
-                                                ///__________Sale_Price_&_Purchase_Price_______________________________
-                                                Row(
-                                                  children: [
-                                                    Expanded(
-                                                      child: TextFormField(
-                                                        onChanged: (value) {
-                                                          productPurchasePrice = value.replaceAll(',', '');
-                                                          var formattedText = myFormat.format(double.tryParse(productPurchasePrice) ?? 0);
-                                                          productPurchasePriceController.value = productPurchasePriceController.value.copyWith(
-                                                            text: formattedText,
-                                                            selection: TextSelection.collapsed(offset: formattedText.length),
-                                                          );
-                                                        },
-                                                        validator: (value) {
-                                                          if (productPurchasePrice.isEmptyOrNull) {
-                                                            return 'Product Purchase Price is required.';
-                                                          } else if (double.tryParse(productPurchasePrice) == null) {
-                                                            return 'Enter price in number.';
-                                                          } else {
-                                                            return null;
-                                                          }
-                                                        },
-                                                        onSaved: (value) {
-                                                          productPurchasePriceController.text = value!;
-                                                        },
-                                                        controller: productPurchasePriceController,
-                                                        showCursor: true,
-                                                        cursorColor: kTitleColor,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                                          labelText: lang.S.of(context).purchasePrice,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterPurchasePrice,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(width: 20.0),
-                                                    Expanded(
-                                                      child: TextFormField(
-                                                        onChanged: (value) {
-                                                          productSalePrice = value.replaceAll(',', '');
-                                                          var formattedText = myFormat.format(int.parse(productSalePrice));
-                                                          productSalePriceController.value = productSalePriceController.value.copyWith(
-                                                            text: formattedText,
-                                                            selection: TextSelection.collapsed(offset: formattedText.length),
-                                                          );
-                                                        },
-                                                        validator: (value) {
-                                                          if (productSalePrice.isEmptyOrNull) {
-                                                            return 'Product Sale Price is required.';
-                                                          } else if (double.tryParse(productSalePrice) == null) {
-                                                            return 'Enter price in number.';
-                                                          } else {
-                                                            return null;
-                                                          }
-                                                        },
-                                                        onSaved: (value) {
-                                                          productSalePriceController.text = value!;
-                                                        },
-                                                        controller: productSalePriceController,
-                                                        showCursor: true,
-                                                        cursorColor: kTitleColor,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                                          labelText: lang.S.of(context).salePrices,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterSalePrice,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(height: 20.0),
-
-                                                ///__________Dealer &_Wholesale_Price______________________________________
-                                                Row(
-                                                  children: [
-                                                    Expanded(
-                                                      child: TextFormField(
-                                                        // validator: (value) {
-                                                        //   if (double.tryParse(productDealerPrice) == null && productDealerPrice.isEmptyOrNull) {
-                                                        //     return 'Enter price in number.';
-                                                        //   } else {
-                                                        //     return null;
-                                                        //   }
-                                                        // },
-                                                        validator: (value) {
-                                                          if (productDealerPrice.isEmptyOrNull) {
-                                                            return 'Product Sale Price is required.';
-                                                          } else if (double.tryParse(productDealerPrice) == null) {
-                                                            return 'Enter price in number.';
-                                                          } else {
-                                                            return null;
-                                                          }
-                                                        },
-                                                        onSaved: (value) {
-                                                          productDealerPriceController.text = value!;
-                                                        },
-                                                        onChanged: (value) {
-                                                          productDealerPrice = value.replaceAll(',', '');
-                                                          var formattedText = myFormat.format(int.parse(productDealerPrice));
-                                                          productDealerPriceController.value = productDealerPriceController.value.copyWith(
-                                                            text: formattedText,
-                                                            selection: TextSelection.collapsed(offset: formattedText.length),
-                                                          );
-                                                        },
-                                                        controller: productDealerPriceController,
-                                                        showCursor: true,
-                                                        cursorColor: kTitleColor,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                                          labelText: lang.S.of(context).dealerPrice,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterDealePrice,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(width: 20.0),
-                                                    Expanded(
-                                                      child: TextFormField(
-                                                        // validator: (value) {
-                                                        //   if (double.tryParse(value!) == null && !value.isEmptyOrNull) {
-                                                        //     return 'Enter price in number.';
-                                                        //   } else {
-                                                        //     return null;
-                                                        //   }
-                                                        // },
-                                                        validator: (value) {
-                                                          if (productWholeSalePrice.isEmptyOrNull) {
-                                                            return 'Product Sale Price is required.';
-                                                          } else if (double.tryParse(productWholeSalePrice) == null) {
-                                                            return 'Enter price in number.';
-                                                          } else {
-                                                            return null;
-                                                          }
-                                                        },
-                                                        onSaved: (value) {
-                                                          productWholesalePriceController.text = value!;
-                                                        },
-                                                        onChanged: (value) {
-                                                          productWholeSalePrice = value.replaceAll(',', '');
-                                                          var formattedText = myFormat.format(int.parse(productWholeSalePrice));
-                                                          productWholesalePriceController.value = productWholesalePriceController.value.copyWith(
-                                                            text: formattedText,
-                                                            selection: TextSelection.collapsed(offset: formattedText.length),
-                                                          );
-                                                        },
-                                                        controller: productWholesalePriceController,
-                                                        showCursor: true,
-                                                        cursorColor: kTitleColor,
-                                                        decoration: kInputDecoration.copyWith(
-                                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                                          labelText: lang.S.of(context).wholeSaleprice,
-                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                          hintText: lang.S.of(context).enterPrice,
-                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(height: 20.0),
-
-                                                ///________Manufacturer && warehouse_______________________________________________
+                                                ///________Manufacturer && warehouse_____________________________________
                                                 Row(
                                                   children: [
                                                     Expanded(
@@ -1972,27 +1973,334 @@ class _AddProductState extends State<AddProduct> {
                                                   ],
                                                 ).visible(isSerialNumberTaken),
 
+                                                const SizedBox(height: 20.0),
+
+                                                ///________Tax && Type____________________________________________________
+                                                Row(
+                                                  children: [
+                                                    groupTax.when(
+                                                      data: (groupTax) {
+                                                        // List<WareHouseModel> wareHouseList = [];
+                                                        return Expanded(
+                                                          child: FormField(
+                                                            builder: (FormFieldState<dynamic> field) {
+                                                              return InputDecorator(
+                                                                decoration: const InputDecoration(
+                                                                    enabledBorder: OutlineInputBorder(
+                                                                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                      borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                                                    ),
+                                                                    contentPadding: EdgeInsets.all(8.0),
+                                                                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                                    labelText: 'Applicable Tax'),
+                                                                child: DropdownButtonHideUnderline(
+                                                                  child: DropdownButton<GroupTaxModel>(
+                                                                    hint: const Text('Select Tax'),
+                                                                    items: groupTax.map((e) {
+                                                                      return DropdownMenuItem<GroupTaxModel>(
+                                                                        value: e,
+                                                                        child: Text(e.name),
+                                                                      );
+                                                                    }).toList(),
+                                                                    value: selectedGroupTaxModel,
+                                                                    onChanged: (value) {
+                                                                      setState(() {
+                                                                        selectedGroupTaxModel = value;
+                                                                        calculateTotal();
+                                                                        adjustSalesPrices(); // Update total amount when tax changes
+                                                                      });
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ),
+                                                        );
+                                                      },
+                                                      error: (e, stack) {
+                                                        return Center(
+                                                          child: Text(
+                                                            e.toString(),
+                                                          ),
+                                                        );
+                                                      },
+                                                      loading: () {
+                                                        return const Center(
+                                                          child: CircularProgressIndicator(),
+                                                        );
+                                                      },
+                                                    ),
+                                                    const SizedBox(width: 10.0),
+                                                    Expanded(
+                                                      child: FormField(
+                                                        builder: (FormFieldState<dynamic> field) {
+                                                          return InputDecorator(
+                                                            decoration: const InputDecoration(
+                                                                enabledBorder: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                  borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                                                ),
+                                                                contentPadding: EdgeInsets.all(8.0),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                                labelText: 'Tax Type'),
+                                                            child: DropdownButtonHideUnderline(
+                                                              child: getTaxType(),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 20.0),
+
+                                                ///________Margin____________________________________________________
+
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: TextFormField(
+                                                        keyboardType: TextInputType.number,
+                                                        controller: marginController,
+                                                        showCursor: true,
+                                                        cursorColor: kTitleColor,
+                                                        decoration: kInputDecoration.copyWith(
+                                                          labelText: 'Margin %',
+                                                          hintText: '0',
+                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 20.0),
+                                                    Visibility(
+                                                      visible: selectedTaxType == 'Inclusive',
+                                                      child: Expanded(
+                                                        child: TextFormField(
+                                                          readOnly: true,
+                                                          controller: incTaxController,
+                                                          keyboardType: TextInputType.number,
+                                                          showCursor: true,
+                                                          cursorColor: kTitleColor,
+                                                          decoration: kInputDecoration.copyWith(
+                                                            labelText: 'Inc. tax:',
+                                                            hintText: '0',
+                                                            labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                            hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Visibility(
+                                                      visible: selectedTaxType == 'Exclusive',
+                                                      child: Expanded(
+                                                        child: TextFormField(
+                                                          readOnly: true,
+                                                          controller: excTaxController,
+                                                          keyboardType: TextInputType.number,
+                                                          showCursor: true,
+                                                          cursorColor: kTitleColor,
+                                                          decoration: kInputDecoration.copyWith(
+                                                            labelText: 'Exc. tax:',
+                                                            hintText: '0',
+                                                            labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                            hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 20.0),
+
+                                                ///__________Sale_Price_&_Purchase_Price_______________________________
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: TextFormField(
+                                                        onChanged: (value) {
+                                                          productPurchasePrice = value.replaceAll(',', '');
+                                                          adjustSalesPrices();
+                                                          var formattedText = myFormat.format(double.tryParse(productPurchasePrice) ?? 0);
+                                                          productPurchasePriceController.value = productPurchasePriceController.value.copyWith(
+                                                            text: formattedText,
+                                                            selection: TextSelection.collapsed(offset: formattedText.length),
+                                                          );
+                                                        },
+                                                        validator: (value) {
+                                                          if (productPurchasePrice.isEmptyOrNull) {
+                                                            return 'Product Purchase Price is required.';
+                                                          } else if (double.tryParse(productPurchasePrice) == null) {
+                                                            return 'Enter price in number.';
+                                                          } else {
+                                                            return null;
+                                                          }
+                                                        },
+                                                        onSaved: (value) {
+                                                          productPurchasePriceController.text = value!;
+                                                        },
+                                                        controller: productPurchasePriceController,
+                                                        showCursor: true,
+                                                        cursorColor: kTitleColor,
+                                                        decoration: kInputDecoration.copyWith(
+                                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                                          labelText: lang.S.of(context).purchasePrice,
+                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                          hintText: lang.S.of(context).enterPurchasePrice,
+                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 20.0),
+                                                    Expanded(
+                                                      child: TextFormField(
+                                                        onChanged: (value) {
+                                                          productSalePrice = value.replaceAll(',', '');
+                                                          var formattedText = myFormat.format(int.parse(productSalePrice));
+                                                          productSalePriceController.value = productSalePriceController.value.copyWith(
+                                                            text: formattedText,
+                                                            selection: TextSelection.collapsed(offset: formattedText.length),
+                                                          );
+                                                        },
+                                                        validator: (value) {
+                                                          if (productSalePrice.isEmptyOrNull) {
+                                                            return 'Product Sale Price is required.';
+                                                          } else if (double.tryParse(productSalePrice) == null) {
+                                                            return 'Enter price in number.';
+                                                          } else {
+                                                            return null;
+                                                          }
+                                                        },
+                                                        onSaved: (value) {
+                                                          productSalePriceController.text = value!;
+                                                        },
+                                                        controller: productSalePriceController,
+                                                        showCursor: true,
+                                                        cursorColor: kTitleColor,
+                                                        decoration: kInputDecoration.copyWith(
+                                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                                          labelText: lang.S.of(context).salePrices,
+                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                          hintText: lang.S.of(context).enterSalePrice,
+                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 20.0),
+
+                                                ///__________Dealer &_Wholesale_Price______________________________________
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: TextFormField(
+                                                        // validator: (value) {
+                                                        //   if (double.tryParse(productDealerPrice) == null && productDealerPrice.isEmptyOrNull) {
+                                                        //     return 'Enter price in number.';
+                                                        //   } else {
+                                                        //     return null;
+                                                        //   }
+                                                        // },
+                                                        validator: (value) {
+                                                          if (productDealerPrice.isEmptyOrNull) {
+                                                            return 'Product Sale Price is required.';
+                                                          } else if (double.tryParse(productDealerPrice) == null) {
+                                                            return 'Enter price in number.';
+                                                          } else {
+                                                            return null;
+                                                          }
+                                                        },
+                                                        onSaved: (value) {
+                                                          productDealerPriceController.text = value!;
+                                                        },
+                                                        onChanged: (value) {
+                                                          productDealerPrice = value.replaceAll(',', '');
+                                                          var formattedText = myFormat.format(int.parse(productDealerPrice));
+                                                          productDealerPriceController.value = productDealerPriceController.value.copyWith(
+                                                            text: formattedText,
+                                                            selection: TextSelection.collapsed(offset: formattedText.length),
+                                                          );
+                                                        },
+                                                        controller: productDealerPriceController,
+                                                        showCursor: true,
+                                                        cursorColor: kTitleColor,
+                                                        decoration: kInputDecoration.copyWith(
+                                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                                          labelText: lang.S.of(context).dealerPrice,
+                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                          hintText: lang.S.of(context).enterDealePrice,
+                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 20.0),
+                                                    Expanded(
+                                                      child: TextFormField(
+                                                        // validator: (value) {
+                                                        //   if (double.tryParse(value!) == null && !value.isEmptyOrNull) {
+                                                        //     return 'Enter price in number.';
+                                                        //   } else {
+                                                        //     return null;
+                                                        //   }
+                                                        // },
+                                                        validator: (value) {
+                                                          if (productWholeSalePrice.isEmptyOrNull) {
+                                                            return 'Product Sale Price is required.';
+                                                          } else if (double.tryParse(productWholeSalePrice) == null) {
+                                                            return 'Enter price in number.';
+                                                          } else {
+                                                            return null;
+                                                          }
+                                                        },
+                                                        onSaved: (value) {
+                                                          productWholesalePriceController.text = value!;
+                                                        },
+                                                        onChanged: (value) {
+                                                          productWholeSalePrice = value.replaceAll(',', '');
+                                                          var formattedText = myFormat.format(int.parse(productWholeSalePrice));
+                                                          productWholesalePriceController.value = productWholesalePriceController.value.copyWith(
+                                                            text: formattedText,
+                                                            selection: TextSelection.collapsed(offset: formattedText.length),
+                                                          );
+                                                        },
+                                                        controller: productWholesalePriceController,
+                                                        showCursor: true,
+                                                        cursorColor: kTitleColor,
+                                                        decoration: kInputDecoration.copyWith(
+                                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                                          labelText: lang.S.of(context).wholeSaleprice,
+                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                          hintText: lang.S.of(context).enterPrice,
+                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 20.0),
+
                                                 ///_________Save_Button________________________________________________
                                                 const SizedBox(height: 20.0),
                                                 Center(
                                                   child: SizedBox(
-                                                    width: MediaQuery.of(context).size.width < 1080 ? 1080 * .30 : MediaQuery.of(context).size.width * .30,
+                                                    width: MediaQuery.of(context).size.width < 1080
+                                                        ? 1080 * .30
+                                                        : MediaQuery.of(context).size.width * .30,
                                                     child: ButtonGlobalWithoutIcon(
                                                       buttontext: lang.S.of(context).saveAndPublished,
                                                       buttonDecoration: kButtonDecoration.copyWith(color: kMainColor),
                                                       onPressed: saleButtonClicked
                                                           ? () {}
                                                           : () async {
-                                                        final availableSubscription = await Subscription.availableSubscription(context: context);
-                                                        final availableLimit = await Subscription.availableLimit(itemType: 'products', context: context);
-                                                        if (!availableSubscription) {
-                                                          return  EasyLoading.showError("Please update your subscription. Subscription date is expired.");
-                                                        } else if (!availableLimit) {
-                                                          return  EasyLoading.showError("Please Update Your Subscription. Your products limit is expired.");
-                                                        }
                                                               if (!isDemo) {
                                                                 if (await checkUserRolePermission(type: 'product')) {
-                                                                  if (validateAndSave() && selectedCategories != null && selectedCategories!.isNotEmpty) {
+                                                                  if (validateAndSave() &&
+                                                                      selectedCategories != null &&
+                                                                      selectedCategories!.isNotEmpty) {
                                                                     try {
                                                                       setState(() {
                                                                         saleButtonClicked = true;
@@ -2008,7 +2316,9 @@ class _AddProductState extends State<AddProduct> {
                                                                         weightController.text,
                                                                         capacityController.text,
                                                                         typeController.text,
-                                                                        warrantyController.text == '' ? '' : '${warrantyController.text} $selectedTime',
+                                                                        warrantyController.text == ''
+                                                                            ? ''
+                                                                            : '${warrantyController.text} $selectedTime',
                                                                         selectedBrand ?? '',
                                                                         productCodeController.text,
                                                                         productQuantityController.text,
@@ -2026,6 +2336,13 @@ class _AddProductState extends State<AddProduct> {
                                                                         expiringDate: expireDate,
                                                                         lowerStockAlert: lowerStockAlert,
                                                                         manufacturingDate: manufactureDate,
+                                                                        taxType: selectedTaxType,
+                                                                        margin: num.tryParse(marginController.text) ?? 0,
+                                                                        excTax: num.tryParse(excTaxAmount) ?? 0,
+                                                                        incTax: num.tryParse(incTaxAmount) ?? 0,
+                                                                        groupTaxName: selectedGroupTaxModel?.name ?? '',
+                                                                        groupTaxRate: selectedGroupTaxModel?.taxRate ?? 0,
+                                                                        subTaxes: selectedGroupTaxModel?.subTaxes ?? [],
                                                                       );
                                                                       await productInformationRef.push().set(productModel.toJson());
 
@@ -2042,7 +2359,8 @@ class _AddProductState extends State<AddProduct> {
                                                                         saleButtonClicked = false;
                                                                       });
                                                                       EasyLoading.dismiss();
-                                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                                                                      ScaffoldMessenger.of(context)
+                                                                          .showSnackBar(SnackBar(content: Text(e.toString())));
                                                                     }
                                                                   } else {
                                                                     EasyLoading.showInfo('Fill all required field');
@@ -2074,7 +2392,7 @@ class _AddProductState extends State<AddProduct> {
                                             ///____Image__________________
                                             Container(
                                               padding: const EdgeInsets.all(20.0),
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 children: [
@@ -2095,7 +2413,8 @@ class _AddProductState extends State<AddProduct> {
                                                             Column(
                                                               crossAxisAlignment: CrossAxisAlignment.center,
                                                               children: [
-                                                                Icon(MdiIcons.cloudUpload, size: 50.0, color: kLitGreyColor).onTap(() => uploadFile()),
+                                                                Icon(MdiIcons.cloudUpload, size: 50.0, color: kLitGreyColor)
+                                                                    .onTap(() => uploadFile()),
                                                               ],
                                                             ),
                                                             const SizedBox(height: 5.0),
@@ -2130,6 +2449,102 @@ class _AddProductState extends State<AddProduct> {
                                                 ],
                                               ),
                                             ),
+
+                                            // const SizedBox(height: 30),
+                                            //
+                                            // ///_________Upload Excel_________________________
+                                            // Container(
+                                            //   padding: const EdgeInsets.only(bottom: 20, right: 20, left: 20, top: 10),
+                                            //   decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+                                            //   child: Column(
+                                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                                            //     children: [
+                                            //       Row(
+                                            //         children: [
+                                            //           const Text(
+                                            //             'Bulk Product Upload',
+                                            //             style: TextStyle(fontSize: 16),
+                                            //           ),
+                                            //           const Spacer(),
+                                            //           // TextButton(onPressed: () => downloadFile(), child: const Text('Download Excel Format')),
+                                            //           TextButton(
+                                            //               onPressed: () {
+                                            //                 showDialog(
+                                            //                   context: context,
+                                            //                   builder: (context) => BulkProductUploadPopup(
+                                            //                       allProductsCodeList: widget.allProductsCodeList, allProductsNameList: widget.allProductsNameList),
+                                            //                 );
+                                            //               },
+                                            //               child: const Text('t')),
+                                            //         ],
+                                            //       ),
+                                            //       const SizedBox(height: 10.0),
+                                            //       DottedBorderWidget(
+                                            //         padding: const EdgeInsets.all(6),
+                                            //         color: kLitGreyColor,
+                                            //         child: ClipRRect(
+                                            //           borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                            //           child: Container(
+                                            //             width: context.width(),
+                                            //             padding: const EdgeInsets.all(10.0),
+                                            //             decoration: BoxDecoration(
+                                            //               borderRadius: BorderRadius.circular(20.0),
+                                            //             ),
+                                            //             // child: Column(
+                                            //             //   children: [
+                                            //             //     pickedFile == null
+                                            //             //         ? Column(
+                                            //             //             crossAxisAlignment: CrossAxisAlignment.center,
+                                            //             //             children: [
+                                            //             //               Icon(MdiIcons.microsoftExcel, size: 50.0, color: kLitGreyColor).onTap(() => pickExcelFile()),
+                                            //             //               const SizedBox(height: 5.0),
+                                            //             //               RichText(
+                                            //             //                   text: TextSpan(
+                                            //             //                       text: 'Upload an Excel',
+                                            //             //                       style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
+                                            //             //                       children: [
+                                            //             //                     TextSpan(
+                                            //             //                         text: ' or drag & drop .xlsx',
+                                            //             //                         style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
+                                            //             //                   ])),
+                                            //             //               const SizedBox(height: 5.0),
+                                            //             //             ],
+                                            //             //           )
+                                            //             //         : ListTile(
+                                            //             //             leading: Icon(MdiIcons.microsoftExcel, size: 50.0, color: CupertinoColors.activeGreen),
+                                            //             //             title: const Text('An Excel file picked'),
+                                            //             //             trailing: GestureDetector(
+                                            //             //                 onTap: () {
+                                            //             //                   setState(() {
+                                            //             //                     pickedFile = null;
+                                            //             //                   });
+                                            //             //                 },
+                                            //             //                 child: const Text('Remove')),
+                                            //             //           ),
+                                            //             //     Visibility(
+                                            //             //       visible: pickedFile != null,
+                                            //             //       child: ElevatedButton(
+                                            //             //           style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(kMainColor)),
+                                            //             //           onPressed: () async {
+                                            //             //             EasyLoading.show(status: 'Uploading...');
+                                            //             //             await uploadProducts(context: context, ref: ref);
+                                            //             //           },
+                                            //             //           child: const Text(
+                                            //             //             'Upload',
+                                            //             //             style: TextStyle(color: Colors.white),
+                                            //             //           )),
+                                            //             //     )
+                                            //             //   ],
+                                            //             // ),
+                                            //           ),
+                                            //         ),
+                                            //       ),
+                                            //       const SizedBox(
+                                            //         height: 10,
+                                            //       ),
+                                            //     ],
+                                            //   ),
+                                            // ),
                                           ],
                                         ),
                                       ),

@@ -50,6 +50,44 @@ FutureOr<Uint8List> generatePurchaseReturnDocument({required PurchaseTransaction
                   ),
                 ),
               ),
+              ///______Phone________________________________________________________________
+              pw.Container(
+                width: double.infinity,
+                padding: const pw.EdgeInsets.all(1.0),
+                child: pw.Center(
+                  child: pw.Text(
+                    'Phone: ${personalInformation.phoneNumber}',
+                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                  ),
+                ),
+              ),
+
+              ///______Address________________________________________________________________
+              pw.Container(
+                width: double.infinity,
+                padding: const pw.EdgeInsets.all(1.0),
+                child: pw.Center(
+                  child: pw.Text(
+                    'Address: ${personalInformation.countryName}',
+                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                  ),
+                ),
+              ),
+
+              ///______Shop_GST________________________________________________________________
+              personalInformation.gst.trim().isNotEmpty
+                  ? pw.Container(
+                width: double.infinity,
+                padding: const pw.EdgeInsets.all(1.0),
+                child: pw.Center(
+                  child: pw.Text(
+                    'Shop GST: ${personalInformation.gst}',
+                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                  ),
+                ),
+              )
+                  : pw.Container(),
+
 
               ///________Bill/Invoice_________________________________________________________
               pw.Container(
@@ -150,6 +188,33 @@ FutureOr<Uint8List> generatePurchaseReturnDocument({required PurchaseTransaction
                       ),
                     ),
                   ]),
+                  ///_____Party GST_______________________________________
+                  pw.SizedBox(height: transactions.customerGst.trim().isNotEmpty ? 2 : 0),
+                  transactions.customerGst.trim().isNotEmpty
+                      ? pw.Row(children: [
+                    pw.SizedBox(
+                      width: 60.0,
+                      child: pw.Text(
+                        'Party GST',
+                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                      ),
+                    ),
+                    pw.SizedBox(
+                      width: 10.0,
+                      child: pw.Text(
+                        ':',
+                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                      ),
+                    ),
+                    pw.SizedBox(
+                      width: 140.0,
+                      child: pw.Text(
+                        transactions.customerGst,
+                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                      ),
+                    ),
+                  ])
+                      : pw.Container(),
 
                   ///_____Remarks_______________________________________
                   // pw.SizedBox(height: 2),

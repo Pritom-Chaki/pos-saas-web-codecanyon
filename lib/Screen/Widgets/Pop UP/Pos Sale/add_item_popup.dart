@@ -265,7 +265,7 @@ class _AddItemPopUPState extends State<AddItemPopUP> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kRedTextColor),
                             child: Text(
                               lang.S.of(context).cancel,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() {
                             finish(context);
@@ -278,7 +278,7 @@ class _AddItemPopUPState extends State<AddItemPopUP> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kGreenTextColor),
                             child: Text(
                               lang.S.of(context).submit,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() async {
                             EasyLoading.show(status: 'Adding Category');
@@ -402,7 +402,7 @@ class _AddItemPopUPState extends State<AddItemPopUP> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kRedTextColor),
                             child: Text(
                               lang.S.of(context).cancel,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() {
                             finish(context);
@@ -415,7 +415,7 @@ class _AddItemPopUPState extends State<AddItemPopUP> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kGreenTextColor),
                             child: Text(
                               lang.S.of(context).submit,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() async {
                             EasyLoading.show(status: 'Adding Brand');
@@ -555,7 +555,7 @@ class _AddItemPopUPState extends State<AddItemPopUP> {
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kRedTextColor),
                           child: Text(
                             lang.S.of(context).cancel,
-                            style: kTextStyle.copyWith(color: kWhiteTextColor),
+                            style: kTextStyle.copyWith(color: kWhite),
                           ),
                         ).onTap(() {
                           finish(context);
@@ -568,7 +568,7 @@ class _AddItemPopUPState extends State<AddItemPopUP> {
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kGreenTextColor),
                           child: Text(
                             lang.S.of(context).submit,
-                            style: kTextStyle.copyWith(color: kWhiteTextColor),
+                            style: kTextStyle.copyWith(color: kWhite),
                           ),
                         ).onTap(() async {
                           EasyLoading.show(status: 'Adding Units');
@@ -672,7 +672,6 @@ class _AddItemPopUPState extends State<AddItemPopUP> {
   TextEditingController capacityController = TextEditingController();
   TextEditingController typeController = TextEditingController();
   TextEditingController warrantyController = TextEditingController();
-
 
   WareHouseModel ware = WareHouseModel(warehouseName: 'Select warehouse', warehouseAddress: '', id: '');
   late WareHouseModel selectedWareHouse = ware;
@@ -1215,7 +1214,9 @@ class _AddItemPopUPState extends State<AddItemPopUP> {
                                           text: lang.S.of(context).uploadAImage,
                                           style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
                                           children: [
-                                        TextSpan(text: lang.S.of(context).orDragAndDropPng, style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
+                                        TextSpan(
+                                            text: lang.S.of(context).orDragAndDropPng,
+                                            style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
                                       ]))
                                 ],
                               ),
@@ -1311,6 +1312,13 @@ class _AddItemPopUPState extends State<AddItemPopUP> {
                                       expiringDate: null,
                                       lowerStockAlert: 5,
                                       manufacturingDate: null,
+                                      taxType: '',
+                                      margin: 0,
+                                      excTax: 0,
+                                      incTax: 0,
+                                      groupTaxName: '',
+                                      groupTaxRate: 0,
+                                      subTaxes: [],
                                     );
                                     await _productInformationRef.push().set(productModel.toJson());
                                     EasyLoading.showSuccess('Added Successfully', duration: const Duration(milliseconds: 500));

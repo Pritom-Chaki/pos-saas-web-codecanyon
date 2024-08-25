@@ -387,7 +387,7 @@ class _TablateHomeState extends State<TablateHome> {
                       const SizedBox(height: 20.0),
                       Container(
                         padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
                         child: Column(
                           children: [
                             Row(

@@ -55,8 +55,8 @@ class _VerifyOtpState extends State<VerifyOtp> {
                             children: [
                               const SizedBox(height: 10.0),
                               Container(
-                                height: 80,
-                                width: 80,
+                                height: 100,
+                                width: 200,
                                 decoration:  BoxDecoration(
                                   shape: BoxShape.circle,
                                   image: DecorationImage(

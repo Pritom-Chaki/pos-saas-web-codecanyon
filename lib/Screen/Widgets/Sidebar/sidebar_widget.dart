@@ -18,6 +18,7 @@ import 'package:salespro_admin/Screen/Purchase%20Return/purchase_returns_list.da
 import 'package:salespro_admin/Screen/Purchase/purchase.dart';
 import 'package:salespro_admin/Screen/Stock%20List/stock_list_screen.dart';
 import 'package:salespro_admin/Screen/daily_tanasaction.dart';
+import 'package:salespro_admin/Screen/tax%20rates/tax_rates_widget.dart';
 import 'package:salespro_admin/generated/l10n.dart' as lang;
 import '../../../Repository/subscriptionPlanRepo.dart';
 import '../../../const.dart';
@@ -34,6 +35,7 @@ import '../../Sales Return/sales_returns_list.dart';
 import '../../Supplier List/supplier_list.dart';
 import '../../User Role System/user_role_screen.dart';
 import '../../WareHouse/ware_house_list.dart';
+import '../../tax rates/tax_rate_screen.dart';
 import '../Constant Data/constant.dart';
 
 List<String> getTitleList({required BuildContext context}) {
@@ -57,6 +59,7 @@ List<String> getTitleList({required BuildContext context}) {
     "Stock List",
     lang.S.of(context).subciption,
     lang.S.of(context).userRole,
+    'Tax rates',
   ];
   return titleList;
 }
@@ -83,6 +86,7 @@ List<IconData> iconList = [
   // Icons.sms,
   MdiIcons.youtubeSubscription,
   FontAwesomeIcons.usersRectangle,
+  MdiIcons.file,
 ];
 
 List<String> screenList = [
@@ -106,6 +110,7 @@ List<String> screenList = [
   // NidVerification.route,
   SubscriptionPage.route,
   UserRoleScreen.route,
+  TaxRates.route,
 ];
 
 class SideBarWidget extends StatefulWidget {
@@ -172,7 +177,7 @@ class _SideBarWidgetState extends State<SideBarWidget> {
                 ),
                 title: Text(
                   appsName,
-                  style: kTextStyle.copyWith(color: kWhiteTextColor),
+                  style: kTextStyle.copyWith(color: kWhite),
                 ),
                 trailing: const Icon(
                   FeatherIcons.chevronRight,
@@ -201,10 +206,10 @@ class _SideBarWidgetState extends State<SideBarWidget> {
                                 Navigator.of(context).pushNamed(screenList[i]);
                               }
                             }),
-                            leading: Icon(iconList[i], color: kWhiteTextColor),
+                            leading: Icon(iconList[i], color: kWhite),
                             title: Text(
                               titleList[i],
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                             trailing: const Icon(
                               FeatherIcons.chevronRight,
@@ -234,12 +239,12 @@ class _SideBarWidgetState extends State<SideBarWidget> {
                         const SizedBox(width: 10.0),
                         Text(
                           'Your are using ${subscriptionModel.subscriptionName} package',
-                          style: kTextStyle.copyWith(color: kWhiteTextColor),
+                          style: kTextStyle.copyWith(color: kWhite),
                           maxLines: 3,
                         ),
                         Text(
                           'Expires in ${(DateTime.parse(subscriptionModel.subscriptionDate).difference(DateTime.now()).inDays.abs() - subscriptionModel.duration).abs()} Days',
-                          style: kTextStyle.copyWith(color: kWhiteTextColor),
+                          style: kTextStyle.copyWith(color: kWhite),
                           maxLines: 3,
                         ).visible(subscriptionModel.subscriptionName != 'Lifetime'),
                       ],

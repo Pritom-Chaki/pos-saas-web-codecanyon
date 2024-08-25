@@ -174,6 +174,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
     companyNameController.text = widget.personalInformationModel.companyName;
     phoneNumberController.text = widget.personalInformationModel.phoneNumber!;
     addressController.text = widget.personalInformationModel.countryName;
+    gstController.text = widget.personalInformationModel.gst;
     shopOpeningBalanceController.text = widget.personalInformationModel.shopOpeningBalance.toString();
     getCustomerKey(widget.personalInformationModel.phoneNumber);
     super.initState();
@@ -184,6 +185,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
   TextEditingController companyNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  TextEditingController gstController = TextEditingController();
   TextEditingController shopOpeningBalanceController = TextEditingController();
 
   @override
@@ -215,7 +217,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                               children: [
                                 Container(
                                   height: 100,
-                                  width: 100,
+                                  width: 200,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage(appLogo),
@@ -239,7 +241,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                     children: [
                                       Container(
                                         padding: const EdgeInsets.all(20.0),
-                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
@@ -267,9 +269,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                                               text: lang.S.of(context).uploadAImage,
                                                               style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
                                                               children: [
-                                                            TextSpan(
-                                                                text: lang.S.of(context).orDragAndDropPng,
-                                                                style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
+                                                            TextSpan(text: lang.S.of(context).orDragAndDropPng, style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
                                                           ])),
                                                       image != null
                                                           ? Image.memory(
@@ -383,6 +383,23 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                                 ),
                                               ),
                                               const SizedBox(height: 10.0),
+
+                                              ///_____GST____________________________________________
+                                              AppTextField(
+                                                controller: gstController,
+                                                textFieldType: TextFieldType.NUMBER,
+                                                validator: (value) {
+                                                  return null;
+                                                },
+                                                onChanged: (value) {},
+                                                decoration: kInputDecoration.copyWith(
+                                                  labelText: 'Shop GST',
+                                                  hintText: 'Enter your shop GST number',
+                                                  hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10.0),
                                               AppTextField(
                                                 controller: shopOpeningBalanceController,
                                                 textFieldType: TextFieldType.PHONE,
@@ -409,8 +426,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                                       child: Center(
                                                           child: Text(
                                                         currency,
-                                                        style: kTextStyle.copyWith(
-                                                            color: kTitleColor, fontSize: 16, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
+                                                        style: kTextStyle.copyWith(color: kTitleColor, fontSize: 16, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
                                                       ))),
                                                 ),
                                               ),
@@ -438,8 +454,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                         onPressed: () async {
                                           try {
                                             EasyLoading.show(status: 'Loading...', dismissOnTap: false);
-                                            final DatabaseReference personalInformationRef =
-                                                FirebaseDatabase.instance.ref().child(await getUserID()).child('Personal Information');
+                                            final DatabaseReference personalInformationRef = FirebaseDatabase.instance.ref().child(await getUserID()).child('Personal Information');
                                             PersonalInformationModel personalInformation = PersonalInformationModel(
                                               phoneNumber: phoneNumberController.text,
                                               pictureUrl: profilePicture,
@@ -453,7 +468,8 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                               shopOpeningBalance: shopOpeningBalanceController.text.toInt(),
                                               remainingShopBalance: double.parse(shopOpeningBalanceController.text),
                                               currency: '\$',
-                                              currentLocale: 'en'
+                                              currentLocale: 'en',
+                                              gst: gstController.text,
                                             );
                                             await personalInformationRef.set(personalInformation.toJson());
 
@@ -462,8 +478,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                             ///_______Seller_info_update___________________________________________
                                             String? sellerUserRef = await getSaleID(id: await getUserID());
                                             if (sellerUserRef != null) {
-                                              final DatabaseReference superAdminSellerListRepo =
-                                                  FirebaseDatabase.instance.ref().child('Admin Panel').child('Seller List').child(sellerUserRef);
+                                              final DatabaseReference superAdminSellerListRepo = FirebaseDatabase.instance.ref().child('Admin Panel').child('Seller List').child(sellerUserRef);
                                               superAdminSellerListRepo.update({
                                                 'phoneNumber': phoneNumberController.text,
                                                 'companyName': companyNameController.text,

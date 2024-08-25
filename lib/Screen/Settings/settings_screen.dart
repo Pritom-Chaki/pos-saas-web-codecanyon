@@ -120,7 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 child: Container(
                                   width: 600,
                                   padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhiteTextColor),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhite),
                                   child: Column(
                                     children: [
                                       Row(
@@ -141,7 +141,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       ),
                                       Container(
                                         padding: const EdgeInsets.all(20.0),
-                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [

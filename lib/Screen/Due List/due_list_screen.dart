@@ -136,7 +136,7 @@ class _DueListState extends State<DueList> {
                                   padding: const EdgeInsets.all(10.0),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    color: kWhiteTextColor,
+                                    color: kWhite,
                                   ),
                                   child: Row(
                                     children: [
@@ -173,7 +173,7 @@ class _DueListState extends State<DueList> {
                                 padding: const EdgeInsets.all(20.0),
                                 child: Container(
                                   padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhiteTextColor),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhite),
                                   child: Column(
                                     children: [
                                       Row(

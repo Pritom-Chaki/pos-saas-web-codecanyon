@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, unused_result
 import 'dart:async';
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +13,8 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:salespro_admin/Provider/daily_transaction_provider.dart';
 import 'package:salespro_admin/Screen/Widgets/Footer/footer.dart';
 import 'package:salespro_admin/commas.dart';
-import 'package:salespro_admin/generated/l10n.dart' as lang;
 import 'package:salespro_admin/model/daily_transaction_model.dart';
-
+import 'package:salespro_admin/generated/l10n.dart' as lang;
 import '../../PDF/print_pdf.dart';
 import '../../Provider/customer_provider.dart';
 import '../../Provider/due_transaction_provider.dart';
@@ -30,7 +29,6 @@ import '../Widgets/Constant Data/constant.dart';
 
 class ShowPaymentPopUp extends StatefulWidget {
   const ShowPaymentPopUp({super.key, required this.transitionModel, required this.isFromQuotation});
-
   final SaleTransactionModel transitionModel;
   final bool isFromQuotation;
 
@@ -41,29 +39,9 @@ class ShowPaymentPopUp extends StatefulWidget {
 class _ShowPaymentPopUpState extends State<ShowPaymentPopUp> {
   bool saleButtonClicked = false;
 
-  SaleTransactionModel checkLossProfit({required SaleTransactionModel transitionModel}) {
-    int totalQuantity = 0;
-    double lossProfit = 0;
-    double totalPurchasePrice = 0;
-    double totalSalePrice = 0;
-    for (var element in transitionModel.productList!) {
-      totalPurchasePrice = totalPurchasePrice + (element.productPurchasePrice * element.quantity);
-      totalSalePrice = totalSalePrice + (double.parse(element.subTotal) * element.quantity);
 
-      totalQuantity = totalQuantity + element.quantity;
-    }
-    lossProfit = ((totalSalePrice - totalPurchasePrice.toDouble()) - double.parse(transitionModel.discountAmount.toString()));
-
-    transitionModel.totalQuantity = totalQuantity;
-    transitionModel.lossProfit = double.parse(lossProfit.toStringAsFixed(2));
-
-    return transitionModel;
-  }
-
-  List<String> paymentItem = ['Cash', 'Bank', 'Mobile Pay'];
-  List<String> printItem = ['POS 58', 'POS 80', 'Standard'];
+  List<String> paymentItem = ['Cash','Bank', 'Mobile Pay'];
   String selectedPaymentOption = 'Cash';
-  String selectedPrintOption = 'POS 58';
 
   late StreamSubscription subscription;
   bool isDeviceConnected = false;
@@ -126,26 +104,6 @@ class _ShowPaymentPopUpState extends State<ShowPaymentPopUp> {
     );
   }
 
-  DropdownButton<String> getPrintType() {
-    List<DropdownMenuItem<String>> dropDownItems = [];
-    for (String des in printItem) {
-      var item = DropdownMenuItem(
-        value: des,
-        child: Text(des),
-      );
-      dropDownItems.add(item);
-    }
-    return DropdownButton(
-      items: dropDownItems,
-      value: selectedPrintOption,
-      onChanged: (value) {
-        setState(() {
-          selectedPrintOption = value!;
-        });
-      },
-    );
-  }
-
   double dueAmount = 0.0;
 
   TextEditingController payingAmountController = TextEditingController();
@@ -158,7 +116,7 @@ class _ShowPaymentPopUpState extends State<ShowPaymentPopUp> {
     super.initState();
     checkCurrentUserAndRestartApp();
     setState(() {
-      double paidAmount = double.tryParse(payingAmountController.text) ?? 0;
+      double paidAmount = double.tryParse(payingAmountController.text)??0;
       if (paidAmount > widget.transitionModel.totalAmount!.toDouble()) {
         changeAmountController.text = (paidAmount - widget.transitionModel.totalAmount!.toDouble()).toString();
         dueAmountController.text = '0';
@@ -185,7 +143,7 @@ class _ShowPaymentPopUpState extends State<ShowPaymentPopUp> {
       builder: (context, consumerRef, __) {
         final personalData = consumerRef.watch(profileDetailsProvider);
         return Scaffold(
-          bottomNavigationBar: const Footer(),
+          bottomNavigationBar:const Footer(),
           body: Scrollbar(
             controller: mainSideScroller,
             child: SingleChildScrollView(
@@ -210,8 +168,8 @@ class _ShowPaymentPopUpState extends State<ShowPaymentPopUp> {
                               ),
                               const Spacer(),
                               const Icon(FeatherIcons.x, color: kTitleColor, size: 25.0).onTap(() => {
-                                    finish(context),
-                                  })
+                                finish(context),
+                              })
                             ],
                           ),
                         ),
@@ -227,7 +185,7 @@ class _ShowPaymentPopUpState extends State<ShowPaymentPopUp> {
                                 flex: 4,
                                 child: Container(
                                   padding: const EdgeInsets.all(10.0),
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kWhiteTextColor, border: Border.all(color: kLitGreyColor)),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kWhite, border: Border.all(color: kLitGreyColor)),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
@@ -343,40 +301,12 @@ class _ShowPaymentPopUpState extends State<ShowPaymentPopUp> {
                                                       contentPadding: EdgeInsets.only(left: 12.0, right: 10.0, top: 7.0, bottom: 7.0),
                                                       floatingLabelBehavior: FloatingLabelBehavior.never),
                                                   child: Theme(
-                                                      data: ThemeData(highlightColor: dropdownItemColor, focusColor: Colors.transparent, hoverColor: dropdownItemColor),
-                                                      child: DropdownButtonHideUnderline(child: getOption())),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10.0),
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 200,
-                                            child: Text(
-                                              lang.S.of(context).printerType,
-                                              style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                          const Spacer(),
-                                          SizedBox(
-                                            width: context.width() < 750 ? 170 : context.width() * 0.22,
-                                            child: FormField(
-                                              builder: (FormFieldState<dynamic> field) {
-                                                return InputDecorator(
-                                                  decoration: const InputDecoration(
-                                                      enabledBorder: OutlineInputBorder(
-                                                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                        borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                                      data: ThemeData(
+                                                          highlightColor: dropdownItemColor,
+                                                          focusColor: Colors.transparent,
+                                                          hoverColor: dropdownItemColor
                                                       ),
-                                                      contentPadding: EdgeInsets.only(left: 12.0, right: 10.0, top: 7.0, bottom: 7.0),
-                                                      floatingLabelBehavior: FloatingLabelBehavior.never),
-                                                  child: Theme(
-                                                      data: ThemeData(highlightColor: dropdownItemColor, focusColor: Colors.transparent, hoverColor: dropdownItemColor),
-                                                      child: DropdownButtonHideUnderline(child: getPrintType())),
+                                                      child: DropdownButtonHideUnderline(child: getOption())),
                                                 );
                                               },
                                             ),
@@ -395,156 +325,326 @@ class _ShowPaymentPopUpState extends State<ShowPaymentPopUp> {
                                               ),
                                               child: Text(
                                                 lang.S.of(context).cancel,
-                                                style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                                style: kTextStyle.copyWith(color: kWhite),
                                               )).onTap(() => {finish(context)}),
                                           const SizedBox(width: 40.0),
                                           GestureDetector(
                                             onTap: saleButtonClicked
                                                 ? () {}
                                                 : () async {
-                                                    if (widget.transitionModel.customerType == "Guest" && dueAmountController.text.toDouble() > 0) {
-                                                      EasyLoading.showError('Due is not available For Guest');
-                                                    } else {
+                                              if (widget.transitionModel.customerType == "Guest" && dueAmountController.text.toDouble() > 0) {
+                                                EasyLoading.showError('Due is not available For Guest');
+                                              } else {
+                                                try {
+                                                  setState(() {
+                                                    saleButtonClicked = true;
+                                                  });
+                                                  EasyLoading.show(status: 'Loading...', dismissOnTap: false);
 
+                                                  DatabaseReference ref = FirebaseDatabase.instance.ref("${await getUserID()}/Sales Transition");
+                                                  DatabaseReference ref1 = FirebaseDatabase.instance.ref("${await getUserID()}/Quotation Convert History");
 
-                                                      final availableSubscription = await Subscription.availableSubscription(context: context);
-                                                      final availableLimit = await Subscription.availableLimit(itemType: 'saleNumber', context: context);
-                                                      if (!availableSubscription) {
-                                                        return  EasyLoading.showError("Please update your subscription. Subscription date is expired.");
-                                                      } else if (!availableLimit) {
-                                                        return  EasyLoading.showError("Please Update Your Subscription. Your Sale limit is expired.");
-                                                      }
+                                                  dueAmountController.text.toDouble() <= 0 ? widget.transitionModel.isPaid = true : widget.transitionModel.isPaid = false;
+                                                  dueAmountController.text.toDouble() <= 0
+                                                      ? widget.transitionModel.dueAmount = 0
+                                                      : widget.transitionModel.dueAmount = double.parse(dueAmountController.text);
+                                                  changeAmountController.text.toDouble() > 0
+                                                      ? widget.transitionModel.returnAmount = changeAmountController.text.toDouble().abs()
+                                                      : widget.transitionModel.returnAmount = 0;
+                                                  widget.transitionModel.totalAmount = widget.transitionModel.totalAmount!.toDouble().toDouble();
+                                                  widget.transitionModel.paymentType = selectedPaymentOption;
+                                                  widget.transitionModel.sellerName = isSubUser ? constSubUserTitle : 'Admin';
 
-                                                      try {
-                                                        setState(() {
-                                                          saleButtonClicked = true;
-                                                        });
-                                                        EasyLoading.show(status: 'Loading...', dismissOnTap: false);
+                                                  // ///_____sms_______________________________________________________
+                                                  // SmsModel smsModel = SmsModel(
+                                                  //   customerName: widget.transitionModel.customerName,
+                                                  //   customerPhone: widget.transitionModel.customerPhone,
+                                                  //   invoiceNumber: widget.transitionModel.invoiceNumber,
+                                                  //   dueAmount: widget.transitionModel.dueAmount.toString(),
+                                                  //   paidAmount:
+                                                  //       (widget.transitionModel.totalAmount!.toDouble() - widget.transitionModel.dueAmount!.toDouble()).toString(),
+                                                  //   sellerId: userId,
+                                                  //   sellerMobile: data.phoneNumber,
+                                                  //   sellerName: data.companyName,
+                                                  //   totalAmount: widget.transitionModel.totalAmount.toString(),
+                                                  //   status: false,
+                                                  // );
 
-                                                        DatabaseReference ref = FirebaseDatabase.instance.ref("${await getUserID()}/Sales Transition");
-                                                        DatabaseReference ref1 = FirebaseDatabase.instance.ref("${await getUserID()}/Quotation Convert History");
+                                                  ///__________total LossProfit & quantity________________________________________________________________
+                                                  SaleTransactionModel post = checkLossProfit(transitionModel: widget.transitionModel);
 
-                                                        dueAmountController.text.toDouble() <= 0 ? widget.transitionModel.isPaid = true : widget.transitionModel.isPaid = false;
-                                                        dueAmountController.text.toDouble() <= 0 ? widget.transitionModel.dueAmount = 0 : widget.transitionModel.dueAmount = double.parse(dueAmountController.text);
-                                                        changeAmountController.text.toDouble() > 0
-                                                            ? widget.transitionModel.returnAmount = changeAmountController.text.toDouble().abs()
-                                                            : widget.transitionModel.returnAmount = 0;
-                                                        widget.transitionModel.totalAmount = widget.transitionModel.totalAmount!.toDouble().toDouble();
-                                                        widget.transitionModel.paymentType = selectedPaymentOption;
-                                                        widget.transitionModel.sellerName = isSubUser ? constSubUserTitle : 'Admin';
+                                                  ///_________Push_on_dataBase____________________________________________________________________________
+                                                  await ref.push().set(post.toJson());
 
-                                                        ///__________total LossProfit & quantity________________________________________________________________
-                                                        SaleTransactionModel post = checkLossProfit(transitionModel: widget.transitionModel);
+                                                  ///_________Push_on_Quotation to Sale history____________________________________________________________________________
+                                                  widget.isFromQuotation ? await ref1.push().set(post.toJson()) : null;
 
-                                                        ///_________Push_on_dataBase____________________________________________________________________________
-                                                        await ref.push().set(post.toJson());
+                                                  ///________sms_post________________________________________________________________________
+                                                  // FirebaseDatabase.instance.ref('Admin Panel').child('Sms List').push().set(smsModel.toJson());
 
-                                                        ///_________Push_on_Quotation to Sale history____________________________________________________________________________
-                                                        widget.isFromQuotation ? await ref1.push().set(post.toJson()) : null;
+                                                  ///__________StockMange_________________________________________________________________________________
+                                                  final stockRef = FirebaseDatabase.instance.ref('${await getUserID()}/Products/');
 
-                                                        ///________sms_post________________________________________________________________________
-                                                        // FirebaseDatabase.instance.ref('Admin Panel').child('Sms List').push().set(smsModel.toJson());
+                                                  for (var element in widget.transitionModel.productList!) {
+                                                    var data = await stockRef.orderByChild('productCode').equalTo(element.productId).once();
+                                                    final data2 = jsonDecode(jsonEncode(data.snapshot.value));
+                                                    String productPath = data.snapshot.value.toString().substring(1, 21);
 
-                                                        ///__________StockMange_________________________________________________________________________________
-                                                        final stockRef = FirebaseDatabase.instance.ref('${await getUserID()}/Products/');
+                                                    var data1 = await stockRef.child('$productPath/productStock').once();
+                                                    num stock = num.parse(data1.snapshot.value.toString());
+                                                    num remainStock = stock - element.quantity;
 
-                                                        for (var element in widget.transitionModel.productList!) {
-                                                          var data = await stockRef.orderByChild('productCode').equalTo(element.productId).once();
-                                                          final data2 = jsonDecode(jsonEncode(data.snapshot.value));
-                                                          String productPath = data.snapshot.value.toString().substring(1, 21);
+                                                    stockRef.child(productPath).update({'productStock': '$remainStock'});
 
-                                                          var data1 = await stockRef.child('$productPath/productStock').once();
-                                                          int stock = int.parse(data1.snapshot.value.toString());
-                                                          int remainStock = stock - element.quantity;
+                                                    ///________Update_Serial_Number____________________________________________________
 
-                                                          stockRef.child(productPath).update({'productStock': '$remainStock'});
+                                                    if (element.serialNumber!.isNotEmpty) {
+                                                      var productOldSerialList = data2[productPath]['serialNumber'];
 
-                                                          ///________Update_Serial_Number____________________________________________________
-
-                                                          if (element.serialNumber!.isNotEmpty) {
-                                                            var productOldSerialList = data2[productPath]['serialNumber'];
-
-                                                            List<dynamic> result = productOldSerialList.where((item) => !element.serialNumber!.contains(item)).toList();
-                                                            stockRef.child(productPath).update({
-                                                              'serialNumber': result.map((e) => e).toList(),
-                                                            });
-                                                          }
-                                                        }
-
-                                                        ///_________Invoice Increase____________________________________________________________________________
-                                                        widget.isFromQuotation ? null : updateInvoice(typeOfInvoice: 'saleInvoiceCounter', invoice: widget.transitionModel.invoiceNumber.toInt());
-
-                                                        ///_________delete_quotation___________________________________________________________________________________
-
-                                                        widget.isFromQuotation ? deleteQuotation(date: widget.transitionModel.invoiceNumber, updateRef: consumerRef) : null;
-
-                                                        ///________Subscription_____________________________________________________
-
-                                                        Subscription.decreaseSubscriptionLimits(itemType: 'saleNumber', context: context);
-
-                                                        ///________daily_transactionModel_________________________________________________________________________
-
-                                                        DailyTransactionModel dailyTransaction = DailyTransactionModel(
-                                                          name: post.customerName,
-                                                          date: post.purchaseDate,
-                                                          type: 'Sale',
-                                                          total: post.totalAmount!.toDouble(),
-                                                          paymentIn: post.totalAmount!.toDouble() - post.dueAmount!.toDouble(),
-                                                          paymentOut: 0,
-                                                          remainingBalance: post.totalAmount!.toDouble() - post.dueAmount!.toDouble(),
-                                                          id: post.invoiceNumber,
-                                                          saleTransactionModel: post,
-                                                        );
-                                                        postDailyTransaction(dailyTransactionModel: dailyTransaction);
-
-                                                        ///_________DueUpdate___________________________________________________________________________________
-                                                        if (widget.transitionModel.customerName != 'Guest') {
-                                                          final dueUpdateRef = FirebaseDatabase.instance.ref('${await getUserID()}/Customers/');
-                                                          String? key;
-
-                                                          await FirebaseDatabase.instance.ref(await getUserID()).child('Customers').orderByKey().get().then((value) {
-                                                            for (var element in value.children) {
-                                                              var data = jsonDecode(jsonEncode(element.value));
-                                                              if (data['phoneNumber'] == widget.transitionModel.customerPhone) {
-                                                                key = element.key;
-                                                              }
-                                                            }
-                                                          });
-                                                          var data1 = await dueUpdateRef.child('$key/due').once();
-                                                          int previousDue = data1.snapshot.value.toString().toInt();
-
-                                                          int totalDue = previousDue + widget.transitionModel.dueAmount!.toInt();
-                                                          dueUpdateRef.child(key!).update({'due': '$totalDue'});
-                                                        }
-
-                                                        ///________update_all_provider___________________________________________________
-
-                                                        consumerRef.refresh(allCustomerProvider);
-                                                        consumerRef.refresh(transitionProvider);
-                                                        consumerRef.refresh(productProvider);
-                                                        consumerRef.refresh(purchaseTransitionProvider);
-                                                        consumerRef.refresh(dueTransactionProvider);
-                                                        consumerRef.refresh(profileDetailsProvider);
-                                                        consumerRef.refresh(dailyTransactionProvider);
-
-                                                        EasyLoading.showSuccess('Sale Successfully Done');
-
-                                                        if (selectedPrintOption == "POS 58") {
-                                                          await GeneratePdfAndPrint().printSaleInvoice58(personalInformationModel: data, saleTransactionModel: widget.transitionModel, context: context);
-                                                        } else if (selectedPrintOption == "POS 80") {
-                                                          await GeneratePdfAndPrint().printSaleInvoice80(personalInformationModel: data, saleTransactionModel: widget.transitionModel, context: context);
-                                                        } else {
-                                                          await GeneratePdfAndPrint().printSaleInvoice(personalInformationModel: data, saleTransactionModel: widget.transitionModel, context: context);
-                                                        }
-                                                      } catch (e) {
-                                                        setState(() {
-                                                          saleButtonClicked = false;
-                                                        });
-                                                        EasyLoading.dismiss();
-                                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
-                                                      }
+                                                      List<dynamic> result = productOldSerialList.where((item) => !element.serialNumber!.contains(item)).toList();
+                                                      stockRef.child(productPath).update({
+                                                        'serialNumber': result.map((e) => e).toList(),
+                                                      });
                                                     }
-                                                  },
+                                                  }
+
+                                                  ///_________Invoice Increase____________________________________________________________________________
+                                                  widget.isFromQuotation
+                                                      ? null
+                                                      : updateInvoice(typeOfInvoice: 'saleInvoiceCounter', invoice: widget.transitionModel.invoiceNumber.toInt());
+
+                                                  ///_________delete_quotation___________________________________________________________________________________
+
+                                                  widget.isFromQuotation ? deleteQuotation(date: widget.transitionModel.invoiceNumber, updateRef: consumerRef) : null;
+
+                                                  ///________Subscription_____________________________________________________
+
+                                                  Subscription.decreaseSubscriptionLimits(itemType: 'saleNumber', context: context);
+
+                                                  ///________daily_transactionModel_________________________________________________________________________
+
+                                                  DailyTransactionModel dailyTransaction = DailyTransactionModel(
+                                                    name: post.customerName,
+                                                    date: post.purchaseDate,
+                                                    type: 'Sale',
+                                                    total: post.totalAmount!.toDouble(),
+                                                    paymentIn: post.totalAmount!.toDouble() - post.dueAmount!.toDouble(),
+                                                    paymentOut: 0,
+                                                    remainingBalance: post.totalAmount!.toDouble() - post.dueAmount!.toDouble(),
+                                                    id: post.invoiceNumber,
+                                                    saleTransactionModel: post,
+                                                  );
+                                                  postDailyTransaction(dailyTransactionModel: dailyTransaction);
+
+                                                  ///_________DueUpdate___________________________________________________________________________________
+                                                  if (widget.transitionModel.customerName != 'Guest') {
+                                                    final dueUpdateRef = FirebaseDatabase.instance.ref('${await getUserID()}/Customers/');
+                                                    String? key;
+
+                                                    await FirebaseDatabase.instance.ref(await getUserID()).child('Customers').orderByKey().get().then((value) {
+                                                      for (var element in value.children) {
+                                                        var data = jsonDecode(jsonEncode(element.value));
+                                                        if (data['phoneNumber'] == widget.transitionModel.customerPhone) {
+                                                          key = element.key;
+                                                        }
+                                                      }
+                                                    });
+                                                    var data1 = await dueUpdateRef.child('$key/due').once();
+                                                    int previousDue = data1.snapshot.value.toString().toInt();
+
+                                                    int totalDue = previousDue + widget.transitionModel.dueAmount!.toInt();
+                                                    dueUpdateRef.child(key!).update({'due': '$totalDue'});
+                                                  }
+
+                                                  ///________update_all_provider___________________________________________________
+
+                                                  consumerRef.refresh(allCustomerProvider);
+                                                  consumerRef.refresh(transitionProvider);
+                                                  consumerRef.refresh(productProvider);
+                                                  consumerRef.refresh(purchaseTransitionProvider);
+                                                  consumerRef.refresh(dueTransactionProvider);
+                                                  consumerRef.refresh(profileDetailsProvider);
+                                                  consumerRef.refresh(dailyTransactionProvider);
+
+                                                  EasyLoading.showSuccess('Sale Successfully Done');
+
+                                                  await GeneratePdfAndPrint()
+                                                      .printSaleInvoice(personalInformationModel: data, saleTransactionModel: widget.transitionModel, context: context);
+                                                } catch (e) {
+                                                  setState(() {
+                                                    saleButtonClicked = false;
+                                                  });
+                                                  EasyLoading.dismiss();
+                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                                                }
+                                              }
+                                              // try {
+                                              //   final result = await InternetAddress.lookup('google.com');
+                                              //   if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                                              //     if (widget.transitionModel.customerType == "Guest" && dueAmountController.text.toDouble() > 0) {
+                                              //       EasyLoading.showError('Due is not available For Guest');
+                                              //     } else {
+                                              //       try {
+                                              //         EasyLoading.show(status: 'Loading...', dismissOnTap: false);
+                                              //
+                                              //         DatabaseReference ref = FirebaseDatabase.instance.ref("${await getUserID()}/Sales Transition");
+                                              //         DatabaseReference ref1 = FirebaseDatabase.instance.ref("${await getUserID()}/Quotation Convert History");
+                                              //
+                                              //         dueAmountController.text.toDouble() <= 0 ? widget.transitionModel.isPaid = true : widget.transitionModel.isPaid = false;
+                                              //         dueAmountController.text.toDouble() <= 0
+                                              //             ? widget.transitionModel.dueAmount = 0
+                                              //             : widget.transitionModel.dueAmount = double.parse(dueAmountController.text);
+                                              //         changeAmountController.text.toDouble() > 0
+                                              //             ? widget.transitionModel.returnAmount = changeAmountController.text.toDouble().abs()
+                                              //             : widget.transitionModel.returnAmount = 0;
+                                              //         widget.transitionModel.totalAmount = widget.transitionModel.totalAmount!.toDouble().toDouble();
+                                              //         widget.transitionModel.paymentType = selectedPaymentOption;
+                                              //         widget.transitionModel.sellerName = isSubUser ? constSubUserTitle : 'Admin';
+                                              //
+                                              //         // ///_____sms_______________________________________________________
+                                              //         // SmsModel smsModel = SmsModel(
+                                              //         //   customerName: widget.transitionModel.customerName,
+                                              //         //   customerPhone: widget.transitionModel.customerPhone,
+                                              //         //   invoiceNumber: widget.transitionModel.invoiceNumber,
+                                              //         //   dueAmount: widget.transitionModel.dueAmount.toString(),
+                                              //         //   paidAmount:
+                                              //         //       (widget.transitionModel.totalAmount!.toDouble() - widget.transitionModel.dueAmount!.toDouble()).toString(),
+                                              //         //   sellerId: userId,
+                                              //         //   sellerMobile: data.phoneNumber,
+                                              //         //   sellerName: data.companyName,
+                                              //         //   totalAmount: widget.transitionModel.totalAmount.toString(),
+                                              //         //   status: false,
+                                              //         // );
+                                              //
+                                              //         ///__________total LossProfit & quantity________________________________________________________________
+                                              //         SaleTransactionModel post = checkLossProfit(transitionModel: widget.transitionModel);
+                                              //
+                                              //         ///_________Push_on_dataBase____________________________________________________________________________
+                                              //         await ref.push().set(post.toJson());
+                                              //
+                                              //         ///_________Push_on_Quotation to Sale history____________________________________________________________________________
+                                              //         widget.isFromQuotation ? await ref1.push().set(post.toJson()) : null;
+                                              //
+                                              //         ///________sms_post________________________________________________________________________
+                                              //         // FirebaseDatabase.instance.ref('Admin Panel').child('Sms List').push().set(smsModel.toJson());
+                                              //
+                                              //         ///__________StockMange_________________________________________________________________________________
+                                              //         final stockRef = FirebaseDatabase.instance.ref('${await getUserID()}/Products/');
+                                              //
+                                              //         for (var element in widget.transitionModel.productList!) {
+                                              //           var data = await stockRef.orderByChild('productCode').equalTo(element.productId).once();
+                                              //           final data2 = jsonDecode(jsonEncode(data.snapshot.value));
+                                              //           String productPath = data.snapshot.value.toString().substring(1, 21);
+                                              //
+                                              //           var data1 = await stockRef.child('$productPath/productStock').once();
+                                              //           int stock = int.parse(data1.snapshot.value.toString());
+                                              //           int remainStock = stock - element.quantity;
+                                              //
+                                              //           stockRef.child(productPath).update({'productStock': '$remainStock'});
+                                              //
+                                              //           ///________Update_Serial_Number____________________________________________________
+                                              //
+                                              //           if (element.serialNumber!.isNotEmpty) {
+                                              //             var productOldSerialList = data2[productPath]['serialNumber'];
+                                              //
+                                              //             List<dynamic> result = productOldSerialList.where((item) => !element.serialNumber!.contains(item)).toList();
+                                              //             stockRef.child(productPath).update({
+                                              //               'serialNumber': result.map((e) => e).toList(),
+                                              //             });
+                                              //           }
+                                              //         }
+                                              //
+                                              //         ///_________Invoice Increase____________________________________________________________________________
+                                              //         widget.isFromQuotation
+                                              //             ? null
+                                              //             : updateInvoice(typeOfInvoice: 'saleInvoiceCounter', invoice: widget.transitionModel.invoiceNumber.toInt());
+                                              //
+                                              //         ///_________delete_quotation___________________________________________________________________________________
+                                              //
+                                              //         widget.isFromQuotation ? deleteQuotation(date: widget.transitionModel.invoiceNumber, updateRef: consumerRef) : null;
+                                              //
+                                              //         ///________Subscription_____________________________________________________
+                                              //
+                                              //         Subscription.decreaseSubscriptionLimits(itemType: 'saleNumber', context: context);
+                                              //
+                                              //         ///________daily_transactionModel_________________________________________________________________________
+                                              //
+                                              //         DailyTransactionModel dailyTransaction = DailyTransactionModel(
+                                              //           name: post.customerName,
+                                              //           date: post.purchaseDate,
+                                              //           type: 'Sale',
+                                              //           total: post.totalAmount!.toDouble(),
+                                              //           paymentIn: post.totalAmount!.toDouble() - post.dueAmount!.toDouble(),
+                                              //           paymentOut: 0,
+                                              //           remainingBalance: post.totalAmount!.toDouble() - post.dueAmount!.toDouble(),
+                                              //           id: post.invoiceNumber,
+                                              //           saleTransactionModel: post,
+                                              //         );
+                                              //         postDailyTransaction(dailyTransactionModel: dailyTransaction);
+                                              //
+                                              //         ///_________DueUpdate___________________________________________________________________________________
+                                              //         if (widget.transitionModel.customerName != 'Guest') {
+                                              //           final dueUpdateRef = FirebaseDatabase.instance.ref('${await getUserID()}/Customers/');
+                                              //           String? key;
+                                              //
+                                              //           await FirebaseDatabase.instance.ref(await getUserID()).child('Customers').orderByKey().get().then((value) {
+                                              //             for (var element in value.children) {
+                                              //               var data = jsonDecode(jsonEncode(element.value));
+                                              //               if (data['phoneNumber'] == widget.transitionModel.customerPhone) {
+                                              //                 key = element.key;
+                                              //               }
+                                              //             }
+                                              //           });
+                                              //           var data1 = await dueUpdateRef.child('$key/due').once();
+                                              //           int previousDue = data1.snapshot.value.toString().toInt();
+                                              //
+                                              //           int totalDue = previousDue + widget.transitionModel.dueAmount!.toInt();
+                                              //           dueUpdateRef.child(key!).update({'due': '$totalDue'});
+                                              //         }
+                                              //
+                                              //         ///________update_all_provider___________________________________________________
+                                              //
+                                              //         consumerRef.refresh(allCustomerProvider);
+                                              //         consumerRef.refresh(transitionProvider);
+                                              //         consumerRef.refresh(productProvider);
+                                              //         consumerRef.refresh(purchaseTransitionProvider);
+                                              //         consumerRef.refresh(dueTransactionProvider);
+                                              //         consumerRef.refresh(profileDetailsProvider);
+                                              //         consumerRef.refresh(dailyTransactionProvider);
+                                              //
+                                              //         EasyLoading.showSuccess('Sale Successfully Done');
+                                              //
+                                              //         await GeneratePdfAndPrint()
+                                              //             .printSaleInvoice(personalInformationModel: data, saleTransactionModel: widget.transitionModel, context: context);
+                                              //       } catch (e) {
+                                              //         EasyLoading.dismiss();
+                                              //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                                              //       }
+                                              //     }
+                                              //     print('-----------------------connected-----------------');
+                                              //   }
+                                              // } on SocketException catch (_) {
+                                              //   setState(() {
+                                              //     showDialog(
+                                              //         context: context,
+                                              //         builder: (BuildContext context){
+                                              //           return AlertDialog(
+                                              //             shape: RoundedRectangleBorder(
+                                              //                 borderRadius: BorderRadius.circular(10)
+                                              //             ),
+                                              //             content: Column(
+                                              //               mainAxisSize: MainAxisSize.min,
+                                              //               children: [
+                                              //                 Text(lang.S.of(context).noConnection,style: kTextStyle.copyWith(fontWeight: FontWeight.bold),),
+                                              //                 Text(lang.S.of(context).pleaseCheckYourInternetConnectivity)
+                                              //               ],
+                                              //             ),
+                                              //           );
+                                              //         });
+                                              //   });
+                                              //   print('-----------------not connected---------------');
+                                              // }
+                                            },
                                             child: Container(
                                               padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 10.0, bottom: 10.0),
                                               decoration: BoxDecoration(
@@ -553,7 +653,7 @@ class _ShowPaymentPopUpState extends State<ShowPaymentPopUp> {
                                               ),
                                               child: Text(
                                                 lang.S.of(context).submit,
-                                                style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                                style: kTextStyle.copyWith(color: kWhite),
                                               ),
                                             ),
                                           )
@@ -570,7 +670,7 @@ class _ShowPaymentPopUpState extends State<ShowPaymentPopUp> {
                                   padding: const EdgeInsets.all(10.0),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5.0),
-                                    color: kWhiteTextColor,
+                                    color: kWhite,
                                     border: Border.all(color: kLitGreyColor),
                                   ),
                                   child: Column(
@@ -580,7 +680,7 @@ class _ShowPaymentPopUpState extends State<ShowPaymentPopUp> {
                                         padding: const EdgeInsets.all(10.0),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.only(topLeft: radiusCircular(5.0), topRight: radiusCircular(5.0)),
-                                          color: kWhiteTextColor,
+                                          color: kWhite,
                                           border: Border.all(color: kLitGreyColor),
                                         ),
                                         child: Row(
@@ -602,7 +702,7 @@ class _ShowPaymentPopUpState extends State<ShowPaymentPopUp> {
                                       Container(
                                         padding: const EdgeInsets.all(10.0),
                                         decoration: BoxDecoration(
-                                          color: kWhiteTextColor,
+                                          color: kWhite,
                                           border: Border.all(color: kLitGreyColor),
                                         ),
                                         child: Row(
@@ -621,32 +721,32 @@ class _ShowPaymentPopUpState extends State<ShowPaymentPopUp> {
                                       ),
 
                                       ///__________vat_gst__________________________________________________________
-                                      Container(
-                                        padding: const EdgeInsets.all(10.0),
-                                        decoration: BoxDecoration(
-                                          color: kWhiteTextColor,
-                                          border: Border.all(color: kLitGreyColor),
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              lang.S.of(context).vatOrgst,
-                                              style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                                            ),
-                                            const Spacer(),
-                                            Text(
-                                              '$currency ${myFormat.format(double.tryParse(widget.transitionModel.vat!.toStringAsFixed(2)) ?? 0)}',
-                                              style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                      // Container(
+                                      //   padding: const EdgeInsets.all(10.0),
+                                      //   decoration: BoxDecoration(
+                                      //     color: kWhite,
+                                      //     border: Border.all(color: kLitGreyColor),
+                                      //   ),
+                                      //   child: Row(
+                                      //     children: [
+                                      //       Text(
+                                      //         lang.S.of(context).vatOrgst,
+                                      //         style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                      //       ),
+                                      //       const Spacer(),
+                                      //       Text(
+                                      //         '$currency ${myFormat.format(double.tryParse(widget.transitionModel.vat!.toStringAsFixed(2)) ?? 0)}',
+                                      //         style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                      //       ),
+                                      //     ],
+                                      //   ),
+                                      // ),
 
                                       ///___________service_________________________________________________________
                                       Container(
                                         padding: const EdgeInsets.all(10.0),
                                         decoration: BoxDecoration(
-                                          color: kWhiteTextColor,
+                                          color: kWhite,
                                           border: Border.all(color: kLitGreyColor),
                                         ),
                                         child: Row(
@@ -668,7 +768,7 @@ class _ShowPaymentPopUpState extends State<ShowPaymentPopUp> {
                                       Container(
                                         padding: const EdgeInsets.all(10.0),
                                         decoration: BoxDecoration(
-                                          color: kWhiteTextColor,
+                                          color: kWhite,
                                           border: Border.all(color: kLitGreyColor),
                                         ),
                                         child: Row(

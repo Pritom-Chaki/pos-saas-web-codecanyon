@@ -243,6 +243,7 @@ class _ProfileAddState extends State<ProfileAdd> {
   TextEditingController companyNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  TextEditingController gstController = TextEditingController();
   TextEditingController shopOpeningBalanceController = TextEditingController();
   DateTime id = DateTime.now();
 
@@ -273,8 +274,8 @@ class _ProfileAddState extends State<ProfileAdd> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            height: 80,
-                            width: 80,
+                            height: 100,
+                            width: 200,
                             decoration: BoxDecoration(
                               image: DecorationImage(image: AssetImage(appLogo), fit: BoxFit.fill),
                             ),
@@ -358,8 +359,8 @@ class _ProfileAddState extends State<ProfileAdd> {
                                             child: FormField(
                                               builder: (FormFieldState<dynamic> field) {
                                                 return InputDecorator(
-                                                  decoration: kInputDecoration.copyWith(
-                                                      labelText: lang.S.of(context).businessCategory, border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
+                                                  decoration:
+                                                      kInputDecoration.copyWith(labelText: lang.S.of(context).businessCategory, border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
                                                   child: DropdownButtonHideUnderline(child: getShopCategory(list: warehouse ?? [])),
                                                 );
                                               },
@@ -443,6 +444,26 @@ class _ProfileAddState extends State<ProfileAdd> {
                                       ),
                                       const SizedBox(height: 10.0),
 
+                                      ///_________GST__________________________________________________________
+                                      AppTextField(
+                                        controller: gstController,
+                                        showCursor: true,
+                                        cursorColor: kTitleColor,
+                                        textFieldType: TextFieldType.NUMBER,
+                                        validator: (value) {
+                                          return null;
+                                        },
+                                        decoration: kInputDecoration.copyWith(
+                                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                          labelText: 'Shop GST',
+                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                          hintText: 'Enter your shop GST number',
+                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                          prefixIcon: const Icon(Icons.location_city, color: kTitleColor),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10.0),
+
                                       ///_________Opening_balence_______________________________________________
                                       AppTextField(
                                         controller: shopOpeningBalanceController,
@@ -495,19 +516,21 @@ class _ProfileAddState extends State<ProfileAdd> {
                                         EasyLoading.show(status: 'Loading...', dismissOnTap: false);
                                         final DatabaseReference personalInformationRef = FirebaseDatabase.instance.ref().child(await getUserID()).child('Personal Information');
                                         PersonalInformationModel personalInformation = PersonalInformationModel(
-                                            phoneNumber: phoneController.text,
-                                            pictureUrl: profilePicture,
-                                            companyName: companyNameController.text,
-                                            countryName: addressController.text,
-                                            language: '',
-                                            dueInvoiceCounter: 1,
-                                            purchaseInvoiceCounter: 1,
-                                            saleInvoiceCounter: 1,
-                                            businessCategory: selectedShopCategory!.categoryName.toString(),
-                                            shopOpeningBalance: shopOpeningBalanceController.text == '' ? 0 : shopOpeningBalanceController.text.toInt(),
-                                            remainingShopBalance: shopOpeningBalanceController.text == '' ? 0 : shopOpeningBalanceController.text.toDouble(),
-                                            currency: '\$',
-                                            currentLocale: 'en');
+                                          phoneNumber: phoneController.text,
+                                          pictureUrl: profilePicture,
+                                          companyName: companyNameController.text,
+                                          countryName: addressController.text,
+                                          language: '',
+                                          dueInvoiceCounter: 1,
+                                          purchaseInvoiceCounter: 1,
+                                          saleInvoiceCounter: 1,
+                                          businessCategory: selectedShopCategory!.categoryName.toString(),
+                                          shopOpeningBalance: shopOpeningBalanceController.text == '' ? 0 : shopOpeningBalanceController.text.toInt(),
+                                          remainingShopBalance: shopOpeningBalanceController.text == '' ? 0 : shopOpeningBalanceController.text.toDouble(),
+                                          currency: '\$',
+                                          currentLocale: 'en',
+                                          gst: gstController.text,
+                                        );
 
                                         ///________super_admin_data_post_________________________________________________________
                                         await personalInformationRef.set(personalInformation.toJson());
@@ -524,6 +547,7 @@ class _ProfileAddState extends State<ProfileAdd> {
                                           subscriptionName: 'Free',
                                           subscriptionMethod: 'Not Provided',
                                           userRegistrationDate: DateTime.now().toString(),
+                                          gst: gstController.text,
                                         );
                                         //_______________warehouse_setup______________
                                         final DatabaseReference productInformationRef = FirebaseDatabase.instance.ref().child(await getUserID()).child('Warehouse List');
@@ -537,8 +561,7 @@ class _ProfileAddState extends State<ProfileAdd> {
 
                                         ///_________free_subscription_______________________________________
 
-                                        final DatabaseReference subscriptionRef =
-                                            FirebaseDatabase.instance.ref().child(FirebaseAuth.instance.currentUser!.uid).child('Subscription');
+                                        final DatabaseReference subscriptionRef = FirebaseDatabase.instance.ref().child(FirebaseAuth.instance.currentUser!.uid).child('Subscription');
                                         await subscriptionRef.set(Subscription.freeSubscriptionModel.toJson());
                                         EasyLoading.showSuccess('Added Successfully!');
                                         ref.refresh(profileDetailsProvider);

@@ -124,7 +124,7 @@ class _BarcodeGenerateState extends State<BarcodeGenerate> {
                             Container(
                               padding: const EdgeInsets.all(10.0),
                               decoration: const BoxDecoration(
-                                color: kWhiteTextColor,
+                                color: kWhite,
                               ),
                               child: const TopBar(),
                             ),
@@ -134,7 +134,7 @@ class _BarcodeGenerateState extends State<BarcodeGenerate> {
                                   padding: const EdgeInsets.all(20.0),
                                   child: Container(
                                     padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhiteTextColor),
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhite),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
@@ -201,9 +201,15 @@ class _BarcodeGenerateState extends State<BarcodeGenerate> {
                                                           productId: product.productCode,
                                                           quantity: 1,
                                                           stock: product.productStock.toInt(),
-                                                          productPurchasePrice: product.productPurchasePrice.toDouble(),
+                                                          productPurchasePrice: product.productSalePrice.toDouble(),
                                                           subTotal: product.productSalePrice,
-                                                          productImage: product.productPicture);
+                                                          productImage: product.productPicture,subTaxes: product.subTaxes,
+                                                        excTax: product.excTax,
+                                                        groupTaxName: product.groupTaxName,
+                                                        groupTaxRate: product.groupTaxRate,
+                                                        incTax: product.incTax,
+                                                        margin: product.margin,
+                                                        taxType: product.taxType,);
                                                       setState(() {
                                                         if (!uniqueCheck(product.productCode)) {
                                                           cartList.add(addToCartModel);
@@ -414,7 +420,7 @@ class _BarcodeGenerateState extends State<BarcodeGenerate> {
                                               child: ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
                                                   padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
-                                                  backgroundColor: kWhiteTextColor,
+                                                  backgroundColor: kWhite,
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius: BorderRadius.circular(30.0), side: const BorderSide(color: kMainColor)),
                                                   textStyle: kTextStyle.copyWith(color: Colors.white),
@@ -557,7 +563,7 @@ class _BarcodeGenerateState extends State<BarcodeGenerate> {
                                                           spacing: 20,
                                                           runSpacing: 0,
                                                           children: List.generate(
-                                                            cartList[index].quantity,
+                                                            cartList[index].quantity.round(),
                                                             (index2) => Padding(
                                                               padding: const EdgeInsets.only(bottom: 5.0),
                                                               child: Container(

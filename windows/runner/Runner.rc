@@ -89,7 +89,7 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.pixposbd.app" "\0"
+            VALUE "CompanyName", "com.maantechnology.salespro" "\0"
             VALUE "FileDescription", "salespro_admin" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "salespro_admin" "\0"

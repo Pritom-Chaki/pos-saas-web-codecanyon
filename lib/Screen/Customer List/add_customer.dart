@@ -97,7 +97,10 @@ class _AddCustomerState extends State<AddCustomer> {
     for (String des in categories) {
       var item = DropdownMenuItem(
         value: des,
-        child: Text(des,style: kTextStyle.copyWith(fontWeight: FontWeight.normal,color: kTitleColor),),
+        child: Text(
+          des,
+          style: kTextStyle.copyWith(fontWeight: FontWeight.normal, color: kTitleColor),
+        ),
       );
       dropDownItems.add(item);
     }
@@ -115,6 +118,7 @@ class _AddCustomerState extends State<AddCustomer> {
   TextEditingController customerNameController = TextEditingController();
   TextEditingController customerPhoneController = TextEditingController();
   TextEditingController customerEmailController = TextEditingController();
+  TextEditingController gstController = TextEditingController();
   TextEditingController customerPreviousDueController = TextEditingController();
   TextEditingController customerAddressController = TextEditingController();
 
@@ -195,7 +199,7 @@ class _AddCustomerState extends State<AddCustomer> {
                                           padding: const EdgeInsets.all(10.0),
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10.0),
-                                            color: kWhiteTextColor,
+                                            color: kWhite,
                                           ),
                                           child: Form(
                                             key: addCustomer,
@@ -359,11 +363,7 @@ class _AddCustomerState extends State<AddCustomer> {
                                                                 floatingLabelBehavior: FloatingLabelBehavior.always,
                                                                 labelText: lang.S.of(context).type),
                                                             child: Theme(
-                                                                data: ThemeData(
-                                                                    highlightColor: dropdownItemColor,
-                                                                    focusColor: dropdownItemColor,
-                                                                    hoverColor: dropdownItemColor
-                                                                ),
+                                                                data: ThemeData(highlightColor: dropdownItemColor, focusColor: dropdownItemColor, hoverColor: dropdownItemColor),
                                                                 child: DropdownButtonHideUnderline(child: getCategories())),
                                                           );
                                                         },
@@ -371,6 +371,33 @@ class _AddCustomerState extends State<AddCustomer> {
                                                     ),
                                                   ],
                                                 ),
+
+                                                ///__________GST___________________________________
+                                                const SizedBox(height: 20.0),
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: TextFormField(
+                                                        validator: (value) {
+                                                          return null;
+                                                        },
+                                                        onSaved: (value) {
+                                                          gstController.text = value!;
+                                                        },
+                                                        controller: gstController,
+                                                        showCursor: true,
+                                                        cursorColor: kTitleColor,
+                                                        decoration: kInputDecoration.copyWith(
+                                                          labelText: 'Customer GST',
+                                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                          hintText: 'Enter customer GST number',
+                                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 20.0),
 
                                                 ///_______Button_______________________________________________________
                                                 const SizedBox(height: 30.0),
@@ -396,53 +423,52 @@ class _AddCustomerState extends State<AddCustomer> {
                                                         onPressed: saleButtonClicked
                                                             ? () {}
                                                             : () async {
-                                                          if(!isDemo){
-                                                            if (await checkUserRolePermission(type: 'parties')) {
-                                                              if (validateAndSave()) {
-                                                                try {
-                                                                  setState(() {
-                                                                    saleButtonClicked = true;
-                                                                  });
-                                                                  EasyLoading.show(status: 'Loading...', dismissOnTap: false);
-                                                                  final DatabaseReference customerInformationRef =
-                                                                  FirebaseDatabase.instance.ref().child(await getUserID()).child('Customers');
-                                                                  CustomerModel customerModel = CustomerModel(
-                                                                    customerName: customerNameController.text,
-                                                                    phoneNumber: customerPhoneController.text,
-                                                                    type: selectedCategories,
-                                                                    profilePicture: profilePicture,
-                                                                    emailAddress: customerEmailController.text,
-                                                                    customerAddress: customerAddressController.text,
-                                                                    dueAmount: openingBalance.isEmpty ? '0' : openingBalance,
-                                                                    openingBalance: openingBalance.isEmpty ? '0' : openingBalance,
-                                                                    remainedBalance: openingBalance.isEmpty ? '0' : openingBalance,
-                                                                  );
-                                                                  await customerInformationRef.push().set(customerModel.toJson());
+                                                                if (!isDemo) {
+                                                                  if (await checkUserRolePermission(type: 'parties')) {
+                                                                    if (validateAndSave()) {
+                                                                      try {
+                                                                        setState(() {
+                                                                          saleButtonClicked = true;
+                                                                        });
+                                                                        EasyLoading.show(status: 'Loading...', dismissOnTap: false);
+                                                                        final DatabaseReference customerInformationRef = FirebaseDatabase.instance.ref().child(await getUserID()).child('Customers');
+                                                                        CustomerModel customerModel = CustomerModel(
+                                                                          customerName: customerNameController.text,
+                                                                          phoneNumber: customerPhoneController.text,
+                                                                          type: selectedCategories,
+                                                                          profilePicture: profilePicture,
+                                                                          emailAddress: customerEmailController.text,
+                                                                          customerAddress: customerAddressController.text,
+                                                                          dueAmount: openingBalance.isEmpty ? '0' : openingBalance,
+                                                                          openingBalance: openingBalance.isEmpty ? '0' : openingBalance,
+                                                                          remainedBalance: openingBalance.isEmpty ? '0' : openingBalance,
+                                                                          gst: gstController.text,
+                                                                        );
+                                                                        await customerInformationRef.push().set(customerModel.toJson());
 
-                                                                  ///________subscription_plan_update_________________________________________________
-                                                                  Subscription.decreaseSubscriptionLimits(itemType: 'partiesNumber', context: context);
+                                                                        ///________subscription_plan_update_________________________________________________
+                                                                        Subscription.decreaseSubscriptionLimits(itemType: 'partiesNumber', context: context);
 
-                                                                  EasyLoading.showSuccess('Added Successfully!');
-                                                                  ref.refresh(buyerCustomerProvider);
-                                                                  ref.refresh(supplierProvider);
-                                                                  ref.refresh(allCustomerProvider);
-                                                                  Future.delayed(const Duration(milliseconds: 100), () {
-                                                                    Navigator.pop(context);
-                                                                  });
-                                                                } catch (e) {
-                                                                  setState(() {
-                                                                    saleButtonClicked = false;
-                                                                  });
-                                                                  EasyLoading.dismiss();
-                                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                                                                        EasyLoading.showSuccess('Added Successfully!');
+                                                                        ref.refresh(buyerCustomerProvider);
+                                                                        ref.refresh(supplierProvider);
+                                                                        ref.refresh(allCustomerProvider);
+                                                                        Future.delayed(const Duration(milliseconds: 100), () {
+                                                                          Navigator.pop(context);
+                                                                        });
+                                                                      } catch (e) {
+                                                                        setState(() {
+                                                                          saleButtonClicked = false;
+                                                                        });
+                                                                        EasyLoading.dismiss();
+                                                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                } else {
+                                                                  EasyLoading.showInfo(demoText);
                                                                 }
-                                                              }
-                                                            }
-                                                          } else {
-                                                            EasyLoading.showInfo(demoText);
-                                                          }
-
-                                                        },
+                                                              },
                                                       ),
                                                     ),
                                                   ],
@@ -461,7 +487,7 @@ class _AddCustomerState extends State<AddCustomer> {
                                         padding: const EdgeInsets.all(10.0),
                                         child: Container(
                                           padding: const EdgeInsets.all(20.0),
-                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
@@ -491,9 +517,7 @@ class _AddCustomerState extends State<AddCustomer> {
                                                             text: lang.S.of(context).uploadAImage,
                                                             style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
                                                             children: [
-                                                              TextSpan(
-                                                                  text: lang.S.of(context).orDragAndDropPng,
-                                                                  style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
+                                                              TextSpan(text: lang.S.of(context).orDragAndDropPng, style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
                                                             ],
                                                           ),
                                                         )
@@ -505,15 +529,15 @@ class _AddCustomerState extends State<AddCustomer> {
                                               const SizedBox(height: 10),
                                               image != null
                                                   ? Image.memory(
-                                                image!,
-                                                width: 150,
-                                                height: 150,
-                                              )
+                                                      image!,
+                                                      width: 150,
+                                                      height: 150,
+                                                    )
                                                   : Image.network(
-                                                profilePicture,
-                                                width: 150,
-                                                height: 150,
-                                              ),
+                                                      profilePicture,
+                                                      width: 150,
+                                                      height: 150,
+                                                    ),
                                             ],
                                           ),
                                         ),
@@ -521,7 +545,6 @@ class _AddCustomerState extends State<AddCustomer> {
                                     )
                                   ],
                                 ),
-
                               ],
                             ),
                           ),

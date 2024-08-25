@@ -3,7 +3,7 @@ import 'package:salespro_admin/model/product_model.dart';
 import 'add_to_cart_model.dart';
 
 class SaleTransactionModel {
-  late String customerName, customerPhone, customerAddress, customerType, customerImage, invoiceNumber, purchaseDate;
+  late String customerName, customerPhone, customerAddress, customerGst, customerType, customerImage, invoiceNumber, purchaseDate;
   double? totalAmount;
   double? dueAmount;
   double? returnAmount;
@@ -11,7 +11,7 @@ class SaleTransactionModel {
   double? vat;
   double? discountAmount;
   double? lossProfit;
-  int? totalQuantity;
+  num? totalQuantity;
   bool? isPaid;
   String? paymentType;
   List<AddToCartModel>? productList;
@@ -26,6 +26,7 @@ class SaleTransactionModel {
     required this.purchaseDate,
     required this.customerAddress,
     required this.customerImage,
+    required this.customerGst,
     this.dueAmount,
     this.totalAmount,
     this.returnAmount,
@@ -45,6 +46,7 @@ class SaleTransactionModel {
     customerName = json['customerName'] as String;
     customerPhone = json['customerPhone'].toString();
     customerAddress = json['customerAddress'] ?? '';
+    customerGst = json['customerGst'] ?? '';
     customerImage = json['customerImage'] ??
         'https://firebasestorage.googleapis.com/v0/b/maanpos.appspot.com/o/Profile%20Picture%2Fblank-profile-picture-973460_1280.webp?alt=media&token=3578c1e0-7278-4c03-8b56-dd007a9befd3';
     invoiceNumber = json['invoiceNumber'].toString();
@@ -73,6 +75,7 @@ class SaleTransactionModel {
         'customerName': customerName,
         'customerPhone': customerPhone,
         'customerAddress': customerAddress,
+        'customerGst': customerGst,
         'customerType': customerType,
         'customerImage': customerImage,
         'invoiceNumber': invoiceNumber,

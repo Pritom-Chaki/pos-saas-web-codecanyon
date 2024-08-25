@@ -39,7 +39,7 @@ import '../Widgets/Pop UP/Purchase/purchase_sale_list_popup.dart';
 import '../Widgets/Pop UP/Purchase/purchase_show_add_item_popup.dart';
 
 class Purchase extends StatefulWidget {
-  const Purchase({Key? key}) : super(key: key);
+  const Purchase({super.key});
 
   static const String route = '/purchase';
 
@@ -117,6 +117,7 @@ class _PurchaseState extends State<Purchase> {
     openingBalance: '0',
     remainedBalance: '0',
     dueAmount: '0',
+    gst: '',
   );
 
   DropdownButton<String> getResult(List<CustomerModel> model) {
@@ -147,6 +148,7 @@ class _PurchaseState extends State<Purchase> {
                 openingBalance: '0',
                 remainedBalance: '0',
                 dueAmount: '0',
+                gst: '',
               );
             } else if (element.phoneNumber == selectedUserId) {
               selectedUserName = element;
@@ -162,7 +164,8 @@ class _PurchaseState extends State<Purchase> {
   DateTime selectedDueDate = DateTime.now();
 
   Future<void> _selectedDueDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(context: context, initialDate: selectedDueDate, firstDate: DateTime(2015, 8), lastDate: DateTime(2101));
+    final DateTime? picked =
+        await showDatePicker(context: context, initialDate: selectedDueDate, firstDate: DateTime(2015, 8), lastDate: DateTime(2101));
     if (picked != null && picked != selectedDueDate) {
       setState(() {
         selectedDueDate = picked;
@@ -448,8 +451,8 @@ class _PurchaseState extends State<Purchase> {
                               Container(
                                 width: 500,
                                 height: 100,
-                                decoration:
-                                    BoxDecoration(border: Border.all(width: 1, color: Colors.grey), borderRadius: const BorderRadius.all(Radius.circular(10))),
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 1, color: Colors.grey), borderRadius: const BorderRadius.all(Radius.circular(10))),
                                 child: GridView.builder(
                                     shrinkWrap: true,
                                     itemCount: serialNumberList.length,
@@ -505,7 +508,7 @@ class _PurchaseState extends State<Purchase> {
                                 ),
                                 child: Text(
                                   lang.S.of(context).cancel,
-                                  style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                  style: kTextStyle.copyWith(color: kWhite),
                                 )).onTap(() {
                               Navigator.pop(context);
                             }),
@@ -532,7 +535,7 @@ class _PurchaseState extends State<Purchase> {
                                 ),
                                 child: Text(
                                   lang.S.of(context).submit,
-                                  style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                  style: kTextStyle.copyWith(color: kWhite),
                                 ),
                               ),
                             )
@@ -628,7 +631,7 @@ class _PurchaseState extends State<Purchase> {
                                   ),
                                   child: Text(
                                     lang.S.of(context).cancel,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   )).onTap(() => {finish(context)}),
                               const SizedBox(width: 10.0),
                               Container(
@@ -639,7 +642,7 @@ class _PurchaseState extends State<Purchase> {
                                   ),
                                   child: Text(
                                     lang.S.of(context).submit,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   )).onTap(() => {finish(context)})
                             ],
                           ),
@@ -694,7 +697,6 @@ class _PurchaseState extends State<Purchase> {
   final ScrollController mainSideScroller = ScrollController();
   final ScrollController sideScroller = ScrollController();
 
-
   //____________________________WareHouseModel_________________
 
   WareHouseModel? selectedWareHouse;
@@ -707,14 +709,14 @@ class _PurchaseState extends State<Purchase> {
     List<DropdownMenuItem<WareHouseModel>> dropDownItems = [];
     for (var element in list) {
       dropDownItems.add(DropdownMenuItem(
-
         value: element,
         child: Text(
-          element.warehouseName,style: kTextStyle.copyWith(color: kGreyTextColor),
+          element.warehouseName,
+          style: kTextStyle.copyWith(color: kGreyTextColor),
           overflow: TextOverflow.ellipsis,
         ),
       ));
-      if(i==0) {
+      if (i == 0) {
         selectedWareHouse = element;
       }
       i++;
@@ -722,7 +724,7 @@ class _PurchaseState extends State<Purchase> {
 
     return DropdownButton(
       items: dropDownItems,
-      isExpanded:true,
+      isExpanded: true,
       value: selectedWareHouse,
       onChanged: (WareHouseModel? value) {
         setState(() {
@@ -731,12 +733,14 @@ class _PurchaseState extends State<Purchase> {
       },
     );
   }
-@override
+
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     checkCurrentUserAndRestartApp();
   }
+
   @override
   Widget build(BuildContext context) {
     List<String> allProductsNameList = [];
@@ -880,43 +884,41 @@ class _PurchaseState extends State<Purchase> {
 
                                   ///___________welcome_section___________________________________________________________
                                   ///___________welcome_section___________________________________________________________
-                                  wareHouseList.when(data: (warehouse){
-                                    return  Expanded(
-                                      child:   Container(
-                                        height:40,
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          color: kWhiteTextColor,
-                                            border: Border.all(
-                                              color: kBorderColorTextField,
+                                  wareHouseList.when(
+                                    data: (warehouse) {
+                                      return Expanded(
+                                        child: Container(
+                                          height: 40,
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              color: kWhite,
+                                              border: Border.all(
+                                                color: kBorderColorTextField,
+                                              ),
+                                              borderRadius: BorderRadius.circular(6.0)),
+                                          child: Theme(
+                                            data: ThemeData(
+                                                highlightColor: dropdownItemColor, focusColor: Colors.transparent, hoverColor: dropdownItemColor),
+                                            child: DropdownButtonHideUnderline(
+                                              child: getWare(list: warehouse ?? []),
                                             ),
-                                            borderRadius: BorderRadius.circular(6.0)
-                                        ),
-                                        child: Theme(
-                                          data: ThemeData(
-                                              highlightColor: dropdownItemColor,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: dropdownItemColor
-                                          ),
-                                          child: DropdownButtonHideUnderline(
-
-                                            child: getWare(list: warehouse ?? []),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  },  error: (e, stack) {
-                                    return Center(
-                                      child: Text(
-                                        e.toString(),
-                                      ),
-                                    );
-                                  },
+                                      );
+                                    },
+                                    error: (e, stack) {
+                                      return Center(
+                                        child: Text(
+                                          e.toString(),
+                                        ),
+                                      );
+                                    },
                                     loading: () {
                                       return const Center(
                                         child: CircularProgressIndicator(),
                                       );
-                                    },)
+                                    },
+                                  )
                                 ],
                               ),
 
@@ -953,7 +955,9 @@ class _PurchaseState extends State<Purchase> {
                                                 width: context.width() < 1080 ? (1080 * .32) - 50 : (MediaQuery.of(context).size.width * .32) - 50,
                                                 child: Theme(
                                                     data: ThemeData(
-                                                        highlightColor: dropdownItemColor, focusColor: Colors.transparent, hoverColor: dropdownItemColor),
+                                                        highlightColor: dropdownItemColor,
+                                                        focusColor: Colors.transparent,
+                                                        hoverColor: dropdownItemColor),
                                                     child: DropdownButtonHideUnderline(child: getResult(suppliersList)))),
                                             const Spacer(),
                                             Container(
@@ -1145,7 +1149,7 @@ class _PurchaseState extends State<Purchase> {
                                   IntrinsicWidth(
                                     child: Container(
                                       decoration: BoxDecoration(
-                                          color: kWhiteTextColor,
+                                          color: kWhite,
                                           border: Border.all(width: 1, color: kGreyTextColor.withOpacity(0.3)),
                                           borderRadius: const BorderRadius.all(Radius.circular(15))),
                                       child: Column(
@@ -1154,14 +1158,15 @@ class _PurchaseState extends State<Purchase> {
                                           Container(
                                             width: context.width() < 1260 ? 630 : context.width() * 0.5,
                                             height: context.height() < 720 ? 720 - 306 : context.height() - 306,
-                                            decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: kGreyTextColor.withOpacity(0.3)))),
+                                            decoration:
+                                                BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: kGreyTextColor.withOpacity(0.3)))),
                                             child: SingleChildScrollView(
                                               child: Column(
                                                 children: [
                                                   Container(
                                                     padding: const EdgeInsets.all(15),
-                                                    decoration:
-                                                        BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: kGreyTextColor.withOpacity(0.3)))),
+                                                    decoration: BoxDecoration(
+                                                        border: Border(bottom: BorderSide(width: 1, color: kGreyTextColor.withOpacity(0.3)))),
                                                     child: Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: [
@@ -1287,9 +1292,9 @@ class _PurchaseState extends State<Purchase> {
                                                               SizedBox(
                                                                 width: 70,
                                                                 child: Text(
-                                                                  myFormat.format(
-                                                                      double.tryParse(double.parse(cartList[index].productPurchasePrice).toStringAsFixed(2)) ??
-                                                                          0),
+                                                                  myFormat.format(double.tryParse(
+                                                                          double.parse(cartList[index].productPurchasePrice).toStringAsFixed(2)) ??
+                                                                      0),
                                                                   style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
                                                                 ),
                                                               ),
@@ -1299,9 +1304,10 @@ class _PurchaseState extends State<Purchase> {
                                                               SizedBox(
                                                                 width: 70,
                                                                 child: Text(
-                                                                  myFormat.format(double.tryParse((double.parse(cartList[index].productPurchasePrice) *
-                                                                              cartList[index].productStock.toInt())
-                                                                          .toStringAsFixed(2)) ??
+                                                                  myFormat.format(double.tryParse(
+                                                                          (double.parse(cartList[index].productPurchasePrice) *
+                                                                                  cartList[index].productStock.toInt())
+                                                                              .toStringAsFixed(2)) ??
                                                                       0),
                                                                   style: kTextStyle.copyWith(color: kTitleColor),
                                                                   maxLines: 2,
@@ -1364,12 +1370,12 @@ class _PurchaseState extends State<Purchase> {
                                                       width: context.width() < 1080 ? 1080 * .125 : MediaQuery.of(context).size.width * .105,
                                                       child: Container(
                                                         padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 4.0, bottom: 4.0),
-                                                        decoration:
-                                                            const BoxDecoration(color: kGreenTextColor, borderRadius: BorderRadius.all(Radius.circular(8))),
+                                                        decoration: const BoxDecoration(
+                                                            color: kGreenTextColor, borderRadius: BorderRadius.all(Radius.circular(8))),
                                                         child: Center(
                                                           child: Text(
                                                             "$currency ${myFormat.format(double.tryParse((getTotalAmount().toDouble() - discountAmount).toStringAsFixed(2)) ?? 0)}",
-                                                            style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                            style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                           ),
                                                         ),
                                                       ),
@@ -1407,7 +1413,8 @@ class _PurchaseState extends State<Purchase> {
                                                                   if (value.toInt() <= 100) {
                                                                     setState(() {
                                                                       discountAmount = double.parse(
-                                                                          ((value.toDouble() / 100) * getTotalAmount().toDouble()).toStringAsFixed(1));
+                                                                          ((value.toDouble() / 100) * getTotalAmount().toDouble())
+                                                                              .toStringAsFixed(1));
                                                                       discountAmountEditingController.text = discountAmount.toString();
                                                                     });
                                                                   } else {
@@ -1424,22 +1431,22 @@ class _PurchaseState extends State<Purchase> {
                                                               decoration: InputDecoration(
                                                                 contentPadding: const EdgeInsets.only(right: 6.0),
                                                                 hintText: '0',
-                                                                border:
-                                                                    const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
-                                                                enabledBorder:
-                                                                    const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
-                                                                disabledBorder:
-                                                                    const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
-                                                                focusedBorder:
-                                                                    const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                border: const OutlineInputBorder(
+                                                                    gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                enabledBorder: const OutlineInputBorder(
+                                                                    gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                disabledBorder: const OutlineInputBorder(
+                                                                    gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                focusedBorder: const OutlineInputBorder(
+                                                                    gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
                                                                 prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
                                                                 prefixIcon: Container(
                                                                   padding: const EdgeInsets.only(top: 8.0, left: 8.0),
                                                                   height: 40,
                                                                   decoration: const BoxDecoration(
                                                                       color: Color(0xFFff5f00),
-                                                                      borderRadius:
-                                                                          BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                                                      borderRadius: BorderRadius.only(
+                                                                          topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
                                                                   child: const Text(
                                                                     '%',
                                                                     style: TextStyle(fontSize: 20.0, color: Colors.white),
@@ -1486,21 +1493,22 @@ class _PurchaseState extends State<Purchase> {
                                                               decoration: InputDecoration(
                                                                 contentPadding: const EdgeInsets.only(right: 6.0),
                                                                 hintText: '0',
-                                                                border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
-                                                                enabledBorder:
-                                                                    const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
-                                                                disabledBorder:
-                                                                    const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
-                                                                focusedBorder:
-                                                                    const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                                                border: const OutlineInputBorder(
+                                                                    gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                                                enabledBorder: const OutlineInputBorder(
+                                                                    gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                                                disabledBorder: const OutlineInputBorder(
+                                                                    gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                                                focusedBorder: const OutlineInputBorder(
+                                                                    gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
                                                                 prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
                                                                 prefixIcon: Container(
                                                                   padding: const EdgeInsets.only(top: 8.0, left: 8.0),
                                                                   height: 40,
                                                                   decoration: const BoxDecoration(
                                                                       color: kMainColor,
-                                                                      borderRadius:
-                                                                          BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                                                      borderRadius: BorderRadius.only(
+                                                                          topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
                                                                   child: const Text(
                                                                     '\$',
                                                                     style: TextStyle(fontSize: 20.0, color: Colors.white),
@@ -1538,7 +1546,7 @@ class _PurchaseState extends State<Purchase> {
                                                           child: Text(
                                                             lang.S.of(context).cancel,
                                                             textAlign: TextAlign.center,
-                                                            style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                            style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                           ),
                                                         ),
                                                       ),
@@ -1556,7 +1564,7 @@ class _PurchaseState extends State<Purchase> {
                                                         child: Text(
                                                           lang.S.of(context).quotation,
                                                           textAlign: TextAlign.center,
-                                                          style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                          style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                         ),
                                                       ),
                                                     ).visible(false),
@@ -1573,7 +1581,7 @@ class _PurchaseState extends State<Purchase> {
                                                           child: Text(
                                                             lang.S.of(context).hold,
                                                             textAlign: TextAlign.center,
-                                                            style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                            style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                           ),
                                                         ).onTap(() => showHoldPopUp())).visible(false),
                                                     const SizedBox(width: 10.0),
@@ -1591,7 +1599,7 @@ class _PurchaseState extends State<Purchase> {
                                                         child: Text(
                                                           lang.S.of(context).payment,
                                                           textAlign: TextAlign.center,
-                                                          style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                          style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                         ),
                                                       ).onTap(
                                                         () async {
@@ -1602,13 +1610,15 @@ class _PurchaseState extends State<Purchase> {
                                                               PurchaseTransactionModel transitionModel = PurchaseTransactionModel(
                                                                 customerAddress: selectedUserName.customerAddress,
                                                                 customerName: selectedUserName.customerName,
+                                                                customerGst: selectedUserName.gst,
                                                                 customerType: selectedUserName.type,
                                                                 customerPhone: selectedUserName.phoneNumber,
                                                                 invoiceNumber: data.purchaseInvoiceCounter.toString(),
                                                                 purchaseDate: DateTime.now().toString(),
                                                                 productList: cartList,
                                                                 discountAmount: double.parse(discountAmount.toStringAsFixed(2)),
-                                                                totalAmount: double.parse((getTotalAmount().toDouble() - discountAmount).toStringAsFixed(2)),
+                                                                totalAmount:
+                                                                    double.parse((getTotalAmount().toDouble() - discountAmount).toStringAsFixed(2)),
                                                               );
                                                               PurchaseShowPaymentPopUp(
                                                                 transitionModel: transitionModel,
@@ -1642,7 +1652,7 @@ class _PurchaseState extends State<Purchase> {
                                             height: context.height() < 720 ? 720 - 142 : context.height() - 142,
                                             padding: const EdgeInsets.all(8.0),
                                             decoration: BoxDecoration(
-                                                color: kWhiteTextColor,
+                                                color: kWhite,
                                                 border: Border.all(width: 1, color: kGreyTextColor.withOpacity(0.3)),
                                                 borderRadius: const BorderRadius.all(Radius.circular(15))),
                                             child: SingleChildScrollView(
@@ -1664,7 +1674,8 @@ class _PurchaseState extends State<Purchase> {
                                                             lang.S.of(context).category,
                                                             textAlign: TextAlign.start,
                                                             style: kTextStyle.copyWith(
-                                                                color: isSelected == 'Categories' ? Colors.white : kDarkGreyColor, fontWeight: FontWeight.bold),
+                                                                color: isSelected == 'Categories' ? Colors.white : kDarkGreyColor,
+                                                                fontWeight: FontWeight.bold),
                                                           ),
                                                           Icon(
                                                             Icons.keyboard_arrow_right,
@@ -1700,8 +1711,9 @@ class _PurchaseState extends State<Purchase> {
                                                             padding: const EdgeInsets.only(left: 15.0, right: 8.0, top: 8.0, bottom: 8.0),
                                                             decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius.circular(5.0),
-                                                                color:
-                                                                    isSelected == category[i].categoryName ? kBlueTextColor : kBlueTextColor.withOpacity(0.1)),
+                                                                color: isSelected == category[i].categoryName
+                                                                    ? kBlueTextColor
+                                                                    : kBlueTextColor.withOpacity(0.1)),
                                                             child: Row(
                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                               children: [
@@ -1747,14 +1759,15 @@ class _PurchaseState extends State<Purchase> {
                                     if (selectedCategory == 'Categories') {
                                       for (var element in products) {
                                         if ((element.productCode.toLowerCase().contains(searchProductCode) ||
-                                            element.productCategory.toLowerCase().contains(searchProductCode) ||
-                                            element.productName.toLowerCase().contains(searchProductCode)) &&   (selectedWareHouse?.id == element.warehouseId))  {
+                                                element.productCategory.toLowerCase().contains(searchProductCode) ||
+                                                element.productName.toLowerCase().contains(searchProductCode)) &&
+                                            (selectedWareHouse?.id == element.warehouseId)) {
                                           showProductVsCategory.add(element);
                                         }
                                       }
                                     } else {
                                       for (var element in products) {
-                                        if ((element.productCategory == selectedCategory)  &&   (selectedWareHouse?.id == element.warehouseId)) {
+                                        if ((element.productCategory == selectedCategory) && (selectedWareHouse?.id == element.warehouseId)) {
                                           showProductVsCategory.add(element);
                                         }
                                       }
@@ -1781,7 +1794,7 @@ class _PurchaseState extends State<Purchase> {
                                                     height: 170.0,
                                                     decoration: BoxDecoration(
                                                       borderRadius: BorderRadius.circular(10.0),
-                                                      color: kWhiteTextColor,
+                                                      color: kWhite,
                                                       border: Border.all(
                                                         color: kLitGreyColor,
                                                       ),
@@ -1797,8 +1810,8 @@ class _PurchaseState extends State<Purchase> {
                                                             Container(
                                                               height: 120,
                                                               decoration: BoxDecoration(
-                                                                borderRadius:
-                                                                    const BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
+                                                                borderRadius: const BorderRadius.only(
+                                                                    topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
                                                                 image: DecorationImage(
                                                                     image: NetworkImage(showProductVsCategory[i].productPicture), fit: BoxFit.cover),
                                                               ),
@@ -1811,12 +1824,14 @@ class _PurchaseState extends State<Purchase> {
                                                               child: Container(
                                                                 padding: const EdgeInsets.only(left: 5.0, right: 5.0),
                                                                 decoration: BoxDecoration(
-                                                                    color: showProductVsCategory[i].productStock == '0' ? kRedTextColor : kGreenTextColor),
+                                                                    color: showProductVsCategory[i].productStock == '0'
+                                                                        ? kRedTextColor
+                                                                        : kGreenTextColor),
                                                                 child: Text(
                                                                   showProductVsCategory[i].productStock != '0'
                                                                       ? '${showProductVsCategory[i].productStock} pc'
                                                                       : 'Out of stock',
-                                                                  style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                                                  style: kTextStyle.copyWith(color: kWhite),
                                                                 ),
                                                               ),
                                                             ),
@@ -1840,11 +1855,13 @@ class _PurchaseState extends State<Purchase> {
                                                               ///________Purchase_price_________________________________________________
                                                               Container(
                                                                 padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-                                                                decoration: BoxDecoration(color: kGreenTextColor, borderRadius: BorderRadius.circular(2.0)),
+                                                                decoration:
+                                                                    BoxDecoration(color: kGreenTextColor, borderRadius: BorderRadius.circular(2.0)),
                                                                 child: Text(
-                                                                  myFormat.format(double.tryParse(showProductVsCategory[i].productPurchasePrice) ?? 0),
+                                                                  myFormat
+                                                                      .format(double.tryParse(showProductVsCategory[i].productPurchasePrice) ?? 0),
                                                                   style:
-                                                                      kTextStyle.copyWith(color: kWhiteTextColor, fontWeight: FontWeight.bold, fontSize: 14.0),
+                                                                      kTextStyle.copyWith(color: kWhite, fontWeight: FontWeight.bold, fontSize: 14.0),
                                                                 ),
                                                               ),
                                                             ],
@@ -1880,6 +1897,13 @@ class _PurchaseState extends State<Purchase> {
                                                         manufacturingDate: showProductVsCategory[i].manufacturingDate,
                                                         lowerStockAlert: showProductVsCategory[i].lowerStockAlert,
                                                         expiringDate: showProductVsCategory[i].expiringDate,
+                                                        taxType: showProductVsCategory[i].taxType,
+                                                        margin: showProductVsCategory[i].margin,
+                                                        excTax: showProductVsCategory[i].excTax,
+                                                        incTax: showProductVsCategory[i].incTax,
+                                                        groupTaxName: showProductVsCategory[i].groupTaxName,
+                                                        groupTaxRate: showProductVsCategory[i].groupTaxRate,
+                                                        subTaxes: showProductVsCategory[i].subTaxes,
                                                         // showProductVsCategory[i].serialNumber.isEmpty ? [] : showProductVsCategory[i].serialNumber,
                                                       );
 
@@ -1909,12 +1933,13 @@ class _PurchaseState extends State<Purchase> {
                                                     onTap: () {
                                                       AddProduct(
                                                         allProductsCodeList: allProductsCodeList,
-                                                        sideBarNumber: 1, warehouseBasedProductModel: warehouseBasedProductModel,
+                                                        sideBarNumber: 1,
+                                                        warehouseBasedProductModel: warehouseBasedProductModel,
                                                       ).launch(context);
                                                     },
                                                     child: Container(
-                                                      decoration:
-                                                          const BoxDecoration(color: kBlueTextColor, borderRadius: BorderRadius.all(Radius.circular(15))),
+                                                      decoration: const BoxDecoration(
+                                                          color: kBlueTextColor, borderRadius: BorderRadius.all(Radius.circular(15))),
                                                       width: 200,
                                                       child: Center(
                                                         child: Padding(

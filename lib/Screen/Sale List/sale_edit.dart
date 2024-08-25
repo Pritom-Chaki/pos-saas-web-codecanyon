@@ -262,7 +262,7 @@ class _SaleEditState extends State<SaleEdit> {
                                   ),
                                   child: Text(
                                     lang.S.of(context).cancel,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   )).onTap(() {
                                 Navigator.pop(context);
                               }),
@@ -280,6 +280,13 @@ class _SaleEditState extends State<SaleEdit> {
                                       subTotal: productPriceChecker(product: productModel, customerType: widget.transitionModel.customerType),
                                       unitPrice: '100',
                                       serialNumber: selectedSerialNumbers,
+                                      subTaxes: productModel.subTaxes,
+                                      excTax: productModel.excTax,
+                                      groupTaxName: productModel.groupTaxName,
+                                      groupTaxRate: productModel.groupTaxRate,
+                                      incTax: productModel.incTax,
+                                      margin: productModel.margin,
+                                      taxType: productModel.taxType,
                                     );
                                     if (!uniqueCheckForSerial(code: productModel.productCode, newSerialNumbers: selectedSerialNumbers)) {
                                       if (productModel.productStock == '0') {
@@ -299,7 +306,7 @@ class _SaleEditState extends State<SaleEdit> {
                                   ),
                                   child: Text(
                                     lang.S.of(context).submit,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   ),
                                 ),
                               )
@@ -441,9 +448,9 @@ class _SaleEditState extends State<SaleEdit> {
   double discountAmount = 0;
 
   TextEditingController discountAmountEditingController = TextEditingController();
-  TextEditingController vatAmountEditingController = TextEditingController();
+  // TextEditingController vatAmountEditingController = TextEditingController();
   TextEditingController discountPercentageEditingController = TextEditingController();
-  TextEditingController vatPercentageEditingController = TextEditingController();
+  // TextEditingController vatPercentageEditingController = TextEditingController();
   double vatGst = 0;
 
   @override
@@ -455,11 +462,11 @@ class _SaleEditState extends State<SaleEdit> {
     discountAmount = widget.transitionModel.discountAmount!.toDouble();
 
     pastProducts = widget.transitionModel.productList!;
-    vatGst = widget.transitionModel.vat!;
+    // vatGst = widget.transitionModel.vat!;
     discountPercentageEditingController.text = ((discountAmount * 100) / widget.transitionModel.totalAmount!.toDouble()).toStringAsFixed(1);
     discountAmountEditingController.text = widget.transitionModel.discountAmount.toString();
-    vatAmountEditingController.text = widget.transitionModel.vat.toString();
-    vatPercentageEditingController.text = vatPercentageEditingController.text = ((vatGst * 100) / widget.transitionModel.totalAmount!.toDouble()).toStringAsFixed(1);
+    // vatAmountEditingController.text = widget.transitionModel.vat.toString();
+    // vatPercentageEditingController.text = vatPercentageEditingController.text = ((vatGst * 100) / widget.transitionModel.totalAmount!.toDouble()).toStringAsFixed(1);
   }
 
   final ScrollController mainSideScroller = ScrollController();
@@ -544,7 +551,13 @@ class _SaleEditState extends State<SaleEdit> {
                     productBrandName: products.brandName,
                     stock: int.parse(products.productStock),
                     serialNumber: products.serialNumber,
-                    productPurchasePrice: products.productPurchasePrice);
+                    productPurchasePrice: products.productPurchasePrice,subTaxes: products.subTaxes,
+                  excTax: products.excTax,
+                  groupTaxName: products.groupTaxName,
+                  groupTaxRate: products.groupTaxRate,
+                  incTax: products.incTax,
+                  margin: products.margin,
+                  taxType: products.taxType,);
                 list.add(cartItem);
               }
             });
@@ -689,7 +702,7 @@ class _SaleEditState extends State<SaleEdit> {
                                           height:40,
                                           padding: const EdgeInsets.all(10),
                                           decoration: BoxDecoration(
-                                              color: kWhiteTextColor,
+                                              color: kWhite,
                                               border: Border.all(
                                                 color: kBorderColorTextField,
                                               ),
@@ -810,7 +823,13 @@ class _SaleEditState extends State<SaleEdit> {
                                                           quantity: 1,
                                                           serialNumber: [],
                                                           productPurchasePrice: product[i].productPurchasePrice,
-                                                          subTotal: productPriceChecker(product: product[i], customerType: widget.transitionModel.customerType));
+                                                          subTotal: productPriceChecker(product: product[i], customerType: widget.transitionModel.customerType),subTaxes: product[i].subTaxes,
+                                                        excTax: product[i].excTax,
+                                                        groupTaxName: product[i].groupTaxName,
+                                                        groupTaxRate: product[i].groupTaxRate,
+                                                        incTax: product[i].incTax,
+                                                        margin: product[i].margin,
+                                                        taxType: product[i].taxType,);
 
                                                       setState(() {
                                                         if (!uniqueCheck(product[i].productCode)) {
@@ -891,7 +910,7 @@ class _SaleEditState extends State<SaleEdit> {
                                     IntrinsicWidth(
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          color: kWhiteTextColor,
+                                          color: kWhite,
                                           border: Border.all(width: 1, color: kGreyTextColor.withOpacity(0.3)),
                                           borderRadius: const BorderRadius.all(
                                             Radius.circular(15),
@@ -1107,6 +1126,7 @@ class _SaleEditState extends State<SaleEdit> {
                                             Padding(
                                               padding: const EdgeInsets.all(10.0),
                                               child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.end,
                                                 children: [
                                                   ///__________total__________________________________________
                                                   Row(
@@ -1136,12 +1156,77 @@ class _SaleEditState extends State<SaleEdit> {
                                                           child: Center(
                                                             child: Text(
                                                               '$currency ${(getTotalAmount().toDouble() + serviceCharge - discountAmount + vatGst).toStringAsFixed(1)}',
-                                                              style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                              style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
                                                     ],
+                                                  ),
+                                                  const SizedBox(height: 10.0),
+                                                  ///_________Taxes__________________________________________
+
+                                                  SizedBox(
+                                                    height: 50.00 * getAllTaxFromCartList(cart: cartList).length,
+                                                    width: context.width() < 1080 ? 1080 * .10 : MediaQuery.of(context).size.width * .10 + 204,
+                                                    child: ListView.builder(
+                                                      itemCount: getAllTaxFromCartList(cart: cartList).length,
+                                                      shrinkWrap: true,
+                                                      itemBuilder: (context, index) {
+                                                        return Container(
+                                                          height: 40,
+                                                          margin: const EdgeInsets.only(top: 5, bottom: 5),
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: [
+                                                              SizedBox(
+                                                                width: context.width() < 1080 ? 1080 * .10 : MediaQuery.of(context).size.width * .10,
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets.only(right: 20),
+                                                                  child: Text(
+                                                                    getAllTaxFromCartList(cart: cartList)[index].name,
+                                                                    textAlign: TextAlign.end,
+                                                                    style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 204,
+                                                                height: 40.0,
+                                                                child: Center(
+                                                                  child: AppTextField(
+                                                                    initialValue: getAllTaxFromCartList(cart: cartList)[index].taxRate.toString(),
+                                                                    readOnly: true,
+                                                                    textAlign: TextAlign.right,
+                                                                    decoration: InputDecoration(
+                                                                      contentPadding: const EdgeInsets.only(right: 6.0),
+                                                                      hintText: '0',
+                                                                      border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                      enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                      disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                      focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                      prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
+                                                                      prefixIcon: Container(
+                                                                        padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                                                                        height: 40,
+                                                                        decoration: const BoxDecoration(
+                                                                            color: Color(0xFFff5f00),
+                                                                            borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                                                        child: const Text(
+                                                                          '%',
+                                                                          style: TextStyle(fontSize: 20.0, color: Colors.white),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    textFieldType: TextFieldType.NUMBER,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
                                                   ),
                                                   const SizedBox(height: 10.0),
 
@@ -1179,118 +1264,118 @@ class _SaleEditState extends State<SaleEdit> {
                                                   const SizedBox(height: 10.0),
 
                                                   ///___________vat____________________________________
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.end,
-                                                    children: [
-                                                      SizedBox(
-                                                        width: context.width() < 1080 ? 1080 * .10 : MediaQuery.of(context).size.width * .10,
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.only(right: 20),
-                                                          child: Text(
-                                                            lang.S.of(context).vatOrgst,
-                                                            textAlign: TextAlign.end,
-                                                            style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 100,
-                                                            height: 40.0,
-                                                            child: Center(
-                                                              child: AppTextField(
-                                                                controller: vatPercentageEditingController,
-                                                                onChanged: (value) {
-                                                                  if (value == '') {
-                                                                    setState(() {
-                                                                      vatGst = 0.0;
-                                                                      vatAmountEditingController.text = 0.toString();
-                                                                    });
-                                                                  } else {
-                                                                    setState(() {
-                                                                      vatGst = double.parse(((value.toDouble() / 100) * getTotalAmount().toDouble()).toStringAsFixed(1));
-                                                                      vatAmountEditingController.text = vatGst.toString();
-                                                                    });
-                                                                  }
-                                                                },
-                                                                textAlign: TextAlign.right,
-                                                                decoration: InputDecoration(
-                                                                  contentPadding: const EdgeInsets.only(right: 6.0),
-                                                                  hintText: '0',
-                                                                  border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
-                                                                  enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
-                                                                  disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
-                                                                  focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
-                                                                  prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
-                                                                  prefixIcon: Container(
-                                                                    padding: const EdgeInsets.only(top: 8.0, left: 8.0),
-                                                                    height: 40,
-                                                                    decoration: const BoxDecoration(
-                                                                        color: kTitleColor,
-                                                                        borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
-                                                                    child: const Text(
-                                                                      '%',
-                                                                      style: TextStyle(fontSize: 20.0, color: Colors.white),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                textFieldType: TextFieldType.PHONE,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                            width: 4.0,
-                                                          ),
-                                                          SizedBox(
-                                                            width: 100,
-                                                            height: 40.0,
-                                                            child: Center(
-                                                              child: AppTextField(
-                                                                controller: vatAmountEditingController,
-                                                                onChanged: (value) {
-                                                                  if (value == '') {
-                                                                    setState(() {
-                                                                      vatGst = 0;
-                                                                      vatPercentageEditingController.text = 0.toString();
-                                                                    });
-                                                                  } else {
-                                                                    setState(() {
-                                                                      vatGst = double.parse(value);
-                                                                      vatPercentageEditingController.text = ((vatGst * 100) / getTotalAmount().toDouble()).toStringAsFixed(1);
-                                                                    });
-                                                                  }
-                                                                },
-                                                                textAlign: TextAlign.right,
-                                                                decoration: InputDecoration(
-                                                                  contentPadding: const EdgeInsets.only(right: 6.0),
-                                                                  hintText: '0',
-                                                                  border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
-                                                                  enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
-                                                                  disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
-                                                                  focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
-                                                                  prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
-                                                                  prefixIcon: Container(
-                                                                    padding: const EdgeInsets.only(top: 8.0, left: 8.0),
-                                                                    height: 40,
-                                                                    decoration: const BoxDecoration(
-                                                                        color: kMainColor,
-                                                                        borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
-                                                                    child: Text(
-                                                                      currency,
-                                                                      style: TextStyle(fontSize: 20.0, color: Colors.white),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                textFieldType: TextFieldType.PHONE,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(height: 10.0),
+                                                  // Row(
+                                                  //   mainAxisAlignment: MainAxisAlignment.end,
+                                                  //   children: [
+                                                  //     SizedBox(
+                                                  //       width: context.width() < 1080 ? 1080 * .10 : MediaQuery.of(context).size.width * .10,
+                                                  //       child: Padding(
+                                                  //         padding: const EdgeInsets.only(right: 20),
+                                                  //         child: Text(
+                                                  //           lang.S.of(context).vatOrgst,
+                                                  //           textAlign: TextAlign.end,
+                                                  //           style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                                  //         ),
+                                                  //       ),
+                                                  //     ),
+                                                  //     Row(
+                                                  //       children: [
+                                                  //         SizedBox(
+                                                  //           width: 100,
+                                                  //           height: 40.0,
+                                                  //           child: Center(
+                                                  //             child: AppTextField(
+                                                  //               controller: vatPercentageEditingController,
+                                                  //               onChanged: (value) {
+                                                  //                 if (value == '') {
+                                                  //                   setState(() {
+                                                  //                     vatGst = 0.0;
+                                                  //                     vatAmountEditingController.text = 0.toString();
+                                                  //                   });
+                                                  //                 } else {
+                                                  //                   setState(() {
+                                                  //                     vatGst = double.parse(((value.toDouble() / 100) * getTotalAmount().toDouble()).toStringAsFixed(1));
+                                                  //                     vatAmountEditingController.text = vatGst.toString();
+                                                  //                   });
+                                                  //                 }
+                                                  //               },
+                                                  //               textAlign: TextAlign.right,
+                                                  //               decoration: InputDecoration(
+                                                  //                 contentPadding: const EdgeInsets.only(right: 6.0),
+                                                  //                 hintText: '0',
+                                                  //                 border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
+                                                  //                 enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
+                                                  //                 disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
+                                                  //                 focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kTitleColor)),
+                                                  //                 prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
+                                                  //                 prefixIcon: Container(
+                                                  //                   padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                                                  //                   height: 40,
+                                                  //                   decoration: const BoxDecoration(
+                                                  //                       color: kTitleColor,
+                                                  //                       borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                                  //                   child: const Text(
+                                                  //                     '%',
+                                                  //                     style: TextStyle(fontSize: 20.0, color: Colors.white),
+                                                  //                   ),
+                                                  //                 ),
+                                                  //               ),
+                                                  //               textFieldType: TextFieldType.PHONE,
+                                                  //             ),
+                                                  //           ),
+                                                  //         ),
+                                                  //         const SizedBox(
+                                                  //           width: 4.0,
+                                                  //         ),
+                                                  //         SizedBox(
+                                                  //           width: 100,
+                                                  //           height: 40.0,
+                                                  //           child: Center(
+                                                  //             child: AppTextField(
+                                                  //               controller: vatAmountEditingController,
+                                                  //               onChanged: (value) {
+                                                  //                 if (value == '') {
+                                                  //                   setState(() {
+                                                  //                     vatGst = 0;
+                                                  //                     vatPercentageEditingController.text = 0.toString();
+                                                  //                   });
+                                                  //                 } else {
+                                                  //                   setState(() {
+                                                  //                     vatGst = double.parse(value);
+                                                  //                     vatPercentageEditingController.text = ((vatGst * 100) / getTotalAmount().toDouble()).toStringAsFixed(1);
+                                                  //                   });
+                                                  //                 }
+                                                  //               },
+                                                  //               textAlign: TextAlign.right,
+                                                  //               decoration: InputDecoration(
+                                                  //                 contentPadding: const EdgeInsets.only(right: 6.0),
+                                                  //                 hintText: '0',
+                                                  //                 border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                                  //                 enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                                  //                 disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                                  //                 focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                                  //                 prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
+                                                  //                 prefixIcon: Container(
+                                                  //                   padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                                                  //                   height: 40,
+                                                  //                   decoration: const BoxDecoration(
+                                                  //                       color: kMainColor,
+                                                  //                       borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                                  //                   child: Text(
+                                                  //                     currency,
+                                                  //                     style: TextStyle(fontSize: 20.0, color: Colors.white),
+                                                  //                   ),
+                                                  //                 ),
+                                                  //               ),
+                                                  //               textFieldType: TextFieldType.PHONE,
+                                                  //             ),
+                                                  //           ),
+                                                  //         ),
+                                                  //       ],
+                                                  //     ),
+                                                  //   ],
+                                                  // ),
+                                                  // const SizedBox(height: 10.0),
 
                                                   ///________discount_________________________________________________
                                                   Row(
@@ -1446,7 +1531,7 @@ class _SaleEditState extends State<SaleEdit> {
                                                           child: Text(
                                                             lang.S.of(context).cancel,
                                                             textAlign: TextAlign.center,
-                                                            style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                            style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                           ),
                                                         ).onTap(() {
                                                           Navigator.pop(context);
@@ -1466,7 +1551,7 @@ class _SaleEditState extends State<SaleEdit> {
                                                           child: Text(
                                                             lang.S.of(context).payment,
                                                             textAlign: TextAlign.center,
-                                                            style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                            style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                           ),
                                                         ).onTap(
                                                           () {
@@ -1477,6 +1562,7 @@ class _SaleEditState extends State<SaleEdit> {
                                                                 dueAmount: widget.transitionModel.dueAmount,
                                                                 customerAddress: widget.transitionModel.customerAddress,
                                                                 customerImage: widget.transitionModel.customerImage,
+                                                                customerGst: widget.transitionModel.customerGst,
                                                                 customerName: widget.transitionModel.customerName,
                                                                 customerType: widget.transitionModel.customerType,
                                                                 customerPhone: widget.transitionModel.customerPhone,
@@ -1521,7 +1607,7 @@ class _SaleEditState extends State<SaleEdit> {
                                             height: context.height() < 720 ? 720 - 142 : context.height() - 142,
                                             padding: const EdgeInsets.all(8.0),
                                             decoration: BoxDecoration(
-                                                color: kWhiteTextColor,
+                                                color: kWhite,
                                                 border: Border.all(width: 1, color: kGreyTextColor.withOpacity(0.3)),
                                                 borderRadius: const BorderRadius.all(Radius.circular(15))),
                                             child: SingleChildScrollView(
@@ -1663,7 +1749,7 @@ class _SaleEditState extends State<SaleEdit> {
                                                           height: 170.0,
                                                           decoration: BoxDecoration(
                                                             borderRadius: BorderRadius.circular(10.0),
-                                                            color: kWhiteTextColor,
+                                                            color: kWhite,
                                                             border: Border.all(
                                                               color: kLitGreyColor,
                                                             ),
@@ -1690,7 +1776,7 @@ class _SaleEditState extends State<SaleEdit> {
                                                                       decoration: BoxDecoration(color: showProductVsCategory[i].productStock == '0' ? kRedTextColor : kGreenTextColor),
                                                                       child: Text(
                                                                         showProductVsCategory[i].productStock != '0' ? '${showProductVsCategory[i].productStock} pc' : 'Out of stock',
-                                                                        style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                                                        style: kTextStyle.copyWith(color: kWhite),
                                                                       ),
                                                                     ),
                                                                   ),
@@ -1720,7 +1806,7 @@ class _SaleEditState extends State<SaleEdit> {
                                                                       ),
                                                                       child: Text(
                                                                         productPriceChecker(product: showProductVsCategory[i], customerType: widget.transitionModel.customerType),
-                                                                        style: kTextStyle.copyWith(color: kWhiteTextColor, fontWeight: FontWeight.bold, fontSize: 14.0),
+                                                                        style: kTextStyle.copyWith(color: kWhite, fontWeight: FontWeight.bold, fontSize: 14.0),
                                                                       ),
                                                                     ),
                                                                   ],
@@ -1744,6 +1830,13 @@ class _SaleEditState extends State<SaleEdit> {
                                                                   subTotal: productPriceChecker(product: showProductVsCategory[i], customerType: widget.transitionModel.customerType),
                                                                   serialNumber: [],
                                                                   unitPrice: productPriceChecker(product: showProductVsCategory[i], customerType: widget.transitionModel.customerType),
+                                                                  subTaxes: showProductVsCategory[i].subTaxes,
+                                                                  excTax: showProductVsCategory[i].excTax,
+                                                                  groupTaxName: showProductVsCategory[i].groupTaxName,
+                                                                  groupTaxRate: showProductVsCategory[i].groupTaxRate,
+                                                                  incTax: showProductVsCategory[i].incTax,
+                                                                  margin: showProductVsCategory[i].margin,
+                                                                  taxType: showProductVsCategory[i].taxType,
                                                                 );
 
                                                                 if (!uniqueCheck(showProductVsCategory[i].productCode)) {

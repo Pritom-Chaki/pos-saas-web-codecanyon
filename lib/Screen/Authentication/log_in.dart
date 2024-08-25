@@ -1,4 +1,6 @@
 // import 'package:country_code_picker/country_code_picker.dart';
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +15,7 @@ import 'package:salespro_admin/Screen/Subscription/subscription_plan_page.dart';
 import 'package:salespro_admin/Screen/Authentication/verify_otp.dart';
 import 'package:salespro_admin/Screen/Widgets/Constant%20Data/button_global.dart';
 import 'package:salespro_admin/const.dart';
+import '../../Repository/signup_repo.dart';
 import '../../currency.dart';
 import '../Widgets/Constant Data/constant.dart';
 import 'forgot_password.dart';
@@ -147,8 +150,8 @@ class _LogInState extends State<LogIn> {
                         children: [
                           const SizedBox(height: 10.0),
                           Container(
-                            height: 80,
-                            width: 80,
+                            height: 200,
+                            width: 200,
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage(appLogo),
@@ -391,6 +394,35 @@ class _EmailLogInState extends State<EmailLogIn> {
     return false;
   }
 
+  checkUser() async {
+    await PurchaseModel().isActiveBuyer().then((value) {
+      if (value) {
+       validateAndSave();
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text("Not Active User"),
+            content: Text("Please use the valid purchase code to use the app."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  //Exit app
+                  if(Platform.isAndroid){
+                    SystemNavigator.pop();
+                  }else{
+                    exit(0);
+                  }
+                },
+                child: Text("OK"),
+              ),
+            ],
+          ),
+        );
+      }
+    });
+  }
+
   void showPopUP() {
     showDialog(
       barrierDismissible: false,
@@ -487,8 +519,8 @@ class _EmailLogInState extends State<EmailLogIn> {
                         children: [
                           const SizedBox(height: 10.0),
                           Container(
-                            height: 80,
-                            width: 80,
+                            height: 100,
+                            width: 200,
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage(appLogo),
@@ -632,7 +664,7 @@ class _EmailLogInState extends State<EmailLogIn> {
                                     buttontext: lang.S.of(context).login,
                                     buttonDecoration: kButtonDecoration.copyWith(color: kGreenTextColor, borderRadius: BorderRadius.circular(8.0)),
                                     onPressed: (() {
-                                      if (validateAndSave()) {
+                                      if (checkUser()) {
                                         loginProvider.signIn(context);
                                       }
                                     }),

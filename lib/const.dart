@@ -11,22 +11,85 @@ import 'Screen/Expenses/expenses_list.dart';
 import 'Screen/LossProfit/lossProfit_screen.dart';
 import 'Screen/Reports/report_screen.dart';
 import 'Screen/Stock List/stock_list_screen.dart';
+import 'Screen/tax rates/tax_model.dart';
+import 'model/add_to_cart_model.dart';
+import 'model/sale_transaction_model.dart';
 import 'model/user_role_model.dart';
 
-final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
-
-String appsName = 'Pos Saas';
-String appsTitle = 'Pos Saas Web';
+///______________DATA____________
+String appsName = 'POS SAAS';
+String appsTitle = 'POS SAAS Web';
 String pdfFooter = 'acnoo.com';
+String madeBy = 'Acnoo.com';
 bool isDemo = false;
+String invoiceFileName = "POS_SAAS";
 String demoText = 'You Can\'t change anything in demo mode';
-String sideBarLogo='images/pos.png';
-String appLogo='images/mobipos.png';
+String sideBarLogo = 'images/pos.png';
+String appLogo = 'images/mobipos.png';
+String purchaseCode = 'Enter your purchase code here';
+
+String calculateProductVat({required AddToCartModel product}) {
+  if (product.taxType == 'Inclusive') {
+    //double taxAmount = purchasePrice / (1 + taxRate) * taxRate;
+    double taxRate = product.groupTaxRate / 100;
+    print(product.groupTaxRate);
+    return (((double.tryParse(product.productPurchasePrice.toString()) ?? 0) / (taxRate + 1) * taxRate) * product.quantity).toStringAsFixed(1);
+  } else {
+    return (((product.groupTaxRate * (double.tryParse(product.productPurchasePrice.toString()) ?? 0)) / 100) * product.quantity).toStringAsFixed(1);
+  }
+}
+
+SaleTransactionModel checkLossProfit({required SaleTransactionModel transitionModel}) {
+  double calculateAmountFromPercentage(double percentage, double price) {
+    return (percentage * price) / 100;
+  }
+
+  num totalQuantity = 0;
+  double lossProfit = 0;
+  double totalPurchasePrice = 0;
+  double totalSalePrice = 0;
+  for (var element in transitionModel.productList!) {
+    if (element.taxType == 'Exclusive') {
+      double tax = calculateAmountFromPercentage(element.groupTaxRate.toDouble(), element.productPurchasePrice);
+      totalPurchasePrice = totalPurchasePrice + (((element.productPurchasePrice + tax) * element.quantity));
+    } else {
+      totalPurchasePrice = totalPurchasePrice + (element.productPurchasePrice * element.quantity);
+    }
+
+    totalSalePrice = totalSalePrice + (double.parse(element.subTotal) * element.quantity);
+
+    totalQuantity = totalQuantity + element.quantity;
+  }
+  lossProfit = ((totalSalePrice - totalPurchasePrice.toDouble()) - double.parse(transitionModel.discountAmount.toString()));
+
+  transitionModel.totalQuantity = totalQuantity;
+  transitionModel.lossProfit = double.parse(lossProfit.toStringAsFixed(2));
+
+  return transitionModel;
+}
+
+List<TaxModel> getAllTaxFromCartList({required List<AddToCartModel> cart}) {
+  List<TaxModel> data = [];
+  for (var element in cart) {
+    if (element.subTaxes.isNotEmpty) {
+      for (var element1 in element.subTaxes) {
+        if (!data.any(
+          (element2) => element2.name == element1.name,
+        )) {
+          data.add(element1);
+        }
+      }
+    }
+  }
+  return data;
+}
+
+final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
 // String appLogo='images/mobipos.png';
 // String appsName = 'Pos Saas';
 // String appsTitle = 'Pos Saas Web';
-// String pdfFooter = 'acnoo.com';
+// String pdfFooter = 'POSBharat.com';
 // bool isDemo = false;
 // String demoText = 'You Can\'t change anything in demo mode';
 // String sideBarLogo='images/pos.png';
@@ -213,7 +276,6 @@ final lastDayOfPreviousMonth = firstDayOfCurrentMonth.subtract(const Duration(da
 final firstDayOfPreviousMonth = DateTime(lastDayOfPreviousMonth.year, lastDayOfPreviousMonth.month, 1);
 
 DateFormat dataTypeFormat = DateFormat('dd MMM yyyy');
-
 
 void checkCurrentUserAndRestartApp() {
   final User? user = FirebaseAuth.instance.currentUser;

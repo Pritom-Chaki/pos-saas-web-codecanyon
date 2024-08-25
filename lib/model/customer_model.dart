@@ -1,5 +1,5 @@
 class CustomerModel {
-  late String customerName, phoneNumber, type, profilePicture, emailAddress, customerAddress, dueAmount, openingBalance, remainedBalance;
+  late String customerName, phoneNumber, type, profilePicture, emailAddress, customerAddress, dueAmount, openingBalance, remainedBalance, gst;
 
   CustomerModel(
       {required this.customerName,
@@ -10,7 +10,8 @@ class CustomerModel {
       required this.customerAddress,
       required this.dueAmount,
       required this.openingBalance,
-      required this.remainedBalance});
+      required this.remainedBalance,
+      required this.gst});
 
   CustomerModel.fromJson(Map<dynamic, dynamic> json)
       : customerName = json['customerName'] as String,
@@ -21,7 +22,8 @@ class CustomerModel {
         customerAddress = json['customerAddress'] as String,
         dueAmount = json['due'] as String,
         openingBalance = json['openingBalance'] as String,
-        remainedBalance = json['remainedBalance'] as String;
+        remainedBalance = json['remainedBalance'] as String,
+        gst = json['gst'] ?? '';
   Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
         'customerName': customerName,
         'phoneNumber': phoneNumber,
@@ -32,5 +34,6 @@ class CustomerModel {
         'due': dueAmount,
         'openingBalance': openingBalance,
         'remainedBalance': remainedBalance,
+        'gst': gst,
       };
 }

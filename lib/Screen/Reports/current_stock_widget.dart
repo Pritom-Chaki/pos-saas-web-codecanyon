@@ -41,7 +41,7 @@ class _CurrentStockWidgetState extends State<CurrentStockWidget> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
-                    color: kWhiteTextColor,
+                    color: kWhite,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -19,7 +19,7 @@ class MtTopStock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 400,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
       child: Column(
         children: [
           Container(
@@ -97,7 +97,7 @@ class TopSellingProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 400,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
       child: Column(
         children: [
           Container(
@@ -181,7 +181,7 @@ class TopCustomerTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 400,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

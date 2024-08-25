@@ -14,6 +14,7 @@ import '../../PDF/print_pdf.dart';
 import '../../PDF/purchase_invoice_pdf.dart';
 import '../../Provider/profile_provider.dart';
 import '../../Provider/transactions_provider.dart';
+import '../../const.dart';
 import '../../currency.dart';
 import '../../model/purchase_transation_model.dart';
 import '../Widgets/Constant Data/constant.dart';
@@ -150,7 +151,7 @@ class _PurchaseReportWidgetState extends State<PurchaseReportWidget> {
                 padding: const EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -184,7 +185,7 @@ class _PurchaseReportWidgetState extends State<PurchaseReportWidget> {
                                   child: Center(
                                     child: Text(
                                       lang.S.of(context).between,
-                                      style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                      style: kTextStyle.copyWith(color: kWhite),
                                     ),
                                   ),
                                 ),
@@ -283,7 +284,7 @@ class _PurchaseReportWidgetState extends State<PurchaseReportWidget> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -502,7 +503,7 @@ class _PurchaseReportWidgetState extends State<PurchaseReportWidget> {
                                                           AnchorElement(
                                                               href:
                                                                   "data:application/octet-stream;charset=utf-16le;base64,${base64Encode(await generatePurchaseDocument(personalInformation: profile.value!, transactions: reTransaction[index]))}")
-                                                            ..setAttribute("download", "POS_SAAS_P-${reTransaction[index].invoiceNumber}.pdf")
+                                                            ..setAttribute("download", "${invoiceFileName}_P-${reTransaction[index].invoiceNumber}.pdf")
                                                             ..click();
                                                         },
                                                         child: Row(

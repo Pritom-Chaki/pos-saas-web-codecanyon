@@ -145,7 +145,7 @@ class _DailyTransactionState extends State<DailyTransaction> {
                     padding: const EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
-                      color: kWhiteTextColor,
+                      color: kWhite,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,7 +180,7 @@ class _DailyTransactionState extends State<DailyTransaction> {
                                       child: Center(
                                         child: Text(
                                           lang.S.of(context).between,
-                                          style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                          style: kTextStyle.copyWith(color: kWhite),
                                         ),
                                       ),
                                     ),
@@ -280,7 +280,7 @@ class _DailyTransactionState extends State<DailyTransaction> {
                           width: double.infinity,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
-                            color: kWhiteTextColor,
+                            color: kWhite,
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

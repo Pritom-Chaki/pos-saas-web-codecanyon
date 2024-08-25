@@ -225,7 +225,7 @@ class _SaleReportsState extends State<SaleReports> {
                                           bottomLeft: Radius.circular(10.0),
                                           bottomRight: Radius.circular(10.0),
                                         ),
-                                        color: kWhiteTextColor),
+                                        color: kWhite),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
@@ -290,7 +290,7 @@ class _SaleReportsState extends State<SaleReports> {
                                         padding: const EdgeInsets.all(10.0),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10.0),
-                                          color: kWhiteTextColor,
+                                          color: kWhite,
                                         ),
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -326,7 +326,7 @@ class _SaleReportsState extends State<SaleReports> {
                                                           child: Center(
                                                             child: Text(
                                                               lang.S.of(context).between,
-                                                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                                              style: kTextStyle.copyWith(color: kWhite),
                                                             ),
                                                           ),
                                                         ),
@@ -426,7 +426,7 @@ class _SaleReportsState extends State<SaleReports> {
                                         width: double.infinity,
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10.0),
-                                          color: kWhiteTextColor,
+                                          color: kWhite,
                                         ),
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -706,7 +706,7 @@ class _SaleReportsState extends State<SaleReports> {
                                                                                     AnchorElement(
                                                                                         href:
                                                                                             "data:application/octet-stream;charset=utf-16le;base64,${base64Encode(await generateSaleDocument(personalInformation: profile.value!, transactions: reTransaction[index]))}")
-                                                                                      ..setAttribute("download", "POS_SAAS_S-${reTransaction[index].invoiceNumber}.pdf")
+                                                                                      ..setAttribute("download", "${invoiceFileName}_S-${reTransaction[index].invoiceNumber}.pdf")
                                                                                       ..click();
                                                                                   },
                                                                                   child: Row(

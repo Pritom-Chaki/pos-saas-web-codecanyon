@@ -50,13 +50,13 @@ class _PurchaseInvoiceState extends State<PurchaseInvoice> {
                 children: [
                   const Icon(
                     FeatherIcons.x,
-                    color: kWhiteTextColor,
+                    color: kWhite,
                     size: 25,
                   ),
                   const SizedBox(width: 4.0),
                   Text(
                     lang.S.of(context).cancel,
-                    style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 20.0),
+                    style: kTextStyle.copyWith(color: kWhite, fontSize: 20.0),
                   ),
                 ],
               ),
@@ -78,13 +78,13 @@ class _PurchaseInvoiceState extends State<PurchaseInvoice> {
                 children: [
                   Icon(
                     MdiIcons.printer,
-                    color: kWhiteTextColor,
+                    color: kWhite,
                     size: 25,
                   ),
                   const SizedBox(width: 4.0),
                   Text(
                     lang.S.of(context).printInvoice,
-                    style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 20.0),
+                    style: kTextStyle.copyWith(color: kWhite, fontSize: 20.0),
                   ),
                 ],
               ),
@@ -92,7 +92,7 @@ class _PurchaseInvoiceState extends State<PurchaseInvoice> {
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        backgroundColor: kWhiteTextColor,
+        backgroundColor: kWhite,
         body: res.Responsive(
           mobile: Container(),
           tablet: Container(),
@@ -208,7 +208,7 @@ class _PurchaseInvoiceState extends State<PurchaseInvoice> {
                           child: DataTable(
                             headingRowColor: MaterialStateProperty.all(kRedTextColor),
                             showBottomBorder: false,
-                            headingTextStyle: kTextStyle.copyWith(color: kWhiteTextColor, fontWeight: FontWeight.bold),
+                            headingTextStyle: kTextStyle.copyWith(color: kWhite, fontWeight: FontWeight.bold),
                             horizontalMargin: null,
                             dividerThickness: 0,
                             headingRowHeight: 30.0,
@@ -353,7 +353,7 @@ class _PurchaseInvoiceState extends State<PurchaseInvoice> {
                                           Text(
                                             lang.S.of(context).totalPayable,
                                             maxLines: 1,
-                                            style: kTextStyle.copyWith(color: kWhiteTextColor, fontWeight: FontWeight.bold),
+                                            style: kTextStyle.copyWith(color: kWhite, fontWeight: FontWeight.bold),
                                           ),
                                           const SizedBox(width: 20.0),
                                           SizedBox(
@@ -361,7 +361,7 @@ class _PurchaseInvoiceState extends State<PurchaseInvoice> {
                                             child: Text(
                                               '$currency ${widget.transitionModel.totalAmount}',
                                               maxLines: 2,
-                                              style: kTextStyle.copyWith(color: kWhiteTextColor, fontWeight: FontWeight.bold),
+                                              style: kTextStyle.copyWith(color: kWhite, fontWeight: FontWeight.bold),
                                               textAlign: TextAlign.end,
                                             ),
                                           ),

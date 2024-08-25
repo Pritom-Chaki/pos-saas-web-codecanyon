@@ -184,7 +184,7 @@ class _LedgerScreenState extends State<LedgerScreen> {
                             width: double.infinity,
                             padding: const EdgeInsets.all(10.0),
                             decoration: const BoxDecoration(
-                              color: kWhiteTextColor,
+                              color: kWhite,
                             ),
                             child: const TopBar(),
                           ),
@@ -196,7 +196,7 @@ class _LedgerScreenState extends State<LedgerScreen> {
                               padding: const EdgeInsets.all(10.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
-                                color: kWhiteTextColor,
+                                color: kWhite,
                               ),
                               child: Row(
                                 children: [
@@ -327,7 +327,7 @@ class _LedgerScreenState extends State<LedgerScreen> {
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
-                                color: kWhiteTextColor,
+                                color: kWhite,
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -648,8 +648,8 @@ class _LedgerScreenState extends State<LedgerScreen> {
         return StatefulBuilder(
           builder: (context, setState) {
             return Dialog(
-              surfaceTintColor: kWhiteTextColor,
-              backgroundColor: kWhiteTextColor,
+              surfaceTintColor: kWhite,
+              backgroundColor: kWhite,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0),
               ),
@@ -685,7 +685,7 @@ class _LedgerScreenState extends State<LedgerScreen> {
                           padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
-                            color: kWhiteTextColor,
+                            color: kWhite,
                           ),
                           child: Row(
                             children: [

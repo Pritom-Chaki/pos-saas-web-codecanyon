@@ -10,8 +10,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:restart_app/restart_app.dart';
-import 'package:salespro_admin/Screen/Authentication/log_in.dart';
 import 'package:salespro_admin/Screen/Widgets/Constant%20Data/constant.dart';
 import 'package:salespro_admin/Screen/Widgets/TopBar/top_bar_widget.dart';
 import 'package:salespro_admin/model/home_report_model.dart';
@@ -642,8 +640,7 @@ class _MtHomeScreenState extends State<MtHomeScreen> {
                                                   dailySaleOfCurrentMonth[saleDate.day - 1]++;
                                                   element.lossProfit!.isNegative
                                                       ? totalLoss = totalLoss + element.lossProfit!.abs()
-                                                      : totalProfitCurrentMonth =
-                                                          double.parse(totalProfitCurrentMonth.toString()) + double.parse(element.lossProfit!.toString());
+                                                      : totalProfitCurrentMonth = double.parse(totalProfitCurrentMonth.toString()) + double.parse(element.lossProfit!.toString());
                                                 }
 
                                                 if (saleDate.isAfter(firstDayOfPreviousMonth) && saleDate.isBefore(firstDayOfCurrentMonth)) {
@@ -651,8 +648,7 @@ class _MtHomeScreenState extends State<MtHomeScreen> {
                                                   saleCountOfLastMonth.add(element);
                                                   element.lossProfit!.isNegative
                                                       ? totalLoss = totalLoss + element.lossProfit!.abs()
-                                                      : totalProfitCurrentMonth =
-                                                          double.parse(totalProfitCurrentMonth.toString()) + double.parse(element.lossProfit!.toString());
+                                                      : totalProfitCurrentMonth = double.parse(totalProfitCurrentMonth.toString()) + double.parse(element.lossProfit!.toString());
                                                 }
                                                 if (saleDate.isAfter(firstDayOfPreviousYear) && saleDate.isBefore(firstDayOfCurrentYear)) {
                                                   totalSaleOfPreviousYear += double.parse(element.totalAmount.toString());
@@ -914,6 +910,7 @@ class _MtHomeScreenState extends State<MtHomeScreen> {
                                                     dueAmount: element.dueAmount.toString(),
                                                     openingBalance: element.totalAmount.toString(),
                                                     remainedBalance: element.dueAmount.toString(),
+                                                    gst: element.customerGst,
                                                   ),
                                                 );
                                               }
@@ -939,6 +936,13 @@ class _MtHomeScreenState extends State<MtHomeScreen> {
                                                     unitPrice: product.unitPrice,
                                                     uuid: product.uuid,
                                                     itemCartIndex: product.itemCartIndex,
+                                                    subTaxes: product.subTaxes,
+                                                    excTax: product.excTax,
+                                                    groupTaxName: product.groupTaxName,
+                                                    groupTaxRate: product.groupTaxRate,
+                                                    incTax: product.incTax,
+                                                    margin: product.margin,
+                                                    taxType: product.taxType,
                                                   );
                                                   saleProductList.add(a);
                                                 }
@@ -1026,6 +1030,13 @@ class _MtHomeScreenState extends State<MtHomeScreen> {
                                                               expiringDate: '',
                                                               lowerStockAlert: 0,
                                                               manufacturingDate: '',
+                                                              taxType: '',
+                                                              margin: 0,
+                                                              excTax: 0,
+                                                              incTax: 0,
+                                                              groupTaxName: '',
+                                                              groupTaxRate: 0,
+                                                              subTaxes: [],
                                                             ));
                                                           }
                                                         }
@@ -1071,7 +1082,7 @@ class _MtHomeScreenState extends State<MtHomeScreen> {
                                         const SizedBox(height: 20),
                                         Container(
                                           padding: const EdgeInsets.all(20.0),
-                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.0), color: kWhiteTextColor),
+                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.0), color: kWhite),
                                           child: Column(
                                             children: [
                                               Row(
@@ -1081,14 +1092,11 @@ class _MtHomeScreenState extends State<MtHomeScreen> {
                                                   Text(
                                                     lang.S.of(context).recentSale,
                                                     maxLines: 1,
-                                                    style:
-                                                        kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
+                                                    style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
                                                   ),
                                                   const Spacer(),
                                                   Text(
-                                                    totalSaleList.length > 5
-                                                        ? 'Showing ${recentFive.length} of ${totalSaleList.length}'
-                                                        : 'Showing ${totalSaleList.length} of ${totalSaleList.length}',
+                                                    totalSaleList.length > 5 ? 'Showing ${recentFive.length} of ${totalSaleList.length}' : 'Showing ${totalSaleList.length} of ${totalSaleList.length}',
                                                     style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
                                                   ),
                                                   TextButton(
@@ -1110,8 +1118,7 @@ class _MtHomeScreenState extends State<MtHomeScreen> {
                                               const SizedBox(height: 20),
                                               transactionReport.when(data: (sellerSnap) {
                                                 shopList = sellerSnap;
-                                                List<SaleTransactionModel> recentSaleList =
-                                                    shopList.length > 5 ? shopList.sublist(shopList.length - 5) : shopList;
+                                                List<SaleTransactionModel> recentSaleList = shopList.length > 5 ? shopList.sublist(shopList.length - 5) : shopList;
                                                 recentSaleList = recentSaleList.reversed.toList();
                                                 totalSaleList = shopList;
                                                 recentFive = recentSaleList;
@@ -1123,10 +1130,8 @@ class _MtHomeScreenState extends State<MtHomeScreen> {
                                                   ),
                                                   child: DataTable(
                                                     clipBehavior: Clip.antiAlias,
-                                                    border: TableBorder.lerp(
-                                                        TableBorder(verticalInside: BorderSide.none, borderRadius: BorderRadius.circular(8.0)),
-                                                        TableBorder(borderRadius: BorderRadius.circular(8.0)),
-                                                        8.0),
+                                                    border: TableBorder.lerp(TableBorder(verticalInside: BorderSide.none, borderRadius: BorderRadius.circular(8.0)),
+                                                        TableBorder(borderRadius: BorderRadius.circular(8.0)), 8.0),
                                                     showCheckboxColumn: true,
                                                     dividerThickness: 1.0,
                                                     dataRowColor: const MaterialStatePropertyAll(whiteColor),
@@ -1141,29 +1146,14 @@ class _MtHomeScreenState extends State<MtHomeScreen> {
                                                           style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis),
                                                         ),
                                                       ),
-                                                      DataColumn(
-                                                          label: Text('Date', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis))),
-                                                      DataColumn(
-                                                          label:
-                                                              Text('Invoice', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis))),
-                                                      DataColumn(
-                                                          label: Flexible(
-                                                              child: Text('Party Name',
-                                                                  style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis)))),
-                                                      DataColumn(
-                                                          label: Flexible(
-                                                              child: Text('Payment Type',
-                                                                  style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis)))),
-                                                      DataColumn(
-                                                          label:
-                                                              Text('Amount', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis))),
-                                                      DataColumn(
-                                                          label: Text('Paid', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis))),
-                                                      DataColumn(
-                                                          label: Text('Due', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis))),
-                                                      DataColumn(
-                                                          label:
-                                                              Text('Status', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis))),
+                                                      DataColumn(label: Text('Date', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis))),
+                                                      DataColumn(label: Text('Invoice', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis))),
+                                                      DataColumn(label: Flexible(child: Text('Party Name', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis)))),
+                                                      DataColumn(label: Flexible(child: Text('Payment Type', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis)))),
+                                                      DataColumn(label: Text('Amount', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis))),
+                                                      DataColumn(label: Text('Paid', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis))),
+                                                      DataColumn(label: Text('Due', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis))),
+                                                      DataColumn(label: Text('Status', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis))),
                                                       // DataColumn(
                                                       //     label:
                                                       //         Text('Action', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis))),
@@ -1201,8 +1191,7 @@ class _MtHomeScreenState extends State<MtHomeScreen> {
                                                             Text('$currency${recentSaleList[index].totalAmount.toString()}'),
                                                           ),
                                                           DataCell(
-                                                            Text(
-                                                                '$currency${((recentSaleList[index].totalAmount!) - (double.parse(recentSaleList[index].dueAmount.toString())))}'),
+                                                            Text('$currency${((recentSaleList[index].totalAmount!) - (double.parse(recentSaleList[index].dueAmount.toString())))}'),
                                                           ),
                                                           DataCell(
                                                             Text('$currency${recentSaleList[index].dueAmount.toString()}'),

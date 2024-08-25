@@ -64,7 +64,7 @@ class _PurchaseReturnWidgetState extends State<PurchaseReturnWidget> {
                 padding: const EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,7 +144,7 @@ class _PurchaseReturnWidgetState extends State<PurchaseReturnWidget> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

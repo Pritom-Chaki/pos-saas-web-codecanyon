@@ -33,7 +33,6 @@ class CurrentSubscriptionPlanRepo {
 
     await FirebaseDatabase.instance.ref('${await getUserID()}/Subscription').get().then((value) {
       var data = jsonDecode(jsonEncode(value.value));
-      print(data);
       finalModel = SubscriptionModel.fromJson(data);
     });
     return finalModel;

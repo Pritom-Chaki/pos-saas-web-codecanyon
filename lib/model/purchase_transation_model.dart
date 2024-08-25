@@ -1,7 +1,7 @@
 import 'package:salespro_admin/model/product_model.dart';
 
 class PurchaseTransactionModel {
-  late String customerName, customerPhone, customerAddress, customerType, invoiceNumber, purchaseDate;
+  late String customerName, customerPhone, customerAddress,customerGst, customerType, invoiceNumber, purchaseDate;
   double? totalAmount;
   double? dueAmount;
   double? returnAmount;
@@ -18,6 +18,7 @@ class PurchaseTransactionModel {
     required this.customerType,
     required this.customerPhone,
     required this.customerAddress,
+    required this.customerGst,
     required this.invoiceNumber,
     required this.purchaseDate,
     this.dueAmount,
@@ -35,6 +36,7 @@ class PurchaseTransactionModel {
     customerPhone = json['customerPhone'].toString();
     invoiceNumber = json['invoiceNumber'].toString();
     customerAddress = json['customerAddress'] ?? '';
+    customerGst = json['customerGst'] ?? '';
     customerType = json['customerType'].toString();
     purchaseDate = json['purchaseDate'].toString();
     totalAmount = double.parse(json['totalAmount'].toString());
@@ -56,6 +58,7 @@ class PurchaseTransactionModel {
     'customerPhone': customerPhone,
     'customerAddress': customerAddress,
     'customerType': customerType,
+    'customerGst': customerGst,
     'invoiceNumber': invoiceNumber,
     'purchaseDate': purchaseDate,
     'discountAmount': discountAmount,

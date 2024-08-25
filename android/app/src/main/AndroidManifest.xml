@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pixposbd.app">
+    package="com.maantheme.salespro_admin">
    <application
-        android:label="SmartBiashara_admin"
+        android:label="POS_SAAS"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -63,7 +63,7 @@ class TableWidget extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: HorizontalList(
                     padding: EdgeInsets.zero,
@@ -212,7 +212,7 @@ class TabletTableWidget extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: HorizontalList(
                     padding: EdgeInsets.zero,
@@ -362,7 +362,7 @@ class SmallTableWidget extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: HorizontalList(
                     physics: const NeverScrollableScrollPhysics(),
@@ -513,7 +513,7 @@ class TabletSmallTableWidget extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: HorizontalList(
                     physics: const NeverScrollableScrollPhysics(),
@@ -663,7 +663,7 @@ class DayBookWidget extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: HorizontalList(
                     padding: EdgeInsets.zero,
@@ -812,7 +812,7 @@ class TabletDayBookWidget extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: HorizontalList(
                     padding: EdgeInsets.zero,
@@ -961,7 +961,7 @@ class AllTransactionWidget extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: HorizontalList(
                     padding: EdgeInsets.zero,
@@ -1110,7 +1110,7 @@ class TabletAllTransactionWidget extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: HorizontalList(
                     padding: EdgeInsets.zero,
@@ -1259,7 +1259,7 @@ class CustomerListTableWidget extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: HorizontalList(
                     physics: const NeverScrollableScrollPhysics(),
@@ -1420,7 +1420,7 @@ class TabletCustomerListTableWidget extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: HorizontalList(
                     physics: const NeverScrollableScrollPhysics(),
@@ -1731,7 +1731,7 @@ class TabletExpensesTableWidget extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: HorizontalList(
                     physics: const NeverScrollableScrollPhysics(),
@@ -1880,7 +1880,7 @@ class ExpensesCategoryListWidget extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: HorizontalList(
                     physics: const NeverScrollableScrollPhysics(),
@@ -2029,7 +2029,7 @@ class TabletExpensesCategoryListWidget extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: HorizontalList(
                     physics: const NeverScrollableScrollPhysics(),
@@ -2180,7 +2180,7 @@ class StockReportWidget extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: HorizontalList(
                     padding: EdgeInsets.zero,
@@ -2329,7 +2329,7 @@ class TableStockReportWidget extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: HorizontalList(
                     padding: EdgeInsets.zero,

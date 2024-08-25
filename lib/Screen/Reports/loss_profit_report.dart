@@ -171,7 +171,7 @@ class _LossProfitReportState extends State<LossProfitReport> {
                 padding: const EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -208,7 +208,7 @@ class _LossProfitReportState extends State<LossProfitReport> {
                                   child: Center(
                                     child: Text(
                                       lang.S.of(context).between,
-                                      style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                      style: kTextStyle.copyWith(color: kWhite),
                                     ),
                                   ),
                                 ),
@@ -351,7 +351,7 @@ class _LossProfitReportState extends State<LossProfitReport> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -420,7 +420,7 @@ class _LossProfitReportState extends State<LossProfitReport> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(6.0),
                                     border: Border.all(color: kMainColor),
-                                    color: kWhiteTextColor
+                                    color: kWhite
                                 ),
                                 child: IconButton(
                                   padding: EdgeInsets.zero,
@@ -459,7 +459,7 @@ class _LossProfitReportState extends State<LossProfitReport> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(6.0),
                                     border: Border.all(color: kMainColor),
-                                    color: kWhiteTextColor
+                                    color: kWhite
                                 ),
                                 child: IconButton(
                                   padding: EdgeInsets.zero,

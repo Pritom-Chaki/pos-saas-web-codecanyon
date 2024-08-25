@@ -148,7 +148,7 @@ class _SupplierListState extends State<SupplierList> {
                               padding: const EdgeInsets.all(20.0),
                               child: Container(
                                 padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhiteTextColor),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhite),
                                 child: Column(
                                   children: [
                                     Row(
@@ -209,11 +209,11 @@ class _SupplierListState extends State<SupplierList> {
                                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kBlueTextColor),
                                           child: Row(
                                             children: [
-                                              const Icon(FeatherIcons.plus, color: kWhiteTextColor, size: 18.0),
+                                              const Icon(FeatherIcons.plus, color: kWhite, size: 18.0),
                                               const SizedBox(width: 5.0),
                                               Text(
                                                 lang.S.of(context).addSupplier,
-                                                style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                                style: kTextStyle.copyWith(color: kWhite),
                                               ),
                                             ],
                                           ),
@@ -271,8 +271,7 @@ class _SupplierListState extends State<SupplierList> {
                                                 ),
                                                 DataColumn(
                                                     label: Text('Image', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis))),
-                                                DataColumn(
-                                                    label: Text('Invoice', style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis))),
+
                                                 DataColumn(
                                                     label: Flexible(
                                                         child: Text(lang.S.of(context).partyName,
@@ -316,9 +315,6 @@ class _SupplierListState extends State<SupplierList> {
                                                         showAbleSuppliers[index].customerName,
                                                         style: kTextStyle.copyWith(color: kTitleColor),
                                                       ),
-                                                    ),
-                                                    DataCell(
-                                                      Text(showAbleSuppliers[index].customerName),
                                                     ),
                                                     DataCell(
                                                       Text(showAbleSuppliers[index].type),

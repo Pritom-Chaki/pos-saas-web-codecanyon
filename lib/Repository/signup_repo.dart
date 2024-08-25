@@ -6,7 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:salespro_admin/Repository/subscriptionPlanRepo.dart';
-
+import 'package:http/http.dart' as http;
 import '../Screen/Authentication/add_profile.dart';
 import '../const.dart';
 import '../model/subscription_plan_model.dart';
@@ -69,6 +69,19 @@ class SignUpRepo extends ChangeNotifier {
           duration: const Duration(seconds: 3),
         ),
       );
+    }
+  }
+}
+
+
+class PurchaseModel {
+  Future<bool> isActiveBuyer() async {
+    final response =
+    await http.get(Uri.parse('https://api.envato.com/v3/market/author/sale?code=$purchaseCode'), headers: {'Authorization': 'Bearer orZoxiU81Ok7kxsE0FvfraaO0vDW5tiz'});
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

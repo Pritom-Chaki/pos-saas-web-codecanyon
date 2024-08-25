@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:salespro_admin/Screen/WareHouse/warehouse_model.dart';
 import 'package:salespro_admin/model/category_model.dart';
 
 import '../const.dart';
@@ -31,11 +32,11 @@ class ProductRepo {
   }
 
 
-  Future<List<dynamic>> getAllProductByJsonWarehouse({required String searchData,required String warehouseId}) async {
+  Future<List<dynamic>> getAllProductByJsonWarehouse({required String searchData,required WareHouseModel warehouseId}) async {
     List<dynamic> productList = [];
     await FirebaseDatabase.instance.ref(await getUserID()).child('Products').orderByKey().get().then((value) {
       for (var element in value.children) {
-        if (jsonDecode(jsonEncode(element.value))['productName'].toString().toLowerCase().contains(searchData.toLowerCase()) && jsonDecode(jsonEncode(element.value))['warehouseId'].toString() == warehouseId) {
+        if (jsonDecode(jsonEncode(element.value))['productName'].toString().toLowerCase().contains(searchData.toLowerCase()) &&  ((jsonDecode(jsonEncode(element.value))['warehouseId'] == '' && warehouseId.warehouseName == 'InHouse') ? true : jsonDecode(jsonEncode(element.value))['warehouseId'].toString() == warehouseId.id)) {
           productList.add(element.value);
         }
       }

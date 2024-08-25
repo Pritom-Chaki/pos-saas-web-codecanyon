@@ -14,6 +14,7 @@ import 'package:salespro_admin/generated/l10n.dart' as lang;
 import '../../PDF/print_pdf.dart';
 import '../../Provider/due_transaction_provider.dart';
 import '../../Provider/profile_provider.dart';
+import '../../const.dart';
 import '../../currency.dart';
 import '../../model/due_transaction_model.dart';
 import '../Widgets/Constant Data/constant.dart';
@@ -147,7 +148,7 @@ class _DueReportWidgetState extends State<DueReportWidget> {
                 padding: const EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,7 +182,7 @@ class _DueReportWidgetState extends State<DueReportWidget> {
                                   child: Center(
                                     child: Text(
                                       lang.S.of(context).between,
-                                      style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                      style: kTextStyle.copyWith(color: kWhite),
                                     ),
                                   ),
                                 ),
@@ -280,7 +281,7 @@ class _DueReportWidgetState extends State<DueReportWidget> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: kWhiteTextColor,
+                  color: kWhite,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -496,7 +497,7 @@ class _DueReportWidgetState extends State<DueReportWidget> {
                                                           AnchorElement(
                                                               href:
                                                                   "data:application/octet-stream;charset=utf-16le;base64,${base64Encode(await GeneratePdfAndPrint().generateDueDocument(personalInformation: profile.value!, transactions: reTransaction[index]))}")
-                                                            ..setAttribute("download", "POS_SAAS_D-${reTransaction[index].invoiceNumber}.pdf")
+                                                            ..setAttribute("download", "${invoiceFileName}_D-${reTransaction[index].invoiceNumber}.pdf")
                                                             ..click();
                                                         },
                                                         child: Row(

@@ -80,7 +80,38 @@ class _BulkProductUploadPopupState extends State<BulkProductUploadPopup> {
     String productPicture =
         'https://firebasestorage.googleapis.com/v0/b/maanpos.appspot.com/o/Product%20No%20Image%2Fno-image-found-360x250.png?alt=media&token=9299964e-22b3-4d88-924e-5eeb285ae672';
 
-    ProductModel productModel = ProductModel('', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '','','', productPicture, [], lowerStockAlert: 0);
+    ProductModel productModel = ProductModel(
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      productPicture,
+      [],
+      lowerStockAlert: 0,
+      taxType: '',
+      margin: 0,
+      excTax: 0,
+      incTax: 0,
+      groupTaxName: '',
+      groupTaxRate: 0,
+      subTaxes: [],
+    );
     for (var element in row) {
       if (element?.rowIndex == 0) {
         return null;
@@ -235,6 +266,7 @@ class _BulkProductUploadPopupState extends State<BulkProductUploadPopup> {
 
   Future<void> downloadFile() async {
     final storage = FirebaseStorage.instance;
+    // final ref = storage.ref('gs://pos-saas-a7b6c.appspot.com/POS_Bharat_bulk_product_upload.xlsx');
     final ref = storage.ref('gs://pos-saas-a7b6c.appspot.com/POS_SAAS_bulk_product_upload.xlsx');
     try {
       final url = await ref.getDownloadURL();
@@ -266,14 +298,16 @@ class _BulkProductUploadPopupState extends State<BulkProductUploadPopup> {
         return Container(
           width: 500,
           padding: const EdgeInsets.only(bottom: 20, right: 20, left: 20, top: 0),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,
             children: [
-              IconButton(onPressed: (){
-                Navigator.pop(context);
-              }, icon: const Icon(Icons.close)),
+              IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.close)),
               Row(
                 children: [
                   const Text(
@@ -308,7 +342,11 @@ class _BulkProductUploadPopupState extends State<BulkProductUploadPopup> {
                                       text: TextSpan(
                                           text: 'Upload an Excel',
                                           style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
-                                          children: [TextSpan(text: ' or drag & drop .xlsx', style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))])),
+                                          children: [
+                                        TextSpan(
+                                            text: ' or drag & drop .xlsx',
+                                            style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
+                                      ])),
                                   const SizedBox(height: 5.0),
                                 ],
                               )

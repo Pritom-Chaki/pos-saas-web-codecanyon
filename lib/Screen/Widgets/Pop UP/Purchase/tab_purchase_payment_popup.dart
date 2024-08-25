@@ -104,7 +104,7 @@ class _TabPurchaseShowPaymentPopUpState extends State<TabPurchaseShowPaymentPopU
                   children: [
                     Container(
                       padding: const EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kWhiteTextColor, border: Border.all(color: kLitGreyColor)),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kWhite, border: Border.all(color: kLitGreyColor)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -256,7 +256,7 @@ class _TabPurchaseShowPaymentPopUpState extends State<TabPurchaseShowPaymentPopU
                       padding: const EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.0),
-                        color: kWhiteTextColor,
+                        color: kWhite,
                         border: Border.all(color: kLitGreyColor),
                       ),
                       child: Column(
@@ -265,7 +265,7 @@ class _TabPurchaseShowPaymentPopUpState extends State<TabPurchaseShowPaymentPopU
                             padding: const EdgeInsets.all(10.0),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(topLeft: radiusCircular(5.0), topRight: radiusCircular(5.0)),
-                              color: kWhiteTextColor,
+                              color: kWhite,
                               border: Border.all(color: kLitGreyColor),
                             ),
                             child: Row(
@@ -285,7 +285,7 @@ class _TabPurchaseShowPaymentPopUpState extends State<TabPurchaseShowPaymentPopU
                           Container(
                             padding: const EdgeInsets.all(10.0),
                             decoration: BoxDecoration(
-                              color: kWhiteTextColor,
+                              color: kWhite,
                               border: Border.all(color: kLitGreyColor),
                             ),
                             child: Row(
@@ -305,7 +305,7 @@ class _TabPurchaseShowPaymentPopUpState extends State<TabPurchaseShowPaymentPopU
                           Container(
                             padding: const EdgeInsets.all(10.0),
                             decoration: BoxDecoration(
-                              color: kWhiteTextColor,
+                              color: kWhite,
                               border: Border.all(color: kLitGreyColor),
                             ),
                             child: Row(
@@ -359,7 +359,7 @@ class _TabPurchaseShowPaymentPopUpState extends State<TabPurchaseShowPaymentPopU
                             ),
                             child: Text(
                               lang.S.of(context).cancel,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             )).onTap(() => {finish(context)}),
                         const SizedBox(width: 40.0),
                         Container(
@@ -370,7 +370,7 @@ class _TabPurchaseShowPaymentPopUpState extends State<TabPurchaseShowPaymentPopU
                           ),
                           child: Text(
                             lang.S.of(context).submit,
-                            style: kTextStyle.copyWith(color: kWhiteTextColor),
+                            style: kTextStyle.copyWith(color: kWhite),
                           ),
                         ).onTap(
                           () async {

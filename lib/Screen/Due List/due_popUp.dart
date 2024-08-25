@@ -44,6 +44,7 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
     customerType: widget.customerModel.type,
     invoiceNumber: invoice.toString(),
     purchaseDate: DateTime.now().toString(),
+    customerGst: widget.customerModel.gst,
   );
 
   List<String> paymentItem = [
@@ -138,7 +139,7 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                         ///______________select_invoice_and_pay_box____________________________
                         Container(
                           padding: const EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kWhiteTextColor, border: Border.all(color: kLitGreyColor)),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kWhite, border: Border.all(color: kLitGreyColor)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -360,7 +361,7 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                       ),
                                       child: Text(
                                         lang.S.of(context).cancel,
-                                        style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                        style: kTextStyle.copyWith(color: kWhite),
                                       )).onTap(() => {
                                         finish(context),
                                       }),
@@ -373,22 +374,12 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                     ),
                                     child: Text(
                                       lang.S.of(context).submit,
-                                      style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                      style: kTextStyle.copyWith(color: kWhite),
                                     ),
                                   ).onTap(
                                     saleButtonClicked
                                         ? () {}
                                         : () async {
-
-
-                                      final availableSubscription = await Subscription.availableSubscription(context: context);
-                                      final availableLimit = await Subscription.availableLimit(itemType: 'dueNumber', context: context);
-                                      if (!availableSubscription) {
-                                        return  EasyLoading.showError("Please update your subscription. Subscription date is expired.");
-                                      } else if (!availableLimit) {
-                                        return  EasyLoading.showError("Please Update Your Subscription. Your Due limit is expired.");
-                                      }
-
                                             if (dueAmount > 0 && !payingAmountController.text.isEmptyOrNull && payingAmountController.text.toInt() > 0) {
                                               try {
                                                 setState(() {

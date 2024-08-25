@@ -236,7 +236,7 @@ class _SaleListPopUPState extends State<SaleListPopUP> {
                     children: [
                       Container(
                         decoration: const BoxDecoration(
-                          color: kWhiteTextColor,
+                          color: kWhite,
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -470,7 +470,7 @@ class _SaleListPopUPState extends State<SaleListPopUP> {
                                     ),
                                     child: Text(
                                       lang.S.of(context).cancel,
-                                      style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                      style: kTextStyle.copyWith(color: kWhite),
                                     )).onTap(() => {finish(context)}),
                                 const SizedBox(width: 10.0),
                                 Container(
@@ -481,7 +481,7 @@ class _SaleListPopUPState extends State<SaleListPopUP> {
                                     ),
                                     child: Text(
                                       lang.S.of(context).print,
-                                      style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                      style: kTextStyle.copyWith(color: kWhite),
                                     )).onTap(() => {finish(context)})
                               ],
                             ),

@@ -118,7 +118,7 @@ class _NewIncomeState extends State<NewIncome> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kRedTextColor),
                             child: Text(
                               lang.S.of(context).cancel,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() {
                             finish(context);
@@ -131,7 +131,7 @@ class _NewIncomeState extends State<NewIncome> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kGreenTextColor),
                             child: Text(
                               lang.S.of(context).submit,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() {
                             finish(context);
@@ -287,7 +287,7 @@ class _NewIncomeState extends State<NewIncome> {
                           child: Container(
                             height: MediaQuery.of(context).size.height-240,
                             padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhiteTextColor),
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhite),
                             child: Form(
                               key: formKey,
                               child: SingleChildScrollView(
@@ -545,7 +545,7 @@ class _NewIncomeState extends State<NewIncome> {
                                             child: Center(
                                               child: Text(
                                                 lang.S.of(context).cancel,
-                                                style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                                style: kTextStyle.copyWith(color: kWhite),
                                               ),
                                             ),
                                           ),
@@ -563,7 +563,7 @@ class _NewIncomeState extends State<NewIncome> {
                                           child: Center(
                                             child: Text(
                                               lang.S.of(context).saveAndPublish,
-                                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                              style: kTextStyle.copyWith(color: kWhite),
                                             ),
                                           ),
                                         ).onTap(

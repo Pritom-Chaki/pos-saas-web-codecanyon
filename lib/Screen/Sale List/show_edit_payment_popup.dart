@@ -107,24 +107,6 @@ class _ShowEditPaymentPopUpState extends State<ShowEditPaymentPopUp> {
     }
   }
 
-  SaleTransactionModel checkLossProfit({required SaleTransactionModel transitionModel}) {
-    int totalQuantity = 0;
-    double lossProfit = 0;
-    double totalPurchasePrice = 0;
-    double totalSalePrice = 0;
-    for (var element in transitionModel.productList!) {
-      totalPurchasePrice = totalPurchasePrice + (double.parse(element.productPurchasePrice) * element.quantity);
-      totalSalePrice = totalSalePrice + (double.parse(element.subTotal.toString()) * element.quantity);
-
-      totalQuantity = totalQuantity + element.quantity;
-    }
-    lossProfit = ((totalSalePrice - totalPurchasePrice) - double.parse(transitionModel.discountAmount.toString()));
-
-    transitionModel.totalQuantity = totalQuantity;
-    transitionModel.lossProfit = lossProfit;
-
-    return transitionModel;
-  }
 
   final ScrollController mainSideScroller = ScrollController();
   @override
@@ -171,7 +153,7 @@ class _ShowEditPaymentPopUpState extends State<ShowEditPaymentPopUp> {
                               flex: 4,
                               child: Container(
                                 padding: const EdgeInsets.all(10.0),
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kWhiteTextColor, border: Border.all(color: kLitGreyColor)),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kWhite, border: Border.all(color: kLitGreyColor)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -307,7 +289,7 @@ class _ShowEditPaymentPopUpState extends State<ShowEditPaymentPopUp> {
                                           ),
                                           child: Text(
                                             lang.S.of(context).cancel,
-                                            style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                            style: kTextStyle.copyWith(color: kWhite),
                                           ),
                                         ).onTap(() => {finish(context)}),
                                         const SizedBox(width: 40.0),
@@ -319,7 +301,7 @@ class _ShowEditPaymentPopUpState extends State<ShowEditPaymentPopUp> {
                                           ),
                                           child: Text(
                                             lang.S.of(context).submit,
-                                            style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                            style: kTextStyle.copyWith(color: kWhite),
                                           ),
                                         ).onTap(
                                           () async {
@@ -377,6 +359,13 @@ class _ShowEditPaymentPopUpState extends State<ShowEditPaymentPopUp> {
                                                                     quantity: futureElement.quantity.toInt() - pastElement.quantity.toInt(),
                                                                     serialNumber: pastElement.serialNumber,
                                                                     productPurchasePrice: pastElement.productPurchasePrice,
+                                                                    subTaxes: pastElement.subTaxes,
+                                                                    excTax: pastElement.excTax,
+                                                                    groupTaxName: pastElement.groupTaxName,
+                                                                    groupTaxRate: pastElement.groupTaxRate,
+                                                                    incTax: pastElement.incTax,
+                                                                    margin: pastElement.margin,
+                                                                    taxType: pastElement.taxType,
                                                                   ),
                                                                 );
                                                         } else if (pastElement.quantity > futureElement.quantity && pastElement.quantity != futureElement.quantity) {
@@ -392,10 +381,17 @@ class _ShowEditPaymentPopUpState extends State<ShowEditPaymentPopUp> {
                                                                     quantity: pastElement.quantity - futureElement.quantity,
                                                                     serialNumber: pastElement.serialNumber != []
                                                                         ? futureElement.quantity < pastElement.serialNumber!.length
-                                                                            ? pastElement.serialNumber!.sublist(0, futureElement.quantity + 1)
+                                                                            ? pastElement.serialNumber!.sublist(0, futureElement.quantity.round() + 1)
                                                                             : pastElement.serialNumber
                                                                         : [],
                                                                     productPurchasePrice: pastElement.productPurchasePrice,
+                                                                    subTaxes: pastElement.subTaxes,
+                                                                    excTax: pastElement.excTax,
+                                                                    groupTaxName: pastElement.groupTaxName,
+                                                                    groupTaxRate: pastElement.groupTaxRate,
+                                                                    incTax: pastElement.incTax,
+                                                                    margin: pastElement.margin,
+                                                                    taxType: pastElement.taxType,
                                                                   ),
                                                                 );
                                                         }
@@ -412,7 +408,13 @@ class _ShowEditPaymentPopUpState extends State<ShowEditPaymentPopUp> {
                                                                 productImage: pastElement.productImage,
                                                                 quantity: pastElement.quantity,
                                                                 serialNumber: pastElement.serialNumber,
-                                                                productPurchasePrice: pastElement.productPurchasePrice),
+                                                                productPurchasePrice: pastElement.productPurchasePrice,subTaxes: pastElement.subTaxes,
+                                                              excTax: pastElement.excTax,
+                                                              groupTaxName: pastElement.groupTaxName,
+                                                              groupTaxRate: pastElement.groupTaxRate,
+                                                              incTax: pastElement.incTax,
+                                                              margin: pastElement.margin,
+                                                              taxType: pastElement.taxType,),
                                                           );
                                                         }
                                                       }
@@ -549,7 +551,7 @@ class _ShowEditPaymentPopUpState extends State<ShowEditPaymentPopUp> {
                                 padding: const EdgeInsets.all(10.0),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5.0),
-                                  color: kWhiteTextColor,
+                                  color: kWhite,
                                   border: Border.all(color: kLitGreyColor),
                                 ),
                                 child: Column(
@@ -559,7 +561,7 @@ class _ShowEditPaymentPopUpState extends State<ShowEditPaymentPopUp> {
                                       padding: const EdgeInsets.all(10.0),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.only(topLeft: radiusCircular(5.0), topRight: radiusCircular(5.0)),
-                                        color: kWhiteTextColor,
+                                        color: kWhite,
                                         border: Border.all(color: kLitGreyColor),
                                       ),
                                       child: Row(
@@ -581,7 +583,7 @@ class _ShowEditPaymentPopUpState extends State<ShowEditPaymentPopUp> {
                                     Container(
                                       padding: const EdgeInsets.all(10.0),
                                       decoration: BoxDecoration(
-                                        color: kWhiteTextColor,
+                                        color: kWhite,
                                         border: Border.all(color: kLitGreyColor),
                                       ),
                                       child: Row(
@@ -600,32 +602,32 @@ class _ShowEditPaymentPopUpState extends State<ShowEditPaymentPopUp> {
                                     ),
 
                                     ///__________vat_gst__________________________________________________________
-                                    Container(
-                                      padding: const EdgeInsets.all(10.0),
-                                      decoration: BoxDecoration(
-                                        color: kWhiteTextColor,
-                                        border: Border.all(color: kLitGreyColor),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            lang.S.of(context).vatOrgst,
-                                            style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                                          ),
-                                          const Spacer(),
-                                          Text(
-                                            '$currency ${widget.newTransitionModel.vat}',
-                                            style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                    // Container(
+                                    //   padding: const EdgeInsets.all(10.0),
+                                    //   decoration: BoxDecoration(
+                                    //     color: kWhite,
+                                    //     border: Border.all(color: kLitGreyColor),
+                                    //   ),
+                                    //   child: Row(
+                                    //     children: [
+                                    //       Text(
+                                    //         lang.S.of(context).vatOrgst,
+                                    //         style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                    //       ),
+                                    //       const Spacer(),
+                                    //       Text(
+                                    //         '$currency ${widget.newTransitionModel.vat}',
+                                    //         style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                    //       ),
+                                    //     ],
+                                    //   ),
+                                    // ),
 
                                     ///___________service_________________________________________________________
                                     Container(
                                       padding: const EdgeInsets.all(10.0),
                                       decoration: BoxDecoration(
-                                        color: kWhiteTextColor,
+                                        color: kWhite,
                                         border: Border.all(color: kLitGreyColor),
                                       ),
                                       child: Row(
@@ -647,7 +649,7 @@ class _ShowEditPaymentPopUpState extends State<ShowEditPaymentPopUp> {
                                     Container(
                                       padding: const EdgeInsets.all(10.0),
                                       decoration: BoxDecoration(
-                                        color: kWhiteTextColor,
+                                        color: kWhite,
                                         border: Border.all(color: kLitGreyColor),
                                       ),
                                       child: Row(

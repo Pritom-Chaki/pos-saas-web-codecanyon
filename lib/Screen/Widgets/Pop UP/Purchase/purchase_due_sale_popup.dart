@@ -227,7 +227,7 @@ class _PurchaseDueSalePopUpState extends State<PurchaseDueSalePopUp> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kRedTextColor),
                             child: Text(
                               lang.S.of(context).cancel,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() {
                             finish(context);
@@ -240,7 +240,7 @@ class _PurchaseDueSalePopUpState extends State<PurchaseDueSalePopUp> {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kGreenTextColor),
                             child: Text(
                               lang.S.of(context).submit,
-                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                              style: kTextStyle.copyWith(color: kWhite),
                             ),
                           ).onTap(() {
                             finish(context);
@@ -500,7 +500,7 @@ class _PurchaseDueSalePopUpState extends State<PurchaseDueSalePopUp> {
                                 children: [
                                   Container(
                                     decoration: const BoxDecoration(
-                                      color: kWhiteTextColor,
+                                      color: kWhite,
                                     ),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,

@@ -473,44 +473,4 @@ class Subscription {
     // FirebaseDatabase.instance.ref('$userId/Subscription').update({itemType: afterAction});
     // Subscription.getUserLimitsData(context: context, wannaShowMsg: false);
   }
-
-  static Future<bool> availableLimit({required String itemType, required BuildContext? context}) async {
-    final ref = await FirebaseDatabase.instance.ref(constUserId).child('Subscription');
-    // ref.keepSynced(true);
-    int beforeAction=0;
-    await ref.child(itemType).get().then((value) {
-      print(value.value);
-      beforeAction = int.parse(value.value.toString());
-    });
-    if (beforeAction < 1 && beforeAction != -202) return false;
-    return true;
-  }
-
-  static Future<bool> availableSubscription({required BuildContext? context}) async {
-    final ref = await FirebaseDatabase.instance.ref(constUserId).child('Subscription');
-    ref.keepSynced(true);
-    late DateTime subscriptionDate ;
-    DateTime currentDate = DateTime.now();
-    int duration = 0;
-    await ref.child("subscriptionDate").get().then((value) {
-      print(value.value);
-      subscriptionDate = DateTime.parse(value.value.toString());
-    });
-
-    await  ref.child("duration").get().then((value) {
-      print(value.value);
-      duration = int.parse(value.value.toString());
-    });
-
-    var from = DateTime(subscriptionDate.year, subscriptionDate.month, subscriptionDate.day);
-    var to = DateTime(currentDate.year, currentDate.month, currentDate.day);
-    int value = (to.difference(from).inHours / 24).round();
-    print(value);
-    if (value > duration) return false;
-    // print(subscriptionDate);
-    // print(value.value);
-    // print(value.value);
-    // 2024-02-13 17:05:05.864606
-    return true;
-  }
 }

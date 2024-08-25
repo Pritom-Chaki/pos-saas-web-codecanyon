@@ -113,10 +113,658 @@ class _PurchasePlanState extends State<PurchasePlan> {
                             padding: const EdgeInsets.all(20.0),
                             child: Container(
                               padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhiteTextColor),
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhite),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Text(
+                                    lang.S.of(context).purchasePremiumPlan,
+                                    style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, fontSize: 18.0),
+                                  ),
+                                  Divider(
+                                    thickness: 1.0,
+                                    color: kGreyTextColor.withOpacity(0.1),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Expanded(
+                                              flex: 1,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  showDialog(
+                                                    barrierDismissible: false,
+                                                    context: context,
+                                                    builder: (BuildContext context) {
+                                                      return Dialog(
+                                                        insetPadding: const EdgeInsets.symmetric(horizontal: 200),
+                                                        child: Column(
+                                                          mainAxisSize: MainAxisSize.min,
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: [
+                                                            const SizedBox(height: 20),
+                                                            Row(
+                                                              mainAxisSize: MainAxisSize.max,
+                                                              mainAxisAlignment: MainAxisAlignment.end,
+                                                              children: [
+                                                                GestureDetector(
+                                                                  child: const Icon(Icons.cancel),
+                                                                  onTap: () {
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                ),
+                                                                const SizedBox(width: 20),
+                                                              ],
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                            Container(
+                                                              height: 200,
+                                                              width: 200,
+                                                              decoration:
+                                                                  const BoxDecoration(image: DecorationImage(image: AssetImage('images/plan_details_1.png'), fit: BoxFit.cover)),
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                             Text(
+                                                              lang.S.of(context).freeLifeTimeUpdate,
+                                                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                                            ),
+                                                            const SizedBox(height: 15),
+                                                             Padding(
+                                                              padding: const EdgeInsets.only(left: 20.0, right: 20),
+                                                              child: Text(
+                                                                  lang.S.of(context).stayAtTheForeFrontOfTechnological,
+                                                                  textAlign: TextAlign.center,
+                                                                  style: const TextStyle(fontSize: 16)),
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                child: Card(
+                                                  elevation: 1.0,
+                                                  shadowColor: Colors.grey.shade700,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(2.0),
+                                                  ),
+                                                  child: Container(
+                                                    padding: const EdgeInsets.all(10.0),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(2.0),
+                                                      color: Colors.white,
+                                                      boxShadow: const [
+                                                        BoxShadow(
+                                                          color: kDarkWhite,
+                                                          spreadRadius: 1.0,
+                                                          blurRadius: 7,
+                                                          offset: Offset(0, 2),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          height: 40,
+                                                          width: 40,
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(2.0),
+                                                            image: const DecorationImage(
+                                                              image: AssetImage('images/sp1.png'),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(width: 8),
+                                                         Text(
+                                                          lang.S.of(context).freeLifeTimeUpdate,
+                                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                                        ),
+                                                        const Spacer(),
+                                                        const Icon(FeatherIcons.alertCircle),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 20.0),
+                                            Expanded(
+                                              flex: 1,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  showDialog(
+                                                    barrierDismissible: false,
+                                                    context: context,
+                                                    builder: (BuildContext context) {
+                                                      return Dialog(
+                                                        insetPadding: const EdgeInsets.symmetric(horizontal: 200),
+                                                        child: Column(
+                                                          mainAxisSize: MainAxisSize.min,
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: [
+                                                            const SizedBox(height: 20),
+                                                            Row(
+                                                              mainAxisSize: MainAxisSize.max,
+                                                              mainAxisAlignment: MainAxisAlignment.end,
+                                                              children: [
+                                                                GestureDetector(
+                                                                  child: const Icon(Icons.cancel),
+                                                                  onTap: () {
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                ),
+                                                                const SizedBox(width: 20),
+                                                              ],
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                            Container(
+                                                              height: 200,
+                                                              width: 200,
+                                                              decoration:
+                                                                  const BoxDecoration(image: DecorationImage(image: AssetImage('images/plan_details_2.png'), fit: BoxFit.cover)),
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                             Text(
+                                                              lang.S.of(context).androidIOSAppSupport,
+                                                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                                            ),
+                                                            const SizedBox(height: 15),
+                                                             Padding(
+                                                              padding: const EdgeInsets.only(left: 20.0, right: 20),
+                                                              child: Text(
+                                                                  lang.S.of(context).weUnderStand,
+                                                                  textAlign: TextAlign.center,
+                                                                  style: const TextStyle(fontSize: 16)),
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                child: Card(
+                                                  elevation: 1.0,
+                                                  shadowColor: Colors.grey.shade700,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(2.0),
+                                                  ),
+                                                  child: Container(
+                                                    padding: const EdgeInsets.all(10.0),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(2.0),
+                                                      color: Colors.white,
+                                                      boxShadow: const [
+                                                        BoxShadow(
+                                                          color: kDarkWhite,
+                                                          spreadRadius: 1.0,
+                                                          blurRadius: 7,
+                                                          offset: Offset(0, 2),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          height: 40,
+                                                          width: 40,
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(2.0),
+                                                            image: const DecorationImage(
+                                                              image: AssetImage('images/sp2.png'),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(width: 8),
+                                                         Text(
+                                                          lang.S.of(context).androidIOSAppSupport,
+                                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                                        ),
+                                                        const Spacer(),
+                                                        const Icon(FeatherIcons.alertCircle),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 20.0),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Expanded(
+                                              flex: 1,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  showDialog(
+                                                    barrierDismissible: false,
+                                                    context: context,
+                                                    builder: (BuildContext context) {
+                                                      return Dialog(
+                                                        insetPadding: const EdgeInsets.symmetric(horizontal: 200),
+                                                        child: Column(
+                                                          mainAxisSize: MainAxisSize.min,
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: [
+                                                            const SizedBox(height: 20),
+                                                            Row(
+                                                              mainAxisSize: MainAxisSize.max,
+                                                              mainAxisAlignment: MainAxisAlignment.end,
+                                                              children: [
+                                                                GestureDetector(
+                                                                  child: const Icon(Icons.cancel),
+                                                                  onTap: () {
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                ),
+                                                                const SizedBox(width: 20),
+                                                              ],
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                            Container(
+                                                              height: 200,
+                                                              width: 200,
+                                                              decoration:
+                                                                  const BoxDecoration(image: DecorationImage(image: AssetImage('images/plan_details_3.png'), fit: BoxFit.cover)),
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                             Text(
+                                                              lang.S.of(context).premiumCustomerSupport,
+                                                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                                            ),
+                                                            const SizedBox(height: 15),
+                                                             Padding(
+                                                              padding: const EdgeInsets.only(left: 20.0, right: 20),
+                                                              child: Text(
+                                                                  lang.S.of(context).unlockTheFull,
+                                                                  textAlign: TextAlign.center,
+                                                                  style: const TextStyle(fontSize: 16)),
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                child: Card(
+                                                  elevation: 1.0,
+                                                  shadowColor: Colors.grey.shade700,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(2.0),
+                                                  ),
+                                                  child: Container(
+                                                    padding: const EdgeInsets.all(10.0),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(2.0),
+                                                      color: Colors.white,
+                                                      boxShadow: const [
+                                                        BoxShadow(
+                                                          color: kDarkWhite,
+                                                          spreadRadius: 1.0,
+                                                          blurRadius: 7,
+                                                          offset: Offset(0, 2),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          height: 40,
+                                                          width: 40,
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(2.0),
+                                                            image: const DecorationImage(
+                                                              image: AssetImage('images/sp3.png'),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(width: 8),
+                                                         Text(
+                                                          lang.S.of(context).premiumCustomerSupport,
+                                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                                        ),
+                                                        const Spacer(),
+                                                        const Icon(FeatherIcons.alertCircle),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 20.0),
+                                            Expanded(
+                                              flex: 1,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  showDialog(
+                                                    barrierDismissible: false,
+                                                    context: context,
+                                                    builder: (BuildContext context) {
+                                                      return Dialog(
+                                                        insetPadding: const EdgeInsets.symmetric(horizontal: 200),
+                                                        child: Column(
+                                                          mainAxisSize: MainAxisSize.min,
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: [
+                                                            const SizedBox(height: 20),
+                                                            Row(
+                                                              mainAxisSize: MainAxisSize.max,
+                                                              mainAxisAlignment: MainAxisAlignment.end,
+                                                              children: [
+                                                                GestureDetector(
+                                                                  child: const Icon(Icons.cancel),
+                                                                  onTap: () {
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                ),
+                                                                const SizedBox(width: 20),
+                                                              ],
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                            Container(
+                                                              height: 200,
+                                                              width: 200,
+                                                              decoration:
+                                                                  const BoxDecoration(image: DecorationImage(image: AssetImage('images/plan_details_4.png'), fit: BoxFit.cover)),
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                             Text(
+                                                              lang.S.of(context).customInvoiceBranding,
+                                                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                                            ),
+                                                            const SizedBox(height: 15),
+                                                             Padding(
+                                                              padding: const EdgeInsets.only(left: 20.0, right: 20),
+                                                              child: Text(
+                                                                  lang.S.of(context).makeALastingImpression,
+                                                                  textAlign: TextAlign.center,
+                                                                  style: const TextStyle(fontSize: 16)),
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                child: Card(
+                                                  elevation: 1.0,
+                                                  shadowColor: Colors.grey.shade700,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(2.0),
+                                                  ),
+                                                  child: Container(
+                                                    padding: const EdgeInsets.all(10.0),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(2.0),
+                                                      color: Colors.white,
+                                                      boxShadow: const [
+                                                        BoxShadow(
+                                                          color: kDarkWhite,
+                                                          spreadRadius: 1.0,
+                                                          blurRadius: 7,
+                                                          offset: Offset(0, 2),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          height: 40,
+                                                          width: 40,
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(2.0),
+                                                            image: const DecorationImage(
+                                                              image: AssetImage('images/sp4.png'),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(width: 8),
+                                                         Text(
+                                                           lang.S.of(context).customInvoiceBranding,
+                                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                                        ),
+                                                        const Spacer(),
+                                                        const Icon(FeatherIcons.alertCircle),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 20.0),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Expanded(
+                                              flex: 1,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  showDialog(
+                                                    barrierDismissible: false,
+                                                    context: context,
+                                                    builder: (BuildContext context) {
+                                                      return Dialog(
+                                                        insetPadding: const EdgeInsets.symmetric(horizontal: 200),
+                                                        child: Column(
+                                                          mainAxisSize: MainAxisSize.min,
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: [
+                                                            const SizedBox(height: 20),
+                                                            Row(
+                                                              mainAxisSize: MainAxisSize.max,
+                                                              mainAxisAlignment: MainAxisAlignment.end,
+                                                              children: [
+                                                                GestureDetector(
+                                                                  child: const Icon(Icons.cancel),
+                                                                  onTap: () {
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                ),
+                                                                const SizedBox(width: 20),
+                                                              ],
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                            Container(
+                                                              height: 200,
+                                                              width: 200,
+                                                              decoration:
+                                                                  const BoxDecoration(image: DecorationImage(image: AssetImage('images/plan_details_5.png'), fit: BoxFit.cover)),
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                             Text(
+                                                              lang.S.of(context).unlimitedUsage,
+                                                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                                            ),
+                                                            const SizedBox(height: 15),
+                                                             Padding(
+                                                              padding: const EdgeInsets.only(left: 20.0, right: 20),
+                                                              child: Text(
+                                                                  lang.S.of(context).theNameSysIt,
+                                                                  textAlign: TextAlign.center,
+                                                                  style: const TextStyle(fontSize: 16)),
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                child: Card(
+                                                  elevation: 1.0,
+                                                  shadowColor: Colors.grey.shade700,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(2.0),
+                                                  ),
+                                                  child: Container(
+                                                    padding: const EdgeInsets.all(10.0),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(2.0),
+                                                      color: Colors.white,
+                                                      boxShadow: const [
+                                                        BoxShadow(
+                                                          color: kDarkWhite,
+                                                          spreadRadius: 1.0,
+                                                          blurRadius: 7,
+                                                          offset: Offset(0, 2),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          height: 40,
+                                                          width: 40,
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(2.0),
+                                                            image: const DecorationImage(
+                                                              image: AssetImage('images/sp5.png'),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(width: 8),
+                                                         Text(
+                                                           lang.S.of(context).unlimitedUsage,
+                                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                                        ),
+                                                        const Spacer(),
+                                                        const Icon(FeatherIcons.alertCircle),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 20.0),
+                                            Expanded(
+                                              flex: 1,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  showDialog(
+                                                    barrierDismissible: false,
+                                                    context: context,
+                                                    builder: (BuildContext context) {
+                                                      return Dialog(
+                                                        insetPadding: const EdgeInsets.symmetric(horizontal: 200),
+                                                        child: Column(
+                                                          mainAxisSize: MainAxisSize.min,
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: [
+                                                            const SizedBox(height: 20),
+                                                            Row(
+                                                              mainAxisSize: MainAxisSize.max,
+                                                              mainAxisAlignment: MainAxisAlignment.end,
+                                                              children: [
+                                                                GestureDetector(
+                                                                  child: const Icon(Icons.cancel),
+                                                                  onTap: () {
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                ),
+                                                                const SizedBox(width: 20),
+                                                              ],
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                            Container(
+                                                              height: 200,
+                                                              width: 200,
+                                                              decoration:
+                                                                  const BoxDecoration(image: DecorationImage(image: AssetImage('images/plan_details_6.png'), fit: BoxFit.cover)),
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                             Text(
+                                                              lang.S.of(context).freeDataBackup,
+                                                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                                            ),
+                                                            const SizedBox(height: 15),
+                                                             Padding(
+                                                              padding: const EdgeInsets.only(left: 20.0, right: 20),
+                                                              child: Text(
+                                                                  lang.S.of(context).safegurardYourBusinessDate,
+                                                                  textAlign: TextAlign.center,
+                                                                  style: const TextStyle(fontSize: 16)),
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                child: Card(
+                                                  elevation: 1.0,
+                                                  shadowColor: Colors.grey.shade700,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(2.0),
+                                                  ),
+                                                  child: Container(
+                                                    padding: const EdgeInsets.all(10.0),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(2.0),
+                                                      color: Colors.white,
+                                                      boxShadow: const [
+                                                        BoxShadow(
+                                                          color: kDarkWhite,
+                                                          spreadRadius: 1.0,
+                                                          blurRadius: 7,
+                                                          offset: Offset(0, 2),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          height: 40,
+                                                          width: 40,
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(2.0),
+                                                            image: const DecorationImage(
+                                                              image: AssetImage('images/sp6.png'),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(width: 8),
+                                                         Text(
+                                                          lang.S.of(context).freeDataBackup,
+                                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                                        ),
+                                                        const Spacer(),
+                                                        const Icon(FeatherIcons.alertCircle),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                   const SizedBox(height: 10),
                                    Padding(
                                     padding: const EdgeInsets.only(left: 20.0),
@@ -295,8 +943,8 @@ class _PurchasePlanState extends State<PurchasePlan> {
                                           }
                                         },
                                         child: Text(
-                                          lang.S.of(context).payNow,
-                                          style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0),
+                                          lang.S.of(context).payCash,
+                                          style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0),
                                         ),
                                       ),
                                     ),

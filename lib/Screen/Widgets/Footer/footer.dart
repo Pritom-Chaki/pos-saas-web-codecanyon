@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:salespro_admin/Screen/Widgets/Constant%20Data/constant.dart';
 
+import '../../../const.dart';
+
 class Footer extends StatelessWidget {
   const Footer({super.key});
 
@@ -15,8 +17,8 @@ class Footer extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Text(
-            'COPYRIGHT © 2023 Acnoo, All rights Reserved',
+           Text(
+            'COPYRIGHT © 2023 $appsName, All rights Reserved',
           ),
           const Spacer(),
           RichText(
@@ -24,7 +26,7 @@ class Footer extends StatelessWidget {
               text: 'Made by',
               children: [
                 TextSpan(
-                  text: ' Acnoo',
+                  text: ' $madeBy',
                   style: kTextStyle.copyWith(color: kMainColor),
                 ),
               ],

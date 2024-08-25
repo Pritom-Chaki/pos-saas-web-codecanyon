@@ -67,7 +67,7 @@ class _EditCategoryState extends State<EditCategory> {
             child: Container(
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: kWhiteTextColor,
+                color: kWhite,
               ),
               width: 600,
               child: Column(
@@ -156,7 +156,7 @@ class _EditCategoryState extends State<EditCategory> {
                                 children: [
                                   Text(
                                     lang.S.of(context).cancel,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   ),
                                 ],
                               ),
@@ -176,7 +176,7 @@ class _EditCategoryState extends State<EditCategory> {
                                 children: [
                                   Text(
                                     lang.S.of(context).saveAndPublish,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   ),
                                 ],
                               ),

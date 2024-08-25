@@ -216,7 +216,7 @@ class _TabletProfileSetUpState extends State<TabletProfileSetUp> {
                               children: [
                                 Container(
                                   padding: const EdgeInsets.all(20.0),
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
@@ -393,7 +393,8 @@ class _TabletProfileSetUpState extends State<TabletProfileSetUp> {
                                         businessCategory: dropdownValue,
                                         shopOpeningBalance: 0,
                                         remainingShopBalance: 0, currency: '\$',
-                                        currentLocale: 'en'
+                                        currentLocale: 'en',
+                                        gst: '',
                                       );
                                       await reference.set(personalInformation.toJson());
                                       EasyLoading.showSuccess('Added Successfully!');

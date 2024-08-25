@@ -56,7 +56,6 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     DatabaseReference ref = FirebaseDatabase.instance.ref('$constUserId/Subscription');
     final model = await ref.get();
     var data = jsonDecode(jsonEncode(model.value));
-    print(data);
     Subscription.selectedItem = SubscriptionModel.fromJson(data).subscriptionName;
     final finalModel = SubscriptionModel.fromJson(data);
     if (finalModel.subscriptionName == 'Free') {
@@ -177,7 +176,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                           child: Container(
                             height: MediaQuery.of(context).size.height-220,
                             padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhiteTextColor),
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhite),
                             child: SingleChildScrollView(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,6 +189,307 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                     thickness: 1.0,
                                     color: kGreyTextColor.withOpacity(0.1),
                                   ),
+                                  // const SizedBox(height: 10.0),
+                                  // Text(
+                                  //   lang.S.of(context).choseAplan,
+                                  //   style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold, fontSize: 21.0),
+                                  //   textAlign: TextAlign.center,
+                                  // ),
+                                  // const SizedBox(height: 20.0),
+                                  // Center(
+                                  //   child: SizedBox(
+                                  //     width: context.width() < 1080 ? 1080 - 240 : MediaQuery.of(context).size.width - 240,
+                                  //     height: 500,
+                                  //     child:
+                                  //
+                                  //     ListView.builder(
+                                  //       physics: const ClampingScrollPhysics(),
+                                  //       shrinkWrap: true,
+                                  //       scrollDirection: Axis.horizontal,
+                                  //       itemCount: data.length,
+                                  //       itemBuilder: (BuildContext context, int index) {
+                                  //         return Padding(
+                                  //           padding: const EdgeInsets.all(8.0),
+                                  //           child: Stack(
+                                  //             children: [
+                                  //               SizedBox(
+                                  //                 width: 260,
+                                  //                 child: Card(
+                                  //                   shape: RoundedRectangleBorder(
+                                  //                     borderRadius: BorderRadius.circular(10.0),
+                                  //                   ),
+                                  //                   child: Column(
+                                  //                     crossAxisAlignment: CrossAxisAlignment.start,
+                                  //                     children: [
+                                  //                       Image.asset(
+                                  //                         'images/free.png',
+                                  //                         height: 80.0,
+                                  //                         width: 80.0,
+                                  //                       ),
+                                  //                       Padding(
+                                  //                         padding: const EdgeInsets.all(20.0),
+                                  //                         child: Column(
+                                  //                           crossAxisAlignment: CrossAxisAlignment.start,
+                                  //                           children: [
+                                  //                             Text(
+                                  //                               data[index].subscriptionName,
+                                  //                               style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, fontSize: 25.0),
+                                  //                             ),
+                                  //                             const SizedBox(height: 6.0),
+                                  //                             Column(
+                                  //                               crossAxisAlignment: CrossAxisAlignment.start,
+                                  //                               mainAxisSize: MainAxisSize.min,
+                                  //                               children: [
+                                  //                                 data[index].offerPrice > 0 ?  Text(
+                                  //                                   data[index].offerPrice > 0 ? '$currency ${data[index].subscriptionPrice}' : '',
+                                  //                                   style: const TextStyle(
+                                  //                                     decoration: TextDecoration.lineThrough,
+                                  //                                     fontSize: 18,
+                                  //                                     color: Colors.grey,
+                                  //                                   ),
+                                  //                                 ): const SizedBox(height: 0,),
+                                  //                                 Row(
+                                  //                                   children: [
+                                  //                                     Text(
+                                  //                                       data[index].offerPrice > 0 ? '$currency${data[index].offerPrice}' : '$currency${data[index].subscriptionPrice}',
+                                  //                                       style: kTextStyle.copyWith(color: colors[index % 3], fontSize: 25.0, fontWeight: FontWeight.bold),
+                                  //                                     ),
+                                  //                                     const SizedBox(width: 4.0),
+                                  //                                     Text(
+                                  //                                       '/${data[index].duration} Day',
+                                  //                                       style: kTextStyle.copyWith(color: kTitleColor),
+                                  //                                     ),
+                                  //                                   ],
+                                  //                                 )
+                                  //                               ],
+                                  //                             ),
+                                  //                             const SizedBox(
+                                  //                               height: 6.0,
+                                  //                             ),
+                                  //                             Text(
+                                  //                               lang.S.of(context).allBasicFeatures,
+                                  //                               style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, fontSize: 16.0),
+                                  //                             ),
+                                  //                             const SizedBox(
+                                  //                               height: 6.0,
+                                  //                             ),
+                                  //                             Row(
+                                  //                               mainAxisSize: MainAxisSize.min,
+                                  //                               children: [
+                                  //                                 Icon(
+                                  //                                   Icons.check,
+                                  //                                   color: colors[index % 3],
+                                  //                                 ),
+                                  //                                 const SizedBox(
+                                  //                                   width: 4.0,
+                                  //                                 ),
+                                  //                                 currentSubscriptionPlan.subscriptionName == data[index].subscriptionName
+                                  //                                     ? Text(
+                                  //                                         data[index].saleNumber == -202
+                                  //                                             ? 'Unlimited Sales'
+                                  //                                             : 'Sales Limit (${currentSubscriptionPlan.saleNumber}/${data[index].saleNumber})',
+                                  //                                         style: kTextStyle.copyWith(color: kTitleColor, fontSize: 12.0),
+                                  //                                       )
+                                  //                                     : Text(
+                                  //                                         data[index].saleNumber == -202 ? 'Unlimited Sales' : '${data[index].saleNumber} Sales',
+                                  //                                         style: kTextStyle.copyWith(color: kTitleColor, fontSize: 12.0),
+                                  //                                       ),
+                                  //                               ],
+                                  //                             ),
+                                  //                             const SizedBox(height: 6.0),
+                                  //                             Row(
+                                  //                               mainAxisSize: MainAxisSize.min,
+                                  //                               children: [
+                                  //                                 Icon(
+                                  //                                   Icons.check,
+                                  //                                   color: colors[index % 3],
+                                  //                                 ),
+                                  //                                 const SizedBox(width: 4.0),
+                                  //                                 currentSubscriptionPlan.subscriptionName == data[index].subscriptionName
+                                  //                                     ? Text(
+                                  //                                         data[index].partiesNumber == -202
+                                  //                                             ? 'Unlimited Purchases'
+                                  //                                             : 'Purchases Limit (${currentSubscriptionPlan.partiesNumber}/${data[index].partiesNumber})',
+                                  //                                         style: kTextStyle.copyWith(color: kTitleColor, fontSize: 12.0),
+                                  //                                       )
+                                  //                                     : Text(
+                                  //                                         data[index].partiesNumber == -202 ? 'Unlimited Purchases' : '${data[index].partiesNumber} Purchases',
+                                  //                                         style: kTextStyle.copyWith(color: kTitleColor, fontSize: 12.0),
+                                  //                                       ),
+                                  //                               ],
+                                  //                             ),
+                                  //                             const SizedBox(height: 6.0),
+                                  //                             Row(
+                                  //                               mainAxisSize: MainAxisSize.min,
+                                  //                               children: [
+                                  //                                 Icon(
+                                  //                                   Icons.check,
+                                  //                                   color: colors[index % 3],
+                                  //                                 ),
+                                  //                                 const SizedBox(
+                                  //                                   width: 4.0,
+                                  //                                 ),
+                                  //                                 currentSubscriptionPlan.subscriptionName == data[index].subscriptionName
+                                  //                                     ? Text(
+                                  //                                         data[index].partiesNumber == -202
+                                  //                                             ? 'Unlimited Parties'
+                                  //                                             : 'Parties Limit (${currentSubscriptionPlan.partiesNumber}/${data[index].partiesNumber})',
+                                  //                                         style: kTextStyle.copyWith(color: kTitleColor, fontSize: 12.0),
+                                  //                                       )
+                                  //                                     : Text(
+                                  //                                         data[index].partiesNumber == -202 ? 'Unlimited Parties' : '${data[index].partiesNumber} Parties',
+                                  //                                         style: kTextStyle.copyWith(color: kTitleColor, fontSize: 12.0),
+                                  //                                       ),
+                                  //                               ],
+                                  //                             ),
+                                  //                             const SizedBox(
+                                  //                               height: 6.0,
+                                  //                             ),
+                                  //                             Row(
+                                  //                               mainAxisSize: MainAxisSize.min,
+                                  //                               children: [
+                                  //                                 Icon(
+                                  //                                   Icons.check,
+                                  //                                   color: colors[index % 3],
+                                  //                                 ),
+                                  //                                 const SizedBox(
+                                  //                                   width: 4.0,
+                                  //                                 ),
+                                  //                                 currentSubscriptionPlan.subscriptionName == data[index].subscriptionName
+                                  //                                     ? Text(
+                                  //                                         data[index].dueNumber == -202
+                                  //                                             ? 'Unlimited Due Collection'
+                                  //                                             : 'Due Collection Limit (${currentSubscriptionPlan.dueNumber}/${data[index].dueNumber})',
+                                  //                                         style: kTextStyle.copyWith(color: kTitleColor, fontSize: 12.0),
+                                  //                                       )
+                                  //                                     : Text(
+                                  //                                         data[index].dueNumber == -202 ? 'Unlimited Due Collection' : '${data[index].dueNumber} Due Collection',
+                                  //                                         style: kTextStyle.copyWith(color: kTitleColor, fontSize: 12.0),
+                                  //                                       ),
+                                  //                               ],
+                                  //                             ),
+                                  //                             const SizedBox(
+                                  //                               height: 6.0,
+                                  //                             ),
+                                  //                             Row(
+                                  //                               mainAxisSize: MainAxisSize.min,
+                                  //                               children: [
+                                  //                                 Icon(
+                                  //                                   Icons.check,
+                                  //                                   color: colors[index % 3],
+                                  //                                 ),
+                                  //                                 const SizedBox(width: 4.0),
+                                  //                                 Text(
+                                  //                                   lang.S.of(context).unlimitedInvoice,
+                                  //                                   style: kTextStyle.copyWith(color: kTitleColor, fontSize: 12.0),
+                                  //                                 ),
+                                  //                               ],
+                                  //                             ),
+                                  //                             const SizedBox(
+                                  //                               height: 6.0,
+                                  //                             ),
+                                  //                             Row(
+                                  //                               mainAxisSize: MainAxisSize.min,
+                                  //                               children: [
+                                  //                                 Icon(
+                                  //                                   Icons.check,
+                                  //                                   color: colors[index % 3],
+                                  //                                 ),
+                                  //                                 const SizedBox(width: 4.0),
+                                  //                                 currentSubscriptionPlan.subscriptionName == data[index].subscriptionName
+                                  //                                     ? Text(
+                                  //                                         data[index].products == -202
+                                  //                                             ? 'Unlimited Products'
+                                  //                                             : 'Products Limit (${currentSubscriptionPlan.products}/${data[index].products})',
+                                  //                                         style: kTextStyle.copyWith(color: kTitleColor, fontSize: 12.0),
+                                  //                                       )
+                                  //                                     : Text(
+                                  //                                         data[index].products == -202 ? 'Unlimited Products' : '${data[index].products} Products',
+                                  //                                         style: kTextStyle.copyWith(color: kTitleColor, fontSize: 12.0),
+                                  //                                       ),
+                                  //                               ],
+                                  //                             ),
+                                  //                             const SizedBox(
+                                  //                               height: 10.0,
+                                  //                             ),
+                                  //                             Container(
+                                  //                               padding: const EdgeInsets.all(6.0),
+                                  //                               width: 200.0,
+                                  //                               decoration: BoxDecoration(
+                                  //                                 borderRadius: BorderRadius.circular(20.0),
+                                  //                                 color: colors[index % 3],
+                                  //                               ),
+                                  //                               child: Row(
+                                  //                                 mainAxisSize: MainAxisSize.min,
+                                  //                                 mainAxisAlignment: MainAxisAlignment.center,
+                                  //                                 children: [
+                                  //                                   Text(
+                                  //                                     lang.S.of(context).getStarted,
+                                  //                                     style: kTextStyle.copyWith(color: white, fontWeight: FontWeight.bold),
+                                  //                                   ),
+                                  //                                   const SizedBox(
+                                  //                                     width: 4.0,
+                                  //                                   ),
+                                  //                                   const Icon(
+                                  //                                     Icons.arrow_forward_rounded,
+                                  //                                     color: white,
+                                  //                                   ),
+                                  //                                 ],
+                                  //                               ),
+                                  //                             ).onTap(() async {
+                                  //                               if (data[index].subscriptionPrice > 0) {
+                                  //                                 EasyLoading.show(status: 'Loading');
+                                  //                                 var paymentUrl = await paypalRepo.getPaymentUrl(
+                                  //                                     data[index].subscriptionName, data[index].subscriptionPrice.toString(), Uri.base.toString());
+                                  //                                 html.window.open(paymentUrl, '_self');
+                                  //                                 EasyLoading.showSuccess('Done');
+                                  //                               } else {
+                                  //                                 PaymentSuccess.updateSubscription(await getUserID(), data[index].subscriptionName, context);
+                                  //                               }
+                                  //                             }).visible(
+                                  //                                 currentSubscriptionPlan.subscriptionName != data[index].subscriptionName && data[index].subscriptionName != 'Free')
+                                  //                           ],
+                                  //                         ),
+                                  //                       ),
+                                  //                     ],
+                                  //                   ),
+                                  //                 ),
+                                  //               ),
+                                  //               ///__________Current Plan__________________________________________________________________________________
+                                  //               Positioned(
+                                  //                 top: 0,
+                                  //                 right: 0,
+                                  //                 child: Container(
+                                  //                   decoration: const BoxDecoration(
+                                  //                       color: kBlueTextColor, borderRadius: BorderRadius.only(topLeft: Radius.circular(15), bottomRight: Radius.circular(15))),
+                                  //                   child: Center(
+                                  //                     child: Padding(
+                                  //                       padding: const EdgeInsets.all(10.0),
+                                  //                       child: Column(
+                                  //                         mainAxisSize: MainAxisSize.min,
+                                  //                         children: [
+                                  //                            Text(
+                                  //                             lang.S.of(context).currentPlan,
+                                  //                             style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                  //                           ),
+                                  //                           Text(
+                                  //                             'Expires in ${(DateTime.parse(currentSubscriptionPlan.subscriptionDate).difference(DateTime.now()).inDays.abs() - currentSubscriptionPlan.duration).abs()} Days',
+                                  //                             style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                  //                             maxLines: 3,
+                                  //                           )
+                                  //                         ],
+                                  //                       ),
+                                  //                     ),
+                                  //                   ),
+                                  //                 ),
+                                  //               ).visible(currentSubscriptionPlan.subscriptionName == data[index].subscriptionName)
+                                  //             ],
+                                  //           ),
+                                  //         );
+                                  //       },
+                                  //     ),
+                                  //   ),
+                                  // ),
 
                                   Padding(
                                     padding: const EdgeInsets.all(10.0),
@@ -272,7 +572,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                                         style: const TextStyle(fontSize: 14),
                                                       ),
                                                       Text(
-                                                        ' $initialSelectedPackage',
+                                                        '$initialSelectedPackage',
                                                         style: const TextStyle(fontSize: 14, color: kMainColor, fontWeight: FontWeight.bold),
                                                       ),
                                                     ],
@@ -377,7 +677,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                                                 style: const TextStyle(color: Colors.grey),
                                                               )
                                                             : Text(
-                                                          initialPackageService?[i] == '-202' ? 'Unlimited':  '(${initialPackageService?[i] ?? ''})',
+                                                                lang.S.of(context).unlimited,
                                                                 style: const TextStyle(color: Colors.grey),
                                                               ),
                                                       ],
@@ -425,7 +725,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                         },
                                         child: Text(
                                           lang.S.of(context).updateNow,
-                                          style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0),
+                                          style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0),
                                         ),
                                       ),
                                     ),

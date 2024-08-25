@@ -46,6 +46,44 @@ FutureOr<Uint8List> generateSaleReturnDocument({required SaleTransactionModel tr
                 ),
               ),
 
+              ///______Phone________________________________________________________________
+              pw.Container(
+                width: double.infinity,
+                padding: const pw.EdgeInsets.all(1.0),
+                child: pw.Center(
+                  child: pw.Text(
+                    'Phone: ${personalInformation.phoneNumber}',
+                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                  ),
+                ),
+              ),
+
+              ///______Address________________________________________________________________
+              pw.Container(
+                width: double.infinity,
+                padding: const pw.EdgeInsets.all(1.0),
+                child: pw.Center(
+                  child: pw.Text(
+                    'Address: ${personalInformation.countryName}',
+                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                  ),
+                ),
+              ),
+
+              ///______Shop_GST________________________________________________________________
+              personalInformation.gst.trim().isNotEmpty
+                  ? pw.Container(
+                      width: double.infinity,
+                      padding: const pw.EdgeInsets.all(1.0),
+                      child: pw.Center(
+                        child: pw.Text(
+                          'Shop GST: ${personalInformation.gst}',
+                          style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                        ),
+                      ),
+                    )
+                  : pw.Container(),
+
               ///________Bill/Invoice_________________________________________________________
               pw.Container(
                 width: double.infinity,
@@ -145,6 +183,34 @@ FutureOr<Uint8List> generateSaleReturnDocument({required SaleTransactionModel tr
                       ),
                     ),
                   ]),
+
+                  ///_____Party GST_______________________________________
+                  pw.SizedBox(height: transactions.customerGst.trim().isNotEmpty ? 2 : 0),
+                  transactions.customerGst.trim().isNotEmpty
+                      ? pw.Row(children: [
+                          pw.SizedBox(
+                            width: 60.0,
+                            child: pw.Text(
+                              'Party GST',
+                              style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                            ),
+                          ),
+                          pw.SizedBox(
+                            width: 10.0,
+                            child: pw.Text(
+                              ':',
+                              style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                            ),
+                          ),
+                          pw.SizedBox(
+                            width: 140.0,
+                            child: pw.Text(
+                              transactions.customerGst,
+                              style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                            ),
+                          ),
+                        ])
+                      : pw.Container(),
 
                   ///_____Remarks_______________________________________
                   // pw.SizedBox(height: 2),
@@ -400,9 +466,8 @@ FutureOr<Uint8List> generateSaleReturnDocument({required SaleTransactionModel tr
                       ('${transactions.productList!.elementAt(i).productWarranty.isEmptyOrNull ? '' : transactions.productList!.elementAt(i).productWarranty}'),
                       (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).quantity.toString()) ?? 0)),
                       (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).subTotal.toString()) ?? 0)),
-                      (myFormat.format(double.tryParse(
-                              (double.parse(transactions.productList!.elementAt(i).subTotal) * transactions.productList!.elementAt(i).quantity.toInt()).toStringAsFixed(2)) ??
-                          0))
+                      (myFormat
+                          .format(double.tryParse((double.parse(transactions.productList!.elementAt(i).subTotal) * transactions.productList!.elementAt(i).quantity.toInt()).toStringAsFixed(2)) ?? 0))
                     ],
                 ],
               ),
@@ -412,7 +477,6 @@ FutureOr<Uint8List> generateSaleReturnDocument({required SaleTransactionModel tr
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                 children: [
                   pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-
                     pw.Container(
                       width: 300,
                       child: pw.Text(

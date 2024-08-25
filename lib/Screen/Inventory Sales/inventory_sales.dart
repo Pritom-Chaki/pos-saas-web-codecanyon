@@ -59,6 +59,8 @@ class _InventorySalesState extends State<InventorySales> {
   ScrollController mainScroll = ScrollController();
   List<AddToCartModel> cartList = [];
 
+  List<FocusNode> productFocusNode = [];
+
   updateDueAmount() {
     setState(() {
       double total = double.parse((getTotalAmount().toDouble() + serviceCharge - discountAmount + vatGst).toStringAsFixed(1));
@@ -75,30 +77,11 @@ class _InventorySalesState extends State<InventorySales> {
 
   bool saleButtonClicked = false;
 
-  SaleTransactionModel checkLossProfit({required SaleTransactionModel transitionModel}) {
-    int totalQuantity = 0;
-    double lossProfit = 0;
-    double totalPurchasePrice = 0;
-    double totalSalePrice = 0;
-    for (var element in transitionModel.productList!) {
-      totalPurchasePrice = totalPurchasePrice + (element.productPurchasePrice * element.quantity);
-      totalSalePrice = totalSalePrice + (double.parse(element.subTotal) * element.quantity);
-
-      totalQuantity = totalQuantity + element.quantity;
-    }
-    lossProfit = ((totalSalePrice - totalPurchasePrice.toDouble()) - double.parse(transitionModel.discountAmount.toString()));
-
-    transitionModel.totalQuantity = totalQuantity;
-    transitionModel.lossProfit = double.parse(lossProfit.toStringAsFixed(2));
-
-    return transitionModel;
-  }
-
   Future<void> getPro() async {
     return;
   }
 
-  List<String> paymentItem = ['Cash','Bank', 'Mobile Pay'];
+  List<String> paymentItem = ['Cash', 'Bank', 'Mobile Pay'];
   String selectedPaymentOption = 'Cash';
 
   late StreamSubscription subscription;
@@ -174,16 +157,7 @@ class _InventorySalesState extends State<InventorySales> {
   String selectedCategory = 'Categories';
   String? selectedUserId = 'Guest';
   CustomerModel selectedUserName = CustomerModel(
-    customerName: "Guest",
-    phoneNumber: "00",
-    type: "Guest",
-    customerAddress: '',
-    emailAddress: '',
-    profilePicture: '',
-    openingBalance: '0',
-    remainedBalance: '0',
-    dueAmount: '0',
-  );
+      customerName: "Guest", phoneNumber: "00", type: "Guest", customerAddress: '', emailAddress: '', profilePicture: '', openingBalance: '0', remainedBalance: '0', dueAmount: '0', gst: '');
   String? invoiceNumber;
   String previousDue = "0";
   FocusNode nameFocus = FocusNode();
@@ -195,7 +169,8 @@ class _InventorySalesState extends State<InventorySales> {
         alignment: Alignment.centerLeft,
         value: des.phoneNumber,
         child: Text(
-          '${des.customerName} ${des.phoneNumber}',softWrap: true,
+          '${des.customerName} ${des.phoneNumber}',
+          softWrap: true,
           style: kTextStyle.copyWith(color: kTitleColor, overflow: TextOverflow.ellipsis),
           textAlign: TextAlign.left,
         ),
@@ -214,7 +189,7 @@ class _InventorySalesState extends State<InventorySales> {
             if (element.phoneNumber == selectedUserId) {
               selectedUserName = element;
               previousDue = element.dueAmount;
-              selectedCustomerType == element.type ? null : {selectedCustomerType = element.type, cartList.clear()};
+              selectedCustomerType == element.type ? null : {selectedCustomerType = element.type, cartList.clear(), productFocusNode.clear()};
             } else if (selectedUserId == 'Guest') {
               previousDue = '0';
               selectedCustomerType = 'Retailer';
@@ -434,7 +409,7 @@ class _InventorySalesState extends State<InventorySales> {
                                   ),
                                   child: Text(
                                     lang.S.of(context).cancel,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   )).onTap(() => {finish(context)}),
                               const SizedBox(width: 10.0),
                               Container(
@@ -445,7 +420,7 @@ class _InventorySalesState extends State<InventorySales> {
                                   ),
                                   child: Text(
                                     lang.S.of(context).submit,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   )).onTap(() => {finish(context)})
                             ],
                           ),
@@ -466,10 +441,22 @@ class _InventorySalesState extends State<InventorySales> {
   double discountAmount = 0;
 
   TextEditingController discountAmountEditingController = TextEditingController();
-  TextEditingController vatAmountEditingController = TextEditingController();
+  // TextEditingController vatAmountEditingController = TextEditingController();
   TextEditingController discountPercentageEditingController = TextEditingController();
-  TextEditingController vatPercentageEditingController = TextEditingController();
+  // TextEditingController vatPercentageEditingController = TextEditingController();
   double vatGst = 0;
+
+  addFocus() {
+    FocusNode f = FocusNode();
+    f.addListener(
+      () {
+        if (!f.hasFocus) {
+          updateDueAmount();
+        }
+      },
+    );
+    productFocusNode.add(f);
+  }
 
   @override
   void initState() {
@@ -480,14 +467,16 @@ class _InventorySalesState extends State<InventorySales> {
     payingAmountController.text = '0';
     checkInternet();
     updateDueAmount();
+
     if (widget.quotation != null) {
       for (var element in widget.quotation!.productList!) {
         cartList.add(element);
+        addFocus();
       }
       discountAmountEditingController.text = widget.quotation!.discountAmount!.toStringAsFixed(2);
       discountAmount = widget.quotation!.discountAmount!;
-      vatAmountEditingController.text = widget.quotation!.vat!.toStringAsFixed(2);
-      vatGst = widget.quotation!.vat!;
+      // vatAmountEditingController.text = widget.quotation!.vat!.toStringAsFixed(2);
+      // vatGst = widget.quotation!.vat!;
       serviceCharge = widget.quotation!.discountAmount!;
       selectedUserName.customerName = widget.quotation!.customerName;
       selectedUserName.phoneNumber = widget.quotation!.customerPhone;
@@ -514,7 +503,20 @@ class _InventorySalesState extends State<InventorySales> {
   }
 
   void showSerialNumberPopUp({required ProductModel productModel}) {
-    AddToCartModel productInCart = AddToCartModel(productPurchasePrice: 0, serialNumber: [], productImage: '', warehouseName: '', warehouseId: '');
+    AddToCartModel productInCart = AddToCartModel(
+      productPurchasePrice: 0,
+      serialNumber: [],
+      productImage: '',
+      warehouseName: '',
+      warehouseId: '',
+      taxType: '',
+      margin: 0,
+      incTax: 0,
+      groupTaxRate: 0,
+      groupTaxName: '',
+      excTax: 0,
+      subTaxes: [],
+    );
     List<dynamic> selectedSerialNumbers = [];
     List<String> list = [];
     for (var element in cartList) {
@@ -609,8 +611,7 @@ class _InventorySalesState extends State<InventorySales> {
                           Container(
                             height: MediaQuery.of(context).size.height / 4,
                             width: 500,
-                            decoration:
-                                BoxDecoration(border: Border.all(width: 1, color: Colors.grey), borderRadius: const BorderRadius.all(Radius.circular(10))),
+                            decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.grey), borderRadius: const BorderRadius.all(Radius.circular(10))),
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: ListView.builder(
@@ -639,8 +640,7 @@ class _InventorySalesState extends State<InventorySales> {
                           Container(
                             width: 500,
                             height: 100,
-                            decoration:
-                                BoxDecoration(border: Border.all(width: 1, color: Colors.grey), borderRadius: const BorderRadius.all(Radius.circular(10))),
+                            decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.grey), borderRadius: const BorderRadius.all(Radius.circular(10))),
                             child: GridView.builder(
                                 shrinkWrap: true,
                                 itemCount: selectedSerialNumbers.length,
@@ -692,7 +692,7 @@ class _InventorySalesState extends State<InventorySales> {
                                   ),
                                   child: Text(
                                     lang.S.of(context).cancel,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   )).onTap(() {
                                 Navigator.pop(context);
                               }),
@@ -701,23 +701,30 @@ class _InventorySalesState extends State<InventorySales> {
                                 onTap: () {
                                   setState(() {
                                     AddToCartModel addToCartModel = AddToCartModel(
-                                      productName: productModel.productName,
-                                      warehouseName: productModel.warehouseName,
-                                      warehouseId: productModel.warehouseId,
-                                      productId: productModel.productCode,
-                                      productImage: productModel.productPicture,
-                                      productPurchasePrice: productModel.productPurchasePrice.toDouble(),
-                                      subTotal: productPriceChecker(product: productModel, customerType: selectedCustomerType),
-                                      serialNumber: selectedSerialNumbers,
-                                      quantity: selectedSerialNumbers.isEmpty ? 1 : selectedSerialNumbers.length,
-                                      stock: productModel.productStock.toInt(),
-                                      productWarranty: productModel.warranty,
-                                    );
+                                        productName: productModel.productName,
+                                        warehouseName: productModel.warehouseName,
+                                        warehouseId: productModel.warehouseId,
+                                        productId: productModel.productCode,
+                                        productImage: productModel.productPicture,
+                                        productPurchasePrice: productModel.productPurchasePrice.toDouble(),
+                                        subTotal: productPriceChecker(product: productModel, customerType: selectedCustomerType),
+                                        serialNumber: selectedSerialNumbers,
+                                        quantity: selectedSerialNumbers.isEmpty ? 1 : selectedSerialNumbers.length,
+                                        stock: productModel.productStock.toInt(),
+                                        productWarranty: productModel.warranty,
+                                        taxType: productModel.taxType,
+                                        margin: productModel.margin,
+                                        incTax: productModel.incTax,
+                                        groupTaxRate: productModel.groupTaxRate,
+                                        groupTaxName: productModel.groupTaxName,
+                                        excTax: productModel.excTax,
+                                        subTaxes: productModel.subTaxes);
                                     if (!uniqueCheckForSerial(code: productModel.productCode, newSerialNumbers: selectedSerialNumbers)) {
                                       if (productModel.productStock == '0') {
                                         EasyLoading.showError('Product Out Of Stock');
                                       } else {
                                         cartList.add(addToCartModel);
+                                        addFocus();
                                       }
                                     }
                                   });
@@ -731,7 +738,7 @@ class _InventorySalesState extends State<InventorySales> {
                                   ),
                                   child: Text(
                                     lang.S.of(context).submit,
-                                    style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                    style: kTextStyle.copyWith(color: kWhite),
                                   ),
                                 ),
                               )
@@ -796,7 +803,6 @@ class _InventorySalesState extends State<InventorySales> {
   TextEditingController nameCodeCategoryController = TextEditingController();
   final ScrollController mainSideScroller = ScrollController();
 
-
   //____________________________WareHouseModel_________________
 
   WareHouseModel? selectedWareHouse;
@@ -809,14 +815,14 @@ class _InventorySalesState extends State<InventorySales> {
     List<DropdownMenuItem<WareHouseModel>> dropDownItems = [];
     for (var element in list) {
       dropDownItems.add(DropdownMenuItem(
-
         value: element,
         child: Text(
-          element.warehouseName,style: kTextStyle.copyWith(color: kGreyTextColor),
+          element.warehouseName,
+          style: kTextStyle.copyWith(color: kGreyTextColor),
           overflow: TextOverflow.ellipsis,
         ),
       ));
-      if(i==0) {
+      if (i == 0) {
         selectedWareHouse = element;
       }
       i++;
@@ -824,7 +830,7 @@ class _InventorySalesState extends State<InventorySales> {
 
     return DropdownButton(
       items: dropDownItems,
-      isExpanded:true,
+      isExpanded: true,
       value: selectedWareHouse,
       onChanged: (WareHouseModel? value) {
         setState(() {
@@ -881,7 +887,7 @@ class _InventorySalesState extends State<InventorySales> {
                               padding: const EdgeInsets.all(20.0),
                               child: Container(
                                 padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhiteTextColor),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhite),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -945,9 +951,7 @@ class _InventorySalesState extends State<InventorySales> {
                                                 ),
                                                 children: [
                                                   TextSpan(text: '(Previous Due: ', style: bTextStyle.copyWith(color: Colors.red)),
-                                                  TextSpan(
-                                                      text: '$currency${myFormat.format(double.tryParse(previousDue) ?? 0)} )',
-                                                      style: kTextStyle.copyWith(color: Colors.red))
+                                                  TextSpan(text: '$currency${myFormat.format(double.tryParse(previousDue) ?? 0)} )', style: kTextStyle.copyWith(color: Colors.red))
                                                 ],
                                               ),
                                             ),
@@ -998,10 +1002,7 @@ class _InventorySalesState extends State<InventorySales> {
                                                       child: widget.quotation != null
                                                           ? Text(widget.quotation!.customerName)
                                                           : Theme(
-                                                              data: ThemeData(
-                                                                  highlightColor: dropdownItemColor,
-                                                                  focusColor: dropdownItemColor,
-                                                                  hoverColor: dropdownItemColor),
+                                                              data: ThemeData(highlightColor: dropdownItemColor, focusColor: dropdownItemColor, hoverColor: dropdownItemColor),
                                                               child: DropdownButtonHideUnderline(child: getResult(customersList))),
                                                     );
                                                   },
@@ -1089,59 +1090,54 @@ class _InventorySalesState extends State<InventorySales> {
                                         const SizedBox(
                                           width: 10,
                                         ),
-                                        wareHouseList.when(data: (warehouse){
-                                          return  Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'Warehouse',
-                                                  style: bTextStyle.copyWith(fontWeight: FontWeight.bold),
-                                                ),
-                                                const SizedBox(
-                                                  height: 6,
-                                                ),
-                                                Container(
-                                                  height:40,
-                                                  padding: const EdgeInsets.all(10),
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      color: kBorderColorTextField,
-                                                    ),
-                                                    borderRadius: BorderRadius.circular(6.0)
+                                        wareHouseList.when(
+                                          data: (warehouse) {
+                                            return Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Warehouse',
+                                                    style: bTextStyle.copyWith(fontWeight: FontWeight.bold),
                                                   ),
-                                                  child: Theme(
-                                                    data: ThemeData(
-                                                        highlightColor: dropdownItemColor,
-                                                        focusColor: Colors.transparent,
-                                                        hoverColor: dropdownItemColor
-                                                    ),
-                                                    child: DropdownButtonHideUnderline(
-
-                                                      child: getWare(list: warehouse ?? []),
+                                                  const SizedBox(
+                                                    height: 6,
+                                                  ),
+                                                  Container(
+                                                    height: 40,
+                                                    padding: const EdgeInsets.all(10),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          color: kBorderColorTextField,
+                                                        ),
+                                                        borderRadius: BorderRadius.circular(6.0)),
+                                                    child: Theme(
+                                                      data: ThemeData(highlightColor: dropdownItemColor, focusColor: Colors.transparent, hoverColor: dropdownItemColor),
+                                                      child: DropdownButtonHideUnderline(
+                                                        child: getWare(list: warehouse ?? []),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },  error: (e, stack) {
-                                          return Center(
-                                            child: Text(
-                                              e.toString(),
-                                            ),
-                                          );
-                                        },
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                          error: (e, stack) {
+                                            return Center(
+                                              child: Text(
+                                                e.toString(),
+                                              ),
+                                            );
+                                          },
                                           loading: () {
                                             return const Center(
                                               child: CircularProgressIndicator(),
                                             );
-                                          },)
+                                          },
+                                        )
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 10
-                                    ),
+                                    const SizedBox(height: 10),
                                     Row(
                                       children: [
                                         productList.when(data: (product) {
@@ -1174,14 +1170,15 @@ class _InventorySalesState extends State<InventorySales> {
                                                         ),
                                                       ).onTap(() => AddProduct(
                                                             allProductsCodeList: allProductsCodeList,
-                                                            sideBarNumber: 1,warehouseBasedProductModel: warehouseBasedProductModel,
+                                                            sideBarNumber: 1,
+                                                            warehouseBasedProductModel: warehouseBasedProductModel,
                                                           ).launch(context)),
                                                     ),
                                                   ),
                                                   suggestionsCallback: (pattern) {
                                                     ProductRepo pr = ProductRepo();
                                                     // return pr.getAllProductByJson(searchData: pattern);
-                                                    return pr.getAllProductByJsonWarehouse(searchData: pattern, warehouseId: selectedWareHouse!.id);
+                                                    return pr.getAllProductByJsonWarehouse(searchData: pattern, warehouseId: selectedWareHouse!);
                                                   },
                                                   itemBuilder: (context, suggestion) {
                                                     ProductModel product = ProductModel.fromJson(
@@ -1225,13 +1222,12 @@ class _InventorySalesState extends State<InventorySales> {
                                                           Expanded(
                                                               flex: 2,
                                                               child: Text('Sale price: ${product.productSalePrice}',
-                                                                  textAlign: TextAlign.start,
-                                                                  style: kTextStyle.copyWith(color: kGreyTextColor, fontSize: 12.0))),
+                                                                  textAlign: TextAlign.start, style: kTextStyle.copyWith(color: kGreyTextColor, fontSize: 12.0))),
                                                           const Spacer(),
                                                           Expanded(
                                                             flex: 0,
-                                                            child: Text('Stock: ${product.productStock}',
-                                                                textAlign: TextAlign.start, style: kTextStyle.copyWith(color: kGreyTextColor, fontSize: 12.0)),
+                                                            child:
+                                                                Text('Stock: ${product.productStock}', textAlign: TextAlign.start, style: kTextStyle.copyWith(color: kGreyTextColor, fontSize: 12.0)),
                                                           ),
                                                         ],
                                                       ),
@@ -1258,10 +1254,21 @@ class _InventorySalesState extends State<InventorySales> {
                                                         productImage: product.productPicture,
                                                         stock: product.productStock.toInt(),
                                                         productPurchasePrice: product.productPurchasePrice.toDouble(),
-                                                        subTotal: productPriceChecker(product: product, customerType: selectedCustomerType));
+                                                        subTotal: productPriceChecker(
+                                                          product: product,
+                                                          customerType: selectedCustomerType,
+                                                        ),
+                                                        taxType: product.taxType,
+                                                        margin: product.margin,
+                                                        incTax: product.incTax,
+                                                        groupTaxRate: product.groupTaxRate,
+                                                        groupTaxName: product.groupTaxName,
+                                                        excTax: product.excTax,
+                                                        subTaxes: product.subTaxes);
                                                     setState(() {
                                                       if (!uniqueCheck(product.productCode)) {
                                                         cartList.add(addToCartModel);
+                                                        addFocus();
                                                         nameCodeCategoryController.clear();
                                                         nameFocus.requestFocus();
                                                         searchProductCode = '';
@@ -1389,8 +1396,7 @@ class _InventorySalesState extends State<InventorySales> {
                                               child: Padding(
                                                 padding: const EdgeInsets.only(left: 5.0),
                                                 child: Theme(
-                                                    data: ThemeData(
-                                                        highlightColor: dropdownItemColor, focusColor: Colors.transparent, hoverColor: dropdownItemColor),
+                                                    data: ThemeData(highlightColor: dropdownItemColor, focusColor: Colors.transparent, hoverColor: dropdownItemColor),
                                                     child: DropdownButtonHideUnderline(child: getCategories())),
                                               ),
                                             ),
@@ -1486,21 +1492,22 @@ class _InventorySalesState extends State<InventorySales> {
                                                                   ),
                                                                   child: TextFormField(
                                                                     controller: quantityController,
+                                                                    focusNode: productFocusNode[index],
                                                                     textAlign: TextAlign.center,
                                                                     onChanged: (value) {
-                                                                      if (cartList[index].stock!.toInt() < value.toInt()) {
+                                                                      if ((cartList[index].stock ?? 0) < (num.tryParse(value) ?? 0)) {
                                                                         EasyLoading.showError('Out of Stock');
                                                                         quantityController.clear();
-                                                                        updateDueAmount();
+                                                                        // updateDueAmount();
                                                                       } else if (value == '') {
                                                                         cartList[index].quantity = 1;
-                                                                        updateDueAmount();
+                                                                        // updateDueAmount();
                                                                       } else if (value == '0') {
                                                                         cartList[index].quantity = 1;
-                                                                        updateDueAmount();
+                                                                        // updateDueAmount();
                                                                       } else {
-                                                                        cartList[index].quantity = value.toInt();
-                                                                        updateDueAmount();
+                                                                        cartList[index].quantity = (num.tryParse(value) ?? 1);
+                                                                        // updateDueAmount();
                                                                       }
                                                                     },
                                                                     onFieldSubmitted: (value) {
@@ -1511,7 +1518,7 @@ class _InventorySalesState extends State<InventorySales> {
                                                                         });
                                                                       } else {
                                                                         setState(() {
-                                                                          cartList[index].quantity = value.toInt();
+                                                                          cartList[index].quantity = (num.tryParse(value) ?? 1);
                                                                           updateDueAmount();
                                                                         });
                                                                       }
@@ -1577,9 +1584,7 @@ class _InventorySalesState extends State<InventorySales> {
                                                         SizedBox(
                                                           width: 100,
                                                           child: Text(
-                                                            myFormat.format(double.tryParse(
-                                                                    (double.parse(cartList[index].subTotal) * cartList[index].quantity).toStringAsFixed(2)) ??
-                                                                0),
+                                                            myFormat.format(double.tryParse((double.parse(cartList[index].subTotal) * cartList[index].quantity).toStringAsFixed(2)) ?? 0),
                                                             style: kTextStyle.copyWith(color: kTitleColor),
                                                           ),
                                                         ),
@@ -1593,6 +1598,7 @@ class _InventorySalesState extends State<InventorySales> {
                                                           ).onTap(() {
                                                             setState(() {
                                                               cartList.removeAt(index);
+                                                              productFocusNode.removeAt(index);
                                                               updateDueAmount();
                                                             });
                                                           }),
@@ -1631,8 +1637,7 @@ class _InventorySalesState extends State<InventorySales> {
                                             TextField(
                                               onChanged: (value) {
                                                 setState(() {
-                                                  double total =
-                                                      double.parse((getTotalAmount().toDouble() + serviceCharge - discountAmount + vatGst).toStringAsFixed(1));
+                                                  double total = double.parse((getTotalAmount().toDouble() + serviceCharge - discountAmount + vatGst).toStringAsFixed(1));
                                                   double paidAmount = double.parse(value);
                                                   if (paidAmount > total) {
                                                     changeAmountController.text = (paidAmount - total).toString();
@@ -1645,7 +1650,6 @@ class _InventorySalesState extends State<InventorySales> {
                                               },
                                               controller: payingAmountController,
                                               decoration: bInputDecoration.copyWith(hintText: 'Enter received amount'),
-
                                             ),
                                             const SizedBox(
                                               height: 20,
@@ -1693,14 +1697,11 @@ class _InventorySalesState extends State<InventorySales> {
                                             const SizedBox(height: 10),
                                             SizedBox(
                                               child: FormField(
-
                                                 builder: (FormFieldState<dynamic> field) {
                                                   return InputDecorator(
-                                                    decoration: bInputDecoration.copyWith(hintText: '',contentPadding: EdgeInsets.all(8.0)),
-
+                                                    decoration: bInputDecoration.copyWith(hintText: '', contentPadding: EdgeInsets.all(8.0)),
                                                     child: Theme(
-                                                      data: ThemeData(
-                                                          highlightColor: dropdownItemColor, focusColor: dropdownItemColor, hoverColor: dropdownItemColor),
+                                                      data: ThemeData(highlightColor: dropdownItemColor, focusColor: dropdownItemColor, hoverColor: dropdownItemColor),
                                                       child: DropdownButtonHideUnderline(
                                                         child: getOption(),
                                                       ),
@@ -1733,12 +1734,11 @@ class _InventorySalesState extends State<InventorySales> {
                                                           width: context.width() < 1080 ? 1080 * .125 : MediaQuery.of(context).size.width * .250,
                                                           child: Container(
                                                             padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 8.0, bottom: 8.0),
-                                                            decoration: const BoxDecoration(
-                                                                color: Color(0xff00AE1C), borderRadius: BorderRadius.all(Radius.circular(8))),
+                                                            decoration: const BoxDecoration(color: Color(0xff00AE1C), borderRadius: BorderRadius.all(Radius.circular(8))),
                                                             child: Center(
                                                               child: Text(
                                                                 '$currency ${myFormat.format(double.tryParse((getTotalAmount().toDouble() + serviceCharge - discountAmount + vatGst).toStringAsFixed(2)) ?? 0)}',
-                                                                style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                                style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                               ),
                                                             ),
                                                           ),
@@ -1767,136 +1767,179 @@ class _InventorySalesState extends State<InventorySales> {
                                                                 updateDueAmount();
                                                               });
                                                             },
-                                                            decoration: const InputDecoration(
-                                                                border: OutlineInputBorder(), hintText: 'Enter Amount', contentPadding: EdgeInsets.zero),
+                                                            decoration: const InputDecoration(border: OutlineInputBorder(), hintText: 'Enter Amount', contentPadding: EdgeInsets.zero),
                                                             textAlign: TextAlign.center,
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                    const SizedBox(height: 20.0),
+                                                    const SizedBox(height: 10.0),
 
                                                     ///___________vat____________________________________
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.end,
-                                                      children: [
-                                                        Text(
-                                                          lang.S.of(context).vatOrgst,
-                                                          style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                                                        ),
-                                                        const Spacer(),
-                                                        Row(
-                                                          children: [
-                                                            SizedBox(
-                                                              width: context.width() < 1080 ? 1080 * .105 : MediaQuery.of(context).size.width * .120,
-                                                              height: 40.0,
-                                                              child: Center(
-                                                                child: AppTextField(
-                                                                  controller: vatPercentageEditingController,
-                                                                  onChanged: (value) {
-                                                                    if (value == '') {
-                                                                      setState(() {
-                                                                        vatGst = 0.0;
-                                                                        vatAmountEditingController.text = 0.toString();
-                                                                      });
-                                                                    } else {
-                                                                      setState(() {
-                                                                        vatGst = double.parse(
-                                                                            ((value.toDouble() / 100) * getTotalAmount().toDouble()).toStringAsFixed(1));
-                                                                        vatAmountEditingController.text = vatGst.toString();
-                                                                      });
-                                                                    }
-                                                                    updateDueAmount();
-                                                                  },
-                                                                  textAlign: TextAlign.right,
-                                                                  decoration: InputDecoration(
-                                                                    contentPadding: const EdgeInsets.only(right: 6.0),
-                                                                    hintText: '0',
-                                                                    border: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
-                                                                    enabledBorder: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
-                                                                    disabledBorder: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
-                                                                    focusedBorder: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
-                                                                    prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
-                                                                    prefixIcon: Container(
-                                                                      padding: const EdgeInsets.only(top: 8.0, left: 8.0),
-                                                                      height: 40,
-                                                                      decoration: const BoxDecoration(
-                                                                          color: Color(0xffFF8C00),
-                                                                          borderRadius: BorderRadius.only(
-                                                                              topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
-                                                                      child: const Text(
-                                                                        '%',
-                                                                        style: TextStyle(fontSize: 20.0, color: Colors.white),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  textFieldType: TextFieldType.PHONE,
+
+                                                    ListView.builder(
+                                                      itemCount: getAllTaxFromCartList(cart: cartList).length,
+                                                      shrinkWrap: true,
+                                                      itemBuilder: (context, index) {
+                                                        return Container(
+                                                          margin: const EdgeInsets.only(top: 5, bottom: 5),
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only(right: 20),
+                                                                child: Text(
+                                                                  getAllTaxFromCartList(cart: cartList)[index].name,
+                                                                  textAlign: TextAlign.end,
+                                                                  style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 15.0,
-                                                            ),
-                                                            SizedBox(
-                                                              width: context.width() < 1080 ? 1080 * .105 : MediaQuery.of(context).size.width * .120,
-                                                              height: 40.0,
-                                                              child: Center(
-                                                                child: AppTextField(
-                                                                  controller: vatAmountEditingController,
-                                                                  onChanged: (value) {
-                                                                    if (value == '') {
-                                                                      setState(() {
-                                                                        vatGst = 0;
-                                                                        vatPercentageEditingController.text = 0.toString();
-                                                                      });
-                                                                    } else {
-                                                                      setState(() {
-                                                                        vatGst = double.parse(value);
-                                                                        vatPercentageEditingController.text =
-                                                                            ((vatGst * 100) / getTotalAmount().toDouble()).toStringAsFixed(1);
-                                                                      });
-                                                                    }
-                                                                    updateDueAmount();
-                                                                  },
-                                                                  textAlign: TextAlign.right,
-                                                                  decoration: InputDecoration(
-                                                                    contentPadding: const EdgeInsets.only(right: 6.0),
-                                                                    hintText: '0',
-                                                                    border: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
-                                                                    enabledBorder: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
-                                                                    disabledBorder: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
-                                                                    focusedBorder: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
-                                                                    prefixIconConstraints: const BoxConstraints(maxWidth: 40.0, minWidth: 40.0),
-                                                                    prefixIcon: Container(
-                                                                      padding: const EdgeInsets.only(top: 8.0, left: 8.0),
-                                                                      height: 40,
-                                                                      decoration: const BoxDecoration(
-                                                                          color: Color(0xff00AE1C),
-                                                                          borderRadius: BorderRadius.only(
-                                                                              topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
-                                                                      child: Text(
-                                                                        currency,
-                                                                        style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                                                              const Spacer(),
+                                                              SizedBox(
+                                                                width: context.width() < 1080 ? 1080 * .105 : MediaQuery.of(context).size.width * .240,
+                                                                height: 40.0,
+                                                                child: Center(
+                                                                  child: AppTextField(
+                                                                    initialValue: getAllTaxFromCartList(cart: cartList)[index].taxRate.toString(),
+                                                                    readOnly: true,
+                                                                    textAlign: TextAlign.right,
+                                                                    decoration: InputDecoration(
+                                                                      contentPadding: const EdgeInsets.only(right: 6.0),
+                                                                      hintText: '0',
+                                                                      border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                      enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                      disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                      focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xFFff5f00))),
+                                                                      prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
+                                                                      prefixIcon: Container(
+                                                                        padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                                                                        height: 40,
+                                                                        decoration: const BoxDecoration(
+                                                                            color: Color(0xFFff5f00), borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                                                        child: const Text(
+                                                                          '%',
+                                                                          style: TextStyle(fontSize: 20.0, color: Colors.white),
+                                                                        ),
                                                                       ),
                                                                     ),
+                                                                    textFieldType: TextFieldType.NUMBER,
                                                                   ),
-                                                                  textFieldType: TextFieldType.PHONE,
                                                                 ),
                                                               ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
+                                                            ],
+                                                          ),
+                                                        );
+                                                      },
                                                     ),
-                                                    const SizedBox(height: 20.0),
+                                                    const SizedBox(height: 10.0),
+                                                    // Row(
+                                                    //   mainAxisAlignment: MainAxisAlignment.end,
+                                                    //   children: [
+                                                    //     Text(
+                                                    //       lang.S.of(context).vatOrgst,
+                                                    //       style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                                    //     ),
+                                                    //     const Spacer(),
+                                                    //     Row(
+                                                    //       children: [
+                                                    //         SizedBox(
+                                                    //           width: context.width() < 1080 ? 1080 * .105 : MediaQuery.of(context).size.width * .120,
+                                                    //           height: 40.0,
+                                                    //           child: Center(
+                                                    //             child: AppTextField(
+                                                    //               controller: vatPercentageEditingController,
+                                                    //               onChanged: (value) {
+                                                    //                 if (value == '') {
+                                                    //                   setState(() {
+                                                    //                     vatGst = 0.0;
+                                                    //                     vatAmountEditingController.text = 0.toString();
+                                                    //                   });
+                                                    //                 } else {
+                                                    //                   setState(() {
+                                                    //                     vatGst = double.parse(((value.toDouble() / 100) * getTotalAmount().toDouble()).toStringAsFixed(1));
+                                                    //                     vatAmountEditingController.text = vatGst.toString();
+                                                    //                   });
+                                                    //                 }
+                                                    //                 updateDueAmount();
+                                                    //               },
+                                                    //               textAlign: TextAlign.right,
+                                                    //               decoration: InputDecoration(
+                                                    //                 contentPadding: const EdgeInsets.only(right: 6.0),
+                                                    //                 hintText: '0',
+                                                    //                 border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
+                                                    //                 enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
+                                                    //                 disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
+                                                    //                 focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
+                                                    //                 prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
+                                                    //                 prefixIcon: Container(
+                                                    //                   padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                                                    //                   height: 40,
+                                                    //                   decoration: const BoxDecoration(
+                                                    //                       color: Color(0xffFF8C00),
+                                                    //                       borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                                    //                   child: const Text(
+                                                    //                     '%',
+                                                    //                     style: TextStyle(fontSize: 20.0, color: Colors.white),
+                                                    //                   ),
+                                                    //                 ),
+                                                    //               ),
+                                                    //               textFieldType: TextFieldType.PHONE,
+                                                    //             ),
+                                                    //           ),
+                                                    //         ),
+                                                    //         const SizedBox(
+                                                    //           width: 15.0,
+                                                    //         ),
+                                                    //         SizedBox(
+                                                    //           width: context.width() < 1080 ? 1080 * .105 : MediaQuery.of(context).size.width * .120,
+                                                    //           height: 40.0,
+                                                    //           child: Center(
+                                                    //             child: AppTextField(
+                                                    //               controller: vatAmountEditingController,
+                                                    //               onChanged: (value) {
+                                                    //                 if (value == '') {
+                                                    //                   setState(() {
+                                                    //                     vatGst = 0;
+                                                    //                     vatPercentageEditingController.text = 0.toString();
+                                                    //                   });
+                                                    //                 } else {
+                                                    //                   setState(() {
+                                                    //                     vatGst = double.parse(value);
+                                                    //                     vatPercentageEditingController.text = ((vatGst * 100) / getTotalAmount().toDouble()).toStringAsFixed(1);
+                                                    //                   });
+                                                    //                 }
+                                                    //                 updateDueAmount();
+                                                    //               },
+                                                    //               textAlign: TextAlign.right,
+                                                    //               decoration: InputDecoration(
+                                                    //                 contentPadding: const EdgeInsets.only(right: 6.0),
+                                                    //                 hintText: '0',
+                                                    //                 border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
+                                                    //                 enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
+                                                    //                 disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
+                                                    //                 focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
+                                                    //                 prefixIconConstraints: const BoxConstraints(maxWidth: 40.0, minWidth: 40.0),
+                                                    //                 prefixIcon: Container(
+                                                    //                   padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                                                    //                   height: 40,
+                                                    //                   decoration: const BoxDecoration(
+                                                    //                       color: Color(0xff00AE1C),
+                                                    //                       borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                                    //                   child: Text(
+                                                    //                     currency,
+                                                    //                     style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                                                    //                   ),
+                                                    //                 ),
+                                                    //               ),
+                                                    //               textFieldType: TextFieldType.PHONE,
+                                                    //             ),
+                                                    //           ),
+                                                    //         ),
+                                                    //       ],
+                                                    //     ),
+                                                    //   ],
+                                                    // ),
+                                                    // const SizedBox(height: 20.0),
 
                                                     ///________discount_________________________________________________
                                                     Row(
@@ -1923,8 +1966,7 @@ class _InventorySalesState extends State<InventorySales> {
                                                                     } else {
                                                                       if (value.toInt() <= 100) {
                                                                         setState(() {
-                                                                          discountAmount = double.parse(
-                                                                              ((value.toDouble() / 100) * getTotalAmount().toDouble()).toStringAsFixed(1));
+                                                                          discountAmount = double.parse(((value.toDouble() / 100) * getTotalAmount().toDouble()).toStringAsFixed(1));
                                                                           discountAmountEditingController.text = discountAmount.toString();
                                                                         });
                                                                       } else {
@@ -1942,22 +1984,16 @@ class _InventorySalesState extends State<InventorySales> {
                                                                   decoration: InputDecoration(
                                                                     contentPadding: const EdgeInsets.only(right: 6.0),
                                                                     hintText: '0',
-                                                                    border: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
-                                                                    enabledBorder: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
-                                                                    disabledBorder: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
-                                                                    focusedBorder: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
+                                                                    border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
+                                                                    enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
+                                                                    disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
+                                                                    focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xffFF8C00))),
                                                                     prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
                                                                     prefixIcon: Container(
                                                                       padding: const EdgeInsets.only(top: 8.0, left: 8.0),
                                                                       height: 40,
                                                                       decoration: const BoxDecoration(
-                                                                          color: Color(0xffFF8C00),
-                                                                          borderRadius: BorderRadius.only(
-                                                                              topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                                                          color: Color(0xffFF8C00), borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
                                                                       child: const Text(
                                                                         '%',
                                                                         style: TextStyle(fontSize: 18.0, color: Colors.white),
@@ -1987,8 +2023,7 @@ class _InventorySalesState extends State<InventorySales> {
                                                                       if (value.toInt() <= getTotalAmount().toDouble()) {
                                                                         setState(() {
                                                                           discountAmount = double.parse(value);
-                                                                          discountPercentageEditingController.text =
-                                                                              ((discountAmount * 100) / getTotalAmount().toDouble()).toStringAsFixed(1);
+                                                                          discountPercentageEditingController.text = ((discountAmount * 100) / getTotalAmount().toDouble()).toStringAsFixed(1);
                                                                         });
                                                                       } else {
                                                                         setState(() {
@@ -2005,22 +2040,16 @@ class _InventorySalesState extends State<InventorySales> {
                                                                   decoration: InputDecoration(
                                                                     contentPadding: const EdgeInsets.only(right: 6.0),
                                                                     hintText: '0',
-                                                                    border: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
-                                                                    enabledBorder: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
-                                                                    disabledBorder: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
-                                                                    focusedBorder: const OutlineInputBorder(
-                                                                        gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
+                                                                    border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
+                                                                    enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
+                                                                    disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
+                                                                    focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: Color(0xff00AE1C))),
                                                                     prefixIconConstraints: const BoxConstraints(maxWidth: 40.0, minWidth: 40.0),
                                                                     prefixIcon: Container(
                                                                       padding: const EdgeInsets.only(top: 8.0, left: 8.0),
                                                                       height: 40,
                                                                       decoration: const BoxDecoration(
-                                                                          color: Color(0xff00AE1C),
-                                                                          borderRadius: BorderRadius.only(
-                                                                              topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                                                          color: Color(0xff00AE1C), borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
                                                                       child: Text(
                                                                         currency,
                                                                         style: const TextStyle(fontSize: 18.0, color: Colors.white),
@@ -2064,7 +2093,7 @@ class _InventorySalesState extends State<InventorySales> {
                                               child: Text(
                                                 lang.S.of(context).cancel,
                                                 textAlign: TextAlign.center,
-                                                style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                               ),
                                             ),
                                           ),
@@ -2152,12 +2181,11 @@ class _InventorySalesState extends State<InventorySales> {
                                                                             customerImage: selectedUserName.profilePicture,
                                                                             customerAddress: selectedUserName.customerAddress,
                                                                             customerPhone: selectedUserName.phoneNumber,
+                                                                            customerGst: selectedUserName.gst,
                                                                             invoiceNumber: data.saleInvoiceCounter.toString(),
                                                                             purchaseDate: DateTime.now().toString(),
                                                                             productList: cartList,
-                                                                            totalAmount: double.parse(
-                                                                                (getTotalAmount().toDouble() + serviceCharge - discountAmount + vatGst)
-                                                                                    .toStringAsFixed(1)),
+                                                                            totalAmount: double.parse((getTotalAmount().toDouble() + serviceCharge - discountAmount + vatGst).toStringAsFixed(1)),
                                                                             discountAmount: discountAmount,
                                                                             serviceCharge: serviceCharge,
                                                                             vat: vatGst,
@@ -2165,8 +2193,7 @@ class _InventorySalesState extends State<InventorySales> {
 
                                                                           try {
                                                                             EasyLoading.show(status: 'Loading...', dismissOnTap: false);
-                                                                            DatabaseReference ref =
-                                                                                FirebaseDatabase.instance.ref("${await getUserID()}/Sales Quotation");
+                                                                            DatabaseReference ref = FirebaseDatabase.instance.ref("${await getUserID()}/Sales Quotation");
 
                                                                             transitionModel.isPaid = false;
                                                                             transitionModel.dueAmount = 0;
@@ -2179,18 +2206,13 @@ class _InventorySalesState extends State<InventorySales> {
                                                                             await ref.push().set(transitionModel.toJson());
 
                                                                             ///_________Invoice Increase____________________________________________________________________________
-                                                                            updateInvoice(
-                                                                                typeOfInvoice: 'saleInvoiceCounter',
-                                                                                invoice: transitionModel.invoiceNumber.toInt());
+                                                                            updateInvoice(typeOfInvoice: 'saleInvoiceCounter', invoice: transitionModel.invoiceNumber.toInt());
 
                                                                             consumerRef.refresh(profileDetailsProvider);
 
                                                                             EasyLoading.showSuccess('Added Successfully');
                                                                             await GeneratePdfAndPrint().printQuotationInvoice(
-                                                                                personalInformationModel: data,
-                                                                                saleTransactionModel: transitionModel,
-                                                                                context: context,
-                                                                                isFromInventorySale: true);
+                                                                                personalInformationModel: data, saleTransactionModel: transitionModel, context: context, isFromInventorySale: true);
                                                                           } catch (e) {
                                                                             EasyLoading.dismiss();
                                                                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
@@ -2220,7 +2242,7 @@ class _InventorySalesState extends State<InventorySales> {
                                               child: Text(
                                                 lang.S.of(context).quotation,
                                                 textAlign: TextAlign.center,
-                                                style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                               ),
                                             ),
                                           ),
@@ -2238,7 +2260,7 @@ class _InventorySalesState extends State<InventorySales> {
                                             child: Text(
                                               lang.S.of(context).hold,
                                               textAlign: TextAlign.center,
-                                              style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                              style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                             ),
                                           ).onTap(() => showHoldPopUp()),
                                         ).visible(false),
@@ -2257,7 +2279,7 @@ class _InventorySalesState extends State<InventorySales> {
                                             child: Text(
                                               lang.S.of(context).payment,
                                               textAlign: TextAlign.center,
-                                              style: kTextStyle.copyWith(color: kWhiteTextColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                              style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                             ),
                                           ).onTap(
                                             () async {
@@ -2269,15 +2291,14 @@ class _InventorySalesState extends State<InventorySales> {
                                                     SaleTransactionModel transitionModel = SaleTransactionModel(
                                                       customerName: selectedUserName.customerName,
                                                       customerType: selectedUserName.type,
+                                                      customerGst: selectedUserName.gst,
                                                       customerAddress: selectedUserName.customerAddress,
                                                       customerPhone: selectedUserName.phoneNumber,
                                                       customerImage: selectedUserName.profilePicture,
-                                                      invoiceNumber:
-                                                          widget.quotation == null ? data.saleInvoiceCounter.toString() : widget.quotation!.invoiceNumber,
+                                                      invoiceNumber: widget.quotation == null ? data.saleInvoiceCounter.toString() : widget.quotation!.invoiceNumber,
                                                       purchaseDate: DateTime.now().toString(),
                                                       productList: cartList,
-                                                      totalAmount: double.parse(
-                                                          (getTotalAmount().toDouble() + serviceCharge - discountAmount + vatGst).toStringAsFixed(1)),
+                                                      totalAmount: double.parse((getTotalAmount().toDouble() + serviceCharge - discountAmount + vatGst).toStringAsFixed(1)),
                                                       discountAmount: double.parse(discountAmount.toStringAsFixed(2)),
                                                       serviceCharge: double.parse(serviceCharge.toStringAsFixed(2)),
                                                       vat: double.parse(vatGst.toStringAsFixed(2)),
@@ -2294,9 +2315,7 @@ class _InventorySalesState extends State<InventorySales> {
 
                                                         DatabaseReference ref = FirebaseDatabase.instance.ref("${await getUserID()}/Sales Transition");
 
-                                                        (double.tryParse(dueAmountController.text) ?? 0) <= 0
-                                                            ? transitionModel.isPaid = true
-                                                            : transitionModel.isPaid = false;
+                                                        (double.tryParse(dueAmountController.text) ?? 0) <= 0 ? transitionModel.isPaid = true : transitionModel.isPaid = false;
                                                         (double.tryParse(dueAmountController.text) ?? 0) <= 0
                                                             ? transitionModel.dueAmount = 0
                                                             : transitionModel.dueAmount = (double.tryParse(dueAmountController.text) ?? 0);
@@ -2322,8 +2341,8 @@ class _InventorySalesState extends State<InventorySales> {
                                                           String productPath = data.snapshot.value.toString().substring(1, 21);
 
                                                           var data1 = await stockRef.child('$productPath/productStock').once();
-                                                          int stock = int.parse(data1.snapshot.value.toString());
-                                                          int remainStock = stock - element.quantity;
+                                                          num stock = num.parse(data1.snapshot.value.toString());
+                                                          num remainStock = stock - element.quantity;
 
                                                           stockRef.child(productPath).update({'productStock': '$remainStock'});
 
@@ -2332,8 +2351,7 @@ class _InventorySalesState extends State<InventorySales> {
                                                           if (element.serialNumber?.isNotEmpty ?? false) {
                                                             var productOldSerialList = data2[productPath]['serialNumber'];
 
-                                                            List<dynamic> result =
-                                                                productOldSerialList.where((item) => !element.serialNumber!.contains(item)).toList();
+                                                            List<dynamic> result = productOldSerialList.where((item) => !element.serialNumber!.contains(item)).toList();
                                                             stockRef.child(productPath).update({
                                                               'serialNumber': result.map((e) => e).toList(),
                                                             });
@@ -2367,12 +2385,7 @@ class _InventorySalesState extends State<InventorySales> {
                                                           final dueUpdateRef = FirebaseDatabase.instance.ref('${await getUserID()}/Customers/');
                                                           String? key;
 
-                                                          await FirebaseDatabase.instance
-                                                              .ref(await getUserID())
-                                                              .child('Customers')
-                                                              .orderByKey()
-                                                              .get()
-                                                              .then((value) {
+                                                          await FirebaseDatabase.instance.ref(await getUserID()).child('Customers').orderByKey().get().then((value) {
                                                             for (var element in value.children) {
                                                               var data = jsonDecode(jsonEncode(element.value));
                                                               if (data['phoneNumber'] == transitionModel.customerPhone) {
@@ -2399,11 +2412,8 @@ class _InventorySalesState extends State<InventorySales> {
                                                         //
                                                         EasyLoading.showSuccess('Sale Successfully Done');
 
-                                                        await GeneratePdfAndPrint().printSaleInvoice(
-                                                            personalInformationModel: data,
-                                                            saleTransactionModel: transitionModel,
-                                                            context: context,
-                                                            fromInventorySale: true);
+                                                        await GeneratePdfAndPrint()
+                                                            .printSaleInvoice(personalInformationModel: data, saleTransactionModel: transitionModel, context: context, fromInventorySale: true);
                                                       } catch (e) {
                                                         setState(() {
                                                           saleButtonClicked = false;

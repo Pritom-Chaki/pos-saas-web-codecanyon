@@ -169,7 +169,7 @@ class _WareHouseListState extends State<WareHouseList> {
                                             padding: const EdgeInsets.all(20.0),
                                             child: Container(
                                               padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhiteTextColor),
+                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhite),
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
@@ -234,11 +234,11 @@ class _WareHouseListState extends State<WareHouseList> {
                                                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kBlueTextColor),
                                                           child: Row(
                                                             children: [
-                                                              const Icon(FeatherIcons.plus, color: kWhiteTextColor, size: 18.0),
+                                                              const Icon(FeatherIcons.plus, color: kWhite, size: 18.0),
                                                               const SizedBox(width: 5.0),
                                                               Text(
                                                                 'Add WareHouse',
-                                                                style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                                                style: kTextStyle.copyWith(color: kWhite),
                                                               ),
                                                             ],
                                                           ),
@@ -257,7 +257,7 @@ class _WareHouseListState extends State<WareHouseList> {
                                                                     child: Container(
                                                                       decoration: const BoxDecoration(
                                                                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                                                                        color: kWhiteTextColor,
+                                                                        color: kWhite,
                                                                       ),
                                                                       width: 600,
                                                                       child: Column(
@@ -344,7 +344,7 @@ class _WareHouseListState extends State<WareHouseList> {
                                                                                         children: [
                                                                                           Text(
                                                                                             lang.S.of(context).cancel,
-                                                                                            style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                                                                            style: kTextStyle.copyWith(color: kWhite),
                                                                                           ),
                                                                                         ],
                                                                                       ),
@@ -401,7 +401,7 @@ class _WareHouseListState extends State<WareHouseList> {
                                                                                           children: [
                                                                                             Text(
                                                                                               lang.S.of(context).saveAndPublish,
-                                                                                              style: kTextStyle.copyWith(color: kWhiteTextColor),
+                                                                                              style: kTextStyle.copyWith(color: kWhite),
                                                                                             ),
                                                                                           ],
                                                                                         ),
