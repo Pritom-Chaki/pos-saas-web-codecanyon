@@ -17,10 +17,10 @@ import 'model/sale_transaction_model.dart';
 import 'model/user_role_model.dart';
 
 ///______________DATA____________
-String appsName = 'POS SAAS';
-String appsTitle = 'POS SAAS Web';
-String pdfFooter = 'acnoo.com';
-String madeBy = 'Acnoo.com';
+String appsName = 'Pix Pos';
+String appsTitle = 'Pix Pos';
+String pdfFooter = 'Pixposbd.com';
+String madeBy = 'Pixposbd.com';
 bool isDemo = false;
 String invoiceFileName = "POS_SAAS";
 String demoText = 'You Can\'t change anything in demo mode';

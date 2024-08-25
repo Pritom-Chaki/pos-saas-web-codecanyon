@@ -79,7 +79,10 @@ class _LogInState extends State<LogIn> {
                   Text(
                     lang.S.of(context).pleaseDownloadOurMobileApp,
                     textAlign: TextAlign.center,
-                    style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, fontSize: 21.0),
+                    style: kTextStyle.copyWith(
+                        color: kTitleColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 21.0),
                   ),
                   const SizedBox(height: 50.0),
                   Row(
@@ -90,7 +93,9 @@ class _LogInState extends State<LogIn> {
                         width: 200,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
-                          image: const DecorationImage(image: AssetImage('images/playstore.png'), fit: BoxFit.cover),
+                          image: const DecorationImage(
+                              image: AssetImage('images/playstore.png'),
+                              fit: BoxFit.cover),
                         ),
                       ),
                       const SizedBox(width: 20.0),
@@ -99,7 +104,9 @@ class _LogInState extends State<LogIn> {
                         width: 200,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
-                          image: const DecorationImage(image: AssetImage('images/appstore.png'), fit: BoxFit.cover),
+                          image: const DecorationImage(
+                              image: AssetImage('images/appstore.png'),
+                              fit: BoxFit.cover),
                         ),
                       ),
                     ],
@@ -120,9 +127,6 @@ class _LogInState extends State<LogIn> {
     super.initState();
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,15 +136,21 @@ class _LogInState extends State<LogIn> {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: SizedBox(
-              width: context.width() < 750 ? 750 : MediaQuery.of(context).size.width,
-              height: context.height() < 500 ? 500 : MediaQuery.of(context).size.height,
+              width: context.width() < 750
+                  ? 750
+                  : MediaQuery.of(context).size.width,
+              height: context.height() < 500
+                  ? 500
+                  : MediaQuery.of(context).size.height,
               child: Consumer(builder: (context, ref, watch) {
                 final loginProvider = ref.watch(logInProvider);
                 return Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Center(
                     child: Container(
-                      width: context.width() < 940 ? 477 : MediaQuery.of(context).size.width * .50,
+                      width: context.width() < 940
+                          ? 477
+                          : MediaQuery.of(context).size.width * .50,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20.0),
@@ -157,7 +167,8 @@ class _LogInState extends State<LogIn> {
                                 image: AssetImage(appLogo),
                               ),
                             ),
-                          ).onTap(() => const SubscriptionPage().launch(context)),
+                          ).onTap(
+                              () => const SubscriptionPage().launch(context)),
                           Divider(
                             thickness: 1.0,
                             color: kGreyTextColor.withOpacity(0.1),
@@ -165,7 +176,10 @@ class _LogInState extends State<LogIn> {
                           const SizedBox(height: 10.0),
                           Text(
                             '$appsName Login Panel',
-                            style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold, fontSize: 21.0),
+                            style: kTextStyle.copyWith(
+                                color: kGreyTextColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 21.0),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 10.0),
@@ -192,20 +206,27 @@ class _LogInState extends State<LogIn> {
                                     },
                                     onFieldSubmitted: (value) async {
                                       if (validateAndSave()) {
-                                        ConfirmationResult confirmationResult = await FirebaseAuthentication().sendOTP(countryCode + value);
+                                        ConfirmationResult confirmationResult =
+                                            await FirebaseAuthentication()
+                                                .sendOTP(countryCode + value);
 
                                         // ignore: use_build_context_synchronously
                                         VerifyOtp(
-                                          confirmationResult: confirmationResult,
+                                          confirmationResult:
+                                              confirmationResult,
                                           phoneNumber: countryCode + value,
                                         ).launch(context);
                                       }
                                     },
                                     decoration: kInputDecoration.copyWith(
-                                      errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                      labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                      errorBorder: const OutlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.red)),
+                                      labelStyle: kTextStyle.copyWith(
+                                          color: kTitleColor),
                                       hintText: 'Enter your phone Number',
-                                      hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                      hintStyle: kTextStyle.copyWith(
+                                          color: kGreyTextColor),
                                       // prefixIcon: CountryCodePicker(
                                       //   favorite: const ['BD'],
                                       //   padding: EdgeInsets.zero,
@@ -226,18 +247,24 @@ class _LogInState extends State<LogIn> {
                                   const SizedBox(height: 20.0),
                                   ButtonGlobal(
                                     buttontext: 'Get OTP',
-                                    buttonDecoration: kButtonDecoration.copyWith(
+                                    buttonDecoration:
+                                        kButtonDecoration.copyWith(
                                       color: kGreenTextColor,
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     onPressed: (() async {
                                       if (validateAndSave()) {
-                                        ConfirmationResult confirmationResult = await FirebaseAuthentication().sendOTP(countryCode + phoneNumber);
+                                        ConfirmationResult confirmationResult =
+                                            await FirebaseAuthentication()
+                                                .sendOTP(
+                                                    countryCode + phoneNumber);
 
                                         // ignore: use_build_context_synchronously
                                         VerifyOtp(
-                                          confirmationResult: confirmationResult,
-                                          phoneNumber: countryCode + phoneNumber,
+                                          confirmationResult:
+                                              confirmationResult,
+                                          phoneNumber:
+                                              countryCode + phoneNumber,
                                         ).launch(context);
                                       }
                                     }),
@@ -303,13 +330,16 @@ class _LogInState extends State<LogIn> {
                                   const SizedBox(height: 20.0),
                                   Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Expanded(
                                         flex: 1,
                                         child: ListTile(
-                                          visualDensity: const VisualDensity(vertical: -4),
-                                          onTap: () => Navigator.pushNamed(context, EmailLogIn.route),
+                                          visualDensity:
+                                              const VisualDensity(vertical: -4),
+                                          onTap: () => Navigator.pushNamed(
+                                              context, EmailLogIn.route),
                                           contentPadding: EdgeInsets.zero,
                                           horizontalTitleGap: 0,
                                           leading: Icon(
@@ -318,14 +348,16 @@ class _LogInState extends State<LogIn> {
                                           ),
                                           title: Text(
                                             'Login with Email',
-                                            style: kTextStyle.copyWith(color: kTitleColor),
+                                            style: kTextStyle.copyWith(
+                                                color: kTitleColor),
                                           ),
                                         ),
                                       ),
                                       Expanded(
                                         flex: 1,
                                         child: ListTile(
-                                          onTap: () => Navigator.pushNamed(context, ForgotPassword.route),
+                                          onTap: () => Navigator.pushNamed(
+                                              context, ForgotPassword.route),
                                           contentPadding: EdgeInsets.zero,
                                           horizontalTitleGap: 0,
                                           leading: Icon(
@@ -334,19 +366,23 @@ class _LogInState extends State<LogIn> {
                                           ),
                                           title: Text(
                                             lang.S.of(context).forgotPassword,
-                                            style: kTextStyle.copyWith(color: kTitleColor),
+                                            style: kTextStyle.copyWith(
+                                                color: kTitleColor),
                                           ),
                                         ),
                                       ),
                                       Expanded(
                                         flex: 1,
                                         child: ListTile(
-                                          onTap: (() => Navigator.pushNamed(context, SignUp.route)),
+                                          onTap: (() => Navigator.pushNamed(
+                                              context, SignUp.route)),
                                           contentPadding: EdgeInsets.zero,
                                           horizontalTitleGap: 0,
                                           title: Text(
                                             lang.S.of(context).registration,
-                                            style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                            style: kTextStyle.copyWith(
+                                                color: kTitleColor,
+                                                fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.end,
                                           ),
                                         ),
@@ -395,10 +431,16 @@ class _EmailLogInState extends State<EmailLogIn> {
   }
 
   checkUser() async {
+    debugPrint("*********ButtonGlobal4");
     await PurchaseModel().isActiveBuyer().then((value) {
-      if (value) {
-       validateAndSave();
+         debugPrint("********* vv == $value");
+      debugPrint("*********ButtonGlobal5");
+      if (value != null) {
+        debugPrint("*********ButtonGlobal6");
+        debugPrint("$value");
+        validateAndSave();
       } else {
+        debugPrint("*********ButtonGlobal7");
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -408,9 +450,9 @@ class _EmailLogInState extends State<EmailLogIn> {
               TextButton(
                 onPressed: () {
                   //Exit app
-                  if(Platform.isAndroid){
+                  if (Platform.isAndroid) {
                     SystemNavigator.pop();
-                  }else{
+                  } else {
                     exit(0);
                   }
                 },
@@ -456,7 +498,10 @@ class _EmailLogInState extends State<EmailLogIn> {
                   Text(
                     lang.S.of(context).pleaseDownloadOurMobileApp,
                     textAlign: TextAlign.center,
-                    style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, fontSize: 21.0),
+                    style: kTextStyle.copyWith(
+                        color: kTitleColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 21.0),
                   ),
                   const SizedBox(height: 50.0),
                   Row(
@@ -467,7 +512,9 @@ class _EmailLogInState extends State<EmailLogIn> {
                         width: 200,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
-                          image: const DecorationImage(image: AssetImage('images/playstore.png'), fit: BoxFit.cover),
+                          image: const DecorationImage(
+                              image: AssetImage('images/playstore.png'),
+                              fit: BoxFit.cover),
                         ),
                       ),
                       const SizedBox(width: 20.0),
@@ -476,7 +523,9 @@ class _EmailLogInState extends State<EmailLogIn> {
                         width: 200,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
-                          image: const DecorationImage(image: AssetImage('images/appstore.png'), fit: BoxFit.cover),
+                          image: const DecorationImage(
+                              image: AssetImage('images/appstore.png'),
+                              fit: BoxFit.cover),
                         ),
                       ),
                     ],
@@ -501,15 +550,21 @@ class _EmailLogInState extends State<EmailLogIn> {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: SizedBox(
-              width: context.width() < 750 ? 750 : MediaQuery.of(context).size.width,
-              height: context.height() < 500 ? 500 : MediaQuery.of(context).size.height,
+              width: context.width() < 750
+                  ? 750
+                  : MediaQuery.of(context).size.width,
+              height: context.height() < 500
+                  ? 500
+                  : MediaQuery.of(context).size.height,
               child: Consumer(builder: (context, ref, watch) {
                 final loginProvider = ref.watch(logInProvider);
                 return Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Center(
                     child: Container(
-                      width: context.width() < 940 ? 477 : MediaQuery.of(context).size.width * .50,
+                      width: context.width() < 940
+                          ? 477
+                          : MediaQuery.of(context).size.width * .50,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20.0),
@@ -534,7 +589,10 @@ class _EmailLogInState extends State<EmailLogIn> {
                           const SizedBox(height: 10.0),
                           Text(
                             '$appsName Login Panel',
-                            style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold, fontSize: 21.0),
+                            style: kTextStyle.copyWith(
+                                color: kGreyTextColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 21.0),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 10.0),
@@ -629,10 +687,15 @@ class _EmailLogInState extends State<EmailLogIn> {
                                     },
                                     decoration: kInputDecoration.copyWith(
                                       labelText: lang.S.of(context).email,
-                                      labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                      hintText: lang.S.of(context).enterYourEmailAddress,
-                                      hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                      prefixIcon: const Icon(FeatherIcons.mail, color: kTitleColor),
+                                      labelStyle: kTextStyle.copyWith(
+                                          color: kTitleColor),
+                                      hintText: lang.S
+                                          .of(context)
+                                          .enterYourEmailAddress,
+                                      hintStyle: kTextStyle.copyWith(
+                                          color: kGreyTextColor),
+                                      prefixIcon: const Icon(FeatherIcons.mail,
+                                          color: kTitleColor),
                                     ),
                                   ),
                                   const SizedBox(height: 20.0),
@@ -653,20 +716,31 @@ class _EmailLogInState extends State<EmailLogIn> {
                                     },
                                     decoration: kInputDecoration.copyWith(
                                       labelText: lang.S.of(context).password,
-                                      labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                      hintText: lang.S.of(context).enterYourPassword,
-                                      hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                      prefixIcon: const Icon(FeatherIcons.lock, color: kTitleColor),
+                                      labelStyle: kTextStyle.copyWith(
+                                          color: kTitleColor),
+                                      hintText:
+                                          lang.S.of(context).enterYourPassword,
+                                      hintStyle: kTextStyle.copyWith(
+                                          color: kGreyTextColor),
+                                      prefixIcon: const Icon(FeatherIcons.lock,
+                                          color: kTitleColor),
                                     ),
                                   ),
                                   const SizedBox(height: 20.0),
                                   ButtonGlobal(
                                     buttontext: lang.S.of(context).login,
-                                    buttonDecoration: kButtonDecoration.copyWith(color: kGreenTextColor, borderRadius: BorderRadius.circular(8.0)),
-                                    onPressed: (() {
-                                      if (checkUser()) {
+                                    buttonDecoration:
+                                        kButtonDecoration.copyWith(
+                                            color: kGreenTextColor,
+                                            borderRadius:
+                                                BorderRadius.circular(8.0)),
+                                    onPressed: (() async {
+                               
+                                    //  if (checkUser()) {
+                                      
                                         loginProvider.signIn(context);
-                                      }
+                                       
+                                      //}
                                     }),
                                   ),
                                   const SizedBox(height: 20.0),
@@ -676,11 +750,14 @@ class _EmailLogInState extends State<EmailLogIn> {
                                     children: [
                                       IconButton(
                                           onPressed: () {
-                                            Navigator.pushNamed(context, ForgotPassword.route);
+                                            Navigator.pushNamed(
+                                                context, ForgotPassword.route);
                                           },
                                           icon: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Icon(
                                                 MdiIcons.lockAlertOutline,
@@ -689,20 +766,28 @@ class _EmailLogInState extends State<EmailLogIn> {
                                               ),
                                               const SizedBox(width: 5.0),
                                               Text(
-                                                lang.S.of(context).forgotPassword,
+                                                lang.S
+                                                    .of(context)
+                                                    .forgotPassword,
                                                 textAlign: TextAlign.center,
-                                                style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                                style: kTextStyle.copyWith(
+                                                    color: kTitleColor,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               )
                                             ],
                                           )),
                                       const Spacer(),
                                       TextButton(
                                         onPressed: () {
-                                          Navigator.pushNamed(context, SignUp.route);
+                                          Navigator.pushNamed(
+                                              context, SignUp.route);
                                         },
                                         child: Text(
                                           lang.S.of(context).registration,
-                                          style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                          style: kTextStyle.copyWith(
+                                              color: kTitleColor,
+                                              fontWeight: FontWeight.bold),
                                           textAlign: TextAlign.end,
                                         ),
                                       )
