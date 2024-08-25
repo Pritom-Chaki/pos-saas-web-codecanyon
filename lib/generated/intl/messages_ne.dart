@@ -25,7 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("बिक्री थप्नुहोस्"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("श्रेणी"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("इनभ्वाइस"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("पोस बिक्री"),
         "PRICE": MessageLookupByLibrary.simpleMessage("मूल्य"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("उत्पादनको नाम"),
@@ -517,7 +517,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("दायाँ"),
         "sAmount": MessageLookupByLibrary.simpleMessage("बिक्री मात्रा"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "आफ्नो व्यापार डेटा सहजै सुरक्षित गर्नुहोस्। हाम्रो Pix Pos POS Unlimited अपग्रेडमा नि:शुल्क डाटा ब्याकअप समावेश छ, तपाइँको बहुमूल्य जानकारीलाई कुनै पनि अप्रत्याशित घटनाहरूबाट सुरक्षित गरिएको छ भन्ने सुनिश्चित गर्दै। साँच्चै महत्त्वपूर्ण कुराहरूमा ध्यान दिनुहोस् - तपाईंको व्यापार वृद्धि।"),
+            "आफ्नो व्यापार डेटा सहजै सुरक्षित गर्नुहोस्। हाम्रो Pos Saas POS Unlimited अपग्रेडमा नि:शुल्क डाटा ब्याकअप समावेश छ, तपाइँको बहुमूल्य जानकारीलाई कुनै पनि अप्रत्याशित घटनाहरूबाट सुरक्षित गरिएको छ भन्ने सुनिश्चित गर्दै। साँच्चै महत्त्वपूर्ण कुराहरूमा ध्यान दिनुहोस् - तपाईंको व्यापार वृद्धि।"),
         "sale": MessageLookupByLibrary.simpleMessage("बिक्री"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("बिक्री रकम"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("बिक्री विवरण"),
@@ -579,7 +579,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("सांख्यिकी"),
         "status": MessageLookupByLibrary.simpleMessage("स्थिति"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "कुनै पनि अतिरिक्त लागत बिना प्राविधिक प्रगतिको अगाडि रहनुहोस्। हाम्रो Pix Pos POS Unlimited Upgrade ले तपाइँको औँलाको छेउमा सधैं नवीनतम उपकरण र सुविधाहरू छन् भनी सुनिश्चित गर्दछ, तपाइँको व्यवसाय अत्याधुनिक रहने ग्यारेन्टी गर्दै।"),
+            "कुनै पनि अतिरिक्त लागत बिना प्राविधिक प्रगतिको अगाडि रहनुहोस्। हाम्रो Pos Saas POS Unlimited Upgrade ले तपाइँको औँलाको छेउमा सधैं नवीनतम उपकरण र सुविधाहरू छन् भनी सुनिश्चित गर्दछ, तपाइँको व्यवसाय अत्याधुनिक रहने ग्यारेन्टी गर्दै।"),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "कुनै पनि अतिरिक्त लागत बिना प्राविधिक प्रगतिको अगाडि रहनुहोस्। हाम्रो Pos Sass POS Unlimited Upgrade ले तपाइँको औँलाको छेउमा सँधै नवीनतम उपकरण र सुविधाहरू छन् भनी सुनिश्चित गर्दछ, तपाइँको व्यवसाय अत्याधुनिक रहने ग्यारेन्टी गर्दै।"),
         "stock": MessageLookupByLibrary.simpleMessage("स्टक"),
@@ -603,7 +603,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "ड्राइभरको लाइसेन्स, राष्ट्रिय पहिचान पत्र वा पासपोर्टको फोटो लिनुहोस्"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("प्रयोगको शर्तहरू"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "नामले सबै भन्छ। Pix Pos POS Unlimited को साथ, तपाईंको प्रयोगमा कुनै सीमा छैन। चाहे तपाइँ मुट्ठीभर लेनदेनहरू प्रशोधन गर्दै हुनुहुन्छ वा ग्राहकहरूको भीडको अनुभव गर्दै हुनुहुन्छ, तपाइँ सीमाहरूद्वारा बाधा नभएको थाहा पाउँदा तपाइँ आत्मविश्वासका साथ सञ्चालन गर्न सक्नुहुन्छ।"),
+            "नामले सबै भन्छ। Pos Saas POS Unlimited को साथ, तपाईंको प्रयोगमा कुनै सीमा छैन। चाहे तपाइँ मुट्ठीभर लेनदेनहरू प्रशोधन गर्दै हुनुहुन्छ वा ग्राहकहरूको भीडको अनुभव गर्दै हुनुहुन्छ, तपाइँ सीमाहरूद्वारा बाधा नभएको थाहा पाउँदा तपाइँ आत्मविश्वासका साथ सञ्चालन गर्न सक्नुहुन्छ।"),
         "thisCustmerHasNoDue": MessageLookupByLibrary.simpleMessage(
             "यस ग्राहकको कुनै बक्सिएको रकम छैन"),
         "thisCustomerHavepreviousDue":
@@ -652,7 +652,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedInvoice": MessageLookupByLibrary.simpleMessage("असिमित बिल"),
         "unlimitedUsage": MessageLookupByLibrary.simpleMessage("असीमित उपयोग"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "हाम्रो विशेषज्ञ टोलीको नेतृत्वमा व्यक्तिगत प्रशिक्षण सत्रहरूको साथ Pix Pos POS को पूर्ण क्षमता अनलक गर्नुहोस्। आधारभूत देखि उन्नत प्रविधिहरू सम्म, हामी सुनिश्चित गर्छौं कि तपाइँ तपाइँको व्यवसाय प्रक्रियाहरु लाई अनुकूलन गर्न प्रणाली को हरेक पक्ष को उपयोग मा राम्रो संग जान्दछ।"),
+            "हाम्रो विशेषज्ञ टोलीको नेतृत्वमा व्यक्तिगत प्रशिक्षण सत्रहरूको साथ Pos Saas POS को पूर्ण क्षमता अनलक गर्नुहोस्। आधारभूत देखि उन्नत प्रविधिहरू सम्म, हामी सुनिश्चित गर्छौं कि तपाइँ तपाइँको व्यवसाय प्रक्रियाहरु लाई अनुकूलन गर्न प्रणाली को हरेक पक्ष को उपयोग मा राम्रो संग जान्दछ।"),
         "updateNow":
             MessageLookupByLibrary.simpleMessage("अब परिमार्जन गर्नुहोस्"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(

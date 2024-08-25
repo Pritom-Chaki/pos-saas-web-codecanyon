@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("ເພີ່ມການຂາຍ"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("ປະເພດ"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("ໃບບິນ"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("ການຂາຍ POS"),
         "PRICE": MessageLookupByLibrary.simpleMessage("ລາຄາ"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("ຊື່ສິນຄ້າ"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("ເຂົ້າຊົມ Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("ເຂົ້າຊົມ Pos Saas"),
         "QTY": MessageLookupByLibrary.simpleMessage("ຈຳນວນ"),
         "Quantity": MessageLookupByLibrary.simpleMessage("ຈຳນວນ*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("ສະຖານະ"),
@@ -354,9 +354,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "ສ້າງຄວາມປະທັບໃຈແກ່ລູກຄ້າຂອງທ່ານດ້ວຍໃບແຈ້ງໜີ້ທີ່ມີຍີ່ຫໍ້. ການອັບເກຣດແບບບໍ່ຈຳກັດຂອງພວກເຮົາໃຫ້ຂໍ້ໄດ້ປຽບທີ່ເປັນເອກະລັກຂອງການປັບແຕ່ງໃບແຈ້ງໜີ້ຂອງທ່ານ, ເພີ່ມການສໍາພັດແບບມືອາຊີບທີ່ເສີມສ້າງເອກະລັກຂອງຍີ່ຫໍ້ຂອງທ່ານແລະສົ່ງເສີມຄວາມສັດຊື່ຂອງລູກຄ້າ."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("ຜູ້ຜະລິດຕະພັນ"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("ລະບົບເຂົ້າລະບົບ Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("ລະບົບເຂົ້າລະບົບ Pos Saas"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("ລະບົບລົງທະບຽນ Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("ລະບົບລົງທະບຽນ Pos Saas"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "ເຄື່ອງຂ່າວຂອງໂດຍບໍ່\n+\nເຄື່ອງຮ່ວມ"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("ໃບຮັບເງິນ"),
@@ -448,7 +448,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata":
             MessageLookupByLibrary.simpleMessage("ກະລຸນາປ້ອນຂໍ້ມູນທີ່ຖືກຕ້ອງ"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("ລົງຊົມ Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("ລົງຊົມ Pos Saas"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("ການຊະກາຍຄົນສຳລັບລູກຄ້າຊື້ດີ"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("ແຖວບໍລິສັດລ່ວງ"),
@@ -507,7 +507,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("ຂວາ"),
         "sAmount": MessageLookupByLibrary.simpleMessage("ຈຳນວນເງິນຂາຍ"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "ປົກປ້ອງຂໍ້ມູນທຸລະກິດຂອງທ່ານຢ່າງງ່າຍດາຍ. Pix Pos POS Unlimited Upgrade ຂອງພວກເຮົາປະກອບມີການສໍາຮອງຂໍ້ມູນຟຣີ, ໃຫ້ແນ່ໃຈວ່າຂໍ້ມູນທີ່ມີຄຸນຄ່າຂອງທ່ານຖືກປົກປ້ອງຈາກເຫດການທີ່ບໍ່ໄດ້ຄາດຄິດ. ສຸມໃສ່ສິ່ງທີ່ສໍາຄັນແທ້ໆ - ການເຕີບໂຕຂອງທຸລະກິດຂອງທ່ານ."),
+            "ປົກປ້ອງຂໍ້ມູນທຸລະກິດຂອງທ່ານຢ່າງງ່າຍດາຍ. Pos Saas POS Unlimited Upgrade ຂອງພວກເຮົາປະກອບມີການສໍາຮອງຂໍ້ມູນຟຣີ, ໃຫ້ແນ່ໃຈວ່າຂໍ້ມູນທີ່ມີຄຸນຄ່າຂອງທ່ານຖືກປົກປ້ອງຈາກເຫດການທີ່ບໍ່ໄດ້ຄາດຄິດ. ສຸມໃສ່ສິ່ງທີ່ສໍາຄັນແທ້ໆ - ການເຕີບໂຕຂອງທຸລະກິດຂອງທ່ານ."),
         "sale": MessageLookupByLibrary.simpleMessage("ການຂາຍ"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("ຈຳນວນການຂາຍ"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("ລາຍລະອຽດການຂາຍ"),
@@ -591,7 +591,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "ໃສ່ຮູບພິມດູແລະອາຍຸຂອງເຈົ້າ, ບັດປະຈຳຕົວຈີນພາຍນອກຫຼືຮູບປື້ມ"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("ເງິນຂອງບັນຊີ"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "ຊື່ບອກວ່າມັນທັງຫມົດ. ດ້ວຍ Pix Pos POS Unlimited, ບໍ່ມີຂີດຈຳກັດໃນການນຳໃຊ້ຂອງທ່ານ. ບໍ່ວ່າທ່ານກໍາລັງດໍາເນີນທຸລະກໍາຈໍານວນຫນຶ່ງຫຼືປະສົບກັບລູກຄ້າທີ່ຮີບຮ້ອນ, ທ່ານສາມາດດໍາເນີນການດ້ວຍຄວາມຫມັ້ນໃຈ, ໂດຍຮູ້ວ່າທ່ານບໍ່ໄດ້ຖືກຈໍາກັດໂດຍຂໍ້ຈໍາກັດ."),
+            "ຊື່ບອກວ່າມັນທັງຫມົດ. ດ້ວຍ Pos Saas POS Unlimited, ບໍ່ມີຂີດຈຳກັດໃນການນຳໃຊ້ຂອງທ່ານ. ບໍ່ວ່າທ່ານກໍາລັງດໍາເນີນທຸລະກໍາຈໍານວນຫນຶ່ງຫຼືປະສົບກັບລູກຄ້າທີ່ຮີບຮ້ອນ, ທ່ານສາມາດດໍາເນີນການດ້ວຍຄວາມຫມັ້ນໃຈ, ໂດຍຮູ້ວ່າທ່ານບໍ່ໄດ້ຖືກຈໍາກັດໂດຍຂໍ້ຈໍາກັດ."),
         "thisCustmerHasNoDue": MessageLookupByLibrary.simpleMessage(
             "ລູກຄ້ານີ້ບໍ່ມີຈຳນວນທີ່ຕ້ອງຈ່າຍ"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -647,7 +647,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("ການໃຊ້ລະບົບບໍ່ຈໍາໃຊ້ຈໍ"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "ປົດລັອກທ່າແຮງອັນເຕັມທີ່ຂອງ Pix Pos POS ດ້ວຍການຝຶກອົບຮົມສ່ວນບຸກຄົນທີ່ນໍາພາໂດຍທີມງານຜູ້ຊ່ຽວຊານຂອງພວກເຮົາ. ຈາກພື້ນຖານໄປສູ່ເຕັກນິກຂັ້ນສູງ, ພວກເຮົາຮັບປະກັນວ່າທ່ານມີຄວາມຊໍານິຊໍານານໃນການນໍາໃຊ້ທຸກໆດ້ານຂອງລະບົບເພື່ອເພີ່ມປະສິດທິພາບຂະບວນການທຸລະກິດຂອງທ່ານ."),
+            "ປົດລັອກທ່າແຮງອັນເຕັມທີ່ຂອງ Pos Saas POS ດ້ວຍການຝຶກອົບຮົມສ່ວນບຸກຄົນທີ່ນໍາພາໂດຍທີມງານຜູ້ຊ່ຽວຊານຂອງພວກເຮົາ. ຈາກພື້ນຖານໄປສູ່ເຕັກນິກຂັ້ນສູງ, ພວກເຮົາຮັບປະກັນວ່າທ່ານມີຄວາມຊໍານິຊໍານານໃນການນໍາໃຊ້ທຸກໆດ້ານຂອງລະບົບເພື່ອເພີ່ມປະສິດທິພາບຂະບວນການທຸລະກິດຂອງທ່ານ."),
         "updateNow": MessageLookupByLibrary.simpleMessage("ປັບປຸ່ມດິຈ"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "ປັບປຸງໃບຮັບນີ້ກ່ອນ\\nກະລຸນາປັບປຸງໃບຮັບຂອງທ່ານກ່ອນ."),

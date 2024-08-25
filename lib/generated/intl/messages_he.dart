@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("הוסף מכירה"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("קטגוריה"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("חשבונית"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("מכירה POS"),
         "PRICE": MessageLookupByLibrary.simpleMessage("מחיר"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("שם מוצר"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("לוח התחברות ל-Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("לוח התחברות ל-Pos Saas"),
         "QTY": MessageLookupByLibrary.simpleMessage("כמות"),
         "Quantity": MessageLookupByLibrary.simpleMessage("כמות *"),
         "STATUS": MessageLookupByLibrary.simpleMessage("סטטוס"),
@@ -338,9 +338,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "השאר הדפסה אישית על לקוחותיך עם שוברים מותאמים אישית. שדרוג הבלתי מוגבל שלנו מציע את היתרון הייחודי של להתאים אישית את השוברים שלך, ולהוסיף טאץ\' מקצועי שמחזק את הזהות של המותג שלך ומעניק לקוחות נאמנות."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("יצרן"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("לוח הכניסה של Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("לוח הכניסה של Pos Saas"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("לוח הרשמה של Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("לוח הרשמה של Pos Saas"),
         "mobilePlusDesktop":
             MessageLookupByLibrary.simpleMessage("אפליקציה לנייד\n+\nמשולב"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("קבלת כסף"),
@@ -426,7 +426,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata":
             MessageLookupByLibrary.simpleMessage("אנא הזן נתונים חוקיים"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("לוח ההרשמה ל-Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("לוח ההרשמה ל-Pos Saas"),
         "practies": MessageLookupByLibrary.simpleMessage("תרגול"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("תמיכת לקוח משודרגת"),
@@ -543,7 +543,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("סטטיסטיקה"),
         "status": MessageLookupByLibrary.simpleMessage("סטטוס"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "הישאר בחזית החדשנות הטכנולוגית בלי עלויות נוספות. שדרוג בלתי מוגבל של Pix Pos POS מבטיח לך תמיד את הכלים והתכונות האחרונים בטווח היד, ומבטיח שעסקך יישאר מוביל בתחום."),
+            "הישאר בחזית החדשנות הטכנולוגית בלי עלויות נוספות. שדרוג בלתי מוגבל של Pos Saas POS מבטיח לך תמיד את הכלים והתכונות האחרונים בטווח היד, ומבטיח שעסקך יישאר מוביל בתחום."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "הישאר בחזית החדשנות הטכנולוגית בלי עלויות נוספות. שדרוג בלתי מוגבל של Pos Sass POS מבטיח לך תמיד את הכלים והתכונות האחרונים בטווח היד, ומבטיח שעסקך יישאר מוביל בתחום."),
         "stock": MessageLookupByLibrary.simpleMessage("מלאי"),
@@ -565,7 +565,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "קח רישיון נהיגה, תעודת זהות לאומית או תמונה של דרכון"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("תנאי השימוש"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "השם אומר הכל. עם Pix Pos POS Unlimited, אין הגבלה על השימוש שלך. בין אם אתה מעבד מספר מעט של עסקאות או חוויה זרם של לקוחות, אתה יכול לפעול בביטחון, בוודאות שאין הגבלות על השימוש שלך."),
+            "השם אומר הכל. עם Pos Saas POS Unlimited, אין הגבלה על השימוש שלך. בין אם אתה מעבד מספר מעט של עסקאות או חוויה זרם של לקוחות, אתה יכול לפעול בביטחון, בוודאות שאין הגבלות על השימוש שלך."),
         "thisCustmerHasNoDue":
             MessageLookupByLibrary.simpleMessage("ללקוח זה אין חוב"),
         "thisCustomerHavepreviousDue":
@@ -613,7 +613,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("שימוש בלתי מוגבל"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "פתח את הפוטנציאל המלא של Pix Pos POS עם ישיבות הכשרה אישית בהדרכת צוות המומחים שלנו. מהיסודות ועד טכניקות מתקדמות, אנו מבטיחים שתהיה מומחה בשימוש בכל האפשרויות של המערכת למיטוב תהלי העסק שלך."),
+            "פתח את הפוטנציאל המלא של Pos Saas POS עם ישיבות הכשרה אישית בהדרכת צוות המומחים שלנו. מהיסודות ועד טכניקות מתקדמות, אנו מבטיחים שתהיה מומחה בשימוש בכל האפשרויות של המערכת למיטוב תהלי העסק שלך."),
         "updateNow": MessageLookupByLibrary.simpleMessage("עדכן עכשיו"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "עדכן את התוכנית שלך קודם \\ nמגבלת המכירה עברה."),

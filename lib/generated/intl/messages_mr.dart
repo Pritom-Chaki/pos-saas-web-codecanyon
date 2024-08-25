@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("विक्री जोडा"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("श्रेणी"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("विवरणपत्र"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("POS विक्री"),
         "PRICE": MessageLookupByLibrary.simpleMessage("किंमत"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("उत्पादन नाव"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos लॉगिन पॅनल"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas लॉगिन पॅनल"),
         "QTY": MessageLookupByLibrary.simpleMessage("QTY"),
         "Quantity": MessageLookupByLibrary.simpleMessage("प्रमाण*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("स्थिती"),
@@ -346,9 +346,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Make a lasting impression on your customers with branded invoices. Our Unlimited Upgrade offers the unique advantage of customizing your invoices, adding a professional touch that reinforces your brand identity and fosters customer loyalty."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("निर्माता"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos लॉगिन पॅनल"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas लॉगिन पॅनल"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Pix Pos साइनअप पॅनल"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas साइनअप पॅनल"),
         "mobilePlusDesktop":
             MessageLookupByLibrary.simpleMessage("मोबाइल अॅप\n+\nडेस्कटॉप"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("पैसे पावती"),
@@ -445,7 +445,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata":
             MessageLookupByLibrary.simpleMessage("कृपया वैध डेटा प्रविष्ट करा"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos साइन अप पॅनल"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas साइन अप पॅनल"),
         "practies": MessageLookupByLibrary.simpleMessage("अभ्यास"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Premium Customer Support"),
@@ -508,7 +508,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("उजवे"),
         "sAmount": MessageLookupByLibrary.simpleMessage("विक्रय मूल्य"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Safeguard your business data effortlessly. Our Pix Pos POS Unlimited Upgrade includes free data backup, ensuring your valuable information is protected against any unforeseen events. Focus on what truly matters - your business growth."),
+            "Safeguard your business data effortlessly. Our Pos Saas POS Unlimited Upgrade includes free data backup, ensuring your valuable information is protected against any unforeseen events. Focus on what truly matters - your business growth."),
         "sale": MessageLookupByLibrary.simpleMessage("विक्री"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("विक्री रक्कम"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("विक्री तपशील"),
@@ -569,7 +569,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("सांख्यिकी"),
         "status": MessageLookupByLibrary.simpleMessage("स्थिती"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Stay at the forefront of technological advancements without any extra costs. Our Pix Pos POS Unlimited Upgrade ensures that you always have the latest tools and features at your fingertips, guaranteeing your business remains cutting-edge."),
+            "Stay at the forefront of technological advancements without any extra costs. Our Pos Saas POS Unlimited Upgrade ensures that you always have the latest tools and features at your fingertips, guaranteeing your business remains cutting-edge."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "कोणत्याही अतिरिक्त खर्चाशिवाय तंत्रज्ञानाच्या आघाडीस असा राहा. आमच्या Pos Sass POS अमर्याद अपग्रेडने सुन्दर आपल्याला आपल्या हातात नवीन उपकरणे आणि सुविधे असल्याचं सुनिश्चित करतात, तसे की आपला व्यवसाय काटिण्याच्या अवस्थेत राहील."),
         "stock": MessageLookupByLibrary.simpleMessage("स्टॉक"),
@@ -592,7 +592,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "एक ड्रायव्हिंग लायसन्स, राष्ट्रीय ओळखपत्र किंवा पासपोर्ट फोटो घ्या"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("वापराच्या अटी"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "The name says it all. With Pix Pos POS Unlimited, there\'s no cap on your usage. Whether you\'re processing a handful of transactions or experiencing a rush of customers, you can operate with confidence, knowing you\'re not constrained by limits"),
+            "The name says it all. With Pos Saas POS Unlimited, there\'s no cap on your usage. Whether you\'re processing a handful of transactions or experiencing a rush of customers, you can operate with confidence, knowing you\'re not constrained by limits"),
         "thisCustmerHasNoDue": MessageLookupByLibrary.simpleMessage(
             "या ग्राहकाची कोणतीही देय नाही"),
         "thisCustomerHavepreviousDue":
@@ -642,7 +642,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Unlimited Usage"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Unlock the full potential of Pix Pos POS with personalized training sessions led by our expert team. From the basics to advanced techniques, we ensure you\'re well-versed in utilizing every facet of the system to optimize your business processes."),
+            "Unlock the full potential of Pos Saas POS with personalized training sessions led by our expert team. From the basics to advanced techniques, we ensure you\'re well-versed in utilizing every facet of the system to optimize your business processes."),
         "updateNow": MessageLookupByLibrary.simpleMessage("आता अद्यतनित करा"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "आधी आपला प्लॅन अपडेट करा\\nविक्री मर्यादा संपली आहे."),

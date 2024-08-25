@@ -25,13 +25,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("AJOUTER UNE VENTE"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("CATÉGORIE"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("FACTURE"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale":
             MessageLookupByLibrary.simpleMessage("Vente au point de vente"),
         "PRICE": MessageLookupByLibrary.simpleMessage("PRIX"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("NOM DU PRODUIT"),
         "PosSaasLoginPanel": MessageLookupByLibrary.simpleMessage(
-            "Panneau de connexion Pix Pos"),
+            "Panneau de connexion Pos Saas"),
         "QTY": MessageLookupByLibrary.simpleMessage("QTY"),
         "Quantity": MessageLookupByLibrary.simpleMessage("Quantité *"),
         "STATUS": MessageLookupByLibrary.simpleMessage("STATUT"),
@@ -388,9 +388,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Laissez une impression durable sur vos clients avec des factures personnalisées. Notre mise à niveau illimitée offre l\'avantage unique de personnaliser vos factures, ajoutant une touche professionnelle qui renforce l\'identité de votre marque et favorise la fidélité des clients."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Fabricant"),
         "mobiPosLoginPanel": MessageLookupByLibrary.simpleMessage(
-            "Panneau de connexion Pix Pos"),
+            "Panneau de connexion Pos Saas"),
         "mobiPosSignUpPane": MessageLookupByLibrary.simpleMessage(
-            "Panneau d\'inscription Pix Pos"),
+            "Panneau d\'inscription Pos Saas"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "Application mobile\n+\nBureau"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("Reçu d\'argent"),
@@ -489,7 +489,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata": MessageLookupByLibrary.simpleMessage(
             "Veuillez entrer des données valides"),
         "posSaasSingUpPanel": MessageLookupByLibrary.simpleMessage(
-            "Panneau d\'inscription Pix Pos"),
+            "Panneau d\'inscription Pos Saas"),
         "practies": MessageLookupByLibrary.simpleMessage("Pratique"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Assistance client premium"),
@@ -631,7 +631,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("Statistique"),
         "status": MessageLookupByLibrary.simpleMessage("Statut"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Restez à l\'avant-garde des avancées technologiques sans coûts supplémentaires. Notre mise à niveau illimitée de Pix Pos POS garantit que vous disposez toujours des derniers outils et fonctionnalités à portée de main, garantissant que votre entreprise reste à la pointe."),
+            "Restez à l\'avant-garde des avancées technologiques sans coûts supplémentaires. Notre mise à niveau illimitée de Pos Saas POS garantit que vous disposez toujours des derniers outils et fonctionnalités à portée de main, garantissant que votre entreprise reste à la pointe."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "Restez à l\'avant-garde des avancées technologiques sans coûts supplémentaires. Notre mise à niveau illimitée de Pos Sass POS garantit que vous disposez toujours des derniers outils et fonctionnalités à portée de main, garantissant que votre entreprise reste à la pointe."),
         "stock": MessageLookupByLibrary.simpleMessage("Stock"),
@@ -658,7 +658,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfUse":
             MessageLookupByLibrary.simpleMessage("Conditions d\'utilisation"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Le nom dit tout. Avec Pix Pos POS Unlimited, il n\'y a pas de limite à votre utilisation. Que vous traitiez quelques transactions ou que vous soyez submergé de clients, vous pouvez opérer en toute confiance, sachant que vous n\'êtes pas limité par des contraintes."),
+            "Le nom dit tout. Avec Pos Saas POS Unlimited, il n\'y a pas de limite à votre utilisation. Que vous traitiez quelques transactions ou que vous soyez submergé de clients, vous pouvez opérer en toute confiance, sachant que vous n\'êtes pas limité par des contraintes."),
         "thisCustmerHasNoDue":
             MessageLookupByLibrary.simpleMessage("Ce client n\'a pas de due"),
         "thisCustomerHavepreviousDue":
@@ -713,7 +713,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Utilisation illimitée"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Débloquez tout le potentiel de Pix Pos POS avec des sessions de formation personnalisées dirigées par notre équipe d\'experts. Des bases aux techniques avancées, nous nous assurons que vous maîtrisez chaque aspect du système pour optimiser vos processus commerciaux."),
+            "Débloquez tout le potentiel de Pos Saas POS avec des sessions de formation personnalisées dirigées par notre équipe d\'experts. Des bases aux techniques avancées, nous nous assurons que vous maîtrisez chaque aspect du système pour optimiser vos processus commerciaux."),
         "updateNow":
             MessageLookupByLibrary.simpleMessage("Mettre à jour maintenant"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(

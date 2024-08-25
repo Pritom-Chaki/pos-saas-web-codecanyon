@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("বিক্রয় যুক্ত করুন"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("বিভাগ"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("চলমান বিল"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("পিওএস বিক্রয়"),
         "PRICE": MessageLookupByLibrary.simpleMessage("মূল্য"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("পণ্যের নাম"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos লগইন প্যানেল"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas লগইন প্যানেল"),
         "QTY": MessageLookupByLibrary.simpleMessage("পরিমাণ"),
         "Quantity": MessageLookupByLibrary.simpleMessage("পরিমাণ*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("অবস্থা"),
@@ -362,9 +362,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "ব্র্যান্ডেড চালান দিয়ে আপনার গ্রাহকদের উপর একটি স্থায়ী ছাপ তৈরি করুন। আমাদের আনলিমিটেড আপগ্রেড আপনার চালান কাস্টমাইজ করার অনন্য সুবিধা প্রদান করে, একটি পেশাদার স্পর্শ যোগ করে যা আপনার ব্র্যান্ডের পরিচয়কে শক্তিশালী করে এবং গ্রাহকের আনুগত্যকে উৎসাহিত করে।"),
         "manufacturer": MessageLookupByLibrary.simpleMessage("প্রস্তুতকারক"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos লগইন প্যানেল"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas লগইন প্যানেল"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Pix Pos সাইন আপ প্যানেল"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas সাইন আপ প্যানেল"),
         "mobilePlusDesktop":
             MessageLookupByLibrary.simpleMessage("মোবাইল অ্যাপ\n+\nডেস্কটপ"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("টাকা রসিদ"),
@@ -457,7 +457,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata":
             MessageLookupByLibrary.simpleMessage("দয়া করে বৈধ তথ্য দিন"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos সাইনআপ প্যানেল"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas সাইনআপ প্যানেল"),
         "practies": MessageLookupByLibrary.simpleMessage("অভ্যাস"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("প্রিমিয়াম গ্রাহক সমর্থন"),
@@ -521,7 +521,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("ডান"),
         "sAmount": MessageLookupByLibrary.simpleMessage("বিক্রয় পরিমাণ"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "অনায়াসে আপনার ব্যবসার ডেটা সুরক্ষিত করুন। আমাদের Pix Pos POS আনলিমিটেড আপগ্রেডে বিনামূল্যে ডেটা ব্যাকআপ রয়েছে, যাতে আপনার মূল্যবান তথ্য যেকোন অপ্রত্যাশিত ঘটনার বিরুদ্ধে সুরক্ষিত থাকে। আপনার ব্যবসা বৃদ্ধি - সত্যিই গুরুত্বপূর্ণ কি ফোকাস."),
+            "অনায়াসে আপনার ব্যবসার ডেটা সুরক্ষিত করুন। আমাদের Pos Saas POS আনলিমিটেড আপগ্রেডে বিনামূল্যে ডেটা ব্যাকআপ রয়েছে, যাতে আপনার মূল্যবান তথ্য যেকোন অপ্রত্যাশিত ঘটনার বিরুদ্ধে সুরক্ষিত থাকে। আপনার ব্যবসা বৃদ্ধি - সত্যিই গুরুত্বপূর্ণ কি ফোকাস."),
         "sale": MessageLookupByLibrary.simpleMessage("বিক্রয়"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("বিক্রয় পরিমাণ"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("বিক্রয় বিবরণ"),
@@ -586,7 +586,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("পরিসংখ্যান"),
         "status": MessageLookupByLibrary.simpleMessage("স্থিতি"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "কোনো অতিরিক্ত খরচ ছাড়াই প্রযুক্তিগত অগ্রগতিতে এগিয়ে থাকুন। আমাদের Pix Pos POS আনলিমিটেড আপগ্রেড নিশ্চিত করে যে আপনার নখদর্পণে সর্বদা সর্বাধুনিক সরঞ্জাম এবং বৈশিষ্ট্য রয়েছে, আপনার ব্যবসার অত্যাধুনিক থাকার নিশ্চয়তা দেয়।"),
+            "কোনো অতিরিক্ত খরচ ছাড়াই প্রযুক্তিগত অগ্রগতিতে এগিয়ে থাকুন। আমাদের Pos Saas POS আনলিমিটেড আপগ্রেড নিশ্চিত করে যে আপনার নখদর্পণে সর্বদা সর্বাধুনিক সরঞ্জাম এবং বৈশিষ্ট্য রয়েছে, আপনার ব্যবসার অত্যাধুনিক থাকার নিশ্চয়তা দেয়।"),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "অত্যন্ত অত্যাধুনিক উন্নতির সিঁধানে থাকুন, কোন অতিরিক্ত খরচ ছাড়াই। আমাদের Pos Sass POS অসীম আপগ্রেড নিশ্চিত করে যে আপনি সর্বদা নতুন সরঞ্জাম এবং বৈশিষ্ট্য আপনার হাতে রেখেন, আপনার ব্যবসা চিরকাল উন্নত থাকে।"),
         "stock": MessageLookupByLibrary.simpleMessage("স্টক"),
@@ -610,7 +610,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfUse":
             MessageLookupByLibrary.simpleMessage("ব্যবহারের শর্তাবলী"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "নাম এটা সব বলছে। Pix Pos POS Unlimited এর সাথে, আপনার ব্যবহারের উপর কোন ক্যাপ নেই। আপনি মুষ্টিমেয় লেনদেন প্রক্রিয়াকরণ করছেন বা গ্রাহকদের ভিড়ের সম্মুখীন হচ্ছেন না কেন, আপনি সীমাবদ্ধ নন জেনে আত্মবিশ্বাসের সাথে কাজ করতে পারেন"),
+            "নাম এটা সব বলছে। Pos Saas POS Unlimited এর সাথে, আপনার ব্যবহারের উপর কোন ক্যাপ নেই। আপনি মুষ্টিমেয় লেনদেন প্রক্রিয়াকরণ করছেন বা গ্রাহকদের ভিড়ের সম্মুখীন হচ্ছেন না কেন, আপনি সীমাবদ্ধ নন জেনে আত্মবিশ্বাসের সাথে কাজ করতে পারেন"),
         "thisCustmerHasNoDue":
             MessageLookupByLibrary.simpleMessage("এই গ্রাহকের কোনও বকেয়া নেই"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -659,7 +659,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("সীমাহীন ব্যবহার"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "আমাদের বিশেষজ্ঞ দলের নেতৃত্বে ব্যক্তিগতকৃত প্রশিক্ষণ সেশনের মাধ্যমে Pix Pos POS-এর সম্পূর্ণ সম্ভাবনাকে আনলক করুন। বেসিক থেকে শুরু করে উন্নত কৌশল পর্যন্ত, আমরা নিশ্চিত করি যে আপনি আপনার ব্যবসার প্রক্রিয়াগুলিকে অপ্টিমাইজ করার জন্য সিস্টেমের প্রতিটি দিক ব্যবহার করতে পারদর্শী।"),
+            "আমাদের বিশেষজ্ঞ দলের নেতৃত্বে ব্যক্তিগতকৃত প্রশিক্ষণ সেশনের মাধ্যমে Pos Saas POS-এর সম্পূর্ণ সম্ভাবনাকে আনলক করুন। বেসিক থেকে শুরু করে উন্নত কৌশল পর্যন্ত, আমরা নিশ্চিত করি যে আপনি আপনার ব্যবসার প্রক্রিয়াগুলিকে অপ্টিমাইজ করার জন্য সিস্টেমের প্রতিটি দিক ব্যবহার করতে পারদর্শী।"),
         "updateNow": MessageLookupByLibrary.simpleMessage("এখন আপডেট করুন"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "আপনার পরিকল্পনাটি প্রথমে আপডেট করুন \\nবিক্রয় সীমা শেষ।"),

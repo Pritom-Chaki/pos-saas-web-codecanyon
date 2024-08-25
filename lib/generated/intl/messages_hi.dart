@@ -25,7 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("बिक्री जोड़ें"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("श्रेणी"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("चालान"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("POS बिक्री"),
         "PRICE": MessageLookupByLibrary.simpleMessage("कीमत"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("उत्पाद का नाम"),
@@ -354,9 +354,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "ब्रांडेड चालान के साथ अपने ग्राहकों पर स्थायी प्रभाव डालें। हमारा अनलिमिटेड अपग्रेड आपके चालान को अनुकूलित करने, एक पेशेवर स्पर्श जोड़ने का अनूठा लाभ प्रदान करता है जो आपके ब्रांड की पहचान को मजबूत करता है और ग्राहक वफादारी को बढ़ावा देता है।"),
         "manufacturer": MessageLookupByLibrary.simpleMessage("निर्माता"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos लॉगिन पैनल"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas लॉगिन पैनल"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Pix Pos साइनअप पैनल"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas साइनअप पैनल"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "मोबाइल एप्लिकेशन\n+\nडेस्कटॉप"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("रुपये की रसीद"),

@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("VERKOOP TOEVOEGEN"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("CATEGORIE"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("FACTUUR"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("POS-verkoop"),
         "PRICE": MessageLookupByLibrary.simpleMessage("PRIJS"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("PRODUCTNAAM"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Inlogpaneel"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Inlogpaneel"),
         "QTY": MessageLookupByLibrary.simpleMessage("AANTAL"),
         "Quantity": MessageLookupByLibrary.simpleMessage("Hoeveelheid*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("STATUS"),
@@ -368,9 +368,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Maak een blijvende indruk op uw klanten met op maat gemaakte facturen. Onze Onbeperkte Upgrade biedt het unieke voordeel van het aanpassen van uw facturen, waardoor een professionele uitstraling wordt toegevoegd die uw merkidentiteit versterkt en klantenloyaliteit bevordert."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Fabrikant"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Login Paneel"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Login Paneel"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Aanmeldpaneel"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Aanmeldpaneel"),
         "mobilePlusDesktop":
             MessageLookupByLibrary.simpleMessage("Mobiele App\n+\nDesktop"),
         "moneyReciept":
@@ -468,7 +468,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata":
             MessageLookupByLibrary.simpleMessage("Voer geldige gegevens in"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Aanmeldpaneel"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Aanmeldpaneel"),
         "practies": MessageLookupByLibrary.simpleMessage("Oefeningen"),
         "premiumCustomerSupport": MessageLookupByLibrary.simpleMessage(
             "Premium Klantenondersteuning"),
@@ -595,7 +595,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("Statistiek"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Blijf aan de voorhoede van technologische ontwikkelingen zonder extra kosten. Onze Pix Pos POS Onbeperkte Upgrade zorgt ervoor dat u altijd de nieuwste tools en functies binnen handbereik heeft, waardoor uw bedrijf toonaangevend blijft."),
+            "Blijf aan de voorhoede van technologische ontwikkelingen zonder extra kosten. Onze Pos Saas POS Onbeperkte Upgrade zorgt ervoor dat u altijd de nieuwste tools en functies binnen handbereik heeft, waardoor uw bedrijf toonaangevend blijft."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "Blijf aan de voorhoede van technologische ontwikkelingen zonder extra kosten. Onze Pos Sass POS Onbeperkte Upgrade zorgt ervoor dat u altijd de nieuwste tools en functies binnen handbereik heeft, waardoor uw bedrijf toonaangevend blijft."),
         "stock": MessageLookupByLibrary.simpleMessage("Voorraad"),
@@ -621,7 +621,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfUse":
             MessageLookupByLibrary.simpleMessage("Gebruiksvoorwaarden"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "De naam zegt het al. Met Pix Pos POS Onbeperkt is er geen limiet aan uw gebruik. Of u nu een handvol transacties verwerkt of te maken heeft met een toestroom van klanten, u kunt met vertrouwen opereren, wetende dat u niet beperkt wordt door limieten."),
+            "De naam zegt het al. Met Pos Saas POS Onbeperkt is er geen limiet aan uw gebruik. Of u nu een handvol transacties verwerkt of te maken heeft met een toestroom van klanten, u kunt met vertrouwen opereren, wetende dat u niet beperkt wordt door limieten."),
         "thisCustmerHasNoDue": MessageLookupByLibrary.simpleMessage(
             "Deze klant heeft geen openstaande posten"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -673,7 +673,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Onbeperkt Gebruik"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Ontgrendel het volledige potentieel van Pix Pos POS met gepersonaliseerde trainingsessies geleid door ons deskundige team. Van de basis tot geavanceerde technieken zorgen wij ervoor dat u goed thuis bent in het gebruik van elk facet van het systeem om uw bedrijfsprocessen te optimaliseren."),
+            "Ontgrendel het volledige potentieel van Pos Saas POS met gepersonaliseerde trainingsessies geleid door ons deskundige team. Van de basis tot geavanceerde technieken zorgen wij ervoor dat u goed thuis bent in het gebruik van elk facet van het systeem om uw bedrijfsprocessen te optimaliseren."),
         "updateNow": MessageLookupByLibrary.simpleMessage("Nu Bijwerken"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "Update eerst uw plan\\nDe verkooplimiet is overschreden."),

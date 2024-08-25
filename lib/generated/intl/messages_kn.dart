@@ -25,7 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("ಮಾರಾಟ ಸೇರಿಸಿ"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("ವರ್ಗ"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("INVOICE"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("ಪಿಒಎಸ್ ಮಾರಾಟ"),
         "PRICE": MessageLookupByLibrary.simpleMessage("ಬೆಲೆ"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("ಉತ್ಪನ್ನದ ಹೆಸರು"),
@@ -363,9 +363,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "ನಿಮ್ಮ ಗ್ರಾಹಕರ ಮೇಲೆ ಬ್ರ್ಯಾಂಡೆಡ್ ಚಲನಪತ್ರಗಳ ಮೂಲಕ ಶಾಶ್ವತ ಪ್ರಭಾವ ಬಿಡಲು ಹಿಡಿಸಿ. ನಮ್ಮ ಅಮಿತ ಅಪ್‌ಗ್ರೇಡ್ ನಿಮ್ಮ ಚಲನಪತ್ರಗಳನ್ನು ವೈಯಕ್ತಿಕಗೊಳಿಸುವ ಅದ್ವಿತೀಯ ಆದ್ವತ್ವ ಸಂಜೆಯುವ ನಿಮ್ಮ ಬ್ರಾಂಡ್ ಗುರುತನ್ನು ಸೇರಿಸುವದು ಮತ್ತು ಗ್ರಾಹಕ ನಂಬಿಕೆಯನ್ನು ಬೆರೆಯುವದು."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("ಉತ್ಪಾದಕ"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos ಲಾಗಿನ್ ಪ್ಯಾನೆಲ್"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas ಲಾಗಿನ್ ಪ್ಯಾನೆಲ್"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Pix Pos ಸೈನ್ ಅಪ್ ಪ್ಯಾನೆಲ್"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas ಸೈನ್ ಅಪ್ ಪ್ಯಾನೆಲ್"),
         "mobilePlusDesktop":
             MessageLookupByLibrary.simpleMessage("ಮೊಬೈಲ್ ಆಪ್\n+\nಡೆಸ್ಕ್ಟಾಪ್"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("ಹಣದ ಸ್ವೀಕೃತಿ"),

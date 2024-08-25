@@ -50,20 +50,20 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Pix Pos Login panel`
+  /// `Pos Saas Login panel`
   String get PosSaasLoginPanel {
     return Intl.message(
-      'Pix Pos Login panel',
+      'Pos Saas Login panel',
       name: 'PosSaasLoginPanel',
       desc: '',
       args: [],
     );
   }
 
-  /// `Pix Pos SingUp Panel`
+  /// `Pos Saas SingUp Panel`
   String get posSaasSingUpPanel {
     return Intl.message(
-      'Pix Pos SingUp Panel',
+      'Pos Saas SingUp Panel',
       name: 'posSaasSingUpPanel',
       desc: '',
       args: [],
@@ -290,6 +290,25 @@ class S {
     );
   }
 
+  /// `Pay Bkash`
+  String get payBkash {
+    return Intl.message(
+      'Pay Bkash',
+      name: 'payBkash',
+      desc: '',
+      args: [],
+    );
+  }
+  /// `Pay Bkash`
+  String get payNow {
+    return Intl.message(
+      'Pay Now',
+      name: 'payNow',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Free Lifetime Update`
   String get freeLifeTimeUpdate {
     return Intl.message(
@@ -350,10 +369,10 @@ class S {
     );
   }
 
-  /// `Stay at the forefront of technological advancements without any extra costs. Our Pix Pos POS Unlimited Upgrade ensures that you always have the latest tools and features at your fingertips, guaranteeing your business remains cutting-edge.`
+  /// `Stay at the forefront of technological advancements without any extra costs. Our Pos Saas POS Unlimited Upgrade ensures that you always have the latest tools and features at your fingertips, guaranteeing your business remains cutting-edge.`
   String get stayAtTheForFront {
     return Intl.message(
-      'Stay at the forefront of technological advancements without any extra costs. Our Pix Pos POS Unlimited Upgrade ensures that you always have the latest tools and features at your fingertips, guaranteeing your business remains cutting-edge.',
+      'Stay at the forefront of technological advancements without any extra costs. Our Pos Saas POS Unlimited Upgrade ensures that you always have the latest tools and features at your fingertips, guaranteeing your business remains cutting-edge.',
       name: 'stayAtTheForFront',
       desc: '',
       args: [],
@@ -370,10 +389,10 @@ class S {
     );
   }
 
-  /// `Unlock the full potential of Pix Pos POS with personalized training sessions led by our expert team. From the basics to advanced techniques, we ensure you're well-versed in utilizing every facet of the system to optimize your business processes.`
+  /// `Unlock the full potential of Pos Saas POS with personalized training sessions led by our expert team. From the basics to advanced techniques, we ensure you're well-versed in utilizing every facet of the system to optimize your business processes.`
   String get unlockTheFull {
     return Intl.message(
-      'Unlock the full potential of Pix Pos POS with personalized training sessions led by our expert team. From the basics to advanced techniques, we ensure you\'re well-versed in utilizing every facet of the system to optimize your business processes.',
+      'Unlock the full potential of Pos Saas POS with personalized training sessions led by our expert team. From the basics to advanced techniques, we ensure you\'re well-versed in utilizing every facet of the system to optimize your business processes.',
       name: 'unlockTheFull',
       desc: '',
       args: [],
@@ -390,20 +409,20 @@ class S {
     );
   }
 
-  /// `The name says it all. With Pix Pos POS Unlimited, there's no cap on your usage. Whether you're processing a handful of transactions or experiencing a rush of customers, you can operate with confidence, knowing you're not constrained by limits`
+  /// `The name says it all. With Pos Saas POS Unlimited, there's no cap on your usage. Whether you're processing a handful of transactions or experiencing a rush of customers, you can operate with confidence, knowing you're not constrained by limits`
   String get theNameSysIt {
     return Intl.message(
-      'The name says it all. With Pix Pos POS Unlimited, there\'s no cap on your usage. Whether you\'re processing a handful of transactions or experiencing a rush of customers, you can operate with confidence, knowing you\'re not constrained by limits',
+      'The name says it all. With Pos Saas POS Unlimited, there\'s no cap on your usage. Whether you\'re processing a handful of transactions or experiencing a rush of customers, you can operate with confidence, knowing you\'re not constrained by limits',
       name: 'theNameSysIt',
       desc: '',
       args: [],
     );
   }
 
-  /// `Safeguard your business data effortlessly. Our Pix Pos POS Unlimited Upgrade includes free data backup, ensuring your valuable information is protected against any unforeseen events. Focus on what truly matters - your business growth.`
+  /// `Safeguard your business data effortlessly. Our Pos Saas POS Unlimited Upgrade includes free data backup, ensuring your valuable information is protected against any unforeseen events. Focus on what truly matters - your business growth.`
   String get safegurardYourBusinessDate {
     return Intl.message(
-      'Safeguard your business data effortlessly. Our Pix Pos POS Unlimited Upgrade includes free data backup, ensuring your valuable information is protected against any unforeseen events. Focus on what truly matters - your business growth.',
+      'Safeguard your business data effortlessly. Our Pos Saas POS Unlimited Upgrade includes free data backup, ensuring your valuable information is protected against any unforeseen events. Focus on what truly matters - your business growth.',
       name: 'safegurardYourBusinessDate',
       desc: '',
       args: [],
@@ -920,10 +939,10 @@ class S {
     );
   }
 
-  /// `Pix Pos Login Panel`
+  /// `Pos Saas Login Panel`
   String get mobiPosLoginPanel {
     return Intl.message(
-      'Pix Pos Login Panel',
+      'Pos Saas Login Panel',
       name: 'mobiPosLoginPanel',
       desc: '',
       args: [],
@@ -1050,10 +1069,10 @@ class S {
     );
   }
 
-  /// `Pix Pos Signup Panel`
+  /// `Pos Saas Signup Panel`
   String get mobiPosSignUpPane {
     return Intl.message(
-      'Pix Pos Signup Panel',
+      'Pos Saas Signup Panel',
       name: 'mobiPosSignUpPane',
       desc: '',
       args: [],
@@ -1510,6 +1529,16 @@ class S {
     );
   }
 
+  /// `Printer Type`
+  String get printerType {
+    return Intl.message(
+      'Printer Type',
+      name: 'printerType',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Submit`
   String get submit {
     return Intl.message(
@@ -1940,10 +1969,10 @@ class S {
     );
   }
 
-  /// `Pix Pos`
+  /// `Pos Saas`
   String get MOBIPOS {
     return Intl.message(
-      'Pix Pos',
+      'Pos Saas',
       name: 'MOBIPOS',
       desc: '',
       args: [],
@@ -3809,24 +3838,7 @@ class S {
       args: [],
     );
   }
-  /// `Printer Type`
-  String get printerType {
-    return Intl.message(
-      'Printer Type',
-      name: 'printerType',
-      desc: '',
-      args: [],
-    );
-  }
-  /// `Pay Now`
-  String get payNow {
-    return Intl.message(
-      'Pay Now',
-      name: 'payNow',
-      desc: '',
-      args: [],
-    );
-  }
+
   /// `Please Add Customer`
   String get pleaseAddCustomer {
     return Intl.message(

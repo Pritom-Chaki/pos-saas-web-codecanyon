@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("TAMBAHKAN PENJUALAN"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("KATEGORI"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("FAKTUR"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("Penjualan POS"),
         "PRICE": MessageLookupByLibrary.simpleMessage("HARGA"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("NAMA PRODUK"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Login panel"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Login panel"),
         "QTY": MessageLookupByLibrary.simpleMessage("KUANTITAS"),
         "STATUS": MessageLookupByLibrary.simpleMessage("STATUS"),
         "TOTALVALUE": MessageLookupByLibrary.simpleMessage("NILAI TOTAL"),
@@ -368,9 +368,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Buat kesan yang abadi pada pelanggan Anda dengan faktur bermerk. Pembaruan Tanpa Batas kami menawarkan keuntungan unik dalam menyesuaikan faktur Anda, menambahkan sentuhan profesional yang memperkuat identitas merek Anda dan memupuk loyalitas pelanggan."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Produsen"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Panel Masuk Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Panel Masuk Pos Saas"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Panel Pendaftaran Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Panel Pendaftaran Pos Saas"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "Aplikasi Seluler\n+\nDesktop"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("Bukti Uang"),
@@ -463,7 +463,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata": MessageLookupByLibrary.simpleMessage(
             "Silakan masukkan data yang valid"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos SingUp Panel"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas SingUp Panel"),
         "practies": MessageLookupByLibrary.simpleMessage("Praktik"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Dukungan Pelanggan Premium"),
@@ -524,7 +524,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("Kanan"),
         "sAmount": MessageLookupByLibrary.simpleMessage("Jumlah Penjualan"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Lindungi data bisnis Anda dengan mudah. Peningkatan Tidak Terbatas Pix Pos POS kami mencakup pencadangan data gratis, memastikan informasi berharga Anda terlindungi dari kejadian tak terduga. Fokus pada hal yang benar-benar penting – pertumbuhan bisnis Anda."),
+            "Lindungi data bisnis Anda dengan mudah. Peningkatan Tidak Terbatas Pos Saas POS kami mencakup pencadangan data gratis, memastikan informasi berharga Anda terlindungi dari kejadian tak terduga. Fokus pada hal yang benar-benar penting – pertumbuhan bisnis Anda."),
         "sale": MessageLookupByLibrary.simpleMessage("Penjualan"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("Jumlah Penjualan"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("Detail Penjualan"),
@@ -588,9 +588,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("Statistik"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Tetap di garis depan perkembangan teknologi tanpa biaya tambahan. Pembaruan Pix Pos POS Tanpa Batas kami memastikan Anda selalu memiliki alat dan fitur terbaru di ujung jari Anda, menjamin bisnis Anda tetap berada di garis depan."),
+            "Tetap di garis depan perkembangan teknologi tanpa biaya tambahan. Pembaruan Pos Saas POS Tanpa Batas kami memastikan Anda selalu memiliki alat dan fitur terbaru di ujung jari Anda, menjamin bisnis Anda tetap berada di garis depan."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
-            "Tetap di garis depan perkembangan teknologi tanpa biaya tambahan. Pembaruan Pix Pos POS Tanpa Batas kami memastikan Anda selalu memiliki alat dan fitur terbaru di ujung jari Anda, menjamin bisnis Anda tetap berada di garis depan."),
+            "Tetap di garis depan perkembangan teknologi tanpa biaya tambahan. Pembaruan Pos Saas POS Tanpa Batas kami memastikan Anda selalu memiliki alat dan fitur terbaru di ujung jari Anda, menjamin bisnis Anda tetap berada di garis depan."),
         "stock": MessageLookupByLibrary.simpleMessage("Stok"),
         "stockInventory":
             MessageLookupByLibrary.simpleMessage("Inventaris Stok"),
@@ -610,7 +610,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ambil foto SIM, kartu identitas nasional, atau paspor"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("Syarat Penggunaan"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Nama mengatakannya semua. Dengan Pix Pos POS Tanpa Batas, tidak ada batasan penggunaan. Baik Anda memproses sejumlah transaksi atau menghadapi lonjakan pelanggan, Anda dapat beroperasi dengan percaya diri, tahu Anda tidak dibatasi oleh batasan."),
+            "Nama mengatakannya semua. Dengan Pos Saas POS Tanpa Batas, tidak ada batasan penggunaan. Baik Anda memproses sejumlah transaksi atau menghadapi lonjakan pelanggan, Anda dapat beroperasi dengan percaya diri, tahu Anda tidak dibatasi oleh batasan."),
         "thisCustmerHasNoDue": MessageLookupByLibrary.simpleMessage(
             "Pelanggan ini tidak memiliki tunggakan"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -662,7 +662,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Penggunaan Tanpa Batas"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Buka potensi penuh Pix Pos POS dengan sesi pelatihan yang dipersonalisasi yang dipimpin oleh tim ahli kami. Mulai dari dasar hingga teknik lanjutan, kami memastikan Anda terampil dalam memanfaatkan setiap aspek sistem untuk mengoptimalkan proses bisnis Anda."),
+            "Buka potensi penuh Pos Saas POS dengan sesi pelatihan yang dipersonalisasi yang dipimpin oleh tim ahli kami. Mulai dari dasar hingga teknik lanjutan, kami memastikan Anda terampil dalam memanfaatkan setiap aspek sistem untuk mengoptimalkan proses bisnis Anda."),
         "updateNow": MessageLookupByLibrary.simpleMessage("Perbarui Sekarang"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "Perbarui rencana Anda terlebih dahulu.\\nBatas Penjualan habis."),

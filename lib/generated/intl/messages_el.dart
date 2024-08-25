@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("ΠΡΟΣΘΗΚΗ ΠΩΛΗΣΗΣ"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("ΚΑΤΗΓΟΡΙΑ"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("ΤΙΜΟΛΟΓΙΟ"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("Πώληση POS"),
         "PRICE": MessageLookupByLibrary.simpleMessage("ΤΙΜΗ"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("ΟΝΟΜΑ ΠΡΟΪΟΝΤΟΣ"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Πίνακας σύνδεσης Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Πίνακας σύνδεσης Pos Saas"),
         "QTY": MessageLookupByLibrary.simpleMessage("ΠΟΣΟΤΗΤΑ"),
         "Quantity": MessageLookupByLibrary.simpleMessage("Ποσότητα*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("ΚΑΤΑΣΤΑΣΗ"),
@@ -385,9 +385,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Δημιουργήστε μια αξέχαστη εντύπωση στους πελάτες σας με εξατομικευμένα τιμολόγια. Η αναβάθμισή μας προσφέρει το μοναδικό πλεονέκτημα της προσαρμογής των τιμολογίων σας, προσθέτοντας μια επαγγελματική πινελιά που ενισχύει την ταυτότητα της επιχείρησής σας και ενθαρρύνει την εμπιστοσύνη των πελατών."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Κατασκευαστής"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Πίνακας Σύνδεσης Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Πίνακας Σύνδεσης Pos Saas"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Πίνακας Εγγραφής Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Πίνακας Εγγραφής Pos Saas"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "Κινητό Εφαρμογή\n+\nΕπιφάνεια εργασίας"),
         "moneyReciept":
@@ -482,7 +482,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata": MessageLookupByLibrary.simpleMessage(
             "Παρακαλώ εισαγάγετε έγκυρα δεδομένα"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("Πίνακας εγγραφής Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Πίνακας εγγραφής Pos Saas"),
         "practies": MessageLookupByLibrary.simpleMessage("Πρακτική"),
         "premiumCustomerSupport": MessageLookupByLibrary.simpleMessage(
             "Προηγμένη υποστήριξη πελατών"),
@@ -551,7 +551,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("Δεξιά"),
         "sAmount": MessageLookupByLibrary.simpleMessage("Ποσό Πώλησης"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Προστατέψτε τα δεδομένα της επιχείρησής σας με ευκολία. Η αναβάθμισή μας για το Pix Pos POS περιλαμβάνει δωρεάν δημιουργία αντιγράφων ασφαλείας δεδομένων, εξασφαλίζοντας ότι οι πολύτιμες πληροφορίες σας προστατεύονται από απρόβλεπα γεγονότα. Επικεντρωθείτε σε αυτό που έχει πραγματικά σημασία - την ανάπτυξη της επιχείρησής σας."),
+            "Προστατέψτε τα δεδομένα της επιχείρησής σας με ευκολία. Η αναβάθμισή μας για το Pos Saas POS περιλαμβάνει δωρεάν δημιουργία αντιγράφων ασφαλείας δεδομένων, εξασφαλίζοντας ότι οι πολύτιμες πληροφορίες σας προστατεύονται από απρόβλεπα γεγονότα. Επικεντρωθείτε σε αυτό που έχει πραγματικά σημασία - την ανάπτυξη της επιχείρησής σας."),
         "sale": MessageLookupByLibrary.simpleMessage("Πώληση"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("Ποσό Πώλησης"),
         "saleDetails":
@@ -619,7 +619,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("Στατιστική"),
         "status": MessageLookupByLibrary.simpleMessage("Κατάσταση"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Μείνετε στην πρώτη γραμμή των τεχνολογικών εξελίξεων χωρίς πρόσθετο κόστος. Η αναβάθμιση του Pix Pos POS Unlimited εξασφαλίζει ότι θα έχετε πάντοτε τα τελευταία εργαλεία και χαρακτηριστικά στη διάθεσή σας, εξασφαλίζοντας ότι η επιχείρησή σας παραμένει στην αιχμή."),
+            "Μείνετε στην πρώτη γραμμή των τεχνολογικών εξελίξεων χωρίς πρόσθετο κόστος. Η αναβάθμιση του Pos Saas POS Unlimited εξασφαλίζει ότι θα έχετε πάντοτε τα τελευταία εργαλεία και χαρακτηριστικά στη διάθεσή σας, εξασφαλίζοντας ότι η επιχείρησή σας παραμένει στην αιχμή."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "Μείνετε στην πρώτη γραμμή των τεχνολογικών εξελίξεων χωρίς πρόσθετο κόστος. Η αναβάθμιση του Pos Sass POS Unlimited εξασφαλίζει ότι θα έχετε πάντοτε τα τελευταία εργαλεία και χαρακτηριστικά στη διάθεσή σας, εξασφαλίζοντας ότι η επιχείρησή σας παραμένει στην αιχμή."),
         "stock": MessageLookupByLibrary.simpleMessage("Απόθεμα"),
@@ -645,7 +645,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Πάρτε φωτογραφία διπλώματος οδήγησης, εθνικής ταυτότητας ή διαβατηρίου"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("Όροι χρήσης"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Το όνομα λέει τα πάντα. Με το Pix Pos POS Unlimited, δεν υπάρχει περιορισμός στη χρήση σας. Είτε επεξεργάζεστε μια χειροτερία συναλλαγών είτε βιώνετε μια έξαρση πελατών, μπορείτε να λειτουργείτε με αυτοπεποίθηση, γνωρίζοντας ότι δεν περιορίζεστε από περιορισμούς."),
+            "Το όνομα λέει τα πάντα. Με το Pos Saas POS Unlimited, δεν υπάρχει περιορισμός στη χρήση σας. Είτε επεξεργάζεστε μια χειροτερία συναλλαγών είτε βιώνετε μια έξαρση πελατών, μπορείτε να λειτουργείτε με αυτοπεποίθηση, γνωρίζοντας ότι δεν περιορίζεστε από περιορισμούς."),
         "thisCustmerHasNoDue": MessageLookupByLibrary.simpleMessage(
             "Αυτός ο πελάτης δεν έχει οφειλές"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -702,7 +702,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Απεριόριστη χρήση"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Ξεκλειδώστε την πλήρη δυνατότητα του Pix Pos POS με εξατομικευμένες συνεδρίες εκπαίδευσης που ηγούνται από την ομάδα ειδικών μας. Από τις βασικές μέχρι τις προηγμένες τεχνικές, εξασφαλίζουμε ότι θα είστε καλά εξοικειωμένοι με τη χρήση κάθε πτυχής του συστήματος για τη βελτιστοποίηση των επιχειρηματικών σας διαδικασιών."),
+            "Ξεκλειδώστε την πλήρη δυνατότητα του Pos Saas POS με εξατομικευμένες συνεδρίες εκπαίδευσης που ηγούνται από την ομάδα ειδικών μας. Από τις βασικές μέχρι τις προηγμένες τεχνικές, εξασφαλίζουμε ότι θα είστε καλά εξοικειωμένοι με τη χρήση κάθε πτυχής του συστήματος για τη βελτιστοποίηση των επιχειρηματικών σας διαδικασιών."),
         "updateNow": MessageLookupByLibrary.simpleMessage("Ενημέρωση τώρα"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "Ενημερώστε πρώτα το σχέδιό σας\\nΤο όριο πώλησης έχει υπερβεί."),

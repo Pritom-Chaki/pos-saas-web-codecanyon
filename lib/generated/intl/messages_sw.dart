@@ -25,7 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("ONGEZA UUZAJI"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("JAMII"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("HOJA"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("Uuzaji wa POS"),
         "PRICE": MessageLookupByLibrary.simpleMessage("BEI"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("JINA LA BIDHAA"),
@@ -370,9 +370,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tengeneza athari ya kudumu kwa wateja wako na bili zenye nembo yako. Sasisho lisilokuwa na kikomo linatoa faida ya kipekee ya kubinafsisha bili zako, kuongeza umuhimu wa kitaalam ambao unaimarisha utambulisho wako wa chapa na kukuza uaminifu wa wateja."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Mzalishaji"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Ubao wa Kuingilia Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Ubao wa Kuingilia Pos Saas"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Ubao wa Usajili wa Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Ubao wa Usajili wa Pos Saas"),
         "mobilePlusDesktop":
             MessageLookupByLibrary.simpleMessage("Programu ya Simu\n+\nDawati"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("Risiti ya Fedha"),
@@ -593,7 +593,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("Takwimu"),
         "status": MessageLookupByLibrary.simpleMessage("Hali"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Kuwa mstari wa mbele wa maendeleo ya teknolojia bila gharama za ziada. Sasisho la Pix Pos POS lisilokuwa na kikomo linahakikisha kuwa unakuwa na zana na huduma za hivi karibuni mkononi mwako, kuhakikisha biashara yako inabaki kuwa ya kisasa."),
+            "Kuwa mstari wa mbele wa maendeleo ya teknolojia bila gharama za ziada. Sasisho la Pos Saas POS lisilokuwa na kikomo linahakikisha kuwa unakuwa na zana na huduma za hivi karibuni mkononi mwako, kuhakikisha biashara yako inabaki kuwa ya kisasa."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "Kaa mbele ya maendeleo ya teknolojia bila gharama za ziada. SmartBiashara POS yetu Inayokusanya Bila Kikomo inahakikisha kuwa daima una zana na huduma za hivi karibuni mikononi mwako, ikidhamini kuwa biashara yako inaendelea kuwa ya kisasa."),
         "stock": MessageLookupByLibrary.simpleMessage("Hisani"),
@@ -617,7 +617,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfUse":
             MessageLookupByLibrary.simpleMessage("Sheria za Matumizi"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Jina linasema yote. Na Pix Pos POS lisilokuwa na kikomo, hakuna kikomo kwa matumizi yako. Iwe unaprocessing idadi ndogo ya manunuzi au unakumbana na msururu wa wateja, unaweza kufanya kazi kwa ujasiri, ukiwa na uhakika kuwa haujazuiwa na kikomo."),
+            "Jina linasema yote. Na Pos Saas POS lisilokuwa na kikomo, hakuna kikomo kwa matumizi yako. Iwe unaprocessing idadi ndogo ya manunuzi au unakumbana na msururu wa wateja, unaweza kufanya kazi kwa ujasiri, ukiwa na uhakika kuwa haujazuiwa na kikomo."),
         "thisCustmerHasNoDue":
             MessageLookupByLibrary.simpleMessage("Mteja huyu hana deni lolote"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -673,7 +673,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage": MessageLookupByLibrary.simpleMessage(
             "Matumizi Yasiyokuwa na Kikomo"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Fungua uwezo kamili wa Pix Pos POS na mafunzo ya kibinafsi yanayoongozwa na timu yetu ya wataalamu. Kutoka kwa misingi hadi mbinu za juu, tunahakikisha una maarifa ya kutosha ya kutumia kila sehemu ya mfumo ili kuboresha shughuli za biashara yako."),
+            "Fungua uwezo kamili wa Pos Saas POS na mafunzo ya kibinafsi yanayoongozwa na timu yetu ya wataalamu. Kutoka kwa misingi hadi mbinu za juu, tunahakikisha una maarifa ya kutosha ya kutumia kila sehemu ya mfumo ili kuboresha shughuli za biashara yako."),
         "updateNow": MessageLookupByLibrary.simpleMessage("Sasisha Sasa"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "Sasisha mpango wako kwanza. Kikomo cha Uuzaji kimeisha."),

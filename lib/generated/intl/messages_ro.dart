@@ -25,13 +25,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("ADAUGĂ VÂNZARE"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("CATEGORIE"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("FACTURĂ"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("Vânzare POS"),
         "PRICE": MessageLookupByLibrary.simpleMessage("PRET"),
         "PRODUCTNAME":
             MessageLookupByLibrary.simpleMessage("NUMELE PRODUSULUI"),
-        "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Panoul de conectare Pix Pos"),
+        "PosSaasLoginPanel": MessageLookupByLibrary.simpleMessage(
+            "Panoul de conectare Pos Saas"),
         "QTY": MessageLookupByLibrary.simpleMessage("QTY"),
         "Quantity": MessageLookupByLibrary.simpleMessage("Cantitate*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("STATUS"),
@@ -376,9 +376,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Lasati o impresie de durata asupra clientilor dvs. cu facturi personalizate. Actualizarea nelimitata ofera avantajul unic de a personaliza facturile dvs., adaugand un aspect profesional care consolideaza identitatea brandului dvs. si dezvolta loialitatea clientilor."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Producător"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Panou de conectare Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Panou de conectare Pos Saas"),
         "mobiPosSignUpPane": MessageLookupByLibrary.simpleMessage(
-            "Panou de înregistrare Pix Pos"),
+            "Panou de înregistrare Pos Saas"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "Aplicație mobilă\n+\nDesktop"),
         "moneyReciept":
@@ -473,7 +473,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata": MessageLookupByLibrary.simpleMessage(
             "Vă rugăm să introduceți date valide"),
         "posSaasSingUpPanel": MessageLookupByLibrary.simpleMessage(
-            "Panoul de înregistrare Pix Pos"),
+            "Panoul de înregistrare Pos Saas"),
         "practies": MessageLookupByLibrary.simpleMessage("Practică"),
         "premiumCustomerSupport": MessageLookupByLibrary.simpleMessage(
             "Suport premium pentru clienți"),
@@ -547,7 +547,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("Dreapta"),
         "sAmount": MessageLookupByLibrary.simpleMessage("Suma vânzărilor"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Protejati datele afacerii dvs. fara efort. Actualizarea nelimitata a Pix Pos POS include backup gratuit de date, asigurand ca informatiile dvs. valoroase sunt protejate impotriva evenimentelor neprevazute. Concentrati-va pe ceea ce conteaza cu adevarat - cresterea afacerii dvs."),
+            "Protejati datele afacerii dvs. fara efort. Actualizarea nelimitata a Pos Saas POS include backup gratuit de date, asigurand ca informatiile dvs. valoroase sunt protejate impotriva evenimentelor neprevazute. Concentrati-va pe ceea ce conteaza cu adevarat - cresterea afacerii dvs."),
         "sale": MessageLookupByLibrary.simpleMessage("Vânzare"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("Suma vânzărilor"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("Detalii vânzare"),
@@ -613,7 +613,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("Statistică"),
         "status": MessageLookupByLibrary.simpleMessage("Stare"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Rămâneți în avangarda avanțărilor tehnologice fără costuri suplimentare. Actualizarea nelimitată a POS-ului nostru Pix Pos vă asigură că aveți întotdeauna cele mai recente instrumente și funcționalități la îndemână, garantând că afacerea dvs. rămâne la ultimele tehnologii."),
+            "Rămâneți în avangarda avanțărilor tehnologice fără costuri suplimentare. Actualizarea nelimitată a POS-ului nostru Pos Saas vă asigură că aveți întotdeauna cele mai recente instrumente și funcționalități la îndemână, garantând că afacerea dvs. rămâne la ultimele tehnologii."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "Rămâneți în avangarda avanțărilor tehnologice fără costuri suplimentare. Actualizarea nelimitată a Pos Sass POS vă asigură că aveți întotdeauna cele mai recente instrumente și funcționalități la îndemână, garantând că afacerea dvs. rămâne la ultimele tehnologii."),
         "stock": MessageLookupByLibrary.simpleMessage("Stoc"),
@@ -638,7 +638,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfUse":
             MessageLookupByLibrary.simpleMessage("Termeni de utilizare"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Numele spune totul. Cu Pix Pos POS Unlimited, nu exista limita pentru utilizarea dvs. Fie ca procesati o mana de tranzactii sau aveti o avalansa de clienti, puteti opera cu incredere, stiind ca nu sunteti limitat de constrangeri."),
+            "Numele spune totul. Cu Pos Saas POS Unlimited, nu exista limita pentru utilizarea dvs. Fie ca procesati o mana de tranzactii sau aveti o avalansa de clienti, puteti opera cu incredere, stiind ca nu sunteti limitat de constrangeri."),
         "thisCustmerHasNoDue": MessageLookupByLibrary.simpleMessage(
             "Acest client nu are restante"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -689,7 +689,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Utilizare nelimitată"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Deblocati intregul potential al Pix Pos POS cu sesiuni personalizate de formare conduse de echipa noastra de experti. De la notiuni de baza la tehnici avansate, ne asiguram ca sunteti bine pregatit pentru a utiliza fiecare aspect al sistemului pentru a va optimiza procesele de afaceri."),
+            "Deblocati intregul potential al Pos Saas POS cu sesiuni personalizate de formare conduse de echipa noastra de experti. De la notiuni de baza la tehnici avansate, ne asiguram ca sunteti bine pregatit pentru a utiliza fiecare aspect al sistemului pentru a va optimiza procesele de afaceri."),
         "updateNow": MessageLookupByLibrary.simpleMessage("Actualizați acum"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "Actualizați planul dvs. mai întâi\\nLimita de vânzare este depășită."),

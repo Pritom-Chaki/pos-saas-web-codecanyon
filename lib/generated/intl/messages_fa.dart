@@ -30,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "PRICE": MessageLookupByLibrary.simpleMessage("قیمت"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("نام محصول"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("پنل ورود به Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("پنل ورود به Pos Saas"),
         "QTY": MessageLookupByLibrary.simpleMessage("تعداد"),
         "STATUS": MessageLookupByLibrary.simpleMessage("وضعیت"),
         "TOTALVALUE": MessageLookupByLibrary.simpleMessage("مقدار کل"),
@@ -353,9 +353,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "تاثیرگذاری دائمی را بر مشتریان خود با فاکتورهای با برند شخصی بگذارید. بروزرسانی نامحدود ما امکان شخصی‌سازی فاکتورهای شما را با اضافه کردن لمسه حرفه‌ای که هویت برند شما را تقویت می‌کند و وفاداری مشتری را ترویج می‌دهد، ارائه می‌دهد."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("تولیدکننده"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("پنل ورود به Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("پنل ورود به Pos Saas"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("پنل عضویت در Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("پنل عضویت در Pos Saas"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "اپلیکیشن تلفن همراه + رایانه شخصی"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("رسید پولی"),
@@ -446,7 +446,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata": MessageLookupByLibrary.simpleMessage(
             "لطفاً داده‌های معتبر وارد کنید"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("پنل ثبت نام در Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("پنل ثبت نام در Pos Saas"),
         "practies": MessageLookupByLibrary.simpleMessage("تمرین"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("پشتیبانی مشتریان ویژه"),
@@ -503,7 +503,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("راست"),
         "sAmount": MessageLookupByLibrary.simpleMessage("مقدار فروش"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "حفاظت از داده‌های کسب‌وکار شما بدون دغدغه. بروزرسانی نامحدود Pix Pos ما شامل پشتیبان‌گیری رایگان از داده است، تضمین می‌کند که اطلاعات ارزشمند شما در مقابل هر نوع حادثه غیرمنتظره محافظت می‌شود. روی رشد واقعی کسب‌وکار خود تمرکز کنید."),
+            "حفاظت از داده‌های کسب‌وکار شما بدون دغدغه. بروزرسانی نامحدود Pos Saas ما شامل پشتیبان‌گیری رایگان از داده است، تضمین می‌کند که اطلاعات ارزشمند شما در مقابل هر نوع حادثه غیرمنتظره محافظت می‌شود. روی رشد واقعی کسب‌وکار خود تمرکز کنید."),
         "sale": MessageLookupByLibrary.simpleMessage("فروش"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("مقدار فروش"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("جزئیات فروش"),
@@ -565,9 +565,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("آمار"),
         "status": MessageLookupByLibrary.simpleMessage("وضعیت"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "با بروزرسانی نامحدود Pix Pos ما، همیشه آخرین ابزار و ویژگی‌ها در دسترس شما قرار دارد و تضمین می‌شود که کسب و کار شما به‌روز باقی بماند."),
+            "با بروزرسانی نامحدود Pos Saas ما، همیشه آخرین ابزار و ویژگی‌ها در دسترس شما قرار دارد و تضمین می‌شود که کسب و کار شما به‌روز باقی بماند."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
-            "با بروزرسانی نامحدود Pix Pos ما، همیشه آخرین ابزار و ویژگی‌ها در دسترس شما قرار دارد و تضمین می‌شود که کسب و کار شما به‌روز باقی بماند."),
+            "با بروزرسانی نامحدود Pos Saas ما، همیشه آخرین ابزار و ویژگی‌ها در دسترس شما قرار دارد و تضمین می‌شود که کسب و کار شما به‌روز باقی بماند."),
         "stock": MessageLookupByLibrary.simpleMessage("موجودی"),
         "stockInventory": MessageLookupByLibrary.simpleMessage("موجودی انبار"),
         "stockReport": MessageLookupByLibrary.simpleMessage("گزارش موجودی"),
@@ -588,7 +588,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "عکس گواهینامه رانندگی، کارت ملی یا پاسپورت را بگیرید"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("شرایط استفاده"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "نام همه چیز را می‌گوید. با Pix Pos POS Unlimited، محدودیتی بر روی استفاده شما وجود ندارد. برایشمار کردن دست کم تراکنش‌ها یا تجربه شلوغی از مشتریان، شما می‌توانید با اطمینان عمل کنید و بدانید که تحت محدودیت‌ها نیستید."),
+            "نام همه چیز را می‌گوید. با Pos Saas POS Unlimited، محدودیتی بر روی استفاده شما وجود ندارد. برایشمار کردن دست کم تراکنش‌ها یا تجربه شلوغی از مشتریان، شما می‌توانید با اطمینان عمل کنید و بدانید که تحت محدودیت‌ها نیستید."),
         "thisCustmerHasNoDue":
             MessageLookupByLibrary.simpleMessage("این مشتری هیچ بدهی ندارد"),
         "thisCustomerHavepreviousDue":
@@ -638,7 +638,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("استفاده نامحدود"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "پتانسیل کامل Pix Pos POS را با جلسات آموزش شخصی توسط تیم متخصص ما به دست آورید. از مباحث پایه تا تکنیک‌های پیشرفته، ما تضمین می‌کنیم که شما در استفاده از هر جنبه از سیستم برای بهینه‌سازی فرآیندهای کسب‌وکارتان ماهر شوید."),
+            "پتانسیل کامل Pos Saas POS را با جلسات آموزش شخصی توسط تیم متخصص ما به دست آورید. از مباحث پایه تا تکنیک‌های پیشرفته، ما تضمین می‌کنیم که شما در استفاده از هر جنبه از سیستم برای بهینه‌سازی فرآیندهای کسب‌وکارتان ماهر شوید."),
         "updateNow": MessageLookupByLibrary.simpleMessage("به‌روزرسانی اکنون"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "ابتدا طرح خود را به روز کنید\nسقف فروش به پایان رسیده است."),

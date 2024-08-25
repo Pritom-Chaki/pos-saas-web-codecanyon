@@ -245,7 +245,7 @@ class GeneratePdf {
               width: double.infinity,
               color: PdfColors.black,
               padding: const pw.EdgeInsets.all(10.0),
-              child: pw.Center(child: pw.Text('Powered By Pix Pos', style: pw.TextStyle(color: PdfColors.white, fontWeight: pw.FontWeight.bold))),
+              child: pw.Center(child: pw.Text('Powered By Pos Saas', style: pw.TextStyle(color: PdfColors.white, fontWeight: pw.FontWeight.bold))),
             ),
           ]);
         },
@@ -667,7 +667,7 @@ class GeneratePdf {
     //           width: double.infinity,
     //           color: PdfColors.red,
     //           padding: const pw.EdgeInsets.all(10.0),
-    //           child: pw.Center(child: pw.Text('Powered By Pix Pos', style: pw.TextStyle(color: PdfColors.white, fontWeight: pw.FontWeight.bold))),
+    //           child: pw.Center(child: pw.Text('Powered By Pos Saas', style: pw.TextStyle(color: PdfColors.white, fontWeight: pw.FontWeight.bold))),
     //         ),
     //       ]);
     //     },

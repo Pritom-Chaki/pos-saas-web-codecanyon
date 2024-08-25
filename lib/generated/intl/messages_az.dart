@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("SATIŞ ƏLAVƏ ET"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("Kateqoriya"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("FAKTURA"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("POS Satışı"),
         "PRICE": MessageLookupByLibrary.simpleMessage("Qiymət"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("Məhsul adı"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Giriş paneli"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Giriş paneli"),
         "QTY": MessageLookupByLibrary.simpleMessage("Miqdar"),
         "Quantity": MessageLookupByLibrary.simpleMessage("Miqdar*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("Status"),
@@ -365,9 +365,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Müştərilərinizə brendinq fakturaları ilə əbədi təsir qoyun. Bizim Məhdudlaşdırılmamış Yeniləmə fakturalarını xüsusiyyətləndirmənin unikal üstünlüyünü təklif edir, marka şəxsiyyətinizi təmin edən və müştəri loyallığını artıran profesionallıq nüansı əlavə edir."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("İstehsalçı"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Giriş Paneli"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Giriş Paneli"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Qeydiyyat Paneli"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Qeydiyyat Paneli"),
         "mobilePlusDesktop":
             MessageLookupByLibrary.simpleMessage("Mobil tətbiq\n+\nMasaüstü"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("Pul Qəbzi"),
@@ -461,7 +461,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata": MessageLookupByLibrary.simpleMessage(
             "Xahiş edirəm düzgün məlumat daxil edin"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Qeydiyyat paneli"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Qeydiyyat paneli"),
         "practies": MessageLookupByLibrary.simpleMessage("Praktika"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Premium müştəri dəstəyi"),
@@ -525,7 +525,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("Sağ"),
         "sAmount": MessageLookupByLibrary.simpleMessage("Satış Miqdarı"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Ən çox təhlükəsiz şəkildə iş məlumatlarınızı qoruyun. Bizim Pix Pos POS Unlimited Yeniləməsi pulsuz məlumat ehtiyat nüsxəsini içərisinə alır, qiymətli məlumatınızın qeyri gözlənən hadisələrə qarşı qorunduğundan əmin olur. Həqiqətən əhəmiyyətli olan şeyə mərkəzləşin - işinizi böyütmək."),
+            "Ən çox təhlükəsiz şəkildə iş məlumatlarınızı qoruyun. Bizim Pos Saas POS Unlimited Yeniləməsi pulsuz məlumat ehtiyat nüsxəsini içərisinə alır, qiymətli məlumatınızın qeyri gözlənən hadisələrə qarşı qorunduğundan əmin olur. Həqiqətən əhəmiyyətli olan şeyə mərkəzləşin - işinizi böyütmək."),
         "sale": MessageLookupByLibrary.simpleMessage("Satış"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("Satış Məbləği"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("Satış Detalları"),
@@ -589,7 +589,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("Statistika"),
         "status": MessageLookupByLibrary.simpleMessage("Vəziyyət"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Əlavə xərclər olmadan texnologiya nailiyyətlərinin ən qabaqda qalın. Bizim Pix Pos POS Unlimited Yeniləmə sizin daim ən son alətlər və xüsusiyyətlərin əlinizdə olmasını təmin edir və biznesinizin ən son dərəcədə məşhur olmasını təmin edir."),
+            "Əlavə xərclər olmadan texnologiya nailiyyətlərinin ən qabaqda qalın. Bizim Pos Saas POS Unlimited Yeniləmə sizin daim ən son alətlər və xüsusiyyətlərin əlinizdə olmasını təmin edir və biznesinizin ən son dərəcədə məşhur olmasını təmin edir."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "Əlavə xərclər olmadan texnologiya nailiyyətlərinin ən qabaqda qalın. Bizim Pos Sass POS Unlimited Yeniləmə sizin daim ən son alətlər və xüsusiyyətlərin əlinizdə olmasını təmin edir və biznesinizin ən son dərəcədə məşhur olmasını təmin edir."),
         "stock": MessageLookupByLibrary.simpleMessage("Stok"),
@@ -612,7 +612,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sürücü vəsiqəsi, milli təyinat və ya pasportun şəklini göndərin"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("İstifadə şərtləri"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Ad hər şeyi deyir. Pix Pos POS Unlimited ilə istifadənizdə heç bir məhdudiyyət yoxdur. Bir neçə əməliyyatı emal edirsinizsə və ya müştərilərin dəhlizində yaşamaqda olarsınızsa, heç bir məhdudiyyətlə məhdudiyyətli olmadığınızı bilərək özünüzlə əməliyyat edə bilərsiniz."),
+            "Ad hər şeyi deyir. Pos Saas POS Unlimited ilə istifadənizdə heç bir məhdudiyyət yoxdur. Bir neçə əməliyyatı emal edirsinizsə və ya müştərilərin dəhlizində yaşamaqda olarsınızsa, heç bir məhdudiyyətlə məhdudiyyətli olmadığınızı bilərək özünüzlə əməliyyat edə bilərsiniz."),
         "thisCustmerHasNoDue":
             MessageLookupByLibrary.simpleMessage("Bu müştərinin borcu yoxdur"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -663,7 +663,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage": MessageLookupByLibrary.simpleMessage(
             "Məhdudlaşdırılmamış istifadə"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos POS-un bütün potensialını kilidləyin, ekspert komandamız tərəfindən rəhbərlik edilən şəxsi təlim sessiyaları ilə. Əsaslarından başlayaraq, çoxaqıt təsərrüfatlara qədər, sistem hər tərəfini istifadə etmək üçün ixtisaslanmış olduğunuzdan əminik, biznes proseslərinizi optimal hala gətirərik."),
+            "Pos Saas POS-un bütün potensialını kilidləyin, ekspert komandamız tərəfindən rəhbərlik edilən şəxsi təlim sessiyaları ilə. Əsaslarından başlayaraq, çoxaqıt təsərrüfatlara qədər, sistem hər tərəfini istifadə etmək üçün ixtisaslanmış olduğunuzdan əminik, biznes proseslərinizi optimal hala gətirərik."),
         "updateNow": MessageLookupByLibrary.simpleMessage("İndi yeniləyin"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "Əvvəlcə planınızı yeniləyin\\nSatış Limiti qalib."),

@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("매출 추가"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("카테고리"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("송장"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("POS 판매"),
         "PRICE": MessageLookupByLibrary.simpleMessage("가격"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("제품 이름"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos 로그인 패널"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas 로그인 패널"),
         "QTY": MessageLookupByLibrary.simpleMessage("수량"),
         "Quantity": MessageLookupByLibrary.simpleMessage("수량*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("상태"),
@@ -300,9 +300,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "고객에게 브랜드 송장으로 오랜 인상을 남기세요. 우리의 무제한 업그레이드는 송장을 맞춤 설정하여 브랜드 정체성을 강화하고 고객 충성을 유발하는 전문적인 터치를 추가하는 독특한 이점을 제공합니다."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("제조업체"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos 로그인 패널"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas 로그인 패널"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Pix Pos 가입 패널"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas 가입 패널"),
         "mobilePlusDesktop":
             MessageLookupByLibrary.simpleMessage("모바일 앱\n+\n데스크탑"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("수표 영수증"),
@@ -381,7 +381,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata":
             MessageLookupByLibrary.simpleMessage("유효한 데이터를 입력하세요"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos 가입 패널"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas 가입 패널"),
         "practies": MessageLookupByLibrary.simpleMessage("연습"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("프리미엄 고객 지원"),
@@ -481,7 +481,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("통계"),
         "status": MessageLookupByLibrary.simpleMessage("상태"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "추가 비용 없이 최첨단 기술 개발 최전선에 머물러 있습니다. 우리의 Pix Pos POS 무제한 업그레이드는 항상 최신 도구와 기능을 손끝에 갖고 있도록 보장하여 비즈니스가 최첨단 유지됩니다."),
+            "추가 비용 없이 최첨단 기술 개발 최전선에 머물러 있습니다. 우리의 Pos Saas POS 무제한 업그레이드는 항상 최신 도구와 기능을 손끝에 갖고 있도록 보장하여 비즈니스가 최첨단 유지됩니다."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "추가 비용 없이 기술 발전의 최전선에 머물러 있습니다. 우리의 Pos Sass POS 무제한 업그레이드는 항상 최신 도구와 기능을 손끝에 갖고 있도록 보장하여 비즈니스가 최전선에 남는다."),
         "stock": MessageLookupByLibrary.simpleMessage("재고"),
@@ -502,7 +502,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "운전 면허증, 주민등록증 또는 여권 사진을 찍으세요"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("사용 조건"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "이름이 모든 것을 말합니다. Pix Pos POS 무제한으로 사용량 제한이 없습니다. 소수 거래를 처리하든 고객 폭주를 경험하든 한계에 제약받지 않고 자신감을 가지고 작동할 수 있습니다."),
+            "이름이 모든 것을 말합니다. Pos Saas POS 무제한으로 사용량 제한이 없습니다. 소수 거래를 처리하든 고객 폭주를 경험하든 한계에 제약받지 않고 자신감을 가지고 작동할 수 있습니다."),
         "thisCustmerHasNoDue":
             MessageLookupByLibrary.simpleMessage("이 고객은 미결제금이 없습니다."),
         "thisCustomerHavepreviousDue":
@@ -544,7 +544,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedInvoice": MessageLookupByLibrary.simpleMessage("무제한 송장"),
         "unlimitedUsage": MessageLookupByLibrary.simpleMessage("무제한 사용"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "우리의 전문 팀이 이끄는 맞춤 교육 세션으로 Pix Pos POS의 최대 잠재력을 끄집어내보세요. 기초부터 고급 기술까지 모든 측면을 활용하여 비즈니스 프로세스를 최적화하도록 보장합니다."),
+            "우리의 전문 팀이 이끄는 맞춤 교육 세션으로 Pos Saas POS의 최대 잠재력을 끄집어내보세요. 기초부터 고급 기술까지 모든 측면을 활용하여 비즈니스 프로세스를 최적화하도록 보장합니다."),
         "updateNow": MessageLookupByLibrary.simpleMessage("지금 업데이트"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "먼저 요금제를 업데이트하세요.\n판매 한도가 초과되었습니다."),

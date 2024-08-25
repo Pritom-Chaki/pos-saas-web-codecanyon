@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("إضافة بيع"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("الفئة"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("فاتورة"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("بيع نقطة البيع"),
         "PRICE": MessageLookupByLibrary.simpleMessage("السعر"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("اسم المنتج"),
         "PosSaasLoginPanel": MessageLookupByLibrary.simpleMessage(
-            "لوحة تسجيل الدخول لنظام Pix Pos"),
+            "لوحة تسجيل الدخول لنظام Pos Saas"),
         "QTY": MessageLookupByLibrary.simpleMessage("الكمية"),
         "Quantity": MessageLookupByLibrary.simpleMessage("الكمية*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("الحالة"),
@@ -351,9 +351,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "اترك انطباعًا دائمًا على عملائك من خلال الفواتير المميزة بعلامتك التجارية. توفر ترقية غير محدودة ميزة فريدة من نوعها لتخصيص الفواتير الخاصة بك، مما يضيف لمسة احترافية تعزز هويتك العلامية وتعزز ولاءة العملاء."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("الشركة المصنعة"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("لوحة تسجيل دخول Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("لوحة تسجيل دخول Pos Saas"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("لوحة تسجيل Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("لوحة تسجيل Pos Saas"),
         "mobilePlusDesktop":
             MessageLookupByLibrary.simpleMessage("تطبيق الجوال\n+\nسطح المكتب"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("إيصال مالي"),
@@ -446,7 +446,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata":
             MessageLookupByLibrary.simpleMessage("الرجاء إدخال بيانات صالحة"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("لوحة التسجيل لنظام Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("لوحة التسجيل لنظام Pos Saas"),
         "practies": MessageLookupByLibrary.simpleMessage("تمارين"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("دعم عملاء مميز"),
@@ -505,7 +505,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("يمين"),
         "sAmount": MessageLookupByLibrary.simpleMessage("مبلغ المبيعات"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "حماية بيانات عملك بسهولة. تتضمن ترقية Pix Pos POS Unlimited لدينا نسخة احتياطية مجانية للبيانات، مما يضمن حماية معلوماتك القيمة من أي أحداث غير متوقعة. ركز على ما يهم حقًا - نمو عملك."),
+            "حماية بيانات عملك بسهولة. تتضمن ترقية Pos Saas POS Unlimited لدينا نسخة احتياطية مجانية للبيانات، مما يضمن حماية معلوماتك القيمة من أي أحداث غير متوقعة. ركز على ما يهم حقًا - نمو عملك."),
         "sale": MessageLookupByLibrary.simpleMessage("البيع"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("مبلغ المبيعات"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("تفاصيل المبيعات"),
@@ -562,7 +562,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("إحصائيات"),
         "status": MessageLookupByLibrary.simpleMessage("الحالة"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "ابق على طليعة التطورات التكنولوجية دون تكاليف إضافية. تأكد من أن لديك دائمًا أحدث الأدوات والميزات بين يديك من خلال ترقية Pix Pos POS Unlimited الخاصة بنا، مما يضمن أن تبقى عملك حديثًا."),
+            "ابق على طليعة التطورات التكنولوجية دون تكاليف إضافية. تأكد من أن لديك دائمًا أحدث الأدوات والميزات بين يديك من خلال ترقية Pos Saas POS Unlimited الخاصة بنا، مما يضمن أن تبقى عملك حديثًا."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "ابق على طليعة التقنيات دون أي تكاليف إضافية. تأكد من أن لديك دائمًا أحدث الأدوات والميزات بين يديك من خلال ترقية Pos Sass POS Unlimited الخاصة بنا، مما يضمن أن تبقى عملك حديثًا."),
         "stock": MessageLookupByLibrary.simpleMessage("مخزون"),
@@ -584,7 +584,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "خذ صورة لرخصة القيادة أو بطاقة الهوية الوطنية أو جواز السفر"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("شروط الاستخدام"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "الاسم يقول كل شيء. مع Pix Pos POS Unlimited، لا يوجد قيود على استخدامك. سواء كنت تعالج عددًا قليلًا من المعاملات أو تواجه اندفاعًا من العملاء، يمكنك التشغيل بثقة، علمًا بأنك لا تقتصر عن حدود."),
+            "الاسم يقول كل شيء. مع Pos Saas POS Unlimited، لا يوجد قيود على استخدامك. سواء كنت تعالج عددًا قليلًا من المعاملات أو تواجه اندفاعًا من العملاء، يمكنك التشغيل بثقة، علمًا بأنك لا تقتصر عن حدود."),
         "thisCustmerHasNoDue":
             MessageLookupByLibrary.simpleMessage("هذا العميل ليس لديه مستحقات"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -638,7 +638,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("استخدام غير محدود"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "استفد من الإمكانيات الكاملة لـ Pix Pos POS من خلال جلسات تدريب شخصية يقودها فريق الخبراء لدينا. من الأساسيات إلى التقنيات المتقدمة، نحن نضمن أنك ملم بشكل جيد في استخدام كل جانب من جوانب النظام لتحسين عمليات عملك."),
+            "استفد من الإمكانيات الكاملة لـ Pos Saas POS من خلال جلسات تدريب شخصية يقودها فريق الخبراء لدينا. من الأساسيات إلى التقنيات المتقدمة، نحن نضمن أنك ملم بشكل جيد في استخدام كل جانب من جوانب النظام لتحسين عمليات عملك."),
         "updateNow": MessageLookupByLibrary.simpleMessage("تحديث الآن"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "قم بتحديث خطتك أولاً \\ n الحد الأقصى للبيع قد انتهى."),

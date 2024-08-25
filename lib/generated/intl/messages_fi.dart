@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("LISÄÄ MYYNTI"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("KATEGORIA"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("LASKU"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("Kassamyynti"),
         "PRICE": MessageLookupByLibrary.simpleMessage("HINTA"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("TUOTTEEN NIMI"),
-        "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos -kirjautumispaneeli"),
+        "PosSaasLoginPanel": MessageLookupByLibrary.simpleMessage(
+            "Pos Saas -kirjautumispaneeli"),
         "QTY": MessageLookupByLibrary.simpleMessage("MÄÄRÄ"),
         "Quantity": MessageLookupByLibrary.simpleMessage("Määrä*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("TILA"),
@@ -363,10 +363,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "makeALastingImpression": MessageLookupByLibrary.simpleMessage(
             "Tee kestävä vaikutus asiakkaisiisi brändättyjen laskujen avulla. Rajattoman päivityksemme avulla voit mukauttaa laskujasi, lisätä ammattimaisen kosketuksen, joka vahvistaa brändisi identiteettiä ja edistää asiakasuskollisuutta."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Valmistaja"),
-        "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos -kirjautumispaneeli"),
+        "mobiPosLoginPanel": MessageLookupByLibrary.simpleMessage(
+            "Pos Saas -kirjautumispaneeli"),
         "mobiPosSignUpPane": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos -rekisteröintipaneeli"),
+            "Pos Saas -rekisteröintipaneeli"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "Mobiilisovellus\n+\nPöytäkone"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("Rahalasku"),
@@ -458,7 +458,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata":
             MessageLookupByLibrary.simpleMessage("Syötä kelvollinen data"),
         "posSaasSingUpPanel": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos -rekisteröitymispaneeli"),
+            "Pos Saas -rekisteröitymispaneeli"),
         "practies": MessageLookupByLibrary.simpleMessage("Harjoittelu"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Premium-asiakastuki"),
@@ -526,7 +526,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("Oikea"),
         "sAmount": MessageLookupByLibrary.simpleMessage("Myyntimäärä"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Suojaa yritystietosi vaivattomasti. Pix Pos POS Unlimited -päivityksemme sisältää ilmaisen tietojen varmuuskopioinnin, joka suojaa arvokkaat tiedot ennakoimattomilta tapahtumilta. Keskitä huomiosi siihen, mikä todella merkitsee - yrityksesi kasvuun."),
+            "Suojaa yritystietosi vaivattomasti. Pos Saas POS Unlimited -päivityksemme sisältää ilmaisen tietojen varmuuskopioinnin, joka suojaa arvokkaat tiedot ennakoimattomilta tapahtumilta. Keskitä huomiosi siihen, mikä todella merkitsee - yrityksesi kasvuun."),
         "sale": MessageLookupByLibrary.simpleMessage("Myynti"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("Myyntisumma"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("Myyntitiedot"),
@@ -589,7 +589,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("Tilasto"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Pysy teknologian huipulla ilman lisäkustannuksia. Pix Pos POS Unlimited -päivityksemme varmistaa, että sinulla on aina uusimmat työkalut ja ominaisuudet käytettävissäsi, jotta yrityksesi pysyy ajan tasalla."),
+            "Pysy teknologian huipulla ilman lisäkustannuksia. Pos Saas POS Unlimited -päivityksemme varmistaa, että sinulla on aina uusimmat työkalut ja ominaisuudet käytettävissäsi, jotta yrityksesi pysyy ajan tasalla."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "Pysy teknologian kärjessä ilman lisäkustannuksia. Pos Sass POS Unlimited -päivityksemme varmistaa, että sinulla on aina uusimmat työkalut ja ominaisuudet käytettävissäsi, jotta yrityksesi pysyy ajan tasalla."),
         "stock": MessageLookupByLibrary.simpleMessage("Varasto"),
@@ -614,7 +614,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ota ajokortti, henkilökortti tai passikuva"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("Käyttöehdot"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Nimi kertoo sen kaiken. Pix Pos POS Unlimited -versiossa ei ole rajoituksia käytöllesi. Olitpa sitten käsittelemässä muutamia tapahtumia tai asiakasmäärän kasvaessa, voit toimia varmuudella tietäen, ettet ole rajoitettu rajoituksilla."),
+            "Nimi kertoo sen kaiken. Pos Saas POS Unlimited -versiossa ei ole rajoituksia käytöllesi. Olitpa sitten käsittelemässä muutamia tapahtumia tai asiakasmäärän kasvaessa, voit toimia varmuudella tietäen, ettet ole rajoitettu rajoituksilla."),
         "thisCustmerHasNoDue": MessageLookupByLibrary.simpleMessage(
             "Tällä asiakkaalla ei ole velkaa"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -666,7 +666,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Rajoittamaton käyttö"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Hyödynnä Pix Pos POS:n täysi potentiaali räätälöidyillä koulutustilaisuuksilla, jotka johtaa asiantuntijatiimimme. Perusteista edistyneisiin tekniikoihin varmistamme, että olet hyvin perillä järjestelmän jokaisesta osa-alueesta ja voit optimoida liiketoimintaprosessisi."),
+            "Hyödynnä Pos Saas POS:n täysi potentiaali räätälöidyillä koulutustilaisuuksilla, jotka johtaa asiantuntijatiimimme. Perusteista edistyneisiin tekniikoihin varmistamme, että olet hyvin perillä järjestelmän jokaisesta osa-alueesta ja voit optimoida liiketoimintaprosessisi."),
         "updateNow": MessageLookupByLibrary.simpleMessage("Päivitä nyt"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "Päivitä suunnitelmasi ensin\\nMyyntiraja on ylitetty."),

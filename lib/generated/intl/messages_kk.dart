@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("САТЫП АЛУ ҚОСУ"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("САНАТ"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("Төлем"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("ТРМ Сату"),
         "PRICE": MessageLookupByLibrary.simpleMessage("БАҒА"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("ТОВАР АТАУЫ"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Логин панели"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Логин панели"),
         "QTY": MessageLookupByLibrary.simpleMessage("САНЫ"),
         "STATUS": MessageLookupByLibrary.simpleMessage("МӘНІ"),
         "TOTALVALUE": MessageLookupByLibrary.simpleMessage("БАРЛЫҒЫ МӘНІ"),
@@ -365,9 +365,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Сіздің клиенттеріңізді қосымша тапсырыстармен қалау мүмкін. Біздің Шекті жаңарту брендингі жеке мүмкіндіктерді қостайтын жеке артықшылығы бар - сіздің брендіңізді тақтайтын профессионалдық ұстаздарымыздың басқаруына жаңалық қосу мен клиенттердің сыйлықтықты жаңарту."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Өнім табысы"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Кіру Панелі"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Кіру Панелі"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Тіркелу Панелі"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Тіркелу Панелі"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "Мобильді қолдама\n+\nНегізгі бет"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("Ақша төлемі"),
@@ -456,7 +456,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata":
             MessageLookupByLibrary.simpleMessage("Тура деректерді енгізіңіз"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Тіркелу панели"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Тіркелу панели"),
         "practies": MessageLookupByLibrary.simpleMessage("Практикалар"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Премиум қолдау қызметі"),
@@ -518,7 +518,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("Оң жақ"),
         "sAmount": MessageLookupByLibrary.simpleMessage("Сатылу сомасы"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Сіздің бизнес деректеріңізді оқтасыздар. Біздің Pix Pos POS Шекті жаңартуы, сіздің арнайы деректеріңізді қору, дайындалмайтын событыларға қарсы қорғау қамтамасыз етуі мүмкін. Сіздің бизнес дамуыңыздың сауатыңа байланысыны жасаңыз."),
+            "Сіздің бизнес деректеріңізді оқтасыздар. Біздің Pos Saas POS Шекті жаңартуы, сіздің арнайы деректеріңізді қору, дайындалмайтын событыларға қарсы қорғау қамтамасыз етуі мүмкін. Сіздің бизнес дамуыңыздың сауатыңа байланысыны жасаңыз."),
         "sale": MessageLookupByLibrary.simpleMessage("Сату"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("Сатылым сомасы"),
         "saleDetails":
@@ -610,7 +610,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfUse":
             MessageLookupByLibrary.simpleMessage("Пайдалану шарттары"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Атты әрбір несіге айналдырады. Pix Pos POS Шекті, сіздің пайдалануыңызда шектіліктер жоқ. Сіз бір несіге қолдарыңызды қабылдау немесе клиенттердің сүйеуімен жиыладым дейін жұмыс істейсіз деп ойлайсыз, сізді бір несіге қиін емесіңіздің беттік мүмкіндіктерімен шектелмейдігіңізді білуге және сенімділік арттыруға ұмтыларымыздың арқылы."),
+            "Атты әрбір несіге айналдырады. Pos Saas POS Шекті, сіздің пайдалануыңызда шектіліктер жоқ. Сіз бір несіге қолдарыңызды қабылдау немесе клиенттердің сүйеуімен жиыладым дейін жұмыс істейсіз деп ойлайсыз, сізді бір несіге қиін емесіңіздің беттік мүмкіндіктерімен шектелмейдігіңізді білуге және сенімділік арттыруға ұмтыларымыздың арқылы."),
         "thisCustmerHasNoDue": MessageLookupByLibrary.simpleMessage(
             "Бұл тапсырышшыда қолжетім жоқ"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(

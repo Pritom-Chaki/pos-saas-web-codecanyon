@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("THÊM BÁN HÀNG"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("DANH MỤC"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("HÓA ĐƠN"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("Bán hàng POS"),
         "PRICE": MessageLookupByLibrary.simpleMessage("GIÁ"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("TÊN SẢN PHẨM"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Bảng đăng nhập Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Bảng đăng nhập Pos Saas"),
         "QTY": MessageLookupByLibrary.simpleMessage("SỐ LƯỢNG"),
         "Quantity": MessageLookupByLibrary.simpleMessage("Số lượng*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("TRẠNG THÁI"),
@@ -362,9 +362,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tạo ấn tượng lâu dài với khách hàng của bạn thông qua các hóa đơn thương hiệu. Gói nâng cấp không giới hạn của chúng tôi cung cấp lợi thế độc đáo của tùy chỉnh hóa đơn của bạn, thêm sự chuyên nghiệp để tạo dấu ấn thương hiệu của bạn và thúc đẩy sự trung thành của khách hàng."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Nhà sản xuất"),
         "mobiPosLoginPanel": MessageLookupByLibrary.simpleMessage(
-            "Bảng điều khiển đăng nhập Pix Pos"),
+            "Bảng điều khiển đăng nhập Pos Saas"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Bảng đăng ký Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Bảng đăng ký Pos Saas"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "Ứng dụng di động\n+\nMáy tính để bàn"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("Biên nhận tiền"),
@@ -459,7 +459,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata": MessageLookupByLibrary.simpleMessage(
             "Vui lòng nhập dữ liệu hợp lệ"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("Bảng đăng ký Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Bảng đăng ký Pos Saas"),
         "practies": MessageLookupByLibrary.simpleMessage("Thực hành"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Hỗ trợ khách hàng cao cấp"),
@@ -617,7 +617,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfUse":
             MessageLookupByLibrary.simpleMessage("Điều khoản sử dụng"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Tên nói lên tất cả. Với Pix Pos POS Unlimited, không có giới hạn về việc sử dụng của bạn. Dù bạn đang xử lý một số giao dịch hoặc đối mặt với một lượng khách hàng đông đảo, bạn có thể hoạt động một cách tự tin, biết rằng bạn không bị ràng buộc bởi giới hạn."),
+            "Tên nói lên tất cả. Với Pos Saas POS Unlimited, không có giới hạn về việc sử dụng của bạn. Dù bạn đang xử lý một số giao dịch hoặc đối mặt với một lượng khách hàng đông đảo, bạn có thể hoạt động một cách tự tin, biết rằng bạn không bị ràng buộc bởi giới hạn."),
         "thisCustmerHasNoDue": MessageLookupByLibrary.simpleMessage(
             "Khách hàng này không có khoản phải trả"),
         "thisCustomerHavepreviousDue":
@@ -667,7 +667,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Sử dụng không giới hạn"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Mở khóa tiềm năng đầy đủ của Pix Pos POS với các buổi đào tạo cá nhân do đội ngũ chuyên gia của chúng tôi dẫn dắt. Từ cơ bản đến các kỹ thuật tiên tiến, chúng tôi đảm bảo bạn đã hiểu rõ cách sử dụng mọi khía cạnh của hệ thống để tối ưu hóa quy trình kinh doanh của bạn."),
+            "Mở khóa tiềm năng đầy đủ của Pos Saas POS với các buổi đào tạo cá nhân do đội ngũ chuyên gia của chúng tôi dẫn dắt. Từ cơ bản đến các kỹ thuật tiên tiến, chúng tôi đảm bảo bạn đã hiểu rõ cách sử dụng mọi khía cạnh của hệ thống để tối ưu hóa quy trình kinh doanh của bạn."),
         "updateNow": MessageLookupByLibrary.simpleMessage("Cập nhật ngay"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "Hãy cập nhật kế hoạch của bạn trước\\nGiới hạn bán hàng đã vượt quá."),

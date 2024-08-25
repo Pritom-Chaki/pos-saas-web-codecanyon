@@ -26,12 +26,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("LÄGG TILL FÖRSÄLJNING"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("KATEGORI"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("FAKTURA"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("Försäljning i POS"),
         "PRICE": MessageLookupByLibrary.simpleMessage("PRIS"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("PRODUKTNAMN"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Inloggningspanel"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Inloggningspanel"),
         "QTY": MessageLookupByLibrary.simpleMessage("ANTAL"),
         "STATUS": MessageLookupByLibrary.simpleMessage("STATUS"),
         "TOTALVALUE": MessageLookupByLibrary.simpleMessage("TOTALT VÄRDE"),
@@ -365,9 +365,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Gör ett varaktigt intryck på dina kunder med varumärkta fakturor. Vår Obegränsade Uppgradering erbjuder den unika fördelen att anpassa dina fakturor och lägga till en professionell touch som förstärker ditt varumärkesidentitet och främjar kundlojalitet."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Tillverkare"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Inloggning"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Inloggning"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Registrering"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Registrering"),
         "mobilePlusDesktop":
             MessageLookupByLibrary.simpleMessage("Mobilapp\n+\nSkrivbord"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("Kvitto"),
@@ -460,7 +460,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata":
             MessageLookupByLibrary.simpleMessage("Ange giltiga data"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Registreringspanel"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Registreringspanel"),
         "practies": MessageLookupByLibrary.simpleMessage("Öva"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Premium kundsupport"),
@@ -582,7 +582,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("Statistik"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Håll dig i framkant av teknikens framsteg utan extra kostnader. Vår Pix Pos POS Unlimited-uppgradering säkerställer att du alltid har de senaste verktygen och funktionerna vid fingertopparna och garanterar att ditt företag förblir toppmodernt."),
+            "Håll dig i framkant av teknikens framsteg utan extra kostnader. Vår Pos Saas POS Unlimited-uppgradering säkerställer att du alltid har de senaste verktygen och funktionerna vid fingertopparna och garanterar att ditt företag förblir toppmodernt."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "Håll dig i framkant av teknikens framsteg utan extra kostnader. Vår Pos Sass POS Unlimited-uppgradering säkerställer att du alltid har de senaste verktygen och funktionerna vid fingertopparna och garanterar att ditt företag förblir toppmodernt."),
         "stock": MessageLookupByLibrary.simpleMessage("Lager"),
@@ -606,7 +606,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ta ett körkort, nationellt ID-kort eller passfoto"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("Användarvillkor"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Namnet säger allt. Med Pix Pos POS Obegränsad finns det ingen begränsning i användningen. Oavsett om du hanterar en handfull transaktioner eller upplever en rusning av kunder kan du arbeta med förtroende och veta att du inte är begränsad av gränser."),
+            "Namnet säger allt. Med Pos Saas POS Obegränsad finns det ingen begränsning i användningen. Oavsett om du hanterar en handfull transaktioner eller upplever en rusning av kunder kan du arbeta med förtroende och veta att du inte är begränsad av gränser."),
         "thisCustmerHasNoDue": MessageLookupByLibrary.simpleMessage(
             "Den här kunden har ingen förfallen summa"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -660,7 +660,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Obegränsad användning"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Lås upp hela potentialen av Pix Pos POS med personliga träningspass ledda av vårt expertteam. Från grunderna till avancerade tekniker ser vi till att du är väl förtrogen med att utnyttja varje aspekt av systemet för att optimera dina affärsprocesser."),
+            "Lås upp hela potentialen av Pos Saas POS med personliga träningspass ledda av vårt expertteam. Från grunderna till avancerade tekniker ser vi till att du är väl förtrogen med att utnyttja varje aspekt av systemet för att optimera dina affärsprocesser."),
         "updateNow": MessageLookupByLibrary.simpleMessage("Uppdatera nu"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "Uppdatera din plan först.\\nFörsäljningsgränsen är överskriden."),

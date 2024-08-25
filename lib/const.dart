@@ -15,18 +15,18 @@ import 'model/user_role_model.dart';
 
 final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
-String appsName = 'Pix Pos';
-String appsTitle = 'Pix Pos';
-String pdfFooter = 'Pixposbd.com';
+String appsName = 'Pos Saas';
+String appsTitle = 'Pos Saas Web';
+String pdfFooter = 'acnoo.com';
 bool isDemo = false;
 String demoText = 'You Can\'t change anything in demo mode';
 String sideBarLogo='images/pos.png';
 String appLogo='images/mobipos.png';
 
 // String appLogo='images/mobipos.png';
-// String appsName = 'Pix Pos';
-// String appsTitle = 'Pix Pos';
-// String pdfFooter = 'Pixposb.com';
+// String appsName = 'Pos Saas';
+// String appsTitle = 'Pos Saas Web';
+// String pdfFooter = 'acnoo.com';
 // bool isDemo = false;
 // String demoText = 'You Can\'t change anything in demo mode';
 // String sideBarLogo='images/pos.png';

@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("விற்பனை சேர்க்க"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("வகை"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("கட்டண ஆவணம்"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("POS விற்பனை"),
         "PRICE": MessageLookupByLibrary.simpleMessage("விலை"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("தயாரிப்பு பெயர்"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos உள்நுழைவு பேனல்"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas உள்நுழைவு பேனல்"),
         "QTY": MessageLookupByLibrary.simpleMessage("தொகை"),
         "Quantity": MessageLookupByLibrary.simpleMessage("அளவு*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("நிலை"),
@@ -371,9 +371,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "உங்கள் வாணிக விசாரணையை பிராண்டு விலைச்சீட்டுகளுடன் அந்தர்வு செய்யுங்கள். எங்கள் அவாணிய் மூலத்தை உங்கள் விலைச்சீட்டுகளை தனிப்பயன் செய்ய உம்மெத்தையும் மேம்படுத்தும் அநீதிவார்த்தி செய்திகள் குறித்து உங்கள் மெயில் அல்லது வாட்ஸ்அப் மூலம் உங்கள் கணக்கை அறிவிக்க உள்ளது."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("உற்பத்தியாளர்"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos உள்நுழைவு panel"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas உள்நுழைவு panel"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Pix Pos பதிவு panel"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas பதிவு panel"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "மொபைல் பயன்பாடு\n+\nடெஸ்க்டாப்"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("பண ரசீது"),
@@ -469,7 +469,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata":
             MessageLookupByLibrary.simpleMessage("கட்டாயமான தரவை உள்ளிடவும்"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos உடைந்து பேனல்"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas உடைந்து பேனல்"),
         "practies": MessageLookupByLibrary.simpleMessage("பயிற்சி"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("பிரீமியம் வாடிக்கை ஆதரண"),
@@ -537,7 +537,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("வலது"),
         "sAmount": MessageLookupByLibrary.simpleMessage("விற்பனை தொகை"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "உங்கள் வணிக தரவுகளை எளியவாக காப்பாத்தது. எங்கள் Pix Pos POS அனைத்து அதிவரை அப்கேட்டு உள்ளிடுங்கள்டு பிலிக்சுமுந்தல் நியமனம் உங்கள் ம। உங்கள் அம। உங்கள் பிவி பிலிக்சுமுந்தல் தகவல்கள் எந்த எதிர்காலக் நிகழ்ச்சிகள் எந்த எதிர்காலக்கும் பாதுகாப்பப்பட்டுக் கொள்ளுகின்றது. உங்கள் வணிக விளக்குவதை உங்கள் வில்பத்தியை மீற்கின்ற அநீதிவார்த்தி அல்லது வாணிக விசாரணையை வளர்ப்பாடு செய்யும் ஒரு அநீதியத்தை சேர்க்குகின்றது."),
+            "உங்கள் வணிக தரவுகளை எளியவாக காப்பாத்தது. எங்கள் Pos Saas POS அனைத்து அதிவரை அப்கேட்டு உள்ளிடுங்கள்டு பிலிக்சுமுந்தல் நியமனம் உங்கள் ம। உங்கள் அம। உங்கள் பிவி பிலிக்சுமுந்தல் தகவல்கள் எந்த எதிர்காலக் நிகழ்ச்சிகள் எந்த எதிர்காலக்கும் பாதுகாப்பப்பட்டுக் கொள்ளுகின்றது. உங்கள் வணிக விளக்குவதை உங்கள் வில்பத்தியை மீற்கின்ற அநீதிவார்த்தி அல்லது வாணிக விசாரணையை வளர்ப்பாடு செய்யும் ஒரு அநீதியத்தை சேர்க்குகின்றது."),
         "sale": MessageLookupByLibrary.simpleMessage("விற்பனை"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("விற்பனை தொகை"),
         "saleDetails":
@@ -603,7 +603,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("புள்ளிவிவரம்"),
         "status": MessageLookupByLibrary.simpleMessage("நிலை"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "கூட்டுவிபர அதிவிவரங்கள் முன்நிலையில் இருந்து உங்களை பிரத்யேக செலவில்லாதிருக்க உள்ளது. எங்கள் Pix Pos POS எக்ஸ்பர்ட் அணி ஆதரித்த குணமாக உங்களை உங்கள் வணிக செயல்பாட்டின் அனைத்து கட்டங்களையும் பயன்பாடு செய்யும்ஆதரணிக்கு கொண்டு வருகிறது."),
+            "கூட்டுவிபர அதிவிவரங்கள் முன்நிலையில் இருந்து உங்களை பிரத்யேக செலவில்லாதிருக்க உள்ளது. எங்கள் Pos Saas POS எக்ஸ்பர்ட் அணி ஆதரித்த குணமாக உங்களை உங்கள் வணிக செயல்பாட்டின் அனைத்து கட்டங்களையும் பயன்பாடு செய்யும்ஆதரணிக்கு கொண்டு வருகிறது."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "தொழில்நுட்ப மேம்பாடுகளின் முன்னிச்சுற்றுவாராது விளக்கு. எங்கள் Pos Sass POS எக்ஸ்பர்ட் அப்கேட்டு உள்ளிடுங்கள், உங்கள் வணிக செயல்பாட்டில் அனைத்து கட்டங்களை உள்ளடக்கி அநுவா஦ித்து உங்கள் வணிக செயலாக்கத்தை அமைக்க உம்மெத்தையும் பொற்று மேற்க்கப்படுத்தும்."),
         "stock": MessageLookupByLibrary.simpleMessage("ம stock"),

@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("添加销售"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("类别"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("发票"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("POS销售"),
         "PRICE": MessageLookupByLibrary.simpleMessage("价格"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("产品名称"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos登录面板"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas登录面板"),
         "QTY": MessageLookupByLibrary.simpleMessage("数量"),
         "Quantity": MessageLookupByLibrary.simpleMessage("数量*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("状态"),
@@ -280,9 +280,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "通过品牌发票给客户留下深刻印象。我们的无限升级提供了定制发票的独特优势，增加了专业触感，巩固了您的品牌形象，培养了客户忠诚度。"),
         "manufacturer": MessageLookupByLibrary.simpleMessage("制造商"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos 登录面板"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas 登录面板"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Pix Pos 注册面板"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas 注册面板"),
         "mobilePlusDesktop":
             MessageLookupByLibrary.simpleMessage("移动应用\n+\n桌面"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("收款单"),
@@ -355,7 +355,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请选择一个顾客"),
         "pleaseentervaliddata": MessageLookupByLibrary.simpleMessage("请输入有效数据"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos注册面板"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas注册面板"),
         "practies": MessageLookupByLibrary.simpleMessage("实践"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("高级客户支持"),
@@ -409,7 +409,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("右侧"),
         "sAmount": MessageLookupByLibrary.simpleMessage("销售金额"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "轻松保护您的业务数据。我们的Pix Pos POS无限升级包括免费数据备份，确保您宝贵的信息得到保护，免受突发事件的影响。专注于真正重要的事情-您的业务增长。"),
+            "轻松保护您的业务数据。我们的Pos Saas POS无限升级包括免费数据备份，确保您宝贵的信息得到保护，免受突发事件的影响。专注于真正重要的事情-您的业务增长。"),
         "sale": MessageLookupByLibrary.simpleMessage("销售"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("销售额"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("销售明细"),
@@ -455,7 +455,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("统计"),
         "status": MessageLookupByLibrary.simpleMessage("状态"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "始终处于技术进步的前沿，无需额外费用。我们的Pix Pos POS无限升级确保您始终拥有最新的工具和功能，保证您的业务保持前沿。"),
+            "始终处于技术进步的前沿，无需额外费用。我们的Pos Saas POS无限升级确保您始终拥有最新的工具和功能，保证您的业务保持前沿。"),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "始终处于技术进步的前沿，无需额外费用。我们的Pos Sass POS无限升级确保您始终拥有最新的工具和功能，保证您的业务保持前沿。"),
         "stock": MessageLookupByLibrary.simpleMessage("库存"),
@@ -475,7 +475,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("拍摄驾驶执照、国民身份证或护照照片"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("使用条款"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "名字说的就是一切。使用Pix Pos POS Unlimited，您不受使用限制。无论您是否处理少数交易或迎来大量客户，您都可以自信运营，无需担心受到限制。"),
+            "名字说的就是一切。使用Pos Saas POS Unlimited，您不受使用限制。无论您是否处理少数交易或迎来大量客户，您都可以自信运营，无需担心受到限制。"),
         "thisCustmerHasNoDue":
             MessageLookupByLibrary.simpleMessage("该顾客无未付款金额"),
         "thisCustomerHavepreviousDue":
@@ -517,7 +517,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedInvoice": MessageLookupByLibrary.simpleMessage("无限发票"),
         "unlimitedUsage": MessageLookupByLibrary.simpleMessage("无限使用"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "通过我们专家团队主导的个性化培训课程，发挥Pix Pos POS的全部潜力。从基础知识到高级技巧，我们确保您精通利用系统的各个方面以优化业务流程。"),
+            "通过我们专家团队主导的个性化培训课程，发挥Pos Saas POS的全部潜力。从基础知识到高级技巧，我们确保您精通利用系统的各个方面以优化业务流程。"),
         "updateNow": MessageLookupByLibrary.simpleMessage("立即更新"),
         "updateYourPlanFirst":
             MessageLookupByLibrary.simpleMessage("首先更新您的计划\\n销售限额已超过。"),

@@ -22,10 +22,9 @@ class PersonalInformationModel {
     businessCategory = json['businessCategory'];
     language = json['language'];
     countryName = json['countryName'];
-    //pc_cng
-    saleInvoiceCounter = json['saleInvoiceCounter']?? 0;
-    purchaseInvoiceCounter = json['purchaseInvoiceCounter']?? 0;
-    dueInvoiceCounter = json['dueInvoiceCounter']?? 0;
+    saleInvoiceCounter = json['saleInvoiceCounter'];
+    purchaseInvoiceCounter = json['purchaseInvoiceCounter'];
+    dueInvoiceCounter = json['dueInvoiceCounter'];
     shopOpeningBalance = json['shopOpeningBalance'] ?? 0;
     remainingShopBalance = json['remainingShopBalance'] ?? 0;
     currency = json['currency'] ?? '\$';

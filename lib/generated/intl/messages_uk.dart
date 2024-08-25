@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("ДОДАТИ ПРОДАЖ"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("КАТЕГОРІЯ"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("РАХУНОК"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("Продаж в ПДВ"),
         "PRICE": MessageLookupByLibrary.simpleMessage("ЦІНА"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("НАЗВА ПРОДУКТУ"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Панель входу в Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Панель входу в Pos Saas"),
         "QTY": MessageLookupByLibrary.simpleMessage("КІЛЬКІСТЬ"),
         "Quantity": MessageLookupByLibrary.simpleMessage("Кількість*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("СТАТУС"),
@@ -369,9 +369,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Справляйте незабутнє враження на своїх клієнтів завдяки індивідуальним рахункам. Наша Безмежна оновлення пропонує унікальну можливість налаштування ваших рахунків, додаючи професійний штрих, який підсилює ваш ідентифікаційний бренд і сприяє лояльності клієнтів."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Виробник"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Панель входу Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Панель входу Pos Saas"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Панель реєстрації Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Панель реєстрації Pos Saas"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "Мобільний додаток\n+\nРобочий стіл"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage(
@@ -465,7 +465,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata": MessageLookupByLibrary.simpleMessage(
             "Будь ласка, введіть коректні дані"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("Панель реєстрації Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Панель реєстрації Pos Saas"),
         "practies": MessageLookupByLibrary.simpleMessage("Практика"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Преміум підтримка клієнтів"),
@@ -530,7 +530,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("Праворуч"),
         "sAmount": MessageLookupByLibrary.simpleMessage("Сума продажів"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Легко захищайте свої бізнес-дані. Наша безмежна оновлення Pix Pos POS включає безкоштовне резервне копіювання даних, що забезпечує захист вашої цінної інформації від непередбачуваних подій. Сконцентруйтеся на тому, що справді має значення - на зростанні вашого бізнесу."),
+            "Легко захищайте свої бізнес-дані. Наша безмежна оновлення Pos Saas POS включає безкоштовне резервне копіювання даних, що забезпечує захист вашої цінної інформації від непередбачуваних подій. Сконцентруйтеся на тому, що справді має значення - на зростанні вашого бізнесу."),
         "sale": MessageLookupByLibrary.simpleMessage("Продаж"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("Сума продажу"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("Деталі продажу"),
@@ -594,7 +594,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("Статистика"),
         "status": MessageLookupByLibrary.simpleMessage("Статус"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Залишайтеся на передовому ряді технологічних досягнень без додаткових витрат. Наша безмежна оновлення Pix Pos POS завжди забезпечують вас останніми інструментами та можливостями, гарантуючи, що ваш бізнес залишається сучасним."),
+            "Залишайтеся на передовому ряді технологічних досягнень без додаткових витрат. Наша безмежна оновлення Pos Saas POS завжди забезпечують вас останніми інструментами та можливостями, гарантуючи, що ваш бізнес залишається сучасним."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "Залишайтеся на передовому ряді технологічних досягнень без додаткових витрат. Наша безмежна оновлення Pos Sass POS завжди забезпечують вас останніми інструментами та можливостями, гарантуючи, що ваш бізнес залишається сучасним."),
         "stock": MessageLookupByLibrary.simpleMessage("Запаси"),
@@ -621,7 +621,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfUse":
             MessageLookupByLibrary.simpleMessage("Умови використання"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Назва говорить сама за себе. З Pix Pos POS Unlimited обмежень для використання немає. Незалежно від того, чи ви обробляєте кілька транзакцій, чи маєте наплив клієнтів, ви можете працювати з впевненістю, знаючи, що вас не обмежують жодні рамки."),
+            "Назва говорить сама за себе. З Pos Saas POS Unlimited обмежень для використання немає. Незалежно від того, чи ви обробляєте кілька транзакцій, чи маєте наплив клієнтів, ви можете працювати з впевненістю, знаючи, що вас не обмежують жодні рамки."),
         "thisCustmerHasNoDue":
             MessageLookupByLibrary.simpleMessage("У цього покупця немає боргу"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -681,7 +681,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Необмежене використання"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Розблокуйте повний потенціал Pix Pos POS завдяки персоналізованим навчальним сесіям, проведеним нашою експертною командою. Від основ до високорівневих технік, ми гарантуємо, що ви володієте усіма аспектами системи для оптимізації вашого бізнесу."),
+            "Розблокуйте повний потенціал Pos Saas POS завдяки персоналізованим навчальним сесіям, проведеним нашою експертною командою. Від основ до високорівневих технік, ми гарантуємо, що ви володієте усіма аспектами системи для оптимізації вашого бізнесу."),
         "updateNow": MessageLookupByLibrary.simpleMessage("Оновити зараз"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "Спочатку оновіть свій план\\nЛіміт продажу вичерпано."),

@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("เพิ่มการขาย"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("หมวดหมู่"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("ใบแจ้งหนี้"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("POS Sale"),
         "PRICE": MessageLookupByLibrary.simpleMessage("ราคา"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("ชื่อสินค้า"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("แผงเข้าสู่ระบบ Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("แผงเข้าสู่ระบบ Pos Saas"),
         "QTY": MessageLookupByLibrary.simpleMessage("จำนวน"),
         "Quantity": MessageLookupByLibrary.simpleMessage("จำนวน *"),
         "STATUS": MessageLookupByLibrary.simpleMessage("สถานะ"),
@@ -358,9 +358,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "สร้างความประทับใจยาวนานให้กับลูกค้าของคุณด้วยใบแจ้งหนี้ที่มีตรายูสเอง การอัปเกรดไม่จำกัดของเรานำเสนอข้อดีอันเฉพาะสำหรับการปรับแต่งใบแจ้งหนี้ของคุณ โดยเพิ่มการสัมผัสอาชีพที่เสริมเสริมเครื่องหมายและสร้างความตั้งใจให้กับตระกูลยี่ห้อของคุณและกระตุ้นความภงมะของลูกค้า"),
         "manufacturer": MessageLookupByLibrary.simpleMessage("ผู้ผลิต"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("แผงเข้าสู่ระบบ Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("แผงเข้าสู่ระบบ Pos Saas"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("แผงสมัครใช้งาน Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("แผงสมัครใช้งาน Pos Saas"),
         "mobilePlusDesktop":
             MessageLookupByLibrary.simpleMessage("แอปมือถือ\n+\nเดสก์ท็อป"),
         "moneyReciept": MessageLookupByLibrary.simpleMessage("ใบเสร็จรับเงิน"),
@@ -453,7 +453,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata":
             MessageLookupByLibrary.simpleMessage("โปรดป้อนข้อมูลให้ถูกต้อง"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("แผงสมัครสมาชิก Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("แผงสมัครสมาชิก Pos Saas"),
         "practies": MessageLookupByLibrary.simpleMessage("ปฏิบัติ"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("บริการลูกค้าพรีเมี่ยม"),
@@ -517,7 +517,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("ขวา"),
         "sAmount": MessageLookupByLibrary.simpleMessage("ยอดขาย"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "ปกป้องข้อมูลธุรกิจของคุณได้อย่างง่ายดาย การอัปเกรดไม่จำกัดของ Pix Pos POS รวมถึงการสำรองข้อมูลฟรีทำให้ข้อมูลมีค่าของคุณได้รับการปกป้องจากเหตุการณที่ไม่คาดคิดใดๆ ให้มุ่งเน้นในสิ่งที่สำคัญจริง - การเติบโตของธุรกิจของคุณ"),
+            "ปกป้องข้อมูลธุรกิจของคุณได้อย่างง่ายดาย การอัปเกรดไม่จำกัดของ Pos Saas POS รวมถึงการสำรองข้อมูลฟรีทำให้ข้อมูลมีค่าของคุณได้รับการปกป้องจากเหตุการณที่ไม่คาดคิดใดๆ ให้มุ่งเน้นในสิ่งที่สำคัญจริง - การเติบโตของธุรกิจของคุณ"),
         "sale": MessageLookupByLibrary.simpleMessage("ขาย"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("จำนวนเงินขาย"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("รายละเอียดการขาย"),
@@ -579,7 +579,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("สถิติ"),
         "status": MessageLookupByLibrary.simpleMessage("สถานะ"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "อยู่ริมฟอร์รันต์ของความคืบหน้าเทคโนโลยีโดยไม่มีค่าใช้จ่ายเพิิ่มเติม การอัปเกรด Pix Pos ไม่จำกัดของเราทำให้คุณมีเครื่องมือและคุณลักษณะล่าสุดเสมอที่ปลายนิ้วคุณ รับประกันว่าธุรกิจของคุณยังคงทันสมัย"),
+            "อยู่ริมฟอร์รันต์ของความคืบหน้าเทคโนโลยีโดยไม่มีค่าใช้จ่ายเพิิ่มเติม การอัปเกรด Pos Saas ไม่จำกัดของเราทำให้คุณมีเครื่องมือและคุณลักษณะล่าสุดเสมอที่ปลายนิ้วคุณ รับประกันว่าธุรกิจของคุณยังคงทันสมัย"),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "อยู่ริมฟอร์รันต์ของความคืบหน้าทางเทคโนโลยีโดยไม่มีค่าใช้จ่ายเพิ่มเติม การอัปเกรดไม่จำกัดของ Pos Sass POS ระบบดำเนินการทำให้คุณมีเครื่องมือและคุณลักษณะล่าสุดเสมอที่ปลายนิ้วคุณ รับประกันว่าธุรกิจของคุณยังคงทันสมัย"),
         "stock": MessageLookupByLibrary.simpleMessage("หุ้น"),
@@ -606,7 +606,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "ถ่ายรูปใบขับขี่ บัตรประจำตัวประชาชน หรือหนังสือเดินทาง"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("เงื่อนไขการใช้"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "ชื่อบอกอยู่ในชื่อทั้งหมด ด้วย Pix Pos POS Unlimited คุณจะไม่มีขีดจำกัดในการใช้งาน ไมว่าคุณกำลังประมวลผลคำสั่งซื้อไม่กี่รายการหรือประสบการณ์ระลุลูกค้าคุณสามารถดำเนินการอย่างมั่นใจโดยรู้ว่าคุณไม่ถูกจำกัดโดยขีดจำกัด"),
+            "ชื่อบอกอยู่ในชื่อทั้งหมด ด้วย Pos Saas POS Unlimited คุณจะไม่มีขีดจำกัดในการใช้งาน ไมว่าคุณกำลังประมวลผลคำสั่งซื้อไม่กี่รายการหรือประสบการณ์ระลุลูกค้าคุณสามารถดำเนินการอย่างมั่นใจโดยรู้ว่าคุณไม่ถูกจำกัดโดยขีดจำกัด"),
         "thisCustmerHasNoDue":
             MessageLookupByLibrary.simpleMessage("ลูกค้ารายนี้ไม่มียอดคงค้าง"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -656,7 +656,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("การใช้งานไม่จำกัด"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "ปลดล็อคศักยภาพเต็มรูปแบบของ Pix Pos POS ด้วยการฝึกอบรมที่ประดิษฐ์โดยทีมผู้เชี่ยวชาญของเรา ตั้งแต่พื้นฐานถึงเทคนิคขั้นสูง เราจะให้คุณมีความรู้ครอบคลุมในการใช้ทุกด้านของระบบเพื่อปรับปรุงกระบวนการธุรกิจของคุณ"),
+            "ปลดล็อคศักยภาพเต็มรูปแบบของ Pos Saas POS ด้วยการฝึกอบรมที่ประดิษฐ์โดยทีมผู้เชี่ยวชาญของเรา ตั้งแต่พื้นฐานถึงเทคนิคขั้นสูง เราจะให้คุณมีความรู้ครอบคลุมในการใช้ทุกด้านของระบบเพื่อปรับปรุงกระบวนการธุรกิจของคุณ"),
         "updateNow": MessageLookupByLibrary.simpleMessage("อัปเดตเดี้ยวนี้"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "อัปเดตแผนของคุณก่อน \\ nขีด จำกัด การขายหมดแล้ว"),

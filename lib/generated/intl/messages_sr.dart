@@ -25,13 +25,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("DODAJ PRODAJU"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("KATEGORIJA"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("FAKTURA"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale":
             MessageLookupByLibrary.simpleMessage("Prodaja na POS uređaju"),
         "PRICE": MessageLookupByLibrary.simpleMessage("CENA"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("NAZIV PROIZVODA"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Panel za Prijavu"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Panel za Prijavu"),
         "QTY": MessageLookupByLibrary.simpleMessage("KOLIČINA"),
         "STATUS": MessageLookupByLibrary.simpleMessage("STATUS"),
         "TOTALVALUE": MessageLookupByLibrary.simpleMessage("UKUPNA VREDNOST"),
@@ -361,9 +361,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Napravite trajan utisak na svoje klijente sa brendiranim fakturama. Naše Neograničeno Ažuriranje pruža jedinstvenu prednost prilagođavanja faktura dodajući profesionalan dodir koji jača identitet vaše marke i podstiče lojalnost korisnika."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Proizvođač"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos Panel za prijavu"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas Panel za prijavu"),
         "mobiPosSignUpPane": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos Panel za registraciju"),
+            "Pos Saas Panel za registraciju"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "Mobilna Aplikacija\n+\nRadna Površina"),
         "moneyReciept":
@@ -456,7 +456,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata":
             MessageLookupByLibrary.simpleMessage("Unesite validne podatke"),
         "posSaasSingUpPanel": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos Panel za Registraciju"),
+            "Pos Saas Panel za Registraciju"),
         "practies": MessageLookupByLibrary.simpleMessage("Vežbaj"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Premium Korisnička Podrška"),
@@ -583,7 +583,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("Statistika"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Ostanite na čelu tehnoloških inovacija bez dodatnih troškova. Naše Pix Pos POS Neograničeno Ažuriranje obezbeđuje da uvek imate najnovije alate i funkcije na dohvat ruke, čime se garantuje da vaš posao ostane u samom vrhu."),
+            "Ostanite na čelu tehnoloških inovacija bez dodatnih troškova. Naše Pos Saas POS Neograničeno Ažuriranje obezbeđuje da uvek imate najnovije alate i funkcije na dohvat ruke, čime se garantuje da vaš posao ostane u samom vrhu."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "Ostanite na čelu tehnoloških inovacija bez dodatnih troškova. Naše Neograničeno Ažuriranje Pos Sass POS-a obezbeđuje da uvek imate najnovije alate i funkcije na dohvat ruke, čime se garantuje da vaš posao ostane u samom vrhu."),
         "stock": MessageLookupByLibrary.simpleMessage("Zalihe"),
@@ -609,7 +609,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Uzmite fotografiju vozačke dozvole, lične karte ili pasoša"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("Uslovi Korišćenja"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Samo ime sve govori. Sa Pix Pos POS Neograničeno, nema ograničenja u korišćenju. Bez obzira da li obrađujete samo nekoliko transakcija ili se suočavate sa navalom klijenata, možete raditi s poverenjem znajući da niste ograničeni količinama."),
+            "Samo ime sve govori. Sa Pos Saas POS Neograničeno, nema ograničenja u korišćenju. Bez obzira da li obrađujete samo nekoliko transakcija ili se suočavate sa navalom klijenata, možete raditi s poverenjem znajući da niste ograničeni količinama."),
         "thisCustmerHasNoDue":
             MessageLookupByLibrary.simpleMessage("Ovaj kupac nema dugovanja"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -663,7 +663,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Neograničeno Korišćenje"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Otkrijte puni potencijal Pix Pos POS-a kroz personalizovane sesije obuke koje vodi naš stručni tim. Od osnovnih do naprednih tehnika, mi se pobrinemo da ste dobro upućeni u korišćenje svakog aspekta sistema kako biste optimizovali poslovne procese."),
+            "Otkrijte puni potencijal Pos Saas POS-a kroz personalizovane sesije obuke koje vodi naš stručni tim. Od osnovnih do naprednih tehnika, mi se pobrinemo da ste dobro upućeni u korišćenje svakog aspekta sistema kako biste optimizovali poslovne procese."),
         "updateNow": MessageLookupByLibrary.simpleMessage("Ažuriraj Sada"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "Prvo ažurirajte svoj plan\\nLimit prodaje je premašen."),

@@ -25,13 +25,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("PŘIDAT PRODEJ"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("KATEGORIE"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("FAKTURA"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale":
             MessageLookupByLibrary.simpleMessage("Prodej na pokladně (POS)"),
         "PRICE": MessageLookupByLibrary.simpleMessage("CENA"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("NÁZEV PRODUKTU"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Přihlašovací panel Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Přihlašovací panel Pos Saas"),
         "QTY": MessageLookupByLibrary.simpleMessage("MNOŽSTVÍ"),
         "STATUS": MessageLookupByLibrary.simpleMessage("STAV"),
         "TOTALVALUE": MessageLookupByLibrary.simpleMessage("CELKOVÁ HODNOTA"),
@@ -365,9 +365,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Zanechte trvalý dojem na své zákazníky s vlastními fakturami. Naše neomezené upgrady nabízejí jedinečnou výhodu přizpůsobení faktur, přidávajíc profesionální dotek, který posiluje identitu vaší značky a podporuje věrnost zákazníků."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Výrobce"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Přihlašovací panel Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Přihlašovací panel Pos Saas"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Registrační panel Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Registrační panel Pos Saas"),
         "mobilePlusDesktop":
             MessageLookupByLibrary.simpleMessage("Mobilní aplikace\n+\nPlocha"),
         "nam": MessageLookupByLibrary.simpleMessage("Název*"),
@@ -458,7 +458,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata":
             MessageLookupByLibrary.simpleMessage("Zadejte platná data, prosím"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("Registrace do Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Registrace do Pos Saas"),
         "practies": MessageLookupByLibrary.simpleMessage("Praxe"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Prémiová zákaznická podpora"),
@@ -581,7 +581,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("Statistika"),
         "status": MessageLookupByLibrary.simpleMessage("Stav"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Zůstaňte v čele technologického pokroku bez dalších nákladů. Naše aktualizace Pix Pos POS Unlimited zajistí, že budete mít vždy nejnovější nástroje a funkce na dosah ruky, což zaručuje, že vaše firma zůstane na řezu."),
+            "Zůstaňte v čele technologického pokroku bez dalších nákladů. Naše aktualizace Pos Saas POS Unlimited zajistí, že budete mít vždy nejnovější nástroje a funkce na dosah ruky, což zaručuje, že vaše firma zůstane na řezu."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "Zůstaňte na špičce technologického pokroku bez dalších nákladů. Naše aktualizace Pos Sass POS Unlimited zajistí, že budete mít vždy nejnovější nástroje a funkce na dosah ruky, což zaručuje, že vaše firma zůstane na řezu."),
         "stock": MessageLookupByLibrary.simpleMessage("Sklad"),
@@ -607,7 +607,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Fotografie řidičského průkazu, občanského průkazu nebo cestovního pasu"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("Podmínky použití"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Jméno říká vše. S Pix Pos POS Unlimited neexistuje omezení ve vašem použití. Ať už zpracováváte několik transakcí nebo máte nával zákazníků, můžete provozovat s jistotou, že nejste omezeni limity."),
+            "Jméno říká vše. S Pos Saas POS Unlimited neexistuje omezení ve vašem použití. Ať už zpracováváte několik transakcí nebo máte nával zákazníků, můžete provozovat s jistotou, že nejste omezeni limity."),
         "thisCustmerHasNoDue": MessageLookupByLibrary.simpleMessage(
             "Tento zákazník nemá žádné splatné dluhy"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -657,7 +657,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Neomezené použití"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Odemkněte plný potenciál Pix Pos POS s personalizovanými školeními vedenými naším odborným týmem. Od základů po pokročilé techniky vám zaručíme, že budete dobře obeznámeni s využitím každého aspektu systému k optimalizaci vašich firemních procesů."),
+            "Odemkněte plný potenciál Pos Saas POS s personalizovanými školeními vedenými naším odborným týmem. Od základů po pokročilé techniky vám zaručíme, že budete dobře obeznámeni s využitím každého aspektu systému k optimalizaci vašich firemních procesů."),
         "updateNow": MessageLookupByLibrary.simpleMessage("Aktualizovat nyní"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "Nejdříve aktualizujte svůj plán.\\nLimit prodeje byl překročen."),

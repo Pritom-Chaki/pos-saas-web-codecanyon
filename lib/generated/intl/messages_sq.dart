@@ -25,12 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDSALE": MessageLookupByLibrary.simpleMessage("SHTO SHITJE"),
         "CATEGORY": MessageLookupByLibrary.simpleMessage("KATEGORIA"),
         "INVOICE": MessageLookupByLibrary.simpleMessage("FATURË"),
-        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pix Pos"),
+        "MOBIPOS": MessageLookupByLibrary.simpleMessage("Pos Saas"),
         "POSSale": MessageLookupByLibrary.simpleMessage("Shitje në POS"),
         "PRICE": MessageLookupByLibrary.simpleMessage("ÇMIMI"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("EMRI I PRODUKTIT"),
         "PosSaasLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Paneli i Hyrjes së Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Paneli i Hyrjes së Pos Saas"),
         "QTY": MessageLookupByLibrary.simpleMessage("SASIA"),
         "Quantity": MessageLookupByLibrary.simpleMessage("Sasia*"),
         "STATUS": MessageLookupByLibrary.simpleMessage("STATUSI"),
@@ -374,9 +374,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Krijoni një ndikim të qëndrueshëm në klientët tuaj me faturat e personalizuara. Përmes Përmirësimit të Palemit të Paslimit tonë, ofrojmë avantazhin unik të personalizimit të faturave tuaja, duke shtuar një prekje profesionale që e përforcon identitetin tuaj të markës dhe nxit besnikërinë e klientëve."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Prodhuesi"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Paneli i Hyrjes në Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Paneli i Hyrjes në Pos Saas"),
         "mobiPosSignUpPane": MessageLookupByLibrary.simpleMessage(
-            "Paneli i Regjistrimit në Pix Pos"),
+            "Paneli i Regjistrimit në Pos Saas"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "Aplikacioni Mobil\n+\nDesktop"),
         "moneyReciept":
@@ -475,7 +475,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata": MessageLookupByLibrary.simpleMessage(
             "Ju lutemi vendosni të dhëna të vlefshme"),
         "posSaasSingUpPanel": MessageLookupByLibrary.simpleMessage(
-            "Paneli i Regjistrimit së Pix Pos"),
+            "Paneli i Regjistrimit së Pos Saas"),
         "practies": MessageLookupByLibrary.simpleMessage("Praktikoni"),
         "premiumCustomerSupport": MessageLookupByLibrary.simpleMessage(
             "Mbështetje Premium për Klientët"),
@@ -550,7 +550,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("Djathtas"),
         "sAmount": MessageLookupByLibrary.simpleMessage("Shuma e Shitjes"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Mbrojtja e të dhënave të biznesit tuaj pa vështirësi. Përmes Përmirësimit të Palemit të Pasimit të Pix Pos POS, përfshihet një kopje rezervë e të dhënave falas, duke siguruar që informacioni juaj i çmuar është i mbrojtur nga ngjarjet e papritura. Fokusohuni në atë që vërtet është e rëndësishme - rritja e biznesit tuaj."),
+            "Mbrojtja e të dhënave të biznesit tuaj pa vështirësi. Përmes Përmirësimit të Palemit të Pasimit të Pos Saas POS, përfshihet një kopje rezervë e të dhënave falas, duke siguruar që informacioni juaj i çmuar është i mbrojtur nga ngjarjet e papritura. Fokusohuni në atë që vërtet është e rëndësishme - rritja e biznesit tuaj."),
         "sale": MessageLookupByLibrary.simpleMessage("Shitja"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("Shuma e Shitjes"),
         "saleDetails":
@@ -615,7 +615,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("Statistikë"),
         "status": MessageLookupByLibrary.simpleMessage("Statusi"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Qëndroni në Krye të Avancimeve Teknologjike pa Kosto Shtesë. Përmes Përmirësimit të Palimit të Pix Pos POS, ju gjithmonë do të keni mjetet dhe karakteristikat më të fundit në dorën tuaj, duke garantuar që biznesi juaj mbetet i përparuar."),
+            "Qëndroni në Krye të Avancimeve Teknologjike pa Kosto Shtesë. Përmes Përmirësimit të Palimit të Pos Saas POS, ju gjithmonë do të keni mjetet dhe karakteristikat më të fundit në dorën tuaj, duke garantuar që biznesi juaj mbetet i përparuar."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "Mbani këmbë në krye të avancimeve teknologjike pa kosto shtesë. Përmes Përmirësimit të Palemit të Pasimit të Pos Sass POS, ju gjithmonë do të keni mjetet dhe karakteristikat më të fundit në dorën tuaj, duke garantuar që biznesi juaj mbetet në përparim."),
         "stock": MessageLookupByLibrary.simpleMessage("Stoku"),
@@ -642,7 +642,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfUse":
             MessageLookupByLibrary.simpleMessage("Kushtet e Përdorimit"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Emri thotë të gjitha. Me Pix Pos POS Unlimited, nuk ka kufizim në përdorimin tuaj. Pavarësisht nëse po procesoni disa transaksione ose po përjetoni një rrjedhë të klientëve, ju mund të operoni me besim, duke ditur se nuk jeni të kufizuar nga kufizimet."),
+            "Emri thotë të gjitha. Me Pos Saas POS Unlimited, nuk ka kufizim në përdorimin tuaj. Pavarësisht nëse po procesoni disa transaksione ose po përjetoni një rrjedhë të klientëve, ju mund të operoni me besim, duke ditur se nuk jeni të kufizuar nga kufizimet."),
         "thisCustmerHasNoDue": MessageLookupByLibrary.simpleMessage(
             "Ky klient nuk ka asnjë detyrim"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -701,7 +701,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Përdorim i Pa Kufizuar"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Oftoni potencialin e plotë të Pix Pos POS me sesione trajnimi të personalizuar të drejtuar nga ekipi ynë i ekspertëve. Përmbi themelet deri te teknikat e përparuara, ne sigurohemi që ju të jeni të njohur me përdorimin e çdo aspekti të sistemit për të optimizuar proceset e biznesit tuaj."),
+            "Oftoni potencialin e plotë të Pos Saas POS me sesione trajnimi të personalizuar të drejtuar nga ekipi ynë i ekspertëve. Përmbi themelet deri te teknikat e përparuara, ne sigurohemi që ju të jeni të njohur me përdorimin e çdo aspekti të sistemit për të optimizuar proceset e biznesit tuaj."),
         "updateNow": MessageLookupByLibrary.simpleMessage("Përditëso Tani"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "Përditësoni planin tuaj së pari. Kufiri i Shitjes është tejkaluar."),

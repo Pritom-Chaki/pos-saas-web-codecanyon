@@ -362,9 +362,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "ធ្វើឱ្យមានការចាប់អារម្មណ៍យូរអង្វែងលើអតិថិជនរបស់អ្នកជាមួយនឹងវិក្កយបត្រដែលមានម៉ាក។ ការអាប់ដេតគ្មានដែនកំណត់របស់យើងផ្តល់នូវអត្ថប្រយោជន៍ពិសេសនៃការកែប្រែវិក្កយបត្ររបស់អ្នកតាមបំណង ដោយបន្ថែមការប៉ះប្រកបដោយវិជ្ជាជីវៈដែលពង្រឹងអត្តសញ្ញាណម៉ាករបស់អ្នក និងជំរុញភាពស្មោះត្រង់របស់អតិថិជន។"),
         "manufacturer": MessageLookupByLibrary.simpleMessage("ក្រុមហ៊ុនផលិត"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("ផ្ទាំង​ចូល Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("ផ្ទាំង​ចូល Pos Saas"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("ផ្ទាំងចុះឈ្មោះ Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("ផ្ទាំងចុះឈ្មោះ Pos Saas"),
         "mobilePlusDesktop": MessageLookupByLibrary.simpleMessage(
             "កម្មវិធីចុងកម្មវិធីអ៊ីឡប់\n+\nកម្មវិធីលេខតុល"),
         "moneyReciept":
@@ -518,7 +518,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("ស្តាំ"),
         "sAmount": MessageLookupByLibrary.simpleMessage("ចំនួនលក់"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "ការពារទិន្នន័យអាជីវកម្មរបស់អ្នកដោយមិនពិបាក។ Pix Pos POS Unlimited Upgrade របស់យើងរួមបញ្ចូលទាំងការបម្រុងទុកទិន្នន័យដោយឥតគិតថ្លៃ ដោយធានាថាព័ត៌មានដ៏មានតម្លៃរបស់អ្នកត្រូវបានការពារប្រឆាំងនឹងព្រឹត្តិការណ៍ដែលមិនបានមើលឃើញទុកជាមុនណាមួយ។ ផ្តោតលើអ្វីដែលសំខាន់ - កំណើនអាជីវកម្មរបស់អ្នក។"),
+            "ការពារទិន្នន័យអាជីវកម្មរបស់អ្នកដោយមិនពិបាក។ Pos Saas POS Unlimited Upgrade របស់យើងរួមបញ្ចូលទាំងការបម្រុងទុកទិន្នន័យដោយឥតគិតថ្លៃ ដោយធានាថាព័ត៌មានដ៏មានតម្លៃរបស់អ្នកត្រូវបានការពារប្រឆាំងនឹងព្រឹត្តិការណ៍ដែលមិនបានមើលឃើញទុកជាមុនណាមួយ។ ផ្តោតលើអ្វីដែលសំខាន់ - កំណើនអាជីវកម្មរបស់អ្នក។"),
         "sale": MessageLookupByLibrary.simpleMessage("លក់"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("ចំនួនលក់"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("ព័ត៌មាន​លក់"),
@@ -582,7 +582,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ស្ថិតិសម្រាប់ទិន្នន័យ"),
         "status": MessageLookupByLibrary.simpleMessage("ស្ថានភាព"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "ស្ថិត​នៅ​ជួរ​មុខ​នៃ​ការ​រីក​ចម្រើន​ផ្នែក​បច្ចេកវិទ្យា ដោយ​មិន​មាន​ការ​ចំណាយ​បន្ថែម​អ្វី​ឡើយ។ Pix Pos POS Unlimited Upgrade របស់យើងធានាថាអ្នកតែងតែមានឧបករណ៍ និងមុខងារចុងក្រោយបង្អស់នៅចុងម្រាមដៃរបស់អ្នក ដោយធានាថាអាជីវកម្មរបស់អ្នកនៅតែទំនើបទាន់សម័យ។"),
+            "ស្ថិត​នៅ​ជួរ​មុខ​នៃ​ការ​រីក​ចម្រើន​ផ្នែក​បច្ចេកវិទ្យា ដោយ​មិន​មាន​ការ​ចំណាយ​បន្ថែម​អ្វី​ឡើយ។ Pos Saas POS Unlimited Upgrade របស់យើងធានាថាអ្នកតែងតែមានឧបករណ៍ និងមុខងារចុងក្រោយបង្អស់នៅចុងម្រាមដៃរបស់អ្នក ដោយធានាថាអាជីវកម្មរបស់អ្នកនៅតែទំនើបទាន់សម័យ។"),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "ស្ថិតនៅជួរមុខនៃការរីកចម្រើនផ្នែកបច្ចេកវិទ្យា ដោយមិនមានការចំណាយបន្ថែមអ្វីឡើយ។ Pos Sass POS Unlimited Upgrade របស់យើងធានាថាអ្នកតែងតែមានឧបករណ៍ និងមុខងារចុងក្រោយបំផុតនៅចុងម្រាមដៃរបស់អ្នក ដោយធានាថាអាជីវកម្មរបស់អ្នកនៅតែទំនើបទាន់សម័យ។"),
         "stock": MessageLookupByLibrary.simpleMessage("ស្តុក"),
@@ -607,7 +607,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfUse":
             MessageLookupByLibrary.simpleMessage("ល័ក្ខខ័ណ្ឌនៃការប្រើប្រាស់"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "ឈ្មោះ​និយាយ​ទាំង​អស់។ ជាមួយនឹង Pix Pos POS Unlimited វាមិនមានដែនកំណត់លើការប្រើប្រាស់របស់អ្នកទេ។ មិនថាអ្នកកំពុងដំណើរការប្រតិបត្តិការមួយក្តាប់តូច ឬជួបប្រទះនឹងការប្រញាប់ប្រញាល់របស់អតិថិជននោះទេ អ្នកអាចធ្វើប្រតិបត្តិការដោយទំនុកចិត្ត ដោយដឹងថាអ្នកមិនត្រូវបានរឹតបន្តឹងដោយដែនកំណត់"),
+            "ឈ្មោះ​និយាយ​ទាំង​អស់។ ជាមួយនឹង Pos Saas POS Unlimited វាមិនមានដែនកំណត់លើការប្រើប្រាស់របស់អ្នកទេ។ មិនថាអ្នកកំពុងដំណើរការប្រតិបត្តិការមួយក្តាប់តូច ឬជួបប្រទះនឹងការប្រញាប់ប្រញាល់របស់អតិថិជននោះទេ អ្នកអាចធ្វើប្រតិបត្តិការដោយទំនុកចិត្ត ដោយដឹងថាអ្នកមិនត្រូវបានរឹតបន្តឹងដោយដែនកំណត់"),
         "thisCustmerHasNoDue": MessageLookupByLibrary.simpleMessage(
             "អតិថិជន​នេះ​មិន​មាន​ការ​ជំពាក់​ទេ"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -662,7 +662,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("ការប្រើប្រាស់គ្មានដែនកំណត់"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "ដោះសោសក្តានុពលពេញលេញនៃ Pix Pos POS ជាមួយនឹងវគ្គបណ្តុះបណ្តាលផ្ទាល់ខ្លួនដែលដឹកនាំដោយក្រុមអ្នកជំនាញរបស់យើង។ ពីមូលដ្ឋានគ្រឹះរហូតដល់បច្ចេកទេសកម្រិតខ្ពស់ យើងធានាថាអ្នកពិតជាស្ទាត់ជំនាញក្នុងការប្រើប្រាស់គ្រប់ផ្នែកនៃប្រព័ន្ធ ដើម្បីបង្កើនប្រសិទ្ធភាពដំណើរការអាជីវកម្មរបស់អ្នក។"),
+            "ដោះសោសក្តានុពលពេញលេញនៃ Pos Saas POS ជាមួយនឹងវគ្គបណ្តុះបណ្តាលផ្ទាល់ខ្លួនដែលដឹកនាំដោយក្រុមអ្នកជំនាញរបស់យើង។ ពីមូលដ្ឋានគ្រឹះរហូតដល់បច្ចេកទេសកម្រិតខ្ពស់ យើងធានាថាអ្នកពិតជាស្ទាត់ជំនាញក្នុងការប្រើប្រាស់គ្រប់ផ្នែកនៃប្រព័ន្ធ ដើម្បីបង្កើនប្រសិទ្ធភាពដំណើរការអាជីវកម្មរបស់អ្នក។"),
         "updateNow":
             MessageLookupByLibrary.simpleMessage("ធ្វើបច្ចុប្បន្បរាបមូល"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(

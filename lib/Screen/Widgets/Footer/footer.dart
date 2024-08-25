@@ -16,7 +16,7 @@ class Footer extends StatelessWidget {
       child: Row(
         children: [
           const Text(
-            'COPYRIGHT © 2024 PixPos, All rights Reserved',
+            'COPYRIGHT © 2023 Acnoo, All rights Reserved',
           ),
           const Spacer(),
           RichText(
@@ -24,7 +24,7 @@ class Footer extends StatelessWidget {
               text: 'Made by',
               children: [
                 TextSpan(
-                  text: ' PixTech',
+                  text: ' Acnoo',
                   style: kTextStyle.copyWith(color: kMainColor),
                 ),
               ],

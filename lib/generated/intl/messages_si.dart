@@ -31,7 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "PRICE": MessageLookupByLibrary.simpleMessage("මිල"),
         "PRODUCTNAME": MessageLookupByLibrary.simpleMessage("නිශ්චයේ නම"),
         "PosSaasLoginPanel": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos පිළිබඳව ප්‍රවේශ කරන පැනලය"),
+            "Pos Saas පිළිබඳව ප්‍රවේශ කරන පැනලය"),
         "QTY": MessageLookupByLibrary.simpleMessage("ප්‍රමාණය"),
         "STATUS": MessageLookupByLibrary.simpleMessage("තත්වය"),
         "TOTALVALUE": MessageLookupByLibrary.simpleMessage("මුළු අගය"),
@@ -357,9 +357,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "සන්නාමගත ඉන්වොයිසි සමඟින් ඔබේ පාරිභෝගිකයන් කෙරෙහි සදාකාලික හැඟීමක් ඇති කරන්න. අපගේ අසීමිත උත්ශ්රේණි කිරීම ඔබේ ඉන්වොයිසි අභිරුචිකරණය කිරීමේ සුවිශේෂී වාසිය ලබා දෙයි, ඔබේ සන්නාම අනන්යතාවය ශක්තිමත් කරන සහ පාරිභෝගික පක්ෂපාතිත්වය පෝෂණය කරන වෘත්තීය ස්පර්ශයක් එක් කරයි."),
         "manufacturer": MessageLookupByLibrary.simpleMessage("නිෂ්පාතිකය"),
         "mobiPosLoginPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos පිවිසුම් පැනලය"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas පිවිසුම් පැනලය"),
         "mobiPosSignUpPane":
-            MessageLookupByLibrary.simpleMessage("Pix Pos ලියාපදිංචි පැනලය"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas ලියාපදිංචි පැනලය"),
         "mobilePlusDesktop":
             MessageLookupByLibrary.simpleMessage("ජංගම\n+\nඩෙස්ක්ටොප්"),
         "moneyReciept":
@@ -450,7 +450,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseentervaliddata": MessageLookupByLibrary.simpleMessage(
             "කරුණාකර වලංගු දත්ත ඇතුළත් කරන්න"),
         "posSaasSingUpPanel":
-            MessageLookupByLibrary.simpleMessage("Pix Pos ලොඇන් කරන පැනලය"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas ලොඇන් කරන පැනලය"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("ප්‍රිමියම ප්‍රසූදය හාන"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("ප්‍රිමියම සැලසුම"),
@@ -510,7 +510,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "right": MessageLookupByLibrary.simpleMessage("දක්වා"),
         "sAmount": MessageLookupByLibrary.simpleMessage("විකුණුම් මුදල්"),
         "safegurardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "ඔබේ ව්යාපාර දත්ත ආයාසයකින් තොරව සුරක්ෂිත කරන්න. අපගේ Pix Pos POS Unlimited Upgrade හි නොමිලේ දත්ත උපස්ථයක් ඇතුළත් වන අතර, ඔබගේ වටිනා තොරතුරු අනපේක්ෂිත සිදුවීම් වලින් ආරක්ෂා කර ඇති බව සහතික කරයි. සැබවින්ම වැදගත් වන්නේ කුමක්ද යන්න පිළිබඳව අවධානය යොමු කරන්න - ඔබේ ව්යාපාර වර්ධනය."),
+            "ඔබේ ව්යාපාර දත්ත ආයාසයකින් තොරව සුරක්ෂිත කරන්න. අපගේ Pos Saas POS Unlimited Upgrade හි නොමිලේ දත්ත උපස්ථයක් ඇතුළත් වන අතර, ඔබගේ වටිනා තොරතුරු අනපේක්ෂිත සිදුවීම් වලින් ආරක්ෂා කර ඇති බව සහතික කරයි. සැබවින්ම වැදගත් වන්නේ කුමක්ද යන්න පිළිබඳව අවධානය යොමු කරන්න - ඔබේ ව්යාපාර වර්ධනය."),
         "sale": MessageLookupByLibrary.simpleMessage("විකිණීම"),
         "saleAmount": MessageLookupByLibrary.simpleMessage("විකුණුම් වෙළඳපොල"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("විකිණීමේ විස්තර"),
@@ -572,7 +572,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistic": MessageLookupByLibrary.simpleMessage("සංඛ්‍යාලය"),
         "status": MessageLookupByLibrary.simpleMessage("ස්ථාපනය"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "කිසිදු අමතර පිරිවැයකින් තොරව තාක්ෂණික දියුණුවෙහි ඉදිරියෙන් සිටින්න. අපගේ Pix Pos POS Unlimited උත්ශ්රේණි කිරීම මඟින් ඔබට සැමවිටම නවතම මෙවලම් සහ විශේෂාංග ඔබේ ඇඟිලි තුඩුවල ඇති බව සහතික කරයි, ඔබේ ව්යාපාරය අති නවීන බව සහතික කරයි."),
+            "කිසිදු අමතර පිරිවැයකින් තොරව තාක්ෂණික දියුණුවෙහි ඉදිරියෙන් සිටින්න. අපගේ Pos Saas POS Unlimited උත්ශ්රේණි කිරීම මඟින් ඔබට සැමවිටම නවතම මෙවලම් සහ විශේෂාංග ඔබේ ඇඟිලි තුඩුවල ඇති බව සහතික කරයි, ඔබේ ව්යාපාරය අති නවීන බව සහතික කරයි."),
         "stayAtTheForeFrontOfTechnological": MessageLookupByLibrary.simpleMessage(
             "අතුරු විද්‍යාවෙනි ස්වර්ගයේ කුමුදු විහාලනය කිරීමට අතුරු වෙද්‍යක් රහුල් වීමට වෙරළෙම අග්‍රයය. අපේ Pos Sass POS සැලසුමේ අස්ථානගත උපයෝගයන් සහ සුළු විසින්ධ මෙවල එය ඔබේ අඩකානනයේ එහි හෝ සුළු වෙරළෙම තවත් වේ."),
         "stock": MessageLookupByLibrary.simpleMessage("පොත්"),
@@ -597,7 +597,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfUse":
             MessageLookupByLibrary.simpleMessage("භාවිත කිරීමේ භාවිත"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "නම හැම දෙයක්ම කියනවා. Pix Pos POS Unlimited සමඟින්, ඔබේ භාවිතයේ සීමාවක් නොමැත. ඔබ ගනුදෙනු අතලොස්සක් සකසමින් සිටියත් හෝ ගනුදෙනුකරුවන්ගේ අධික තදබදයක් අත්විඳිමින් සිටියත්, ඔබ සීමාවන්ට සීමා නොවන බව දැනගෙන ඔබට විශ්වාසයෙන් යුතුව ක්රියා කළ හැක."),
+            "නම හැම දෙයක්ම කියනවා. Pos Saas POS Unlimited සමඟින්, ඔබේ භාවිතයේ සීමාවක් නොමැත. ඔබ ගනුදෙනු අතලොස්සක් සකසමින් සිටියත් හෝ ගනුදෙනුකරුවන්ගේ අධික තදබදයක් අත්විඳිමින් සිටියත්, ඔබ සීමාවන්ට සීමා නොවන බව දැනගෙන ඔබට විශ්වාසයෙන් යුතුව ක්රියා කළ හැක."),
         "thisCustmerHasNoDue":
             MessageLookupByLibrary.simpleMessage("මෙම ප්රජාලයට සහාය නොමැත"),
         "thisCustomerHavepreviousDue": MessageLookupByLibrary.simpleMessage(
@@ -649,7 +649,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("සීමාවේ භාර කීරීම"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "අපගේ විශේෂඥ කණ්ඩායම විසින් මෙහෙයවනු ලබන පුද්ගලාරෝපිත පුහුණු සැසි සමඟ Pix Pos POS හි සම්පූර්ණ විභවය අගුළු හරින්න. මූලික කරුණුවල සිට උසස් තාක්ෂණික ක්රම දක්වා, ඔබේ ව්යාපාර ක්රියාවලීන් ප්රශස්ත කිරීම සඳහා පද්ධතියේ සෑම අංශයක්ම භාවිතා කිරීමට ඔබ හොඳින් දන්නා බව අපි සහතික කරමු."),
+            "අපගේ විශේෂඥ කණ්ඩායම විසින් මෙහෙයවනු ලබන පුද්ගලාරෝපිත පුහුණු සැසි සමඟ Pos Saas POS හි සම්පූර්ණ විභවය අගුළු හරින්න. මූලික කරුණුවල සිට උසස් තාක්ෂණික ක්රම දක්වා, ඔබේ ව්යාපාර ක්රියාවලීන් ප්රශස්ත කිරීම සඳහා පද්ධතියේ සෑම අංශයක්ම භාවිතා කිරීමට ඔබ හොඳින් දන්නා බව අපි සහතික කරමු."),
         "updateNow": MessageLookupByLibrary.simpleMessage("දැනුම්දීම කරන්න"),
         "updateYourPlanFirst": MessageLookupByLibrary.simpleMessage(
             "ඔබගේ සැලසුම පළමුව යාවත් කරන්න\\nවිකුණුම සීමාව අවසන් වී ඇත."),
