@@ -84,7 +84,7 @@ dependencies:
   barcode_widget: ^2.0.4
   excel: ^4.0.2
   restart_app: ^1.2.1
-
+  webview_flutter: ^4.4.1
 
 
 dev_dependencies:

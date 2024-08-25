@@ -40,12 +40,12 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: "AIzaSyBWWnfsKSnQEUa1kJ1TIVAxb6tU8DIf5lQ",
-    authDomain: "pos-saas-a7b6c.firebaseapp.com",
-    databaseURL: "https://pos-saas-a7b6c-default-rtdb.firebaseio.com",
-    projectId: "pos-saas-a7b6c",
-    storageBucket: "pos-saas-a7b6c.appspot.com",
-    messagingSenderId: "606700156156",
-    appId: "1:606700156156:web:d10d411b843f218a3dd379",
+    apiKey: "AIzaSyBgkagPVWtp7736wC_TJRW0EkNrgkt7Jfw",
+    authDomain: "pixposbd.firebaseapp.com",
+    databaseURL: "https://pixposbd-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "pixposbd",
+    storageBucket: "pixposbd.appspot.com",
+    messagingSenderId: "906952853387",
+    appId: "1:906952853387:web:3f72b8987a2c872608918e",
   );
 }
