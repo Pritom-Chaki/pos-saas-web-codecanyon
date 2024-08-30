@@ -34,7 +34,7 @@
 
     <script>
     // The value below is injected by flutter build, do not touch.
-    var flutter_service_worker_version = null;
+    var serviceWorkerVersion  = null;
 
     </script>
     <!-- This script adds the flutter initialization JS code -->
@@ -42,12 +42,28 @@
 </head>
 <body>
 <script src="https://js.stripe.com/v3/"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <!-- Firebase Configuration -->
+    <script>
+      var firebaseConfig = {
+          apiKey: "AIzaSyBgkagPVWtp7736wC_TJRW0EkNrgkt7Jfw",
+          authDomain: "pixposbd.firebaseapp.com",
+          databaseURL: "https://pixposbd-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "pixposbd",
+          storageBucket: "pixposbd.appspot.com",
+          messagingSenderId: "906952853387",
+          appId: "1:906952853387:web:3f72b8987a2c872608918e",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
 <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.load({
         serviceWorker: {
-          flutter_service_worker_version: flutter_service_worker_version,
+          serviceWorkerVersion : serviceWorkerVersion ,
         }
       }).then(function(engineInitializer) {
         return engineInitializer.initializeEngine();
@@ -57,6 +73,6 @@
     });
 
 </script>
-
+<script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>

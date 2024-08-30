@@ -110,7 +110,7 @@ class _PurchaseReturnState extends State<PurchaseReturn> {
         var data1 = await dueUpdateRef.child('${customerSnapshot.snapshot.children.first.key}/due').once();
         int previousDue = data1.snapshot.value.toString().toInt();
 
-        int totalDue = previousDue - purchase.dueAmount!.toInt();
+        int totalDue = previousDue - int.parse(purchase.dueAmount!.toString());
         dueUpdateRef.child(customerSnapshot.snapshot.children.first.key!).update({'due': '$totalDue'});
       }
 

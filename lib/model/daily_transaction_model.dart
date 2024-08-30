@@ -7,7 +7,7 @@ import 'income_modle.dart';
 
 class DailyTransactionModel {
   late String name, date, type, id;
-  late double total, paymentIn, paymentOut, remainingBalance;
+  late dynamic total, paymentIn, paymentOut, remainingBalance;
   SaleTransactionModel? saleTransactionModel;
   PurchaseTransactionModel? purchaseTransactionModel;
   DueTransactionModel? dueTransactionModel;

@@ -2,10 +2,10 @@ import 'package:salespro_admin/model/product_model.dart';
 
 class PurchaseTransactionModel {
   late String customerName, customerPhone, customerAddress,customerGst, customerType, invoiceNumber, purchaseDate;
-  double? totalAmount;
-  double? dueAmount;
-  double? returnAmount;
-  double? discountAmount;
+  dynamic totalAmount;
+  dynamic dueAmount;
+  dynamic returnAmount;
+  dynamic discountAmount;
 
   String? key;
 
@@ -39,10 +39,10 @@ class PurchaseTransactionModel {
     customerGst = json['customerGst'] ?? '';
     customerType = json['customerType'].toString();
     purchaseDate = json['purchaseDate'].toString();
-    totalAmount = double.parse(json['totalAmount'].toString());
-    discountAmount = double.parse(json['discountAmount'].toString());
-    dueAmount = double.parse(json['dueAmount'].toString());
-    returnAmount = double.parse(json['returnAmount'].toString());
+    totalAmount = json['totalAmount'] ?? 0;
+    discountAmount = json['discountAmount'] ?? 0;
+    dueAmount = json['dueAmount'] ?? 0;
+    returnAmount = json['returnAmount'] ?? 0;
     isPaid = json['isPaid'];
     paymentType = json['paymentType'].toString();
     if (json['productList'] != null) {

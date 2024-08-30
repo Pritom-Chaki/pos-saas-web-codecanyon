@@ -7,7 +7,7 @@ import '../../const.dart';
 //_______________________________Single_Tax_Model_________________
 class TaxModel {
   late String name;
-  late num taxRate;
+  late dynamic taxRate;
   late String id;
 
   TaxModel({
@@ -17,8 +17,8 @@ class TaxModel {
   });
 
   TaxModel.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    taxRate = json['rate'];
+    name = json['name'] ?? '';
+    taxRate = json['rate'] ?? 0;
     id = json['id'];
   }
 

@@ -403,7 +403,7 @@ class _ShowEditPurchasePaymentPopUpState extends State<ShowEditPurchasePaymentPo
 
                                                     ///_________DueUpdate______________________________________________________OK
                                                     if (myTransitionModel.dueAmount!.toDouble() < widget.purchaseTransitionModel.dueAmount!) {
-                                                      double due = originalDue - myTransitionModel.dueAmount!;
+                                                      double due = double.parse(originalDue.toString()) - double.parse(myTransitionModel.dueAmount.toString());
 
                                                       final ref = FirebaseDatabase.instance.ref('$userId/Customers/');
                                                       String? key;

@@ -42,8 +42,8 @@ class PersonalInformationModel {
   late int dueInvoiceCounter;
   late int saleInvoiceCounter;
   late int purchaseInvoiceCounter;
-  late num shopOpeningBalance;
-  late num remainingShopBalance;
+  late dynamic shopOpeningBalance;
+  late dynamic remainingShopBalance;
   late String currency;
   late String currentLocale;
   late String gst;

@@ -1,8 +1,8 @@
 class DueTransactionModel {
   late String customerName, customerPhone, customerAddress, customerType, invoiceNumber, purchaseDate, customerGst;
-  double? totalDue;
-  double? dueAmountAfterPay;
-  double? payDueAmount;
+  dynamic totalDue;
+  dynamic dueAmountAfterPay;
+  dynamic payDueAmount;
   bool? isPaid;
   String? paymentType;
   String? sellerName;

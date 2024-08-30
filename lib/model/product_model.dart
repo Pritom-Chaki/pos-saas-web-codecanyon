@@ -23,14 +23,14 @@ class ProductModel {
       warehouseId,
       productPicture;
   String? expiringDate, manufacturingDate;
-  late num lowerStockAlert;
+  late dynamic lowerStockAlert;
   List<String> serialNumber = [];
   late String taxType;
-  late num margin;
-  late num excTax;
-  late num incTax;
+  late dynamic margin;
+  late dynamic excTax;
+  late dynamic incTax;
   late String groupTaxName;
-  late num groupTaxRate;
+  late dynamic groupTaxRate;
   late List<TaxModel> subTaxes;
 
   ProductModel(
@@ -73,19 +73,19 @@ class ProductModel {
     productCategory = json['productCategory'].toString();
     size = json['size'].toString();
     color = json['color'].toString();
-    weight = json['weight'].toString();
-    capacity = json['capacity'].toString();
+    weight = json['weight']?? '0';
+    capacity = json['capacity']?? '0';
     type = json['type'].toString();
     warranty = json['warranty'].toString();
     brandName = json['brandName'].toString();
     productCode = json['productCode'].toString();
     productStock = json['productStock'].toString();
     productUnit = json['productUnit'].toString();
-    productSalePrice = json['productSalePrice'].toString();
-    productPurchasePrice = json['productPurchasePrice'].toString();
-    productDiscount = json['productDiscount'].toString();
-    productWholeSalePrice = json['productWholeSalePrice'].toString();
-    productDealerPrice = json['productDealerPrice'].toString();
+    productSalePrice = json['productSalePrice']?? '0';
+    productPurchasePrice = json['productPurchasePrice']?? '0';
+    productDiscount = json['productDiscount']?? '0';
+    productWholeSalePrice = json['productWholeSalePrice']?? '0';
+    productDealerPrice = json['productDealerPrice']?? '0';
     productManufacturer = json['productManufacturer'].toString();
     warehouseName = json['warehouseName'].toString();
     warehouseId = json['warehouseId'].toString();
@@ -100,9 +100,9 @@ class ProductModel {
     manufacturingDate = json['manufacturingDate'];
     lowerStockAlert = json['lowerStockAlert'] ?? 5;
     taxType = json['taxType'] ?? '';
-    margin = json['margin'] ?? '';
-    excTax = json['excTax'] ?? '';
-    incTax = json['incTax'] ?? '';
+    margin = json['margin'] ?? '0';
+    excTax = json['excTax'] ?? '0';
+    incTax = json['incTax'] ?? '0';
     groupTaxName = json['groupTaxName'] ?? '';
     groupTaxRate = json['groupTaxRate'] ?? '';
     if (json['subTax'] != null) {

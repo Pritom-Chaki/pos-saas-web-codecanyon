@@ -117,7 +117,7 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
 
         num dueNow = (orginal.dueAmount ?? 0) - (purchase.totalAmount ?? 0);
 
-        int totalDue = dueNow.isNegative ? 0 : previousDue - purchase.totalAmount!.toInt();
+        int totalDue = dueNow.isNegative ? 0 : int.parse(previousDue.toString())  - int.parse(purchase.totalAmount!.toString());
         dueUpdateRef.child(key!).update({'due': '$totalDue'});
       }
 

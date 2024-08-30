@@ -23,7 +23,8 @@ import '../../subscription.dart';
 import '../Widgets/Constant Data/constant.dart';
 
 class ShowDuePaymentPopUp extends StatefulWidget {
-  const ShowDuePaymentPopUp({Key? key, required this.customerModel}) : super(key: key);
+  const ShowDuePaymentPopUp({Key? key, required this.customerModel})
+      : super(key: key);
   final CustomerModel customerModel;
 
   @override
@@ -63,7 +64,11 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
     for (String des in paymentItem) {
       var item = DropdownMenuItem(
         value: des,
-        child: Text(des,style: kTextStyle.copyWith(color: kTitleColor,fontWeight: FontWeight.normal),),
+        child: Text(
+          des,
+          style: kTextStyle.copyWith(
+              color: kTitleColor, fontWeight: FontWeight.normal),
+        ),
       );
       dropDownItems.add(item);
     }
@@ -100,7 +105,9 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
     count++;
     return Consumer(
       builder: (context, consumerRef, __) {
-        final customerProviderRef = widget.customerModel.type == 'Supplier' ? consumerRef.watch(purchaseTransitionProvider) : consumerRef.watch(transitionProvider);
+        final customerProviderRef = widget.customerModel.type == 'Supplier'
+            ? consumerRef.watch(purchaseTransitionProvider)
+            : consumerRef.watch(transitionProvider);
         final personalData = consumerRef.watch(profileDetailsProvider);
 
         return personalData.when(data: (data) {
@@ -115,18 +122,24 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                 children: [
                   ///_________title_and_close_button__________________________________________________
                   Padding(
-                    padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+                    padding: const EdgeInsets.only(
+                        top: 10.0, left: 10.0, right: 10.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
                           lang.S.of(context).createPayment,
-                          style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, fontSize: 20.0),
+                          style: kTextStyle.copyWith(
+                              color: kTitleColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.0),
                         ),
                         const Spacer(),
-                        const Icon(FeatherIcons.x, color: kTitleColor, size: 25.0).onTap(() => {
-                              finish(context),
-                            })
+                        const Icon(FeatherIcons.x,
+                                color: kTitleColor, size: 25.0)
+                            .onTap(() => {
+                                  finish(context),
+                                })
                       ],
                     ),
                   ),
@@ -139,7 +152,10 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                         ///______________select_invoice_and_pay_box____________________________
                         Container(
                           padding: const EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: kWhite, border: Border.all(color: kLitGreyColor)),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: kWhite,
+                              border: Border.all(color: kLitGreyColor)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -147,13 +163,22 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                 children: [
                                   customerProviderRef.when(data: (customer) {
                                     for (var element in customer) {
-                                      if (element.customerPhone == widget.customerModel.phoneNumber && element.dueAmount != 0 && count < 2) {
+                                      if (element.customerPhone ==
+                                              widget
+                                                  .customerModel.phoneNumber &&
+                                          element.dueAmount != 0 &&
+                                          count < 2) {
                                         items.add(element.invoiceNumber);
                                       }
-                                      if (selectedInvoice == element.invoiceNumber) {
-                                        dueAmount = element.dueAmount!.toDouble();
-                                      } else if (selectedInvoice == 'Select Invoice') {
-                                        dueAmount = widget.customerModel.remainedBalance.toDouble();
+                                      if (selectedInvoice ==
+                                          element.invoiceNumber) {
+                                        dueAmount =
+                                            element.dueAmount!.toDouble();
+                                      } else if (selectedInvoice ==
+                                          'Select Invoice') {
+                                        dueAmount = widget
+                                            .customerModel.remainedBalance
+                                            .toDouble();
                                       }
                                     }
                                     return Container(
@@ -163,31 +188,43 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                         borderRadius: const BorderRadius.all(
                                           Radius.circular(05),
                                         ),
-                                        border: Border.all(width: 1, color: Colors.grey),
+                                        border: Border.all(
+                                            width: 1, color: Colors.grey),
                                       ),
                                       child: Center(
                                         child: Theme(
                                           data: ThemeData(
                                               highlightColor: dropdownItemColor,
                                               focusColor: dropdownItemColor,
-                                              hoverColor: dropdownItemColor
-                                          ),
+                                              hoverColor: dropdownItemColor),
                                           child: DropdownButtonHideUnderline(
                                             child: DropdownButton(
                                               value: dropdownValue,
-                                              icon: const Icon(Icons.keyboard_arrow_down),
+                                              icon: const Icon(
+                                                  Icons.keyboard_arrow_down),
                                               items: items.map((String items) {
                                                 return DropdownMenuItem(
                                                   value: items,
-                                                  child: Text(items,style: kTextStyle.copyWith(color: kTitleColor,fontWeight: FontWeight.normal)),
+                                                  child: Text(items,
+                                                      style:
+                                                          kTextStyle.copyWith(
+                                                              color:
+                                                                  kTitleColor,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal)),
                                                 );
                                               }).toList(),
                                               onChanged: (newValue) {
                                                 setState(() {
-                                                  payingAmountController.text = '0';
-                                                  payingAmountController.clear();
-                                                  dropdownValue = newValue.toString();
-                                                  selectedInvoice = newValue.toString();
+                                                  payingAmountController.text =
+                                                      '0';
+                                                  payingAmountController
+                                                      .clear();
+                                                  dropdownValue =
+                                                      newValue.toString();
+                                                  selectedInvoice =
+                                                      newValue.toString();
                                                 });
                                               },
                                             ),
@@ -198,7 +235,8 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                   }, error: (e, stack) {
                                     return Text(e.toString());
                                   }, loading: () {
-                                    return const Center(child: CircularProgressIndicator());
+                                    return const Center(
+                                        child: CircularProgressIndicator());
                                   }),
                                   const SizedBox(width: 20),
                                   Container(
@@ -206,7 +244,8 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                     height: 40,
                                     padding: const EdgeInsets.all(10.0),
                                     decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(8)),
                                       color: kbgColor,
                                       border: Border.all(color: kbgColor),
                                     ),
@@ -214,12 +253,16 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                       children: [
                                         Text(
                                           lang.S.of(context).grandTotal,
-                                          style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                          style: kTextStyle.copyWith(
+                                              color: kTitleColor,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                         const Spacer(),
                                         Text(
                                           '$currency ${myFormat.format(double.tryParse(dueAmount.toString()) ?? 0)}',
-                                          style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                          style: kTextStyle.copyWith(
+                                              color: kTitleColor,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ],
                                     ),
@@ -233,7 +276,9 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                     width: 200,
                                     child: Text(
                                       lang.S.of(context).payingAmount,
-                                      style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                      style: kTextStyle.copyWith(
+                                          color: kTitleColor,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   SizedBox(
@@ -242,12 +287,18 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                       controller: payingAmountController,
                                       onChanged: (value) {
                                         setState(() {
-                                          double paidAmount = double.parse(value);
+                                          double paidAmount =
+                                              double.parse(value);
                                           if (paidAmount > dueAmount) {
-                                            changeAmountController.text = (paidAmount - dueAmount).toString();
+                                            changeAmountController.text =
+                                                (paidAmount - dueAmount)
+                                                    .toString();
                                             dueAmountController.text = '0';
                                           } else {
-                                            dueAmountController.text = (dueAmount - paidAmount).abs().toString();
+                                            dueAmountController.text =
+                                                (dueAmount - paidAmount)
+                                                    .abs()
+                                                    .toString();
                                             changeAmountController.text = '0';
                                           }
                                         });
@@ -256,8 +307,10 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                       cursorColor: kTitleColor,
                                       textFieldType: TextFieldType.NAME,
                                       decoration: kInputDecoration.copyWith(
-                                        hintText: lang.S.of(context).enterPaidAmount,
-                                        hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                        hintText:
+                                            lang.S.of(context).enterPaidAmount,
+                                        hintStyle: kTextStyle.copyWith(
+                                            color: kGreyTextColor),
                                       ),
                                     ),
                                   ),
@@ -270,7 +323,9 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                     width: 200,
                                     child: Text(
                                       lang.S.of(context).changeAmount,
-                                      style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                      style: kTextStyle.copyWith(
+                                          color: kTitleColor,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   SizedBox(
@@ -281,8 +336,10 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                       cursorColor: kTitleColor,
                                       textFieldType: TextFieldType.NAME,
                                       decoration: kInputDecoration.copyWith(
-                                        hintText: lang.S.of(context).changeAmount,
-                                        hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                        hintText:
+                                            lang.S.of(context).changeAmount,
+                                        hintStyle: kTextStyle.copyWith(
+                                            color: kGreyTextColor),
                                       ),
                                     ),
                                   ),
@@ -295,7 +352,9 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                     width: 200,
                                     child: Text(
                                       lang.S.of(context).dueAmount,
-                                      style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                      style: kTextStyle.copyWith(
+                                          color: kTitleColor,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   SizedBox(
@@ -307,7 +366,8 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                       textFieldType: TextFieldType.NAME,
                                       decoration: kInputDecoration.copyWith(
                                         hintText: lang.S.of(context).dueAmount,
-                                        hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                        hintStyle: kTextStyle.copyWith(
+                                            color: kGreyTextColor),
                                       ),
                                     ),
                                   ),
@@ -320,7 +380,9 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                     width: 200,
                                     child: Text(
                                       lang.S.of(context).paymentType,
-                                      style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                      style: kTextStyle.copyWith(
+                                          color: kTitleColor,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   SizedBox(
@@ -330,18 +392,30 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                         return InputDecorator(
                                           decoration: const InputDecoration(
                                               enabledBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(8.0)),
+                                                borderSide: BorderSide(
+                                                    color:
+                                                        kBorderColorTextField,
+                                                    width: 2),
                                               ),
-                                              contentPadding: EdgeInsets.only(left: 12.0, right: 10.0, top: 7.0, bottom: 7.0),
-                                              floatingLabelBehavior: FloatingLabelBehavior.never),
+                                              contentPadding: EdgeInsets.only(
+                                                  left: 12.0,
+                                                  right: 10.0,
+                                                  top: 7.0,
+                                                  bottom: 7.0),
+                                              floatingLabelBehavior:
+                                                  FloatingLabelBehavior.never),
                                           child: Theme(
                                               data: ThemeData(
-                                                  highlightColor: dropdownItemColor,
+                                                  highlightColor:
+                                                      dropdownItemColor,
                                                   focusColor: dropdownItemColor,
-                                                  hoverColor: dropdownItemColor
-                                              ),
-                                              child: DropdownButtonHideUnderline(child: getOption())),
+                                                  hoverColor:
+                                                      dropdownItemColor),
+                                              child:
+                                                  DropdownButtonHideUnderline(
+                                                      child: getOption())),
                                         );
                                       },
                                     ),
@@ -354,20 +428,30 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                      padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 10.0, bottom: 10.0),
+                                      padding: const EdgeInsets.only(
+                                          left: 30.0,
+                                          right: 30.0,
+                                          top: 10.0,
+                                          bottom: 10.0),
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
                                         color: kRedTextColor,
                                       ),
                                       child: Text(
                                         lang.S.of(context).cancel,
-                                        style: kTextStyle.copyWith(color: kWhite),
+                                        style:
+                                            kTextStyle.copyWith(color: kWhite),
                                       )).onTap(() => {
                                         finish(context),
                                       }),
                                   const SizedBox(width: 40.0),
                                   Container(
-                                    padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 10.0, bottom: 10.0),
+                                    padding: const EdgeInsets.only(
+                                        left: 30.0,
+                                        right: 30.0,
+                                        top: 10.0,
+                                        bottom: 10.0),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5.0),
                                       color: kBlueTextColor,
@@ -380,117 +464,272 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
                                     saleButtonClicked
                                         ? () {}
                                         : () async {
-                                            if (dueAmount > 0 && !payingAmountController.text.isEmptyOrNull && payingAmountController.text.toInt() > 0) {
+                                            if (dueAmount > 0 &&
+                                                !payingAmountController
+                                                    .text.isEmptyOrNull &&
+                                                payingAmountController.text
+                                                        .toInt() >
+                                                    0) {
                                               try {
                                                 setState(() {
                                                   saleButtonClicked = true;
                                                 });
-                                                EasyLoading.show(status: 'Loading...', dismissOnTap: false);
-                                                DatabaseReference ref = FirebaseDatabase.instance.ref("${await getUserID()}/Due Transaction");
+                                                EasyLoading.show(
+                                                    status: 'Loading...',
+                                                    dismissOnTap: false);
+                                                DatabaseReference ref =
+                                                    FirebaseDatabase.instance.ref(
+                                                        "${await getUserID()}/Due Transaction");
 
-                                                dueTransactionModel.totalDue = dueAmount;
-                                                dueTransactionModel.sellerName = isSubUser ? constSubUserTitle : 'Admin';
-                                                dueAmountController.text.toDouble() <= 0 ? dueTransactionModel.isPaid = true : dueTransactionModel.isPaid = false;
-                                                dueAmountController.text.toDouble() <= 0
-                                                    ? {dueTransactionModel.dueAmountAfterPay = 0, dueTransactionModel.payDueAmount = dueAmount}
+                                                dueTransactionModel.totalDue =
+                                                    dueAmount;
+                                                dueTransactionModel.sellerName =
+                                                    isSubUser
+                                                        ? constSubUserTitle
+                                                        : 'Admin';
+                                                dueAmountController.text
+                                                            .toDouble() <=
+                                                        0
+                                                    ? dueTransactionModel
+                                                        .isPaid = true
+                                                    : dueTransactionModel
+                                                        .isPaid = false;
+                                                dueAmountController.text
+                                                            .toDouble() <=
+                                                        0
+                                                    ? {
+                                                        dueTransactionModel
+                                                            .dueAmountAfterPay = 0,
+                                                        dueTransactionModel
+                                                                .payDueAmount =
+                                                            dueAmount
+                                                      }
                                                     : {
-                                                        dueTransactionModel.dueAmountAfterPay = dueAmountController.text.toDouble(),
-                                                        dueTransactionModel.payDueAmount = dueAmount - dueAmountController.text.toDouble()
+                                                        dueTransactionModel
+                                                                .dueAmountAfterPay =
+                                                            dueAmountController
+                                                                .text
+                                                                .toDouble(),
+                                                        dueTransactionModel
+                                                                .payDueAmount =
+                                                            dueAmount -
+                                                                dueAmountController
+                                                                    .text
+                                                                    .toDouble()
                                                       };
 
-                                                dueTransactionModel.paymentType = selectedPaymentOption;
-                                                await ref.push().set(dueTransactionModel.toJson());
+                                                dueTransactionModel
+                                                        .paymentType =
+                                                    selectedPaymentOption;
+                                                await ref.push().set(
+                                                    dueTransactionModel
+                                                        .toJson());
 
                                                 ///_____UpdateInvoice__________________________________________________
-                                                selectedInvoice != 'Select Invoice'
+                                                selectedInvoice !=
+                                                        'Select Invoice'
                                                     ? updateDueInvoice(
-                                                        type: widget.customerModel.type,
-                                                        invoice: selectedInvoice.toString(),
-                                                        remainDueAmount: dueAmountController.text.toInt(),
+                                                        type: widget
+                                                            .customerModel.type,
+                                                        invoice: selectedInvoice
+                                                            .toString(),
+                                                        remainDueAmount:
+                                                            dueAmountController
+                                                                .text
+                                                                .toInt(),
                                                       )
                                                     : null;
 
                                                 ///________daily_transactionModel_________________________________________________________________________
 
-                                                if (dueTransactionModel.customerType == 'Supplier') {
-                                                  DailyTransactionModel dailyTransaction = DailyTransactionModel(
-                                                    name: dueTransactionModel.customerName,
-                                                    date: dueTransactionModel.purchaseDate,
+                                                if (dueTransactionModel
+                                                        .customerType ==
+                                                    'Supplier') {
+                                                  DailyTransactionModel
+                                                      dailyTransaction =
+                                                      DailyTransactionModel(
+                                                    name: dueTransactionModel
+                                                        .customerName,
+                                                    date: dueTransactionModel
+                                                        .purchaseDate,
                                                     type: 'Due Payment',
-                                                    total: dueTransactionModel.totalDue!.toDouble(),
+                                                    total: dueTransactionModel
+                                                        .totalDue!
+                                                        .toDouble(),
                                                     paymentIn: 0,
-                                                    paymentOut: dueTransactionModel.totalDue!.toDouble() - dueTransactionModel.dueAmountAfterPay!.toDouble(),
-                                                    remainingBalance: dueTransactionModel.totalDue!.toDouble() - dueTransactionModel.dueAmountAfterPay!.toDouble(),
-                                                    id: dueTransactionModel.invoiceNumber,
-                                                    dueTransactionModel: dueTransactionModel,
+                                                    paymentOut: dueTransactionModel
+                                                            .totalDue!
+                                                            .toDouble() -
+                                                        dueTransactionModel
+                                                            .dueAmountAfterPay!
+                                                            .toDouble(),
+                                                    remainingBalance:
+                                                        dueTransactionModel
+                                                                .totalDue!
+                                                                .toDouble() -
+                                                            dueTransactionModel
+                                                                .dueAmountAfterPay!
+                                                                .toDouble(),
+                                                    id: dueTransactionModel
+                                                        .invoiceNumber,
+                                                    dueTransactionModel:
+                                                        dueTransactionModel,
                                                   );
-                                                  postDailyTransaction(dailyTransactionModel: dailyTransaction);
+                                                  postDailyTransaction(
+                                                      dailyTransactionModel:
+                                                          dailyTransaction);
                                                 } else {
-                                                  DailyTransactionModel dailyTransaction = DailyTransactionModel(
-                                                    name: dueTransactionModel.customerName,
-                                                    date: dueTransactionModel.purchaseDate,
+                                                  DailyTransactionModel
+                                                      dailyTransaction =
+                                                      DailyTransactionModel(
+                                                    name: dueTransactionModel
+                                                        .customerName,
+                                                    date: dueTransactionModel
+                                                        .purchaseDate,
                                                     type: 'Due Collection',
-                                                    total: dueTransactionModel.totalDue!.toDouble(),
-                                                    paymentIn: dueTransactionModel.totalDue!.toDouble() - dueTransactionModel.dueAmountAfterPay!.toDouble(),
+                                                    total: dueTransactionModel
+                                                        .totalDue!
+                                                        .toDouble(),
+                                                    paymentIn: dueTransactionModel
+                                                            .totalDue!
+                                                            .toDouble() -
+                                                        dueTransactionModel
+                                                            .dueAmountAfterPay!
+                                                            .toDouble(),
                                                     paymentOut: 0,
-                                                    remainingBalance: dueTransactionModel.totalDue!.toDouble() - dueTransactionModel.dueAmountAfterPay!.toDouble(),
-                                                    id: dueTransactionModel.invoiceNumber,
-                                                    dueTransactionModel: dueTransactionModel,
+                                                    remainingBalance:
+                                                        dueTransactionModel
+                                                                .totalDue!
+                                                                .toDouble() -
+                                                            dueTransactionModel
+                                                                .dueAmountAfterPay!
+                                                                .toDouble(),
+                                                    id: dueTransactionModel
+                                                        .invoiceNumber,
+                                                    dueTransactionModel:
+                                                        dueTransactionModel,
                                                   );
-                                                  postDailyTransaction(dailyTransactionModel: dailyTransaction);
+                                                  postDailyTransaction(
+                                                      dailyTransactionModel:
+                                                          dailyTransaction);
                                                 }
 
                                                 ///_________DueUpdate______________________________________________________
-                                                final cRef = FirebaseDatabase.instance.ref('${await getUserID()}/Customers/');
+                                                final cRef = FirebaseDatabase
+                                                    .instance
+                                                    .ref(
+                                                        '${await getUserID()}/Customers/');
                                                 String? key;
 
-                                                await FirebaseDatabase.instance.ref(await getUserID()).child('Customers').orderByKey().get().then((value) {
-                                                  for (var element in value.children) {
-                                                    var data = jsonDecode(jsonEncode(element.value));
-                                                    if (data['phoneNumber'] == widget.customerModel.phoneNumber) {
+                                                await FirebaseDatabase.instance
+                                                    .ref(await getUserID())
+                                                    .child('Customers')
+                                                    .orderByKey()
+                                                    .get()
+                                                    .then((value) {
+                                                  for (var element
+                                                      in value.children) {
+                                                    var data = jsonDecode(
+                                                        jsonEncode(
+                                                            element.value));
+                                                    if (data['phoneNumber'] ==
+                                                        widget.customerModel
+                                                            .phoneNumber) {
                                                       key = element.key;
                                                     }
                                                   }
                                                 });
-                                                var data1 = await cRef.child('$key/due').once();
-                                                var data2 = await cRef.child('$key/remainedBalance').once();
-                                                int previousDue = data1.snapshot.value.toString().toInt();
-                                                int remainedBalance = data2.snapshot.value.toString().toInt();
+                                                var data1 = await cRef
+                                                    .child('$key/due')
+                                                    .once();
+                                                var data2 = await cRef
+                                                    .child(
+                                                        '$key/remainedBalance')
+                                                    .once();
+                                                int previousDue = data1
+                                                    .snapshot.value
+                                                    .toString()
+                                                    .toInt();
+                                                int remainedBalance = data2
+                                                    .snapshot.value
+                                                    .toString()
+                                                    .toInt();
 
-                                                int totalDue = previousDue - dueTransactionModel.payDueAmount!.toInt();
-                                                int remainedDue = remainedBalance - dueTransactionModel.payDueAmount!.toInt();
-                                                cRef.child(key!).update({'due': '$totalDue'});
-                                                selectedInvoice == 'Select Invoice' ? cRef.child(key!).update({'remainedBalance': '$remainedDue'}) : null;
+                                                int totalDue = int.parse(
+                                                        previousDue
+                                                            .toString()) -
+                                                    int.parse(
+                                                        dueTransactionModel
+                                                            .payDueAmount!
+                                                            .toString());
+                                                int remainedDue = int.parse(
+                                                        remainedBalance
+                                                            .toString()) -
+                                                    int.parse(
+                                                        dueTransactionModel
+                                                            .payDueAmount!
+                                                            .toString());
+                                                cRef.child(key!).update(
+                                                    {'due': '$totalDue'});
+                                                selectedInvoice ==
+                                                        'Select Invoice'
+                                                    ? cRef.child(key!).update({
+                                                        'remainedBalance':
+                                                            '$remainedDue'
+                                                      })
+                                                    : null;
 
                                                 ///_________Invoice Increase____________________________________________________________________________
                                                 updateInvoice(
-                                                  typeOfInvoice: 'dueInvoiceCounter',
-                                                  invoice: data.dueInvoiceCounter.toInt(),
+                                                  typeOfInvoice:
+                                                      'dueInvoiceCounter',
+                                                  invoice: data
+                                                      .dueInvoiceCounter
+                                                      .toInt(),
                                                 );
 
                                                 ///________Subscription_____________________________________________________
-                                                Subscription.decreaseSubscriptionLimits(itemType: 'dueNumber', context: context);
+                                                Subscription
+                                                    .decreaseSubscriptionLimits(
+                                                        itemType: 'dueNumber',
+                                                        context: context);
 
-                                                consumerRef.refresh(allCustomerProvider);
-                                                consumerRef.refresh(transitionProvider);
-                                                consumerRef.refresh(purchaseTransitionProvider);
-                                                consumerRef.refresh(dueTransactionProvider);
-                                                consumerRef.refresh(profileDetailsProvider);
-                                                consumerRef.refresh(dailyTransactionProvider);
+                                                consumerRef.refresh(
+                                                    allCustomerProvider);
+                                                consumerRef.refresh(
+                                                    transitionProvider);
+                                                consumerRef.refresh(
+                                                    purchaseTransitionProvider);
+                                                consumerRef.refresh(
+                                                    dueTransactionProvider);
+                                                consumerRef.refresh(
+                                                    profileDetailsProvider);
+                                                consumerRef.refresh(
+                                                    dailyTransactionProvider);
 
                                                 finish(context);
-                                                EasyLoading.showSuccess('Added Successfully');
+                                                EasyLoading.showSuccess(
+                                                    'Added Successfully');
                                               } catch (e) {
                                                 setState(() {
                                                   saleButtonClicked = false;
                                                 });
                                                 EasyLoading.dismiss();
-                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(SnackBar(
+                                                        content: Text(
+                                                            e.toString())));
                                               }
                                             } else if (dueAmount <= 0) {
-                                              EasyLoading.showError('Select a Invoice');
-                                            } else if (payingAmountController.text.isEmptyOrNull || payingAmountController.text.toInt() <= 0) {
-                                              EasyLoading.showError('Please Enter Amount');
+                                              EasyLoading.showError(
+                                                  'Select a Invoice');
+                                            } else if (payingAmountController
+                                                    .text.isEmptyOrNull ||
+                                                payingAmountController.text
+                                                        .toInt() <=
+                                                    0) {
+                                              EasyLoading.showError(
+                                                  'Please Enter Amount');
                                             }
                                           },
                                   ),
@@ -519,13 +758,24 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
     );
   }
 
-  void updateDueInvoice({required String type, required String invoice, required int remainDueAmount}) async {
-    final ref =
-        type == 'Supplier' ? FirebaseDatabase.instance.ref('${await getUserID()}/Purchase Transition/') : FirebaseDatabase.instance.ref('${await getUserID()}/Sales Transition/');
+  void updateDueInvoice(
+      {required String type,
+      required String invoice,
+      required int remainDueAmount}) async {
+    final ref = type == 'Supplier'
+        ? FirebaseDatabase.instance
+            .ref('${await getUserID()}/Purchase Transition/')
+        : FirebaseDatabase.instance
+            .ref('${await getUserID()}/Sales Transition/');
     String? key;
 
     type == 'Supplier'
-        ? await FirebaseDatabase.instance.ref(await getUserID()).child('Purchase Transition/').orderByKey().get().then((value) {
+        ? await FirebaseDatabase.instance
+            .ref(await getUserID())
+            .child('Purchase Transition/')
+            .orderByKey()
+            .get()
+            .then((value) {
             for (var element in value.children) {
               var data = jsonDecode(jsonEncode(element.value));
               if (data['invoiceNumber'] == invoice) {
@@ -533,7 +783,12 @@ class _ShowDuePaymentPopUpState extends State<ShowDuePaymentPopUp> {
               }
             }
           })
-        : await FirebaseDatabase.instance.ref(await getUserID()).child('Sales Transition').orderByKey().get().then((value) {
+        : await FirebaseDatabase.instance
+            .ref(await getUserID())
+            .child('Sales Transition')
+            .orderByKey()
+            .get()
+            .then((value) {
             for (var element in value.children) {
               var data = jsonDecode(jsonEncode(element.value));
               if (data['invoiceNumber'] == invoice) {

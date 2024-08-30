@@ -39,22 +39,22 @@ class AddToCartModel {
   dynamic subTotal;
   dynamic productPurchasePrice;
   dynamic uniqueCheck;
-  num quantity = 1;
+  dynamic quantity = 1;
   dynamic productDetails;
   dynamic productBrandName;
 
   // Item store on which index of cart so we can update or delete cart easily, initially it is -1
   late int itemCartIndex;
-  num? stock;
+  dynamic stock;
   late String productImage;
   List<dynamic>? serialNumber;
   String? productWarranty;
   late String taxType;
-  late num margin;
-  late num excTax;
-  late num incTax;
+  late dynamic margin;
+  late dynamic excTax;
+  late dynamic incTax;
   late String groupTaxName;
-  late num groupTaxRate;
+  late dynamic groupTaxRate;
   late List<TaxModel> subTaxes;
 
   factory AddToCartModel.fromJson(String str) => AddToCartModel.fromMap(json.decode(str));
@@ -69,12 +69,12 @@ class AddToCartModel {
         warehouseName: json["warehouseName"],
         warehouseId: json["warehouseId"],
         productBrandName: json["product_brand_name"],
-        unitPrice: json["unit_price"],
-        subTotal: json["sub_total"],
+        unitPrice: json["unit_price"] ?? 0,
+        subTotal: json["sub_total"]?? 0,
         uniqueCheck: json["unique_check"],
-        quantity: json["quantity"],
-        productDetails: json["product_details"],
-        itemCartIndex: json["item_cart_index"],
+        quantity: json["quantity"]?? 0,
+        productDetails: json["product_details"] ?? '',
+        itemCartIndex: json["item_cart_index"] ?? 0,
         stock: json["stock"],
         productImage: json["productImage"] ??
             'https://firebasestorage.googleapis.com/v0/b/maanpos.appspot.com/o/Product%20No%20Image%2Fno-image-found-360x250.png?alt=media&token=9299964e-22b3-4d88-924e-5eeb285ae672',

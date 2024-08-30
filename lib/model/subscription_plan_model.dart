@@ -12,19 +12,19 @@ class SubscriptionPlanModel {
   });
 
   String subscriptionName;
-  int saleNumber, purchaseNumber, partiesNumber, dueNumber, duration, products;
-  int subscriptionPrice, offerPrice;
+  dynamic saleNumber, purchaseNumber, partiesNumber, dueNumber, duration, products;
+  dynamic subscriptionPrice, offerPrice;
 
   SubscriptionPlanModel.fromJson(Map<dynamic, dynamic> json)
       : subscriptionName = json['subscriptionName'] as String,
-        saleNumber = json['saleNumber'],
-        purchaseNumber = json['purchaseNumber'],
-        partiesNumber = json['partiesNumber'],
-        subscriptionPrice = json['subscriptionPrice'],
-        dueNumber = json['dueNumber'],
-        duration = json['duration'],
-        products = json['products'],
-        offerPrice = json['offerPrice'];
+        saleNumber = json['saleNumber'] ?? 0,
+        purchaseNumber = json['purchaseNumber']?? 0,
+        partiesNumber = json['partiesNumber']?? 0,
+        subscriptionPrice = json['subscriptionPrice']?? 0,
+        dueNumber = json['dueNumber']?? 0,
+        duration = json['duration']?? 0,
+        products = json['products']?? 0,
+        offerPrice = json['offerPrice']?? 0;
 
   Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
         'subscriptionName': subscriptionName,
