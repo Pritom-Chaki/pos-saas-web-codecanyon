@@ -507,67 +507,68 @@ class _EditCustomerState extends State<EditCustomer> {
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(width: 20.0),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: Container(
-                                            padding: const EdgeInsets.all(20.0),
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              children: [
-                                                const SizedBox(height: 10.0),
-                                                DottedBorderWidget(
-                                                  padding: const EdgeInsets.all(6),
-                                                  color: kLitGreyColor,
-                                                  child: ClipRRect(
-                                                    borderRadius: const BorderRadius.all(Radius.circular(12)),
-                                                    child: Container(
-                                                      width: context.width(),
-                                                      padding: const EdgeInsets.all(10.0),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(20.0),
-                                                      ),
-                                                      child: Column(
-                                                        children: [
-                                                          Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                                            children: [
-                                                              Icon(MdiIcons.cloudUpload, size: 50.0, color: kLitGreyColor).onTap(() => uploadFile()),
-                                                            ],
-                                                          ),
-                                                          const SizedBox(height: 5.0),
-                                                          RichText(
-                                                              text: TextSpan(
-                                                                  text: lang.S.of(context).uploadAImage,
-                                                                  style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
-                                                                  children: [
-                                                                TextSpan(text: lang.S.of(context).orDragAndDropPng, style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
-                                                              ]))
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 10),
-                                                image != null
-                                                    ? Image.memory(
-                                                        image!,
-                                                        width: 150,
-                                                        height: 150,
-                                                      )
-                                                    : Image.network(
-                                                        profilePicture,
-                                                        width: 150,
-                                                        height: 150,
-                                                      ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      )
+                                      // const SizedBox(width: 20.0),
+                                      // Expanded(
+                                      //   flex: 2,
+                                      //   child: Padding(
+                                      //     padding: const EdgeInsets.all(10.0),
+                                      //     child: Container(
+                                      //       padding: const EdgeInsets.all(20.0),
+                                      //       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
+                                      //       child: Column(
+                                      //         crossAxisAlignment: CrossAxisAlignment.center,
+                                      //         children: [
+                                      //           const SizedBox(height: 10.0),
+                                      //           DottedBorderWidget(
+                                      //             padding: const EdgeInsets.all(6),
+                                      //             color: kLitGreyColor,
+                                      //             child: ClipRRect(
+                                      //               borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                      //               child: Container(
+                                      //                 width: context.width(),
+                                      //                 padding: const EdgeInsets.all(10.0),
+                                      //                 decoration: BoxDecoration(
+                                      //                   borderRadius: BorderRadius.circular(20.0),
+                                      //                 ),
+                                      //                 child: Column(
+                                      //                   children: [
+                                      //                     Column(
+                                      //                       crossAxisAlignment: CrossAxisAlignment.center,
+                                      //                       children: [
+                                      //                         Icon(MdiIcons.cloudUpload, size: 50.0, color: kLitGreyColor).onTap(() => uploadFile()),
+                                      //                       ],
+                                      //                     ),
+                                      //                     const SizedBox(height: 5.0),
+                                      //                     RichText(
+                                      //                         text: TextSpan(
+                                      //                             text: lang.S.of(context).uploadAImage,
+                                      //                             style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
+                                      //                             children: [
+                                      //                           TextSpan(text: lang.S.of(context).orDragAndDropPng, style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
+                                      //                         ]))
+                                      //                   ],
+                                      //                 ),
+                                      //               ),
+                                      //             ),
+                                      //           ),
+                                      //           const SizedBox(height: 10),
+                                      //           image != null
+                                      //               ? Image.memory(
+                                      //                   image!,
+                                      //                   width: 150,
+                                      //                   height: 150,
+                                      //                 )
+                                      //               : Image.network(
+                                      //                   profilePicture,
+                                      //                   width: 150,
+                                      //                   height: 150,
+                                      //                 ),
+                                      //         ],
+                                      //       ),
+                                      //     ),
+                                      //   ),
+                                      // )
+                                
                                     ],
                                   ),
                                 ],
