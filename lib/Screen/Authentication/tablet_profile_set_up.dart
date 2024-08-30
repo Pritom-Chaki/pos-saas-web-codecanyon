@@ -214,55 +214,55 @@ class _TabletProfileSetUpState extends State<TabletProfileSetUp> {
                             padding: const EdgeInsets.all(20.0),
                             child: Column(
                               children: [
-                                Container(
-                                  padding: const EdgeInsets.all(20.0),
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      DottedBorderWidget(
-                                        color: kLitGreyColor,
-                                        child: ClipRRect(
-                                          borderRadius: const BorderRadius.all(Radius.circular(12)),
-                                          child: Container(
-                                            width: context.width(),
-                                            padding: const EdgeInsets.all(10.0),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(20.0),
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  children: [
-                                                    Icon(MdiIcons.cloudUpload, size: 50.0, color: kLitGreyColor).onTap(() => uploadFile()),
-                                                  ],
-                                                ),
-                                                const SizedBox(height: 5.0),
-                                                RichText(
-                                                    text: TextSpan(
-                                                        text: lang.S.of(context).uploadAImage,
-                                                        style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
-                                                        children: [
-                                                      TextSpan(
-                                                          text: lang.S.of(context).orDragAndDropPng, style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
-                                                    ])),
-                                                image != null
-                                                    ? Image.memory(
-                                                        image!,
-                                                        width: 150,
-                                                        height: 150,
-                                                      )
-                                                    : Image.network(profilePicture, width: 150, height: 150),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(height: 10.0),
+                                // Container(
+                                //   padding: const EdgeInsets.all(20.0),
+                                //   decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
+                                //   child: Column(
+                                //     crossAxisAlignment: CrossAxisAlignment.center,
+                                //     children: [
+                                //       DottedBorderWidget(
+                                //         color: kLitGreyColor,
+                                //         child: ClipRRect(
+                                //           borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                //           child: Container(
+                                //             width: context.width(),
+                                //             padding: const EdgeInsets.all(10.0),
+                                //             decoration: BoxDecoration(
+                                //               borderRadius: BorderRadius.circular(20.0),
+                                //             ),
+                                //             child: Column(
+                                //               children: [
+                                //                 Column(
+                                //                   crossAxisAlignment: CrossAxisAlignment.center,
+                                //                   children: [
+                                //                     Icon(MdiIcons.cloudUpload, size: 50.0, color: kLitGreyColor).onTap(() => uploadFile()),
+                                //                   ],
+                                //                 ),
+                                //                 const SizedBox(height: 5.0),
+                                //                 RichText(
+                                //                     text: TextSpan(
+                                //                         text: lang.S.of(context).uploadAImage,
+                                //                         style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
+                                //                         children: [
+                                //                       TextSpan(
+                                //                           text: lang.S.of(context).orDragAndDropPng, style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
+                                //                     ])),
+                                //                 image != null
+                                //                     ? Image.memory(
+                                //                         image!,
+                                //                         width: 150,
+                                //                         height: 150,
+                                //                       )
+                                //                     : Image.network(profilePicture, width: 150, height: 150),
+                                //               ],
+                                //             ),
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
+                                // const SizedBox(height: 10.0),
                                 SizedBox(
                                   height: 60.0,
                                   child: FormField(
