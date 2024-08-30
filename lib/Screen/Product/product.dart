@@ -419,6 +419,7 @@ class _ProductState extends State<Product> {
                         isTab: false,
                       ),
                     ),
+                   
                     Container(
                       // width: context.width() < 1080 ? 1080 - 240 : MediaQuery.of(context).size.width - 240,
                       width: MediaQuery.of(context).size.width < 1275 ? 1275 - 240 : MediaQuery.of(context).size.width - 240,
@@ -1076,6 +1077,7 @@ class _ProductState extends State<Product> {
                         ),
                       ),
                     )
+                 
                   ],
                 );
               }, error: (e, stack) {

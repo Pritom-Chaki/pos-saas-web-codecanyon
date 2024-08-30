@@ -32,7 +32,7 @@ class TaxModel {
 //_______________________________Group_Tax_Model_________________
 class GroupTaxModel {
   late String name;
-  late num taxRate;
+  late dynamic taxRate;
   late String id;
   List<TaxModel>? subTaxes;
 

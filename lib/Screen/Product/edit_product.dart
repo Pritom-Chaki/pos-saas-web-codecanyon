@@ -111,6 +111,7 @@ class _AddProductState extends State<EditProduct> {
 
   void getProductKey(String code) async {
     // ignore: unused_local_variable
+
     List<ProductModel> productList = [];
     await FirebaseDatabase.instance.ref(await getUserID()).child('Products').orderByKey().get().then((value) {
       for (var element in value.children) {
@@ -120,6 +121,7 @@ class _AddProductState extends State<EditProduct> {
         }
       }
     });
+   
   }
 
   late ProductModel productModel;
@@ -131,6 +133,7 @@ class _AddProductState extends State<EditProduct> {
 
   @override
   void initState() {
+
     productModel = widget.productModel;
     productNameController.text = widget.productModel.productName;
     productSalePriceController.text = widget.productModel.productSalePrice;
@@ -145,6 +148,7 @@ class _AddProductState extends State<EditProduct> {
     capacityController.text = widget.productModel.capacity;
     typeController.text = widget.productModel.type;
     warrantyController.text = widget.productModel.warranty.getNumericOnly();
+
     getProductKey(widget.productModel.productCode);
     if (!widget.productModel.warranty.isEmptyOrNull) {
       if (widget.productModel.warranty.contains('Month')) {
@@ -155,10 +159,12 @@ class _AddProductState extends State<EditProduct> {
         selectedTime = 'Day';
       }
     }
+
     if (widget.productModel.expiringDate != null) {
       expireDateTextEditingController.text = DateFormat.yMMMd().format(DateTime.parse(widget.productModel.expiringDate!));
       expireDate = widget.productModel.expiringDate;
     }
+      
     if (widget.productModel.manufacturingDate != null) {
       manufactureDateTextEditingController.text = DateFormat.yMMMd().format(DateTime.parse(widget.productModel.manufacturingDate!));
       manufactureDate = widget.productModel.manufacturingDate;
@@ -173,9 +179,10 @@ class _AddProductState extends State<EditProduct> {
     incTaxController.text = widget.productModel.incTax.toString();
     excTaxController.text = widget.productModel.excTax.toString();
     selectedTaxType = widget.productModel.taxType;
-
+    
     GroupTaxModel groupTaxModel = GroupTaxModel(
         name: widget.productModel.groupTaxName, taxRate: widget.productModel.groupTaxRate, id: '', subTaxes: widget.productModel.subTaxes);
+
     bool isInList = false;
     for (var element in widget.groupTaxModel) {
       if (element.name == groupTaxModel.name) {
@@ -184,6 +191,7 @@ class _AddProductState extends State<EditProduct> {
         continue;
       }
     }
+  
     if (isInList) {
       selectedGroupTaxModel = groupTaxModel;
     }
@@ -221,8 +229,9 @@ class _AddProductState extends State<EditProduct> {
     'Exclusive',
   ];
 
-  String selectedTaxType = 'Exclusive';
+  String ? selectedTaxType = 'Exclusive';
   DropdownButton<String> getTaxType() {
+    selectedTaxType = 'Exclusive';
     List<DropdownMenuItem<String>> dropDownItems = [];
     for (String des in status) {
       var item = DropdownMenuItem(
@@ -234,7 +243,7 @@ class _AddProductState extends State<EditProduct> {
     return DropdownButton(
       hint: const Text('Select Tax type'),
       items: dropDownItems,
-      value: selectedTaxType,
+      value: selectedTaxType ?? 'Exclusive',
       onChanged: (value) {
         setState(() {
           selectedTaxType = value!;
@@ -247,6 +256,7 @@ class _AddProductState extends State<EditProduct> {
   //___________________________________calculate_total_with_tax____________________
   double totalAmount = 0.0;
   void calculateTotal() {
+
     String saleAmountText = productPurchasePriceController.text.replaceAll(',', '');
     double saleAmount = double.tryParse(saleAmountText) ?? 0.0;
     if (selectedGroupTaxModel != null) {
@@ -257,15 +267,19 @@ class _AddProductState extends State<EditProduct> {
         this.totalAmount = totalAmount;
       });
     }
+ 
   }
 
   double calculateTotalAmount(double saleAmount, double taxRate) {
+     
     double taxDecimal = taxRate / 100;
     double totalAmount = saleAmount + (saleAmount * taxDecimal);
+   
     return totalAmount;
   }
 
   void adjustSalesPrices() {
+      
     // double taxAmount = double.tryParse(selectedGroupTaxModel?.taxRate.toString() ?? '') ?? 0.0;
     double margin = double.tryParse(marginController.text) ?? 0;
     double purchasePrice = double.tryParse(productPurchasePriceController.text) ?? 0;
@@ -274,6 +288,7 @@ class _AddProductState extends State<EditProduct> {
     double taxAmount = calculateAmountFromPercentage((selectedGroupTaxModel?.taxRate.toString() ?? '').toDouble(), purchasePrice);
 
     if (selectedTaxType == 'Inclusive') {
+    
       salesPrice = purchasePrice + calculateAmountFromPercentage(margin, purchasePrice);
       // salesPrice -= calculateAmountFromPercentage(double.parse(selectedGroupTaxModel!.taxRate.toString()), purchasePrice);
       productSalePriceController.text = salesPrice.toString();
@@ -281,6 +296,7 @@ class _AddProductState extends State<EditProduct> {
       productWholesalePriceController.text = salesPrice.toString();
       incTaxController.text = purchasePrice.toString();
       excTaxController.text = salesPrice.toString();
+    
     } else {
       salesPrice = purchasePrice + calculateAmountFromPercentage(margin, purchasePrice) + taxAmount;
       excPrice = purchasePrice + taxAmount;
@@ -289,6 +305,7 @@ class _AddProductState extends State<EditProduct> {
       productWholesalePriceController.text = salesPrice.toString();
       incTaxController.text = purchasePrice.toString();
       excTaxController.text = excPrice.toString();
+      
     }
 
     // Add margin to prices if margin is provided
@@ -299,11 +316,14 @@ class _AddProductState extends State<EditProduct> {
     productDealerPriceController.text = salesPrice.toStringAsFixed(2);
     incTaxController.text = salesPrice.toStringAsFixed(2);
     excTaxController.text = excPrice.toStringAsFixed(2);
+
   }
 
   // Function to calculate the amount from a given percentage
   double calculateAmountFromPercentage(double percentage, double price) {
+       
     return price * (percentage / 100);
+    
   }
 
   @override
@@ -974,6 +994,7 @@ class _AddProductState extends State<EditProduct> {
                                                         },
                                                       ),
                                                     ),
+                                                 
                                                     const SizedBox(width: 10.0),
                                                     Expanded(
                                                       child: FormField(
@@ -994,6 +1015,7 @@ class _AddProductState extends State<EditProduct> {
                                                         },
                                                       ),
                                                     ),
+                                                 
                                                   ],
                                                 ),
                                                 const SizedBox(height: 20.0),
@@ -1222,7 +1244,7 @@ class _AddProductState extends State<EditProduct> {
                                                               productModel.manufacturingDate = manufactureDate;
                                                               productModel.expiringDate = expireDate;
                                                               productModel.lowerStockAlert = lowerStockAlert;
-                                                              productModel.taxType = selectedTaxType;
+                                                              productModel.taxType = selectedTaxType ?? 'Exclusive';
                                                               productModel.margin = num.tryParse(marginController.text) ?? 0;
                                                               productModel.excTax = num.tryParse(excTaxController.text) ?? 0;
                                                               productModel.incTax = num.tryParse(incTaxController.text) ?? 0;
@@ -1258,67 +1280,69 @@ class _AddProductState extends State<EditProduct> {
                                     ),
 
                                     ///_________image___________________________________________________
-                                    Expanded(
-                                      flex: 2,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Container(
-                                          padding: const EdgeInsets.all(20.0),
-                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              const SizedBox(height: 10.0),
-                                              DottedBorderWidget(
-                                                padding: const EdgeInsets.all(6),
-                                                color: kLitGreyColor,
-                                                child: ClipRRect(
-                                                  borderRadius: const BorderRadius.all(Radius.circular(12)),
-                                                  child: Container(
-                                                    width: context.width(),
-                                                    padding: const EdgeInsets.all(10.0),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(20.0),
-                                                    ),
-                                                    child: Column(
-                                                      children: [
-                                                        Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                          children: [
-                                                            Icon(MdiIcons.cloudUpload, size: 50.0, color: kLitGreyColor).onTap(() => uploadFile()),
-                                                          ],
-                                                        ),
-                                                        const SizedBox(height: 5.0),
-                                                        RichText(
-                                                            text: TextSpan(
-                                                                text: lang.S.of(context).uploadAImage,
-                                                                style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
-                                                                children: [
-                                                              TextSpan(
-                                                                  text: lang.S.of(context).orDragAndDropPng,
-                                                                  style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
-                                                            ]))
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              image != null
-                                                  ? Image.memory(
-                                                      image!,
-                                                      width: 150,
-                                                      height: 150,
-                                                    )
-                                                  : Image.network(
-                                                      productPicture,
-                                                      width: 150,
-                                                      height: 150,
-                                                    ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    )
+                                    // Expanded(
+                                    //   flex: 2,
+                                    //   child: Padding(
+                                    //     padding: const EdgeInsets.all(10.0),
+                                    //     child: Container(
+                                    //       padding: const EdgeInsets.all(20.0),
+                                    //       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
+                                    //       child: Column(
+                                    //         crossAxisAlignment: CrossAxisAlignment.center,
+                                    //         children: [
+                                    //           const SizedBox(height: 10.0),
+                                    //           DottedBorderWidget(
+                                    //             padding: const EdgeInsets.all(6),
+                                    //             color: kLitGreyColor,
+                                    //             child: ClipRRect(
+                                    //               borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                    //               child: Container(
+                                    //                 width: context.width(),
+                                    //                 padding: const EdgeInsets.all(10.0),
+                                    //                 decoration: BoxDecoration(
+                                    //                   borderRadius: BorderRadius.circular(20.0),
+                                    //                 ),
+                                    //                 child: Column(
+                                    //                   children: [
+                                    //                     Column(
+                                    //                       crossAxisAlignment: CrossAxisAlignment.center,
+                                    //                       children: [
+                                    //                         Icon(MdiIcons.cloudUpload, size: 50.0, color: kLitGreyColor).onTap(() => uploadFile()),
+                                    //                       ],
+                                    //                     ),
+                                    //                     const SizedBox(height: 5.0),
+                                    //                     RichText(
+                                    //                         text: TextSpan(
+                                    //                             text: lang.S.of(context).uploadAImage,
+                                    //                             style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
+                                    //                             children: [
+                                    //                           TextSpan(
+                                    //                               text: lang.S.of(context).orDragAndDropPng,
+                                    //                               style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
+                                    //                         ]))
+                                    //                   ],
+                                    //                 ),
+                                    //               ),
+                                    //             ),
+                                    //           ),
+                                    //           image != null
+                                    //               ? Image.memory(
+                                    //                   image!,
+                                    //                   width: 150,
+                                    //                   height: 150,
+                                    //                 )
+                                    //               : Image.network(
+                                    //                   productPicture,
+                                    //                   width: 150,
+                                    //                   height: 150,
+                                    //                 ),
+                                          
+                                    //         ],
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // )
+                             
                                   ],
                                 ),
                               ],
@@ -1330,6 +1354,7 @@ class _AddProductState extends State<EditProduct> {
                       ),
                     ),
                   ),
+               
                 ],
               );
             },

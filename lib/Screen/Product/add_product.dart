@@ -2383,172 +2383,172 @@ class _AddProductState extends State<AddProduct> {
                                     ),
 
                                     ///__________Image_and_Excel_____________________________________________________
-                                    Expanded(
-                                      flex: 2,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Column(
-                                          children: [
-                                            ///____Image__________________
-                                            Container(
-                                              padding: const EdgeInsets.all(20.0),
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                children: [
-                                                  const SizedBox(height: 10.0),
-                                                  DottedBorderWidget(
-                                                    padding: const EdgeInsets.all(6),
-                                                    color: kLitGreyColor,
-                                                    child: ClipRRect(
-                                                      borderRadius: const BorderRadius.all(Radius.circular(12)),
-                                                      child: Container(
-                                                        width: context.width(),
-                                                        padding: const EdgeInsets.all(10.0),
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(20.0),
-                                                        ),
-                                                        child: Column(
-                                                          children: [
-                                                            Column(
-                                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                              children: [
-                                                                Icon(MdiIcons.cloudUpload, size: 50.0, color: kLitGreyColor)
-                                                                    .onTap(() => uploadFile()),
-                                                              ],
-                                                            ),
-                                                            const SizedBox(height: 5.0),
-                                                            RichText(
-                                                                text: TextSpan(
-                                                                    text: lang.S.of(context).uploadAImage,
-                                                                    style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
-                                                                    children: [
-                                                                  TextSpan(
-                                                                      text: lang.S.of(context).orDragAndDropPng,
-                                                                      style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
-                                                                ]))
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  image != null
-                                                      ? Image.memory(
-                                                          image!,
-                                                          width: 150,
-                                                          height: 150,
-                                                        )
-                                                      : Image.network(
-                                                          productPicture,
-                                                          width: 150,
-                                                          height: 150,
-                                                        ),
-                                                ],
-                                              ),
-                                            ),
+                                    // Expanded(
+                                    //   flex: 2,
+                                    //   child: Padding(
+                                    //     padding: const EdgeInsets.all(10.0),
+                                    //     child: Column(
+                                    //       children: [
+                                    //         ///____Image__________________
+                                    //         // Container(
+                                    //         //   padding: const EdgeInsets.all(20.0),
+                                    //         //   decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhite),
+                                    //         //   child: Column(
+                                    //         //     crossAxisAlignment: CrossAxisAlignment.center,
+                                    //         //     children: [
+                                    //         //       const SizedBox(height: 10.0),
+                                    //         //       DottedBorderWidget(
+                                    //         //         padding: const EdgeInsets.all(6),
+                                    //         //         color: kLitGreyColor,
+                                    //         //         child: ClipRRect(
+                                    //         //           borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                    //         //           child: Container(
+                                    //         //             width: context.width(),
+                                    //         //             padding: const EdgeInsets.all(10.0),
+                                    //         //             decoration: BoxDecoration(
+                                    //         //               borderRadius: BorderRadius.circular(20.0),
+                                    //         //             ),
+                                    //         //             child: Column(
+                                    //         //               children: [
+                                    //         //                 Column(
+                                    //         //                   crossAxisAlignment: CrossAxisAlignment.center,
+                                    //         //                   children: [
+                                    //         //                     Icon(MdiIcons.cloudUpload, size: 50.0, color: kLitGreyColor)
+                                    //         //                         .onTap(() => uploadFile()),
+                                    //         //                   ],
+                                    //         //                 ),
+                                    //         //                 const SizedBox(height: 5.0),
+                                    //         //                 RichText(
+                                    //         //                     text: TextSpan(
+                                    //         //                         text: lang.S.of(context).uploadAImage,
+                                    //         //                         style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
+                                    //         //                         children: [
+                                    //         //                       TextSpan(
+                                    //         //                           text: lang.S.of(context).orDragAndDropPng,
+                                    //         //                           style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
+                                    //         //                     ]))
+                                    //         //               ],
+                                    //         //             ),
+                                    //         //           ),
+                                    //         //         ),
+                                    //         //       ),
+                                    //         //       const SizedBox(
+                                    //         //         height: 10,
+                                    //         //       ),
+                                    //         //       image != null
+                                    //         //           ? Image.memory(
+                                    //         //               image!,
+                                    //         //               width: 150,
+                                    //         //               height: 150,
+                                    //         //             )
+                                    //         //           : Image.network(
+                                    //         //               productPicture,
+                                    //         //               width: 150,
+                                    //         //               height: 150,
+                                    //         //             ),
+                                    //         //     ],
+                                    //         //   ),
+                                    //         // ),
 
-                                            // const SizedBox(height: 30),
-                                            //
-                                            // ///_________Upload Excel_________________________
-                                            // Container(
-                                            //   padding: const EdgeInsets.only(bottom: 20, right: 20, left: 20, top: 10),
-                                            //   decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
-                                            //   child: Column(
-                                            //     crossAxisAlignment: CrossAxisAlignment.start,
-                                            //     children: [
-                                            //       Row(
-                                            //         children: [
-                                            //           const Text(
-                                            //             'Bulk Product Upload',
-                                            //             style: TextStyle(fontSize: 16),
-                                            //           ),
-                                            //           const Spacer(),
-                                            //           // TextButton(onPressed: () => downloadFile(), child: const Text('Download Excel Format')),
-                                            //           TextButton(
-                                            //               onPressed: () {
-                                            //                 showDialog(
-                                            //                   context: context,
-                                            //                   builder: (context) => BulkProductUploadPopup(
-                                            //                       allProductsCodeList: widget.allProductsCodeList, allProductsNameList: widget.allProductsNameList),
-                                            //                 );
-                                            //               },
-                                            //               child: const Text('t')),
-                                            //         ],
-                                            //       ),
-                                            //       const SizedBox(height: 10.0),
-                                            //       DottedBorderWidget(
-                                            //         padding: const EdgeInsets.all(6),
-                                            //         color: kLitGreyColor,
-                                            //         child: ClipRRect(
-                                            //           borderRadius: const BorderRadius.all(Radius.circular(12)),
-                                            //           child: Container(
-                                            //             width: context.width(),
-                                            //             padding: const EdgeInsets.all(10.0),
-                                            //             decoration: BoxDecoration(
-                                            //               borderRadius: BorderRadius.circular(20.0),
-                                            //             ),
-                                            //             // child: Column(
-                                            //             //   children: [
-                                            //             //     pickedFile == null
-                                            //             //         ? Column(
-                                            //             //             crossAxisAlignment: CrossAxisAlignment.center,
-                                            //             //             children: [
-                                            //             //               Icon(MdiIcons.microsoftExcel, size: 50.0, color: kLitGreyColor).onTap(() => pickExcelFile()),
-                                            //             //               const SizedBox(height: 5.0),
-                                            //             //               RichText(
-                                            //             //                   text: TextSpan(
-                                            //             //                       text: 'Upload an Excel',
-                                            //             //                       style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
-                                            //             //                       children: [
-                                            //             //                     TextSpan(
-                                            //             //                         text: ' or drag & drop .xlsx',
-                                            //             //                         style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
-                                            //             //                   ])),
-                                            //             //               const SizedBox(height: 5.0),
-                                            //             //             ],
-                                            //             //           )
-                                            //             //         : ListTile(
-                                            //             //             leading: Icon(MdiIcons.microsoftExcel, size: 50.0, color: CupertinoColors.activeGreen),
-                                            //             //             title: const Text('An Excel file picked'),
-                                            //             //             trailing: GestureDetector(
-                                            //             //                 onTap: () {
-                                            //             //                   setState(() {
-                                            //             //                     pickedFile = null;
-                                            //             //                   });
-                                            //             //                 },
-                                            //             //                 child: const Text('Remove')),
-                                            //             //           ),
-                                            //             //     Visibility(
-                                            //             //       visible: pickedFile != null,
-                                            //             //       child: ElevatedButton(
-                                            //             //           style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(kMainColor)),
-                                            //             //           onPressed: () async {
-                                            //             //             EasyLoading.show(status: 'Uploading...');
-                                            //             //             await uploadProducts(context: context, ref: ref);
-                                            //             //           },
-                                            //             //           child: const Text(
-                                            //             //             'Upload',
-                                            //             //             style: TextStyle(color: Colors.white),
-                                            //             //           )),
-                                            //             //     )
-                                            //             //   ],
-                                            //             // ),
-                                            //           ),
-                                            //         ),
-                                            //       ),
-                                            //       const SizedBox(
-                                            //         height: 10,
-                                            //       ),
-                                            //     ],
-                                            //   ),
-                                            // ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    //         // const SizedBox(height: 30),
+                                    //         //
+                                    //         // ///_________Upload Excel_________________________
+                                    //         // Container(
+                                    //         //   padding: const EdgeInsets.only(bottom: 20, right: 20, left: 20, top: 10),
+                                    //         //   decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kWhiteTextColor),
+                                    //         //   child: Column(
+                                    //         //     crossAxisAlignment: CrossAxisAlignment.start,
+                                    //         //     children: [
+                                    //         //       Row(
+                                    //         //         children: [
+                                    //         //           const Text(
+                                    //         //             'Bulk Product Upload',
+                                    //         //             style: TextStyle(fontSize: 16),
+                                    //         //           ),
+                                    //         //           const Spacer(),
+                                    //         //           // TextButton(onPressed: () => downloadFile(), child: const Text('Download Excel Format')),
+                                    //         //           TextButton(
+                                    //         //               onPressed: () {
+                                    //         //                 showDialog(
+                                    //         //                   context: context,
+                                    //         //                   builder: (context) => BulkProductUploadPopup(
+                                    //         //                       allProductsCodeList: widget.allProductsCodeList, allProductsNameList: widget.allProductsNameList),
+                                    //         //                 );
+                                    //         //               },
+                                    //         //               child: const Text('t')),
+                                    //         //         ],
+                                    //         //       ),
+                                    //         //       const SizedBox(height: 10.0),
+                                    //         //       DottedBorderWidget(
+                                    //         //         padding: const EdgeInsets.all(6),
+                                    //         //         color: kLitGreyColor,
+                                    //         //         child: ClipRRect(
+                                    //         //           borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                    //         //           child: Container(
+                                    //         //             width: context.width(),
+                                    //         //             padding: const EdgeInsets.all(10.0),
+                                    //         //             decoration: BoxDecoration(
+                                    //         //               borderRadius: BorderRadius.circular(20.0),
+                                    //         //             ),
+                                    //         //             // child: Column(
+                                    //         //             //   children: [
+                                    //         //             //     pickedFile == null
+                                    //         //             //         ? Column(
+                                    //         //             //             crossAxisAlignment: CrossAxisAlignment.center,
+                                    //         //             //             children: [
+                                    //         //             //               Icon(MdiIcons.microsoftExcel, size: 50.0, color: kLitGreyColor).onTap(() => pickExcelFile()),
+                                    //         //             //               const SizedBox(height: 5.0),
+                                    //         //             //               RichText(
+                                    //         //             //                   text: TextSpan(
+                                    //         //             //                       text: 'Upload an Excel',
+                                    //         //             //                       style: kTextStyle.copyWith(color: kGreenTextColor, fontWeight: FontWeight.bold),
+                                    //         //             //                       children: [
+                                    //         //             //                     TextSpan(
+                                    //         //             //                         text: ' or drag & drop .xlsx',
+                                    //         //             //                         style: kTextStyle.copyWith(color: kGreyTextColor, fontWeight: FontWeight.bold))
+                                    //         //             //                   ])),
+                                    //         //             //               const SizedBox(height: 5.0),
+                                    //         //             //             ],
+                                    //         //             //           )
+                                    //         //             //         : ListTile(
+                                    //         //             //             leading: Icon(MdiIcons.microsoftExcel, size: 50.0, color: CupertinoColors.activeGreen),
+                                    //         //             //             title: const Text('An Excel file picked'),
+                                    //         //             //             trailing: GestureDetector(
+                                    //         //             //                 onTap: () {
+                                    //         //             //                   setState(() {
+                                    //         //             //                     pickedFile = null;
+                                    //         //             //                   });
+                                    //         //             //                 },
+                                    //         //             //                 child: const Text('Remove')),
+                                    //         //             //           ),
+                                    //         //             //     Visibility(
+                                    //         //             //       visible: pickedFile != null,
+                                    //         //             //       child: ElevatedButton(
+                                    //         //             //           style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(kMainColor)),
+                                    //         //             //           onPressed: () async {
+                                    //         //             //             EasyLoading.show(status: 'Uploading...');
+                                    //         //             //             await uploadProducts(context: context, ref: ref);
+                                    //         //             //           },
+                                    //         //             //           child: const Text(
+                                    //         //             //             'Upload',
+                                    //         //             //             style: TextStyle(color: Colors.white),
+                                    //         //             //           )),
+                                    //         //             //     )
+                                    //         //             //   ],
+                                    //         //             // ),
+                                    //         //           ),
+                                    //         //         ),
+                                    //         //       ),
+                                    //         //       const SizedBox(
+                                    //         //         height: 10,
+                                    //         //       ),
+                                    //         //     ],
+                                    //         //   ),
+                                    //         // ),
+                                    //       ],
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ],
