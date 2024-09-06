@@ -23,6 +23,7 @@ const kGreyTextColor = Color(0xFF585865);
 const kBorderColorTextField = Color(0xFFE8E7E5);
 const kDarkWhite = Color(0xFFF2F6F8);
 const kbgColor = Color(0xFFF8F3FF);
+const kWhiteTextColor = Color(0xFFFFFFFF);
 const kWhite = Color(0xFFFFFFFF);
 const kRedTextColor = Color(0xFFFE2525);
 const kBlueTextColor = Color(0xff8424FF);

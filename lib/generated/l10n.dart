@@ -1529,7 +1529,15 @@ class S {
       args: [],
     );
   }
-
+ /// `Printer Type`
+  String get printerType {
+    return Intl.message(
+      'Printer Type',
+      name: 'printerType',
+      desc: '',
+      args: [],
+    );
+  }
   /// `Please enter valid data`
   String get pleaseEnterValidData {
     return Intl.message(

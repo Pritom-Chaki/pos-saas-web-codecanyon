@@ -40,6 +40,38 @@ class GeneratePdfAndPrint {
           : const PosSale().launch(context!, isNewTask: true);
     });
   }
+  Future<void> printSaleInvoice58(
+      {required PersonalInformationModel personalInformationModel,
+        required SaleTransactionModel saleTransactionModel,
+        BuildContext? context,
+        bool? fromInventorySale}) async {
+    await Printing.layoutPdf(
+      dynamicLayout: true,
+      onLayout: (PdfPageFormat format) async => await generateSaleDocument58mm(personalInformation: personalInformationModel, transactions: saleTransactionModel),
+    );
+    Future.delayed(const Duration(milliseconds: 200), () {
+      ((fromInventorySale ?? false) && context != null)
+          ? const InventorySales().launch(context, isNewTask: true)
+          : const PosSale().launch(context!, isNewTask: true);
+    });
+  }
+
+
+  Future<void> printSaleInvoice80(
+      {required PersonalInformationModel personalInformationModel,
+        required SaleTransactionModel saleTransactionModel,
+        BuildContext? context,
+        bool? fromInventorySale}) async {
+    await Printing.layoutPdf(
+      dynamicLayout: true,
+      onLayout: (PdfPageFormat format) async => await generateSaleDocument80mm(personalInformation: personalInformationModel, transactions: saleTransactionModel),
+    );
+    Future.delayed(const Duration(milliseconds: 200), () {
+      ((fromInventorySale ?? false) && context != null)
+          ? const InventorySales().launch(context, isNewTask: true)
+          : const PosSale().launch(context!, isNewTask: true);
+    });
+  }
 
   Future<void> printSaleReturnInvoice(
       {required PersonalInformationModel personalInformationModel,
