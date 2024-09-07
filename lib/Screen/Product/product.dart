@@ -19,6 +19,7 @@ import 'package:salespro_admin/generated/l10n.dart' as lang;
 import '../../Provider/product_provider.dart';
 import '../../const.dart';
 import '../../subscription.dart';
+import '../WareHouse/warehouse_model.dart';
 import '../Widgets/Constant Data/constant.dart';
 import '../Widgets/Constant Data/export_button.dart';
 import '../Widgets/Footer/footer.dart';
@@ -488,7 +489,8 @@ class _ProductState extends State<Product> {
             builder: (_, ref, watch) {
               AsyncValue<List<ProductModel>> productList =
                   ref.watch(productProvider);
-
+              AsyncValue<List<WareHouseModel>> wareHouseList =
+                  ref.watch(warehouseProvider);
               final groupTax = ref.watch(groupTaxProvider);
               return productList.when(data: (allProducts) {
                 List<ProductModel> showAbleProducts = [];
@@ -923,6 +925,165 @@ class _ProductState extends State<Product> {
                                                     const SizedBox(width: 5.0),
                                                     Text(
                                                       'Barcode Generate',
+                                                      style:
+                                                          kTextStyle.copyWith(
+                                                              color:
+                                                                  kTitleColor),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+
+                                            ///________________updates Warehouse________________________________________________
+
+                                            const SizedBox(width: 10),
+                                            InkWell(
+                                              onTap: () async {
+                                                List<WareHouseModel>
+                                                    wareHouseAbleList = [];
+                                                wareHouseList.when(
+                                                    data: (warehouse) {
+                                                  wareHouseAbleList = warehouse;
+                                                }, error: (e, stack) {
+                                                  return Center(
+                                                    child: Text(
+                                                      e.toString(),
+                                                    ),
+                                                  );
+                                                }, loading: () {
+                                                  return const Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  );
+                                                });
+                                                debugPrint(
+                                                    "******WareHouse List ${wareHouseAbleList[0]}");
+                                                debugPrint(
+                                                    "******Product List ${showAbleProducts.length}");
+                                                int count = 0;
+                                                List<String> productCodeList =
+                                                    [];
+                                                List<DatabaseReference>
+                                                    databaseReferenceList = [];
+                                                //is warehouse
+                                                if (wareHouseAbleList
+                                                    .isNotEmpty) {
+                                                  //run loop on product list
+                                                  for (int i = 0;
+                                                      i <
+                                                          showAbleProducts
+                                                              .length;
+                                                      i++) {
+                                                    debugPrint(
+                                                        "******Product = $i - ${showAbleProducts[i].warehouseId}");
+                                                    if (showAbleProducts[i]
+                                                                .warehouseId ==
+                                                            'null' ||
+                                                        showAbleProducts[i]
+                                                            .warehouseId
+                                                            .isEmpty) {
+                                                      late String productKey =
+                                                          '';
+//get product key section
+
+                                                      await FirebaseDatabase
+                                                          .instance
+                                                          .ref(
+                                                              await getUserID())
+                                                          .child('Products')
+                                                          .orderByKey()
+                                                          .get()
+                                                          .then((value) {
+                                                        for (var element
+                                                            in value.children) {
+                                                          var data = jsonDecode(
+                                                              jsonEncode(element
+                                                                  .value));
+                                                          if (data['productCode']
+                                                                  .toString() ==
+                                                              showAbleProducts[
+                                                                      i]
+                                                                  .productCode) {
+                                                            productKey = element
+                                                                .key
+                                                                .toString();
+                                                          }
+                                                        }
+                                                      });
+
+                                                      if (productKey
+                                                          .isNotEmpty) {
+                                                        productCodeList
+                                                            .add(productKey);
+                                                        final DatabaseReference
+                                                            productInformationRef =
+                                                            FirebaseDatabase
+                                                                .instance
+                                                                .ref(
+                                                                    "${await getUserID()}/Products/$productKey");
+//add warehouse
+                                                        showAbleProducts[i]
+                                                                .warehouseName =
+                                                            wareHouseAbleList[0]
+                                                                .warehouseName;
+                                                        showAbleProducts[i]
+                                                                .warehouseId =
+                                                            wareHouseAbleList[0]
+                                                                .id;
+                                                        //update to data base
+                                                        await productInformationRef
+                                                            .set(
+                                                                showAbleProducts[
+                                                                        i]
+                                                                    .toJson());
+                                                        databaseReferenceList.add(
+                                                            productInformationRef);
+                                                      }
+
+                                                      count++;
+                                                    }
+                                                  }
+                                                } else {
+                                                  EasyLoading.showError(
+                                                      'Please add Warehouse',
+                                                      duration: const Duration(
+                                                          milliseconds: 500));
+                                                }
+
+                                                debugPrint(
+                                                    "******Product List count $count ");
+                                                debugPrint(
+                                                    "******Product product Code List ${productCodeList.length}");
+                                                debugPrint(
+                                                    "******Product Database Reference List ${databaseReferenceList.length}");
+                                                EasyLoading.showSuccess(
+                                                    '$count Products  Warehouse Update Successfully',
+                                                    duration: const Duration(
+                                                        milliseconds: 500));
+                                                ref.refresh(productProvider);
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                    color: kWhiteTextColor,
+                                                    border: Border.all(
+                                                        color:
+                                                            kBorderColorTextField)),
+                                                child: Row(
+                                                  children: [
+                                                    const Icon(
+                                                        Icons
+                                                            .warehouse_outlined,
+                                                        color: kTitleColor,
+                                                        size: 18.0),
+                                                    const SizedBox(width: 5.0),
+                                                    Text(
+                                                      'Bulk Warehouse',
                                                       style:
                                                           kTextStyle.copyWith(
                                                               color:

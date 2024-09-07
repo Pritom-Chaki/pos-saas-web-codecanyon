@@ -3577,7 +3577,22 @@ class S {
       args: [],
     );
   }
-
+  String get printPos58 {
+    return Intl.message(
+      'Pos 58',
+      name: 'printPos58',
+      desc: '',
+      args: [],
+    );
+  }
+  String get printPos80 {
+    return Intl.message(
+      'Pos 80',
+      name: 'printPos80',
+      desc: '',
+      args: [],
+    );
+  }
   /// `No purchase transaction found`
   String get noPurchaseTransactionFound {
     return Intl.message(

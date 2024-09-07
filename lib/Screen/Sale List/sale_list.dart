@@ -58,15 +58,21 @@ class _SaleListState extends State<SaleList> {
             controller: mainScroll,
             scrollDirection: Axis.horizontal,
             child: Consumer(builder: (_, consuearRef, watch) {
-              AsyncValue<List<SaleTransactionModel>> transactionReport = consuearRef.watch(transitionProvider);
+              AsyncValue<List<SaleTransactionModel>> transactionReport =
+                  consuearRef.watch(transitionProvider);
               final profile = consuearRef.watch(profileDetailsProvider);
               return transactionReport.when(data: (mainTransaction) {
                 final reMainTransaction = mainTransaction.reversed.toList();
                 List<SaleTransactionModel> showAbleSaleTransactions = [];
                 for (var element in reMainTransaction) {
                   if (searchItem != '' &&
-                      (element.customerName.removeAllWhiteSpace().toLowerCase().contains(searchItem.toLowerCase()) ||
-                          element.invoiceNumber.toLowerCase().contains(searchItem.toLowerCase()))) {
+                      (element.customerName
+                              .removeAllWhiteSpace()
+                              .toLowerCase()
+                              .contains(searchItem.toLowerCase()) ||
+                          element.invoiceNumber
+                              .toLowerCase()
+                              .contains(searchItem.toLowerCase()))) {
                     showAbleSaleTransactions.add(element);
                   } else if (searchItem == '') {
                     showAbleSaleTransactions.add(element);
@@ -87,7 +93,9 @@ class _SaleListState extends State<SaleList> {
                     ),
                     Container(
                       // width: context.width() < 1080 ? 1080 - 240 : MediaQuery.of(context).size.width - 240,
-                      width: MediaQuery.of(context).size.width < 1275 ? 1275 - 240 : MediaQuery.of(context).size.width - 240,
+                      width: MediaQuery.of(context).size.width < 1275
+                          ? 1275 - 240
+                          : MediaQuery.of(context).size.width - 240,
                       decoration: const BoxDecoration(color: kDarkWhite),
                       child: SingleChildScrollView(
                         child: Column(
@@ -102,16 +110,27 @@ class _SaleListState extends State<SaleList> {
                                 Padding(
                                   padding: const EdgeInsets.all(20.0),
                                   child: Container(
-                                    padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: kWhite),
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0,
+                                        right: 20.0,
+                                        top: 10.0,
+                                        bottom: 10.0),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                        color: kWhite),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Row(
                                           children: [
                                             Text(
                                               lang.S.of(context).saleList,
-                                              style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, fontSize: 18.0),
+                                              style: kTextStyle.copyWith(
+                                                  color: kTitleColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18.0),
                                             ),
                                             const Spacer(),
 
@@ -119,7 +138,13 @@ class _SaleListState extends State<SaleList> {
                                             Container(
                                               height: 40.0,
                                               width: 300,
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(30.0), border: Border.all(color: kGreyTextColor.withOpacity(0.1))),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30.0),
+                                                  border: Border.all(
+                                                      color: kGreyTextColor
+                                                          .withOpacity(0.1))),
                                               child: AppTextField(
                                                 showCursor: true,
                                                 cursorColor: kTitleColor,
@@ -128,27 +153,58 @@ class _SaleListState extends State<SaleList> {
                                                     searchItem = value;
                                                   });
                                                 },
-                                                textFieldType: TextFieldType.NAME,
-                                                decoration: kInputDecoration.copyWith(
-                                                  contentPadding: const EdgeInsets.all(8.0),
-                                                  hintText: (lang.S.of(context).searchByInvoiceOrName),
-                                                  hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                textFieldType:
+                                                    TextFieldType.NAME,
+                                                decoration:
+                                                    kInputDecoration.copyWith(
+                                                  contentPadding:
+                                                      const EdgeInsets.all(8.0),
+                                                  hintText: (lang.S
+                                                      .of(context)
+                                                      .searchByInvoiceOrName),
+                                                  hintStyle:
+                                                      kTextStyle.copyWith(
+                                                          color:
+                                                              kGreyTextColor),
                                                   border: InputBorder.none,
-                                                  enabledBorder: const OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                                    borderSide: BorderSide(color: kBorderColorTextField, width: 1),
+                                                  enabledBorder:
+                                                      const OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                30.0)),
+                                                    borderSide: BorderSide(
+                                                        color:
+                                                            kBorderColorTextField,
+                                                        width: 1),
                                                   ),
-                                                  focusedBorder: const OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                                    borderSide: BorderSide(color: kBorderColorTextField, width: 1),
+                                                  focusedBorder:
+                                                      const OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                30.0)),
+                                                    borderSide: BorderSide(
+                                                        color:
+                                                            kBorderColorTextField,
+                                                        width: 1),
                                                   ),
                                                   suffixIcon: Padding(
-                                                    padding: const EdgeInsets.all(4.0),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
                                                     child: Container(
-                                                        padding: const EdgeInsets.all(2.0),
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(30.0),
-                                                          color: kGreyTextColor.withOpacity(0.1),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(2.0),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      30.0),
+                                                          color: kGreyTextColor
+                                                              .withOpacity(0.1),
                                                         ),
                                                         child: const Icon(
                                                           FeatherIcons.search,
@@ -163,7 +219,8 @@ class _SaleListState extends State<SaleList> {
                                         const SizedBox(height: 5.0),
                                         Divider(
                                           thickness: 1.0,
-                                          color: kGreyTextColor.withOpacity(0.2),
+                                          color:
+                                              kGreyTextColor.withOpacity(0.2),
                                         ),
 
                                         ///_______sale_List_____________________________________________________
@@ -173,69 +230,162 @@ class _SaleListState extends State<SaleList> {
                                             ? Column(
                                                 children: [
                                                   Container(
-                                                    padding: const EdgeInsets.all(15),
-                                                    decoration: const BoxDecoration(color: kbgColor),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            15),
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                            color: kbgColor),
                                                     child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
-                                                        const SizedBox(width: 50, child: Text('S.L')),
-                                                        SizedBox(width: 82, child: Text(lang.S.of(context).date)),
-                                                        SizedBox(width: 50, child: Text(lang.S.of(context).invoice)),
-                                                        SizedBox(width: 180, child: Text(lang.S.of(context).partyName)),
-                                                        SizedBox(width: 100, child: Text(lang.S.of(context).paymentType)),
-                                                        SizedBox(width: 70, child: Text(lang.S.of(context).amount)),
-                                                        SizedBox(width: 70, child: Text(lang.S.of(context).due)),
-                                                        SizedBox(width: 50, child: Text(lang.S.of(context).status)),
-                                                        const SizedBox(width: 30, child: Icon(FeatherIcons.settings)),
+                                                        const SizedBox(
+                                                            width: 50,
+                                                            child: Text('S.L')),
+                                                        SizedBox(
+                                                            width: 82,
+                                                            child: Text(lang.S
+                                                                .of(context)
+                                                                .date)),
+                                                        SizedBox(
+                                                            width: 50,
+                                                            child: Text(lang.S
+                                                                .of(context)
+                                                                .invoice)),
+                                                        SizedBox(
+                                                            width: 180,
+                                                            child: Text(lang.S
+                                                                .of(context)
+                                                                .partyName)),
+                                                        SizedBox(
+                                                            width: 100,
+                                                            child: Text(lang.S
+                                                                .of(context)
+                                                                .paymentType)),
+                                                        SizedBox(
+                                                            width: 70,
+                                                            child: Text(lang.S
+                                                                .of(context)
+                                                                .amount)),
+                                                        SizedBox(
+                                                            width: 70,
+                                                            child: Text(lang.S
+                                                                .of(context)
+                                                                .due)),
+                                                        SizedBox(
+                                                            width: 50,
+                                                            child: Text(lang.S
+                                                                .of(context)
+                                                                .status)),
+                                                        const SizedBox(
+                                                            width: 30,
+                                                            child: Icon(
+                                                                FeatherIcons
+                                                                    .settings)),
                                                       ],
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    height: (MediaQuery.of(context).size.height - 315).isNegative ? 0 : MediaQuery.of(context).size.height - 315,
+                                                    height: (MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height -
+                                                                315)
+                                                            .isNegative
+                                                        ? 0
+                                                        : MediaQuery.of(context)
+                                                                .size
+                                                                .height -
+                                                            315,
                                                     child: ListView.builder(
                                                       shrinkWrap: true,
-                                                      physics: const AlwaysScrollableScrollPhysics(),
-                                                      itemCount: showAbleSaleTransactions.length,
-                                                      itemBuilder: (BuildContext context, int index) {
+                                                      physics:
+                                                          const AlwaysScrollableScrollPhysics(),
+                                                      itemCount:
+                                                          showAbleSaleTransactions
+                                                              .length,
+                                                      itemBuilder:
+                                                          (BuildContext context,
+                                                              int index) {
                                                         return Column(
                                                           children: [
                                                             Padding(
-                                                              padding: const EdgeInsets.all(15),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(15),
                                                               child: Row(
-                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
                                                                 children: [
                                                                   ///______________S.L__________________________________________________
                                                                   SizedBox(
                                                                     width: 50,
-                                                                    child: Text((index + 1).toString(), style: kTextStyle.copyWith(color: kGreyTextColor)),
+                                                                    child: Text(
+                                                                        (index +
+                                                                                1)
+                                                                            .toString(),
+                                                                        style: kTextStyle.copyWith(
+                                                                            color:
+                                                                                kGreyTextColor)),
                                                                   ),
 
                                                                   ///______________Date__________________________________________________
                                                                   SizedBox(
                                                                     width: 82,
                                                                     child: Text(
-                                                                      showAbleSaleTransactions[index].purchaseDate.substring(0, 10),
-                                                                      overflow: TextOverflow.ellipsis,
-                                                                      maxLines: 2,
-                                                                      style: kTextStyle.copyWith(color: kGreyTextColor, overflow: TextOverflow.ellipsis),
+                                                                      showAbleSaleTransactions[
+                                                                              index]
+                                                                          .purchaseDate
+                                                                          .substring(
+                                                                              0,
+                                                                              10),
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      maxLines:
+                                                                          2,
+                                                                      style: kTextStyle.copyWith(
+                                                                          color:
+                                                                              kGreyTextColor,
+                                                                          overflow:
+                                                                              TextOverflow.ellipsis),
                                                                     ),
                                                                   ),
 
                                                                   ///____________Invoice_________________________________________________
                                                                   SizedBox(
                                                                     width: 50,
-                                                                    child: Text(showAbleSaleTransactions[index].invoiceNumber,
-                                                                        maxLines: 2, overflow: TextOverflow.ellipsis, style: kTextStyle.copyWith(color: kGreyTextColor)),
+                                                                    child: Text(
+                                                                        showAbleSaleTransactions[index]
+                                                                            .invoiceNumber,
+                                                                        maxLines:
+                                                                            2,
+                                                                        overflow:
+                                                                            TextOverflow
+                                                                                .ellipsis,
+                                                                        style: kTextStyle.copyWith(
+                                                                            color:
+                                                                                kGreyTextColor)),
                                                                   ),
 
                                                                   ///______Party Name___________________________________________________________
                                                                   SizedBox(
                                                                     width: 180,
                                                                     child: Text(
-                                                                      showAbleSaleTransactions[index].customerName,
-                                                                      style: kTextStyle.copyWith(color: kGreyTextColor),
-                                                                      maxLines: 2,
-                                                                      overflow: TextOverflow.ellipsis,
+                                                                      showAbleSaleTransactions[
+                                                                              index]
+                                                                          .customerName,
+                                                                      style: kTextStyle.copyWith(
+                                                                          color:
+                                                                              kGreyTextColor),
+                                                                      maxLines:
+                                                                          2,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
                                                                     ),
                                                                   ),
 
@@ -244,10 +394,18 @@ class _SaleListState extends State<SaleList> {
                                                                   SizedBox(
                                                                     width: 100,
                                                                     child: Text(
-                                                                      showAbleSaleTransactions[index].paymentType.toString(),
-                                                                      style: kTextStyle.copyWith(color: kGreyTextColor),
-                                                                      maxLines: 2,
-                                                                      overflow: TextOverflow.ellipsis,
+                                                                      showAbleSaleTransactions[
+                                                                              index]
+                                                                          .paymentType
+                                                                          .toString(),
+                                                                      style: kTextStyle.copyWith(
+                                                                          color:
+                                                                              kGreyTextColor),
+                                                                      maxLines:
+                                                                          2,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
                                                                     ),
                                                                   ),
 
@@ -255,10 +413,17 @@ class _SaleListState extends State<SaleList> {
                                                                   SizedBox(
                                                                     width: 70,
                                                                     child: Text(
-                                                                      myFormat.format(double.tryParse(showAbleSaleTransactions[index].totalAmount.toString()) ?? 0),
-                                                                      style: kTextStyle.copyWith(color: kGreyTextColor),
-                                                                      maxLines: 2,
-                                                                      overflow: TextOverflow.ellipsis,
+                                                                      myFormat.format(
+                                                                          double.tryParse(showAbleSaleTransactions[index].totalAmount.toString()) ??
+                                                                              0),
+                                                                      style: kTextStyle.copyWith(
+                                                                          color:
+                                                                              kGreyTextColor),
+                                                                      maxLines:
+                                                                          2,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
                                                                     ),
                                                                   ),
 
@@ -267,10 +432,17 @@ class _SaleListState extends State<SaleList> {
                                                                   SizedBox(
                                                                     width: 70,
                                                                     child: Text(
-                                                                      myFormat.format(double.tryParse(showAbleSaleTransactions[index].dueAmount.toString()) ?? 0),
-                                                                      style: kTextStyle.copyWith(color: kGreyTextColor),
-                                                                      maxLines: 2,
-                                                                      overflow: TextOverflow.ellipsis,
+                                                                      myFormat.format(
+                                                                          double.tryParse(showAbleSaleTransactions[index].dueAmount.toString()) ??
+                                                                              0),
+                                                                      style: kTextStyle.copyWith(
+                                                                          color:
+                                                                              kGreyTextColor),
+                                                                      maxLines:
+                                                                          2,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
                                                                     ),
                                                                   ),
 
@@ -279,29 +451,47 @@ class _SaleListState extends State<SaleList> {
                                                                   SizedBox(
                                                                     width: 50,
                                                                     child: Text(
-                                                                      showAbleSaleTransactions[index].isPaid! ? 'Paid' : "Due",
-                                                                      style: kTextStyle.copyWith(color: kGreyTextColor),
-                                                                      maxLines: 2,
-                                                                      overflow: TextOverflow.ellipsis,
+                                                                      showAbleSaleTransactions[index]
+                                                                              .isPaid!
+                                                                          ? 'Paid'
+                                                                          : "Due",
+                                                                      style: kTextStyle.copyWith(
+                                                                          color:
+                                                                              kGreyTextColor),
+                                                                      maxLines:
+                                                                          2,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
                                                                     ),
                                                                   ),
 
                                                                   ///_______________actions_________________________________________________
                                                                   SizedBox(
                                                                     width: 30,
-                                                                    child: Theme(
+                                                                    child:
+                                                                        Theme(
                                                                       data: ThemeData(
-                                                                          highlightColor: dropdownItemColor, focusColor: dropdownItemColor, hoverColor: dropdownItemColor),
-                                                                      child: PopupMenuButton(
-                                                                        surfaceTintColor: Colors.white,
-                                                                        padding: EdgeInsets.zero,
-                                                                        itemBuilder: (BuildContext bc) => [
+                                                                          highlightColor:
+                                                                              dropdownItemColor,
+                                                                          focusColor:
+                                                                              dropdownItemColor,
+                                                                          hoverColor:
+                                                                              dropdownItemColor),
+                                                                      child:
+                                                                          PopupMenuButton(
+                                                                        surfaceTintColor:
+                                                                            Colors.white,
+                                                                        padding:
+                                                                            EdgeInsets.zero,
+                                                                        itemBuilder:
+                                                                            (BuildContext bc) =>
+                                                                                [
                                                                           PopupMenuItem(
-                                                                            child: GestureDetector(
+                                                                            child:
+                                                                                GestureDetector(
                                                                               onTap: () async {
-                                                                                await GeneratePdfAndPrint().printSaleInvoice(
-                                                                                    personalInformationModel: profile.value!,
-                                                                                    saleTransactionModel: showAbleSaleTransactions[index]);
+                                                                                await GeneratePdfAndPrint().printSaleInvoice(personalInformationModel: profile.value!, saleTransactionModel: showAbleSaleTransactions[index]);
                                                                                 // SaleInvoice(
                                                                                 //   isPosScreen: false,
                                                                                 //   transitionModel: showAbleSaleTransactions[index],
@@ -320,8 +510,47 @@ class _SaleListState extends State<SaleList> {
                                                                               ),
                                                                             ),
                                                                           ),
+                                                                          //pc pos 58 print
                                                                           PopupMenuItem(
-                                                                            child: GestureDetector(
+                                                                            child:
+                                                                                GestureDetector(
+                                                                              onTap: () async {
+                                                                                await GeneratePdfAndPrint().printSaleInvoice58(personalInformationModel: profile.value!, saleTransactionModel: showAbleSaleTransactions[index], context: context);
+                                                                              },
+                                                                              child: Row(
+                                                                                children: [
+                                                                                  Icon(MdiIcons.printerPos, size: 18.0, color: kTitleColor),
+                                                                                  const SizedBox(width: 4.0),
+                                                                                  Text(
+                                                                                    lang.S.of(context).printPos58,
+                                                                                    style: kTextStyle.copyWith(color: kTitleColor),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          //pc pos 80 print
+                                                                          PopupMenuItem(
+                                                                            child:
+                                                                                GestureDetector(
+                                                                              onTap: () async {
+                                                                                await GeneratePdfAndPrint().printSaleInvoice80(personalInformationModel: profile.value!, saleTransactionModel: showAbleSaleTransactions[index], context: context);
+                                                                              },
+                                                                              child: Row(
+                                                                                children: [
+                                                                                  Icon(MdiIcons.printerPos, size: 18.0, color: kTitleColor),
+                                                                                  const SizedBox(width: 4.0),
+                                                                                  Text(
+                                                                                    lang.S.of(context).printPos80,
+                                                                                    style: kTextStyle.copyWith(color: kTitleColor),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          PopupMenuItem(
+                                                                            child:
+                                                                                GestureDetector(
                                                                               onTap: () {
                                                                                 SaleEdit(
                                                                                   transitionModel: showAbleSaleTransactions[index],
@@ -345,7 +574,8 @@ class _SaleListState extends State<SaleList> {
 
                                                                           ///________Sale List Delete_______________________________
                                                                           PopupMenuItem(
-                                                                            child: GestureDetector(
+                                                                            child:
+                                                                                GestureDetector(
                                                                               onTap: () => showDialog(
                                                                                   context: context,
                                                                                   builder: (context2) => AlertDialog(
@@ -363,24 +593,18 @@ class _SaleListState extends State<SaleList> {
 
                                                                                               DeleteInvoice delete = DeleteInvoice();
 
-                                                                                              await delete.editStockAndSerial(
-                                                                                                  saleTransactionModel: showAbleSaleTransactions[index]);
+                                                                                              await delete.editStockAndSerial(saleTransactionModel: showAbleSaleTransactions[index]);
 
                                                                                               await delete.customerDueUpdate(
                                                                                                 due: showAbleSaleTransactions[index].dueAmount ?? 0,
                                                                                                 phone: showAbleSaleTransactions[index].customerPhone,
                                                                                               );
                                                                                               await delete.updateFromShopRemainBalance(
-                                                                                                paidAmount: (showAbleSaleTransactions[index].totalAmount ?? 0) -
-                                                                                                    (showAbleSaleTransactions[index].dueAmount ?? 0),
+                                                                                                paidAmount: (showAbleSaleTransactions[index].totalAmount ?? 0) - (showAbleSaleTransactions[index].dueAmount ?? 0),
                                                                                                 isFromPurchase: false,
                                                                                               );
-                                                                                              await delete.deleteDailyTransaction(
-                                                                                                  invoice: showAbleSaleTransactions[index].invoiceNumber,
-                                                                                                  status: 'Sale',
-                                                                                                  field: "saleTransactionModel");
-                                                                                              DatabaseReference ref = FirebaseDatabase.instance.ref(
-                                                                                                  "${await getUserID()}/Sales Transition/${showAbleSaleTransactions[index].key}");
+                                                                                              await delete.deleteDailyTransaction(invoice: showAbleSaleTransactions[index].invoiceNumber, status: 'Sale', field: "saleTransactionModel");
+                                                                                              DatabaseReference ref = FirebaseDatabase.instance.ref("${await getUserID()}/Sales Transition/${showAbleSaleTransactions[index].key}");
 
                                                                                               await ref.remove();
                                                                                               consuearRef.refresh(transitionProvider);
@@ -415,7 +639,8 @@ class _SaleListState extends State<SaleList> {
 
                                                                           ///____Sales_Return________________________________________
                                                                           PopupMenuItem(
-                                                                            child: GestureDetector(
+                                                                            child:
+                                                                                GestureDetector(
                                                                               onTap: () {
                                                                                 Navigator.push(
                                                                                     context,
@@ -438,7 +663,8 @@ class _SaleListState extends State<SaleList> {
                                                                             ),
                                                                           ),
                                                                         ],
-                                                                        child: Center(
+                                                                        child:
+                                                                            Center(
                                                                           child: Container(
                                                                               height: 18,
                                                                               width: 18,
@@ -455,9 +681,12 @@ class _SaleListState extends State<SaleList> {
                                                               ),
                                                             ),
                                                             Container(
-                                                              width: double.infinity,
+                                                              width: double
+                                                                  .infinity,
                                                               height: 1,
-                                                              color: kGreyTextColor.withOpacity(0.2),
+                                                              color: kGreyTextColor
+                                                                  .withOpacity(
+                                                                      0.2),
                                                             )
                                                           ],
                                                         );
@@ -466,14 +695,20 @@ class _SaleListState extends State<SaleList> {
                                                   ),
                                                 ],
                                               )
-                                            : EmptyWidget(title: lang.S.of(context).noSaleTransaactionFound)
+                                            : EmptyWidget(
+                                                title: lang.S
+                                                    .of(context)
+                                                    .noSaleTransaactionFound)
                                       ],
                                     ),
                                   ),
                                 ),
                               ],
                             ),
-                            Visibility(visible: MediaQuery.of(context).size.height != 0, child: const Footer()),
+                            Visibility(
+                                visible:
+                                    MediaQuery.of(context).size.height != 0,
+                                child: const Footer()),
                           ],
                         ),
                       ),
