@@ -149,4 +149,17 @@ class ProductModel {
         'groupTaxRate': groupTaxRate,
         'subTax': subTaxes.map((e) => e.toJson()).toList(),
       };
+
+      List<String> toList() {
+    return [
+      productName,
+      productCategory,
+      productSalePrice,
+      productDealerPrice,
+      productWholeSalePrice,
+      warehouseName,
+      productStock,
+      productPicture,
+    ];
+  }
 }

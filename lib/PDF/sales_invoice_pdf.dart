@@ -17,8 +17,10 @@ import 'package:pdf/widgets.dart' as pw;
 ///___________Sales_PDF_Formats____________________________________________________________________________________________________________________________
 FutureOr<Uint8List> generateSaleDocument58mm({required SaleTransactionModel transactions, required PersonalInformationModel personalInformation}) async {
   final pw.Document doc = pw.Document();
+  int size = 1;
   double totalAmount({required SaleTransactionModel transactions}) {
     double amount = 0;
+
 
     for (var element in transactions.productList!) {
       amount = amount + double.parse(element.subTotal) * double.parse(element.quantity.toString());
@@ -27,11 +29,42 @@ FutureOr<Uint8List> generateSaleDocument58mm({required SaleTransactionModel tran
     return double.parse(amount.toStringAsFixed(2));
   }
 
+
+  getHeight(SaleTransactionModel transactions) {
+    int extraValue = 20;
+    for (var element in transactions.productList!) {
+      if(element.productName!.length > 15) size++;
+    }
+    if(size > 2) extraValue = 50;
+    // if(size > 5) extraValue = 50;
+   return ( 310 + ( transactions.productList!.length.toDouble()  *  extraValue));
+  }
+
+  getFontSize(SaleTransactionModel transactions) {
+    double fontSiz = 8;
+    for (var element in transactions.productList!) {
+      if(element.productName!.length > 20) size++;
+    }
+    // if(size > 2) fontSiz = 7;
+    // if(size > 5) fontSiz = 6;
+    return fontSiz;
+  }
+
+  getLength(SaleTransactionModel transactions) {
+    double fontSiz = 8.0;
+    for (var element in transactions.productList!) {
+      if(element.productName!.length > 15) size++;
+    }
+    if(size > 2) fontSiz = 6;
+    if(size > 5) fontSiz = 5;
+    return fontSiz;
+  }
+
   doc.addPage(
     pw.MultiPage(
       // pageFormat: PdfPageFormat.roll80,
-      pageFormat: PdfPageFormat.letter.copyWith(width: 150, height: 340),
-      margin: pw.EdgeInsets.only(left: 15),
+      pageFormat: PdfPageFormat.letter.copyWith(width: 120, height:  getHeight(transactions)),
+      margin: const pw.EdgeInsets.only(left: 0,right : 0),
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       header: (pw.Context context) {
         return pw.Column(
@@ -173,7 +206,7 @@ FutureOr<Uint8List> generateSaleDocument58mm({required SaleTransactionModel tran
         pw.Column(
             children: [
               ///___________Table__________________________________________________________
-              pw.Table.fromTextArray(
+              pw.TableHelper.fromTextArray(
                 context: context,
                 cellPadding: pw.EdgeInsets.zero,
                 border: const pw.TableBorder(
@@ -198,12 +231,12 @@ FutureOr<Uint8List> generateSaleDocument58mm({required SaleTransactionModel tran
                 ),
                 // headerDecoration: pw.BoxDecoration(color: PdfColor.fromHex('#D5D8DC')),
                 columnWidths: <int, pw.TableColumnWidth>{
-                  0: const pw.FlexColumnWidth(4),
-                  1: const pw.FlexColumnWidth(3),
+                  0:  pw.FlexColumnWidth( /*( size > 3 ) ? 4.5 :*/ 4 ),
+                  1:  pw.FlexColumnWidth( /*( size > 3 ) ? 2.5 :*/ 3),
                   2: const pw.FlexColumnWidth(3),
                   3: const pw.FlexColumnWidth(3),
                 },
-                cellStyle:  pw.TextStyle(color: PdfColors.black, fontSize: 8, ),
+                cellStyle:  pw.TextStyle(color: PdfColors.black, fontSize:  getFontSize(transactions), ),
                 headerStyle: pw.TextStyle(color: PdfColors.black, fontSize: 8, fontWeight: pw.FontWeight.bold),
                 rowDecoration: const pw.BoxDecoration(color: PdfColors.white),
                 // oddRowDecoration: const pw.BoxDecoration(color: PdfColors.grey100),
@@ -236,7 +269,6 @@ FutureOr<Uint8List> generateSaleDocument58mm({required SaleTransactionModel tran
               // pw.SizedBox(width: 5),
               pw.Paragraph(text: ""),
               pw.Column(
-
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
                 ///________Total_Amount_____________________________________
@@ -472,8 +504,11 @@ FutureOr<Uint8List> generateSaleDocument58mm({required SaleTransactionModel tran
   return doc.save();
 }
 
+
+
 FutureOr<Uint8List> generateSaleDocument80mm({required SaleTransactionModel transactions, required PersonalInformationModel personalInformation}) async {
   final pw.Document doc = pw.Document();
+  int size = 1;
   double totalAmount({required SaleTransactionModel transactions}) {
     double amount = 0;
 
@@ -484,12 +519,22 @@ FutureOr<Uint8List> generateSaleDocument80mm({required SaleTransactionModel tran
     return double.parse(amount.toStringAsFixed(2));
   }
 
+  getHeight(SaleTransactionModel transactions) {
+    int extraValue = 20;
+    for (var element in transactions.productList!) {
+      if(element.productName!.length > 15) size++;
+    }
+    if(size > 2) extraValue = 70;
+    // if(size > 5) extraValue = 50;
+    return ( 400 + ( transactions.productList!.length.toDouble()  *  extraValue));
+  }
+
   doc.addPage(
     pw.MultiPage(
       // pageFormat: PdfPageFormat.roll80,
       // pageFormat: PdfPageFormat(200, 370, marginAll: 5),
       // pageFormat: PdfPageFormat(160, 342, marginAll: 2),
-      pageFormat: PdfPageFormat.letter.copyWith(width: 200, height: 400),
+      pageFormat: PdfPageFormat.letter.copyWith(width: 200, height: getHeight(transactions)),
       margin: pw.EdgeInsets.zero,
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       header: (pw.Context context) {

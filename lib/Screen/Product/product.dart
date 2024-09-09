@@ -1,7 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, unused_result
 
 import 'dart:convert';
-
+import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +11,15 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:salespro_admin/Screen/Product/add_product.dart';
 import 'package:salespro_admin/Screen/Product/product%20barcode/barcode_generate.dart';
 import 'package:salespro_admin/commas.dart';
 import 'package:salespro_admin/currency.dart';
 import 'package:salespro_admin/model/product_model.dart';
 import 'package:salespro_admin/generated/l10n.dart' as lang;
+import 'dart:html' as html;
+import 'package:syncfusion_flutter_xlsio/xlsio.dart' as ex;
 import '../../Provider/product_provider.dart';
 import '../../const.dart';
 import '../../subscription.dart';
@@ -48,7 +52,9 @@ class _ProductState extends State<Product> {
   List<String> title = ['Product List', 'Expired List'];
 
   String isSelected = 'Product List';
-  List<String> _selectProductList = [];
+  List<ProductModel> downloadExcel = [];
+
+  List<ProductModel> downloadSelectedExcel = [];
   void productStockEditPopUp(
       {required ProductModel product,
       required BuildContext popUp,
@@ -787,7 +793,149 @@ class _ProductState extends State<Product> {
                                                     );
                                                   }),
                                             ),
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
+                                                  color: kWhiteTextColor,
+                                                  border: Border.all(
+                                                      color:
+                                                          kBorderColorTextField)),
+                                              child: Text(
+                                                "Export",
+                                                style: kTextStyle.copyWith(
+                                                    color: kTitleColor),
+                                              ),
+                                            ).onTap(() async {
+                                              downloadExcel = showAbleProducts;
 
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (_) {
+                                                    return Dialog(
+                                                      child: SizedBox(
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            const Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 20,
+                                                                      bottom:
+                                                                          10),
+                                                              child: Text(
+                                                                "Export Data",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        22),
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                                height: 10),
+                                                            Container(
+                                                                height: 1,
+                                                                width: double
+                                                                    .infinity,
+                                                                color: Colors
+                                                                    .grey),
+                                                            const SizedBox(
+                                                                height: 15),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child:
+                                                                  primaryButton(
+                                                                label:
+                                                                    "All Data",
+                                                                isDisabled:
+                                                                    false,
+                                                                onPressed:
+                                                                    () async {
+                                                                  String
+                                                                      filename =
+                                                                      'excelFileAll.xlsx';
+                                                                  generateExcel(
+                                                                      downloadExcel,
+                                                                      filename);
+                                                                  ScaffoldMessenger.of(
+                                                                          context)
+                                                                      .showSnackBar(const SnackBar(
+                                                                          content:
+                                                                              Text("Excel file successfully downloaded")));
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child:
+                                                                  primaryButton(
+                                                                label:
+                                                                    "Selected List",
+                                                                isDisabled:
+                                                                    false,
+                                                                onPressed: () {
+                                                                  generateExcel(
+                                                                      downloadSelectedExcel,
+                                                                      'excelFileSelected.xlsx');
+                                                                  ScaffoldMessenger.of(
+                                                                          context)
+                                                                      .showSnackBar(const SnackBar(
+                                                                          content:
+                                                                              Text("Excel file successfully downloaded")));
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                              ),
+                                                            ),
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child:
+                                                                  const Center(
+                                                                child: Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              8.0),
+                                                                  child: Text(
+                                                                    "Cancel",
+                                                                    style: TextStyle(
+                                                                        color:
+                                                                            kMainColor),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                                height: 15),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    );
+                                                  });
+                                              // await showDialog(
+                                              //   context: context,
+                                              //   builder: (context) => BulkProductUploadPopup(allProductsCodeList: allProductsCodeList, allProductsNameList: allProductsNameList),
+                                              // );
+
+                                              setState(() {});
+                                            }),
                                             // SizedBox(
                                             //   height: 42,
                                             //   child: ToggleButtons(
@@ -1230,25 +1378,25 @@ class _ProductState extends State<Product> {
                                                                     dataIndex];
 
                                                             return DataRow(
-                                                              selected: _selectProductList
-                                                                  .contains(product
-                                                                      .productCode),
+                                                              selected:
+                                                                  downloadSelectedExcel
+                                                                      .contains(
+                                                                          product),
                                                               onSelectChanged:
                                                                   (bool?
                                                                       value) {
                                                                 if (value !=
                                                                     null) {
-                                                                  if (_selectProductList
+                                                                  if (downloadSelectedExcel
                                                                       .contains(
-                                                                          product
-                                                                              .productCode)) {
-                                                                    _selectProductList
+                                                                          product)) {
+                                                                    downloadSelectedExcel
                                                                         .remove(
-                                                                            product.productCode);
+                                                                            product);
                                                                   } else {
-                                                                    _selectProductList
-                                                                        .add(product
-                                                                            .productCode);
+                                                                    downloadSelectedExcel
+                                                                        .add(
+                                                                            product);
                                                                   }
 
                                                                   setState(
@@ -1735,6 +1883,108 @@ class _ProductState extends State<Product> {
             },
           ),
         ),
+      ),
+    );
+  }
+
+  Future<void> generateExcel(
+      List<ProductModel> downloadExcel, String filename) async {
+    // Create a new Excel document
+    final ex.Workbook workbook = ex.Workbook();
+    final ex.Worksheet sheet = workbook.worksheets[0];
+
+    // Sample data to export
+    // final List<String> downloadExcel = ['Header1', 'Header2', 'Header3'];
+    List<List<String>> productList =
+        downloadExcel.map((productVar) => productVar.toList()).toList();
+
+    // Set the headers
+    List<String> headers = [
+      'Product Name',
+      'Product Category',
+      'Product Sale Price',
+      'Product Dealer Price',
+      'Product Whole Sale Price',
+      'Warehouse Name',
+      'Product Stock',
+      'Product Picture'
+    ];
+
+    for (int i = 0; i < headers.length; i++) {
+      ex.Range cell = sheet.getRangeByIndex(1, i + 1);
+      cell.setText(headers[i]);
+      cell.cellStyle.wrapText = true;
+    }
+
+    for (int i = 0; i < productList.length; i++) {
+      sheet.importList(productList[i], i + 2, 1, false);
+    }
+    // Save the document to a byte stream
+    final List<int> bytes = workbook.saveAsStream();
+
+    // Dispose the workbook
+    workbook.dispose();
+
+    if (kIsWeb) {
+      // If running on the web, use the universal_html package to trigger a download
+      final blob = html.Blob([bytes],
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      final url = html.Url.createObjectUrlFromBlob(blob);
+      final anchor = html.AnchorElement(href: url)
+        ..setAttribute('download', filename)
+        ..click();
+      html.Url.revokeObjectUrl(url);
+    } else {
+      // For mobile and desktop platforms
+      Directory? downloadDirectory;
+
+      if (Platform.isAndroid) {
+        downloadDirectory = Directory('/storage/emulated/0/Download');
+        if (!await downloadDirectory.exists()) {
+          downloadDirectory = await getExternalStorageDirectory();
+        }
+      } else if (Platform.isIOS) {
+        downloadDirectory = await getApplicationDocumentsDirectory();
+      } else {
+        downloadDirectory = await getDownloadsDirectory();
+      }
+
+      if (downloadDirectory != null) {
+        String filePathName = "${downloadDirectory.path}/$filename";
+        File savedFile = File(filePathName);
+        await savedFile.writeAsBytes(bytes);
+      }
+    }
+  }
+
+  Widget primaryButton({
+    required String label,
+    required bool isDisabled,
+    bool selected = true,
+    required VoidCallback onPressed,
+  }) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            width: double.infinity,
+            height: 48,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: selected
+                    ? WidgetStateProperty.all<Color>(const Color(0xff8424FF))
+                    : MaterialStateProperty.all<Color>(Colors.black12),
+                shape: WidgetStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5))),
+              ),
+              onPressed: isDisabled ? null : onPressed,
+              child: Text(
+                label,
+                style: const TextStyle(fontSize: 20, color: Colors.white),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

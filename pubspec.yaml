@@ -85,7 +85,7 @@ dependencies:
   excel: ^4.0.2
   restart_app: ^1.2.1
   webview_flutter: ^4.4.1
-
+  syncfusion_flutter_xlsio: ^26.2.13
 
 dev_dependencies:
   flutter_test:
