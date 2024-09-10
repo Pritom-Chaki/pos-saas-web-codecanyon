@@ -68,6 +68,8 @@ class SaleTransactionModel {
       json['productList'].forEach((v) {
         productList!.add(AddToCartModel.fromJson(v));
       });
+    } else {
+      productList = [];
     }
   }
 

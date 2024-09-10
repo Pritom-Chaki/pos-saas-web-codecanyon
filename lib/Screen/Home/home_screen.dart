@@ -914,9 +914,9 @@ class _MtHomeScreenState extends State<MtHomeScreen> {
                                                   ),
                                                 );
                                               }
-
+List<AddToCartModel> productListNew = element.productList != null ? element.productList! : []; 
                                               ///____Top_sealing_product______________________
-                                              for (var product in element.productList!) {
+                                              for (var product in productListNew) {
                                                 if (!isContain(element: product)) {
                                                   AddToCartModel a = AddToCartModel(
                                                     warehouseId: product.warehouseId,
