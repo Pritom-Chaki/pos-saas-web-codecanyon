@@ -115,7 +115,7 @@ class _SalesReturnState extends State<SalesReturn> {
         var data1 = await dueUpdateRef.child('$key/due').once();
         int previousDue = data1.snapshot.value.toString().toInt();
 
-        int totalDue = previousDue - salesModel.dueAmount!.toInt();
+        int totalDue = previousDue - int.parse(salesModel.dueAmount!.toString());
         dueUpdateRef.child(key!).update({'due': '$totalDue'});
       }
 

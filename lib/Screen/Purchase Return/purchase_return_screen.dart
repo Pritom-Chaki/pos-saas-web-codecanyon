@@ -711,7 +711,7 @@ class _PurchaseReturnScreenState extends State<PurchaseReturnScreen> {
                                                         color: kBlueTextColor,
                                                       ),
                                                       child: Text(
-                                                        'Conform Return',
+                                                        'Confirm Return',
                                                         textAlign: TextAlign.center,
                                                         style: kTextStyle.copyWith(color: kWhite, fontSize: 18.0, fontWeight: FontWeight.bold),
                                                       ),

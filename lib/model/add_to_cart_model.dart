@@ -107,7 +107,7 @@ class AddToCartModel {
         "stock": stock,
         "productPurchasePrice": productPurchasePrice,
         // ignore: prefer_null_aware_operators
-        "product_details": productDetails == null ? null : productDetails.toJson(),
+        "product_details": productDetails ?? '',
         'serialNumber': serialNumber?.map((e) => e).toList(),
         'productWarranty': productWarranty,
         'productImage': productImage,

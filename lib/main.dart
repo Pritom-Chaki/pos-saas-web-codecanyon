@@ -55,7 +55,7 @@ import 'dart:html' as html;
 import 'generated/l10n.dart';
 import 'package:provider/provider.dart' as pro;
 
-Future<void> main() async {
+Future<void> main() async { 
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
   html.window.onBeforeUnload.listen((event) async {});

@@ -515,7 +515,7 @@ class _SaleListState extends State<SaleList> {
                                                                             child:
                                                                                 GestureDetector(
                                                                               onTap: () async {
-                                                                                await GeneratePdfAndPrint().printSaleInvoice58(personalInformationModel: profile.value!, saleTransactionModel: showAbleSaleTransactions[index], context: context);
+                                                                                await GeneratePdfAndPrint().printSaleInvoice58(personalInformationModel: profile.value!, saleTransactionModel: showAbleSaleTransactions[index], context: context,fromInventorySale:true );
                                                                               },
                                                                               child: Row(
                                                                                 children: [
@@ -534,7 +534,7 @@ class _SaleListState extends State<SaleList> {
                                                                             child:
                                                                                 GestureDetector(
                                                                               onTap: () async {
-                                                                                await GeneratePdfAndPrint().printSaleInvoice80(personalInformationModel: profile.value!, saleTransactionModel: showAbleSaleTransactions[index], context: context);
+                                                                                await GeneratePdfAndPrint().printSaleInvoice80(personalInformationModel: profile.value!, saleTransactionModel: showAbleSaleTransactions[index], context: context, fromInventorySale:true );
                                                                               },
                                                                               child: Row(
                                                                                 children: [

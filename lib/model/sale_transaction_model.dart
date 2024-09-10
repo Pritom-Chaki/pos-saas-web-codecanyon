@@ -91,6 +91,6 @@ class SaleTransactionModel {
         'totalQuantity': totalQuantity,
         'isPaid': isPaid,
         'paymentType': paymentType,
-        'productList': productList?.map((e) => e.toJson()).toList(),
+        'productList':productList== null || productList!.isEmpty ?[] : productList?.map((e) => e.toJson()).toList() ,
       };
 }
