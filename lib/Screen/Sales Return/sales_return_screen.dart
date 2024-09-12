@@ -64,9 +64,10 @@ class _SalesReturnScreenState extends State<SalesReturnScreen> {
       ///_________Push_on_Sale_return_dataBase____________________________________________________________________________
       DatabaseReference ref =
           FirebaseDatabase.instance.ref("${await getUserID()}/Sales Return");
-               debugPrint("------ 9>>>>67 before saleReturn");
-      await ref.push().set(salesModel);
-    debugPrint("------ 9>>>>69 after saleReturn");
+      debugPrint("------ 9>>>>67 before saleReturn");
+      await ref.push().set(salesModel.toJson());
+      debugPrint("------ 9>>>>69 after saleReturn");
+
       ///__________StockMange_________________________________________________________________________________
       final stockRef =
           FirebaseDatabase.instance.ref('${await getUserID()}/Products/');
@@ -144,11 +145,16 @@ class _SalesReturnScreenState extends State<SalesReturnScreen> {
         var data1 = await dueUpdateRef.child('$key/due').once();
         int previousDue = data1.snapshot.value.toString().toInt();
 
-        int dueNow = int.parse(orginal.dueAmount != null ?orginal.dueAmount.toString()  : '0') - int.parse( salesModel.totalAmount != null ?salesModel.totalAmount.toString()  : '0');
+        int dueNow = int.parse(orginal.dueAmount != null
+                ? orginal.dueAmount.toString()
+                : '0') -
+            int.parse(salesModel.totalAmount != null
+                ? salesModel.totalAmount.toString()
+                : '0');
 
         int totalDue = int.parse(dueNow.toString()) < 0
             ? 0
-            : previousDue - int.parse(salesModel.totalAmount!.toString()) ;
+            : previousDue - int.parse(salesModel.totalAmount!.toString());
         dueUpdateRef.child(key!).update({'due': '$totalDue'});
       }
 
@@ -1106,16 +1112,19 @@ class _SalesReturnScreenState extends State<SalesReturnScreen> {
                                                                         .subTotal
                                                                         .toString()) *
                                                                     int.parse(element
-                                                                        .quantity.toString()));
+                                                                        .quantity
+                                                                        .toString()));
 
                                                             totalQuantity =
                                                                 totalQuantity +
-                                                                     int.parse(element
-                                                                        .quantity.toString());
+                                                                    int.parse(element
+                                                                        .quantity
+                                                                        .toString());
                                                           }
                                                           lossProfit = ((totalSalePrice -
-                                                                     double.parse( totalPurchasePrice.toString())
-                                                                      ) -
+                                                                  double.parse(
+                                                                      totalPurchasePrice
+                                                                          .toString())) -
                                                               double.parse(
                                                                   editedTransitionModel
                                                                       .discountAmount
@@ -1129,7 +1138,8 @@ class _SalesReturnScreenState extends State<SalesReturnScreen> {
 
                                                           ///__________total LossProfit & quantity________________________________________________________________
                                                           // final postEditedTransitionModel = ShowEditPaymentPopUp.checkLossProfit(transitionModel: editedTransitionModel);
-                                                     debugPrint("------ 8>>>>1131 before ${editedTransitionModel.invoiceNumber}");
+                                                          debugPrint(
+                                                              "------ 8>>>>1131 before ${editedTransitionModel.invoiceNumber}");
                                                           await FirebaseDatabase
                                                               .instance
                                                               .ref(userId)
@@ -1139,7 +1149,8 @@ class _SalesReturnScreenState extends State<SalesReturnScreen> {
                                                               .update(
                                                                   editedTransitionModel
                                                                       .toJson());
-                                                    debugPrint("------ 8>>>>1140 After ${editedTransitionModel}");
+                                                          debugPrint(
+                                                              "------ 8>>>>1140 After ${editedTransitionModel}");
                                                         }
                                                         SaleTransactionModel
                                                             invoice =
@@ -1183,13 +1194,16 @@ class _SalesReturnScreenState extends State<SalesReturnScreen> {
                                                           vat: 0,
                                                           totalQuantity: 0,
                                                         );
-
+                                                        debugPrint(
+                                                            "------ 11>>>>1186 Before saleReturn");
                                                         await saleReturn(
                                                             salesModel: invoice,
                                                             orginal: widget
                                                                 .saleTransactionModel,
                                                             consumerRef: ref,
                                                             context: context);
+                                                        debugPrint(
+                                                            "------ 11>>>>1193 After saleReturn");
                                                       }
                                                     },
                                                     child: Container(

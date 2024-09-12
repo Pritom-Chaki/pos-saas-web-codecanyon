@@ -159,20 +159,30 @@ class _SalesReturnState extends State<SalesReturn> {
             controller: mainScroll,
             scrollDirection: Axis.horizontal,
             child: Consumer(builder: (_, ref, watch) {
+              debugPrint("---> 1");
               AsyncValue<List<SaleTransactionModel>> transactionReport = ref.watch(saleReturnProvider);
+                  debugPrint("---> 2");
               final profile = ref.watch(profileDetailsProvider);
+     debugPrint("---> 3");
               return transactionReport.when(data: (mainTransaction) {
+                     debugPrint("---> 4");
                 final reMainTransaction = mainTransaction.reversed.toList();
+                     debugPrint("---> 5");
                 List<SaleTransactionModel> showAbleSaleTransactions = [];
+                     debugPrint("---> 6");
                 for (var element in reMainTransaction) {
+                       debugPrint("---> 7 For");
                   if (searchItem != '' &&
                       (element.customerName.removeAllWhiteSpace().toLowerCase().contains(searchItem.toLowerCase()) ||
                           element.invoiceNumber.toLowerCase().contains(searchItem.toLowerCase()))) {
+                      debugPrint("---> 8 if");
                     showAbleSaleTransactions.add(element);
                   } else if (searchItem == '') {
+                     debugPrint("---> 9 else");
                     showAbleSaleTransactions.add(element);
                   }
                 }
+                    debugPrint("---> 10 else");
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -310,7 +320,7 @@ class _SalesReturnState extends State<SalesReturn> {
                                                               SizedBox(
                                                                 width: 82,
                                                                 child: Text(
-                                                                  showAbleSaleTransactions[index].purchaseDate.substring(0, 10),
+                                                                  showAbleSaleTransactions[index].purchaseDate.isNotEmpty ?     showAbleSaleTransactions[index].purchaseDate.substring(0, 10) : "N/A",
                                                                   maxLines: 2,
                                                                   overflow: TextOverflow.ellipsis,
                                                                   style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
@@ -560,6 +570,8 @@ class _SalesReturnState extends State<SalesReturn> {
                     )
                   ],
                 );
+            
+            
               }, error: (e, stack) {
                 return Center(
                   child: Text(e.toString()),
@@ -569,6 +581,7 @@ class _SalesReturnState extends State<SalesReturn> {
                   child: CircularProgressIndicator(),
                 );
               });
+        
             }),
           ),
         ),

@@ -43,26 +43,27 @@ class SaleTransactionModel {
   });
 
   SaleTransactionModel.fromJson(Map<dynamic, dynamic> json) {
-    customerName = json['customerName'] as String;
-    customerPhone = json['customerPhone'].toString();
+    customerName = json['customerName']?? "Guest";
+    customerPhone = json['customerPhone']?? "";
     customerAddress = json['customerAddress'] ?? '';
     customerGst = json['customerGst'] ?? '';
-    customerImage = json['customerImage'] ??
+    customerImage =json['customerImage'] ??
         'https://firebasestorage.googleapis.com/v0/b/maanpos.appspot.com/o/Profile%20Picture%2Fblank-profile-picture-973460_1280.webp?alt=media&token=3578c1e0-7278-4c03-8b56-dd007a9befd3';
-    invoiceNumber = json['invoiceNumber'].toString();
-    customerType = json['customerType'].toString();
-    purchaseDate = json['purchaseDate'].toString();
-    totalAmount = double.parse(json['totalAmount'].toString());
-    discountAmount = double.parse(json['discountAmount'].toString());
-    serviceCharge = double.parse(json['serviceCharge'].toString());
-    vat = double.parse(json['vat'].toString());
-    lossProfit = double.parse(json['lossProfit'].toString());
-    totalQuantity = json['totalQuantity'];
+    invoiceNumber = json['invoiceNumber'] ?? "";
+    customerType = json['customerType']?? "";
+    purchaseDate = json['purchaseDate']?? "";
+    totalAmount = double.parse(json['totalAmount'] != null ? json['totalAmount'].toString() : "0");
+    discountAmount = double.parse(json['discountAmount']!= null ? json['discountAmount'].toString() : "0");
+    serviceCharge = double.parse(json['serviceCharge']!= null ? json['serviceCharge'].toString() : "0");
+    vat =double.parse(json['vat']!= null ? json['vat'].toString() : "0");
+    lossProfit = double.parse(json['lossProfit']!= null ? json['lossProfit'].toString() : "0");
+    totalQuantity = json['totalQuantity'] ?? 0;
     sellerName = json['sellerName'];
-    dueAmount = double.parse(json['dueAmount'].toString());
-    returnAmount = double.parse(json['returnAmount'].toString());
-    isPaid = json['isPaid'];
-    paymentType = json['paymentType'].toString();
+    dueAmount = double.parse(json['dueAmount']!= null ? json['dueAmount'].toString() : "0");
+    returnAmount = double.parse(json['returnAmount']!= null ? json['returnAmount'].toString() : "0");
+    isPaid = json['isPaid'] ?? false;
+    paymentType = json['paymentType']?? '';
+       
     if (json['productList'] != null) {
       productList = <AddToCartModel>[];
       json['productList'].forEach((v) {

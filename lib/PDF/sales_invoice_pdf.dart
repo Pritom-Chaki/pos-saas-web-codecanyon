@@ -63,7 +63,7 @@ FutureOr<Uint8List> generateSaleDocument58mm({required SaleTransactionModel tran
     pw.MultiPage(
       // pageFormat: PdfPageFormat.roll80,
       pageFormat: PdfPageFormat.letter.copyWith(width: 150, height:  getHeight(transactions)),
-      margin: pw.EdgeInsets.only(left: 10,right : 10),
+          margin: pw.EdgeInsets.only(left: 5,right : 5, bottom: 20, top: 0),
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       header: (pw.Context context) {
         return pw.Column(
@@ -538,7 +538,7 @@ FutureOr<Uint8List> generateSaleDocument80mm({required SaleTransactionModel tran
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       header: (pw.Context context) {
         return pw.Padding(
-          padding: const pw.EdgeInsets.only(left: 0, right: 0, bottom: 5, top: 5),
+          padding: const pw.EdgeInsets.only(left: 5, right: 0, bottom: 5, top: 5),
           child: pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
