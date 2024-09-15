@@ -14,35 +14,37 @@ import '../model/personal_information_model.dart';
 import '../model/sale_transaction_model.dart';
 
 ///___________Sales_PDF_Formats____________________________________________________________________________________________________________________________
-FutureOr<Uint8List> generateSaleDocument58mm({required SaleTransactionModel transactions, required PersonalInformationModel personalInformation}) async {
+FutureOr<Uint8List> generateSaleDocument58mm(
+    {required SaleTransactionModel transactions,
+    required PersonalInformationModel personalInformation}) async {
   final pw.Document doc = pw.Document();
   int size = 1;
   double totalAmount({required SaleTransactionModel transactions}) {
     double amount = 0;
 
-
     for (var element in transactions.productList!) {
-      amount = amount + double.parse(element.subTotal) * double.parse(element.quantity.toString());
+      amount = amount +
+          double.parse(element.subTotal) *
+              double.parse(element.quantity.toString());
     }
 
     return double.parse(amount.toStringAsFixed(2));
   }
 
-
   getHeight(SaleTransactionModel transactions) {
     int extraValue = 20;
     for (var element in transactions.productList!) {
-      if(element.productName!.length > 15) size++;
+      if (element.productName!.length > 15) size++;
     }
-    if(size > 2) extraValue = 50;
+    if (size > 2) extraValue = 50;
     // if(size > 5) extraValue = 50;
-   return ( 310 + ( transactions.productList!.length.toDouble()  *  extraValue));
+    return (310 + (transactions.productList!.length.toDouble() * extraValue));
   }
 
   getFontSize(SaleTransactionModel transactions) {
     double fontSiz = 8;
     for (var element in transactions.productList!) {
-      if(element.productName!.length > 20) size++;
+      if (element.productName!.length > 20) size++;
     }
     // if(size > 2) fontSiz = 7;
     // if(size > 5) fontSiz = 6;
@@ -52,18 +54,19 @@ FutureOr<Uint8List> generateSaleDocument58mm({required SaleTransactionModel tran
   getLength(SaleTransactionModel transactions) {
     double fontSiz = 8.0;
     for (var element in transactions.productList!) {
-      if(element.productName!.length > 15) size++;
+      if (element.productName!.length > 15) size++;
     }
-    if(size > 2) fontSiz = 6;
-    if(size > 5) fontSiz = 5;
+    if (size > 2) fontSiz = 6;
+    if (size > 5) fontSiz = 5;
     return fontSiz;
   }
 
   doc.addPage(
     pw.MultiPage(
       // pageFormat: PdfPageFormat.roll80,
-      pageFormat: PdfPageFormat.letter.copyWith(width: 150, height:  getHeight(transactions)),
-          margin: pw.EdgeInsets.only(left: 5,right : 0, bottom: 0, top: 0),
+      pageFormat: PdfPageFormat.letter
+          .copyWith(width: 130, height: getHeight(transactions)),
+      margin: pw.EdgeInsets.only(left: 0, right: 10, bottom: 20, top: 0),
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       header: (pw.Context context) {
         return pw.Column(
@@ -73,7 +76,10 @@ FutureOr<Uint8List> generateSaleDocument58mm({required SaleTransactionModel tran
             pw.Center(
               child: pw.Text(
                 personalInformation.companyName,
-                style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 12.0, fontWeight: pw.FontWeight.bold),
+                style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                    color: PdfColors.black,
+                    fontSize: 12.0,
+                    fontWeight: pw.FontWeight.bold),
               ),
             ),
 
@@ -83,420 +89,568 @@ FutureOr<Uint8List> generateSaleDocument58mm({required SaleTransactionModel tran
               child: pw.Center(
                   child: pw.Container(
                       decoration: pw.BoxDecoration(
-                        border: pw.Border.all(color: PdfColors.black, width: 0.5),
-                        borderRadius: const pw.BorderRadius.all(pw.Radius.circular(10)),
+                        border:
+                            pw.Border.all(color: PdfColors.black, width: 0.5),
+                        borderRadius:
+                            const pw.BorderRadius.all(pw.Radius.circular(10)),
                       ),
                       child: pw.Padding(
-                        padding: const pw.EdgeInsets.only(top: 5, bottom: 5, left: 5, right: 5),
+                        padding: const pw.EdgeInsets.only(
+                            top: 5, bottom: 5, left: 5, right: 5),
                         child: pw.Text(
                           'Bill/Invoice',
-                          style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 9, fontWeight: pw.FontWeight.bold),
+                          style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                              color: PdfColors.black,
+                              fontSize: 9,
+                              fontWeight: pw.FontWeight.bold),
                         ),
                       ))),
             ),
 
             ///___________price_section_____________________________________________________
-            pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-              ///_________Left_Side__________________________________________________________
-              pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-                ///_____Name_______________________________________
-                pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                  pw.SizedBox(
-                    child: pw.Text(
-                      'Customer',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                    ),
-                  ),
-                  pw.Padding(
-                    padding: pw.EdgeInsets.symmetric(horizontal: 5),
-                    child: pw.Text(
-                      ':',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize:8),
-                    ),
-                  ),
-                  pw.SizedBox(
-                    child: pw.Text(
-                      textAlign: pw.TextAlign.right,
-                      transactions.customerName,
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                    ),
-                  ),
-                ]),
+            pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  ///_________Left_Side__________________________________________________________
+                  pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        ///_____Name_______________________________________
+                        pw.Row(
+                            mainAxisAlignment:
+                                pw.MainAxisAlignment.spaceBetween,
+                            children: [
+                              pw.SizedBox(
+                                child: pw.Text(
+                                  'Customer',
+                                  style: pw.Theme.of(context)
+                                      .defaultTextStyle
+                                      .copyWith(
+                                          color: PdfColors.black, fontSize: 8),
+                                ),
+                              ),
+                              pw.Padding(
+                                padding: pw.EdgeInsets.symmetric(horizontal: 5),
+                                child: pw.Text(
+                                  ':',
+                                  style: pw.Theme.of(context)
+                                      .defaultTextStyle
+                                      .copyWith(
+                                          color: PdfColors.black, fontSize: 8),
+                                ),
+                              ),
+                              pw.SizedBox(
+                                child: pw.Text(
+                                  textAlign: pw.TextAlign.right,
+                                  transactions.customerName,
+                                  style: pw.Theme.of(context)
+                                      .defaultTextStyle
+                                      .copyWith(
+                                          color: PdfColors.black, fontSize: 8),
+                                ),
+                              ),
+                            ]),
 
-                ///_____Phone_______________________________________
-                pw.SizedBox(height: 2),
-                pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                  pw.SizedBox(
-                    child: pw.Text(
-                      'Phone',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                    ),
-                  ),
-                  pw.Padding(
-                    padding: pw.EdgeInsets.symmetric(horizontal: 5),
-                    child: pw.Text(
-                      ':',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                    ),
-                  ),
-                  pw.SizedBox(
-                    child: pw.Text(
-                      textAlign: pw.TextAlign.right,
-                      transactions.customerPhone,
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                    ),
-                  ),
-                ]),
+                        ///_____Phone_______________________________________
+                        pw.SizedBox(height: 2),
+                        pw.Row(
+                            mainAxisAlignment:
+                                pw.MainAxisAlignment.spaceBetween,
+                            children: [
+                              pw.SizedBox(
+                                child: pw.Text(
+                                  'Phone',
+                                  style: pw.Theme.of(context)
+                                      .defaultTextStyle
+                                      .copyWith(
+                                          color: PdfColors.black, fontSize: 8),
+                                ),
+                              ),
+                              pw.Padding(
+                                padding: pw.EdgeInsets.symmetric(horizontal: 5),
+                                child: pw.Text(
+                                  ':',
+                                  style: pw.Theme.of(context)
+                                      .defaultTextStyle
+                                      .copyWith(
+                                          color: PdfColors.black, fontSize: 8),
+                                ),
+                              ),
+                              pw.SizedBox(
+                                child: pw.Text(
+                                  textAlign: pw.TextAlign.right,
+                                  transactions.customerPhone,
+                                  style: pw.Theme.of(context)
+                                      .defaultTextStyle
+                                      .copyWith(
+                                          color: PdfColors.black, fontSize: 8),
+                                ),
+                              ),
+                            ]),
 
-                ///_____Address_______________________________________
-                pw.SizedBox(height: 2),
-                pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                  pw.SizedBox(
-                    child: pw.Text(
-                      'Address',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                    ),
-                  ),
-                  pw.Padding(
-                    padding: pw.EdgeInsets.symmetric(horizontal: 5),
-                    child: pw.Text(
-                      ':',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                    ),
-                  ),
-                pw.SizedBox(
-                    child: pw.Text(
-                      textAlign: pw.TextAlign.right,
-                      transactions.customerAddress,
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                    ),
-                  ),
+                        ///_____Address_______________________________________
+                        pw.SizedBox(height: 2),
+                        pw.Row(
+                            mainAxisAlignment:
+                                pw.MainAxisAlignment.spaceBetween,
+                            children: [
+                              pw.SizedBox(
+                                child: pw.Text(
+                                  'Address',
+                                  style: pw.Theme.of(context)
+                                      .defaultTextStyle
+                                      .copyWith(
+                                          color: PdfColors.black, fontSize: 8),
+                                ),
+                              ),
+                              pw.Padding(
+                                padding: pw.EdgeInsets.symmetric(horizontal: 5),
+                                child: pw.Text(
+                                  ':',
+                                  style: pw.Theme.of(context)
+                                      .defaultTextStyle
+                                      .copyWith(
+                                          color: PdfColors.black, fontSize: 8),
+                                ),
+                              ),
+                              pw.SizedBox(
+                                child: pw.Text(
+                                  textAlign: pw.TextAlign.right,
+                                  transactions.customerAddress,
+                                  style: pw.Theme.of(context)
+                                      .defaultTextStyle
+                                      .copyWith(
+                                          color: PdfColors.black, fontSize: 8),
+                                ),
+                              ),
+                            ]),
+                        pw.SizedBox(height: 2),
+                        pw.Row(children: [
+                          pw.SizedBox(
+                            child: pw.Text(
+                              'Invoice',
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                      color: PdfColors.black, fontSize: 8),
+                            ),
+                          ),
+                          pw.Padding(
+                            padding: pw.EdgeInsets.symmetric(horizontal: 5),
+                            child: pw.Text(
+                              ':',
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                      color: PdfColors.black, fontSize: 8),
+                            ),
+                          ),
+                          pw.SizedBox(
+                            child: pw.Text(
+                              textAlign: pw.TextAlign.right,
+                              '#${transactions.invoiceNumber}',
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                      color: PdfColors.black, fontSize: 8),
+                            ),
+                          ),
+                        ]),
+                        pw.SizedBox(height: 2),
+                      ]),
                 ]),
-                pw.SizedBox(height: 2),
-                pw.Row(children: [
-                  pw.SizedBox(
-                    child: pw.Text(
-                      'Invoice',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                    ),
-                  ),
-                  pw.Padding(
-                    padding: pw.EdgeInsets.symmetric(horizontal: 5),
-                    child: pw.Text(
-                      ':',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                    ),
-                  ),
-                  pw.SizedBox(
-                    child: pw.Text(
-                      textAlign: pw.TextAlign.right,
-                      '#${transactions.invoiceNumber}',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                    ),
-                  ),
-                ]),
-                pw.SizedBox(height: 2),
-              ]),
-            ]),
           ],
         );
       },
       build: (pw.Context context) => <pw.Widget>[
         pw.Column(
-            children: [
-              ///___________Table__________________________________________________________
-              pw.Table.fromTextArray(
-                context: context,
-                cellPadding: pw.EdgeInsets.zero,
-                border: const pw.TableBorder(
-                  left: pw.BorderSide(
-                    color: PdfColors.grey600,
-                  ),
-                  right: pw.BorderSide(
-                    color: PdfColors.grey600,
-                  ),
-                  bottom: pw.BorderSide(
-                    color: PdfColors.grey600,
-                  ),
-                  top: pw.BorderSide(
-                    color: PdfColors.grey600,
-                  ),
-                  verticalInside: pw.BorderSide(
-                    color: PdfColors.grey600,
-                  ),
-                  horizontalInside: pw.BorderSide(
-                    color: PdfColors.grey600,
-                  ),
+          children: [
+            ///___________Table__________________________________________________________
+            pw.Table.fromTextArray(
+              context: context,
+              cellPadding: pw.EdgeInsets.zero,
+              border: const pw.TableBorder(
+                left: pw.BorderSide(
+                  color: PdfColors.grey600,
                 ),
-                // headerDecoration: pw.BoxDecoration(color: PdfColor.fromHex('#D5D8DC')),
-                columnWidths: <int, pw.TableColumnWidth>{
-                  0:  pw.FlexColumnWidth( /*( size > 3 ) ? 4.5 :*/ 4 ),
-                  1:  pw.FlexColumnWidth( /*( size > 3 ) ? 2.5 :*/ 3),
-                  2: const pw.FlexColumnWidth(3),
-                  3: const pw.FlexColumnWidth(3),
-                },
-                cellStyle:  pw.TextStyle(color: PdfColors.black, fontSize:  getFontSize(transactions), ),
-                headerStyle: pw.TextStyle(color: PdfColors.black, fontSize: 8, fontWeight: pw.FontWeight.bold),
-                rowDecoration: const pw.BoxDecoration(color: PdfColors.white),
-                // oddRowDecoration: const pw.BoxDecoration(color: PdfColors.grey100),
-                headerAlignments: <int, pw.Alignment>{
-                  0: pw.Alignment.centerLeft,
-                  1: pw.Alignment.center,
-                  2: pw.Alignment.center,
-                  3: pw.Alignment.center,
-                },
-                cellAlignments: <int, pw.Alignment>{
-                  0: pw.Alignment.centerLeft,
-                  1: pw.Alignment.center,
-                  2: pw.Alignment.center,
-                  3: pw.Alignment.center,
-                },
-                data: <List<String>>[
-                  <String>['Item',  'Qty', 'Price', 'Total'],
-                  for (int i = 0; i < transactions.productList!.length; i++)
-                    <String>[
-                      ("${transactions.productList!.elementAt(i).productName.toString()}\n${(transactions.productList!.elementAt(i).serialNumber?.isEmpty ?? true) ? '' : transactions.productList!.elementAt(i).serialNumber.toString()}"),
-                      (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).quantity.toString()) ?? 0)),
-                      (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).subTotal.toString()) ?? 0)),
-                      (myFormat.format(double.tryParse(
-                          (double.parse(transactions.productList!.elementAt(i).subTotal) * transactions.productList!.elementAt(i).quantity.toInt())
-                              .toStringAsFixed(2)) ??
-                          0))
-                    ],
-                ],
+                right: pw.BorderSide(
+                  color: PdfColors.grey600,
+                ),
+                bottom: pw.BorderSide(
+                  color: PdfColors.grey600,
+                ),
+                top: pw.BorderSide(
+                  color: PdfColors.grey600,
+                ),
+                verticalInside: pw.BorderSide(
+                  color: PdfColors.grey600,
+                ),
+                horizontalInside: pw.BorderSide(
+                  color: PdfColors.grey600,
+                ),
               ),
-              // pw.SizedBox(width: 5),
-              pw.Paragraph(text: ""),
-              pw.Column(
+              // headerDecoration: pw.BoxDecoration(color: PdfColor.fromHex('#D5D8DC')),
+              columnWidths: <int, pw.TableColumnWidth>{
+                0: pw.FlexColumnWidth(/*( size > 3 ) ? 4.5 :*/ 4),
+                1: pw.FlexColumnWidth(/*( size > 3 ) ? 2.5 :*/ 3),
+                2: const pw.FlexColumnWidth(3),
+                3: const pw.FlexColumnWidth(3),
+              },
+              cellStyle: pw.TextStyle(
+                color: PdfColors.black,
+                fontSize: getFontSize(transactions),
+              ),
+              headerStyle: pw.TextStyle(
+                  color: PdfColors.black,
+                  fontSize: 8,
+                  fontWeight: pw.FontWeight.bold),
+              rowDecoration: const pw.BoxDecoration(color: PdfColors.white),
+              // oddRowDecoration: const pw.BoxDecoration(color: PdfColors.grey100),
+              headerAlignments: <int, pw.Alignment>{
+                0: pw.Alignment.centerLeft,
+                1: pw.Alignment.center,
+                2: pw.Alignment.center,
+                3: pw.Alignment.center,
+              },
+              cellAlignments: <int, pw.Alignment>{
+                0: pw.Alignment.centerLeft,
+                1: pw.Alignment.center,
+                2: pw.Alignment.center,
+                3: pw.Alignment.center,
+              },
+              data: <List<String>>[
+                <String>['Item', 'Qty', 'Price', 'Total'],
+                for (int i = 0; i < transactions.productList!.length; i++)
+                  <String>[
+                    ("${transactions.productList!.elementAt(i).productName.toString()}\n${(transactions.productList!.elementAt(i).serialNumber?.isEmpty ?? true) ? '' : transactions.productList!.elementAt(i).serialNumber.toString()}"),
+                    (myFormat.format(double.tryParse(transactions.productList!
+                            .elementAt(i)
+                            .quantity
+                            .toString()) ??
+                        0)),
+                    (myFormat.format(double.tryParse(transactions.productList!
+                            .elementAt(i)
+                            .subTotal
+                            .toString()) ??
+                        0)),
+                    (myFormat.format(double.tryParse((double.parse(transactions
+                                    .productList!
+                                    .elementAt(i)
+                                    .subTotal) *
+                                transactions.productList!
+                                    .elementAt(i)
+                                    .quantity
+                                    .toInt())
+                            .toStringAsFixed(2)) ??
+                        0))
+                  ],
+              ],
+            ),
+            // pw.SizedBox(width: 5),
+            pw.Paragraph(text: ""),
+            pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                ///________Total_Amount_____________________________________
-                pw.Row(
-                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  ///________Total_Amount_____________________________________
+                  pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                      children: [
+                        pw.SizedBox(
+                          child: pw.Text(
+                            'Total Amount',
+                            style:
+                                pw.Theme.of(context).defaultTextStyle.copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 8,
+                                    ),
+                          ),
+                        ),
+                        pw.Container(
+                          alignment: pw.Alignment.centerLeft,
+                          child: pw.Text(
+                            myFormat.format(double.tryParse(
+                                    totalAmount(transactions: transactions)
+                                        .toString()) ??
+                                0),
+                            style:
+                                pw.Theme.of(context).defaultTextStyle.copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 8,
+                                    ),
+                          ),
+                        ),
+                      ]),
+                  pw.SizedBox(height: 2),
 
-                    children: [
-                  pw.SizedBox(
-                    child: pw.Text(
-                      'Total Amount',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                        color: PdfColors.black,
-                        fontSize: 8,
-                      ),
-                    ),
-                  ),
-                  pw.Container(
-                    alignment: pw.Alignment.centerLeft,
-                    child: pw.Text(
-                      myFormat.format(double.tryParse(totalAmount(transactions: transactions).toString()) ?? 0),
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                        color: PdfColors.black,
-                        fontSize: 8,
-                      ),
-                    ),
-                  ),
+                  ///________vat_______________________________________________
+                  pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                      children: [
+                        pw.SizedBox(
+                          child: pw.Text(
+                            'VAT/GST',
+                            style:
+                                pw.Theme.of(context).defaultTextStyle.copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 8,
+                                    ),
+                          ),
+                        ),
+                        pw.Container(
+                          alignment: pw.Alignment.centerLeft,
+                          child: pw.Text(
+                            myFormat.format(
+                                double.tryParse(transactions.vat.toString()) ??
+                                    0),
+                            style:
+                                pw.Theme.of(context).defaultTextStyle.copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 8,
+                                    ),
+                          ),
+                        ),
+                      ]),
+                  pw.SizedBox(height: 2),
+
+                  ///________Service/Shipping__________________________________
+                  pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                      children: [
+                        pw.SizedBox(
+                          child: pw.Text(
+                            "Service/Shipping",
+                            style:
+                                pw.Theme.of(context).defaultTextStyle.copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 8,
+                                    ),
+                          ),
+                        ),
+                        pw.Container(
+                          alignment: pw.Alignment.centerLeft,
+                          child: pw.Text(
+                            myFormat.format(double.tryParse(
+                                    transactions.serviceCharge.toString()) ??
+                                0),
+                            style:
+                                pw.Theme.of(context).defaultTextStyle.copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 8,
+                                    ),
+                          ),
+                        ),
+                      ]),
+                  pw.SizedBox(height: 2),
+
+                  ///_________divider__________________________________________
+                  pw.Divider(
+                      thickness: .5, height: 0.5, color: PdfColors.black),
+                  pw.SizedBox(height: 2),
+
+                  ///________Sub Total Amount_______________________________________________
+                  pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                      children: [
+                        pw.SizedBox(
+                          child: pw.Text(
+                            'Sub-Total',
+                            style:
+                                pw.Theme.of(context).defaultTextStyle.copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 8,
+                                    ),
+                          ),
+                        ),
+                        pw.Container(
+                          alignment: pw.Alignment.centerLeft,
+                          child: pw.Text(
+                            myFormat.format(double.tryParse((transactions.vat!
+                                            .toDouble() +
+                                        transactions.serviceCharge!.toDouble() +
+                                        totalAmount(transactions: transactions))
+                                    .toString()) ??
+                                0),
+                            style:
+                                pw.Theme.of(context).defaultTextStyle.copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 8,
+                                    ),
+                          ),
+                        ),
+                      ]),
+                  pw.SizedBox(height: 2),
+
+                  ///________Discount_______________________________________________
+                  pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                      children: [
+                        pw.SizedBox(
+                          child: pw.Text(
+                            'Discount',
+                            style:
+                                pw.Theme.of(context).defaultTextStyle.copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 8,
+                                    ),
+                          ),
+                        ),
+                        pw.Container(
+                          alignment: pw.Alignment.centerLeft,
+                          child: pw.Text(
+                            '- ${myFormat.format(double.tryParse(transactions.discountAmount.toString()) ?? 0)}',
+                            style:
+                                pw.Theme.of(context).defaultTextStyle.copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 8,
+                                    ),
+                          ),
+                        ),
+                      ]),
+                  pw.SizedBox(height: 2),
+
+                  ///_________divider__________________________________________
+                  pw.Divider(
+                      thickness: .5, height: 0.5, color: PdfColors.black),
+                  pw.SizedBox(height: 2),
+
+                  ///________payable_Amount_______________________________________________
+                  pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                      children: [
+                        pw.SizedBox(
+                          child: pw.Text(
+                            'Net Payable Amount',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 8,
+                                    fontWeight: pw.FontWeight.bold),
+                          ),
+                        ),
+                        pw.Container(
+                          alignment: pw.Alignment.centerRight,
+                          child: pw.Text(
+                            myFormat.format(double.tryParse(
+                                    transactions.totalAmount.toString()) ??
+                                0),
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 8,
+                                    fontWeight: pw.FontWeight.bold),
+                          ),
+                        ),
+                      ]),
+                  pw.SizedBox(height: 2),
+
+                  ///________Received_Amount_______________________________________________
+                  pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                      children: [
+                        pw.SizedBox(
+                          child: pw.Text(
+                            'Received Amount',
+                            style:
+                                pw.Theme.of(context).defaultTextStyle.copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 8,
+                                    ),
+                          ),
+                        ),
+                        pw.Container(
+                          alignment: pw.Alignment.centerRight,
+                          child: pw.Text(
+                            myFormat.format(double.tryParse(
+                                (transactions.totalAmount! -
+                                        transactions.dueAmount!)
+                                    .toString())),
+                            style:
+                                pw.Theme.of(context).defaultTextStyle.copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 8,
+                                    ),
+                          ),
+                        ),
+                      ]),
+                  pw.SizedBox(height: 2),
+
+                  ///_________divider__________________________________________
+                  pw.Divider(
+                      thickness: .5, height: 0.5, color: PdfColors.black),
+                  pw.SizedBox(height: 2),
+
+                  ///________Received_Amount_______________________________________________
+                  pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                      children: [
+                        pw.SizedBox(
+                          child: pw.Text(
+                            'Due Amount',
+                            style:
+                                pw.Theme.of(context).defaultTextStyle.copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 8,
+                                    ),
+                          ),
+                        ),
+                        pw.Container(
+                          alignment: pw.Alignment.centerRight,
+                          child: pw.Text(
+                            myFormat.format(double.tryParse(
+                                    transactions.dueAmount!.toString()) ??
+                                0),
+                            style:
+                                pw.Theme.of(context).defaultTextStyle.copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 8,
+                                    ),
+                          ),
+                        ),
+                      ]),
+                  pw.SizedBox(height: 2),
                 ]),
-                pw.SizedBox(height: 2),
-
-              ///________vat_______________________________________________
-              pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                pw.SizedBox(
-                  child: pw.Text(
-                    'VAT/GST',
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          color: PdfColors.black,
-                          fontSize: 8,
-                        ),
-                  ),
-                ),
-                pw.Container(
-                  alignment: pw.Alignment.centerLeft,
-                  child: pw.Text(
-                    myFormat.format(double.tryParse(transactions.vat.toString()) ?? 0),
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          color: PdfColors.black,
-                          fontSize: 8,
-                        ),
-                  ),
-                ),
-              ]),
-              pw.SizedBox(height: 2),
-
-              ///________Service/Shipping__________________________________
-              pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                pw.SizedBox(
-                  child: pw.Text(
-                    "Service/Shipping",
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          color: PdfColors.black,
-                          fontSize: 8,
-                        ),
-                  ),
-                ),
-                pw.Container(
-                  alignment: pw.Alignment.centerLeft,
-                  child: pw.Text(
-                    myFormat.format(double.tryParse(transactions.serviceCharge.toString()) ?? 0),
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          color: PdfColors.black,
-                          fontSize: 8,
-                        ),
-                  ),
-                ),
-              ]),
-              pw.SizedBox(height: 2),
-
-              ///_________divider__________________________________________
-              pw.Divider(thickness: .5, height: 0.5, color: PdfColors.black),
-              pw.SizedBox(height: 2),
-
-              ///________Sub Total Amount_______________________________________________
-              pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                pw.SizedBox(
-                  child: pw.Text(
-                    'Sub-Total',
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          color: PdfColors.black,
-                          fontSize: 8,
-                        ),
-                  ),
-                ),
-                pw.Container(
-                  alignment: pw.Alignment.centerLeft,
-                  child: pw.Text(
-                    myFormat.format(double.tryParse((transactions.vat!.toDouble() + transactions.serviceCharge!.toDouble() + totalAmount(transactions: transactions)).toString()) ?? 0),
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          color: PdfColors.black,
-                          fontSize: 8,
-                        ),
-                  ),
-                ),
-              ]),
-              pw.SizedBox(height: 2),
-
-              ///________Discount_______________________________________________
-              pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                pw.SizedBox(
-                  child: pw.Text(
-                    'Discount',
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          color: PdfColors.black,
-                          fontSize: 8,
-                        ),
-                  ),
-                ),
-                pw.Container(
-                  alignment: pw.Alignment.centerLeft,
-                  child: pw.Text(
-                    '- ${myFormat.format(double.tryParse(transactions.discountAmount.toString()) ?? 0)}',
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          color: PdfColors.black,
-                          fontSize: 8,
-                        ),
-                  ),
-                ),
-              ]),
-              pw.SizedBox(height: 2),
-
-              ///_________divider__________________________________________
-              pw.Divider(thickness: .5, height: 0.5, color: PdfColors.black),
-              pw.SizedBox(height: 2),
-
-              ///________payable_Amount_______________________________________________
-              pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                pw.SizedBox(
-                  child: pw.Text(
-                    'Net Payable Amount',
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8, fontWeight: pw.FontWeight.bold),
-                  ),
-                ),
-                pw.Container(
-                  alignment: pw.Alignment.centerRight,
-                  child: pw.Text(
-                    myFormat.format(double.tryParse(transactions.totalAmount.toString()) ?? 0),
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8, fontWeight: pw.FontWeight.bold),
-                  ),
-                ),
-              ]),
-              pw.SizedBox(height: 2),
-
-              ///________Received_Amount_______________________________________________
-              pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                pw.SizedBox(
-                  child: pw.Text(
-                    'Received Amount',
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          color: PdfColors.black,
-                          fontSize: 8,
-                        ),
-                  ),
-                ),
-                pw.Container(
-                  alignment: pw.Alignment.centerRight,
-                  child: pw.Text(
-                    myFormat.format(double.tryParse((transactions.totalAmount! - transactions.dueAmount!).toString())),
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          color: PdfColors.black,
-                          fontSize: 8,
-                        ),
-                  ),
-                ),
-              ]),
-              pw.SizedBox(height: 2),
-
-              ///_________divider__________________________________________
-              pw.Divider(thickness: .5, height: 0.5, color: PdfColors.black),
-              pw.SizedBox(height: 2),
-
-              ///________Received_Amount_______________________________________________
-              pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                pw.SizedBox(
-                  child: pw.Text(
-                    'Due Amount',
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          color: PdfColors.black,
-                          fontSize: 8,
-                        ),
-                  ),
-                ),
-                pw.Container(
-                  alignment: pw.Alignment.centerRight,
-                  child: pw.Text(
-                    myFormat.format(double.tryParse(transactions.dueAmount!.toString()) ?? 0),
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          color: PdfColors.black,
-                          fontSize: 8,
-                        ),
-                  ),
-                ),
-              ]),
-              pw.SizedBox(height: 2),
-            ]),
             pw.SizedBox(height: 4),
           ],
         ),
       ],
       footer: (pw.Context context) {
-        return pw.Column(mainAxisAlignment: pw.MainAxisAlignment.center, crossAxisAlignment: pw.CrossAxisAlignment.center, children: [
-          pw.Text(
-            textAlign: pw.TextAlign.center,
-            "Payment Method: ${transactions.paymentType}",
-            style: const pw.TextStyle(
-              color: PdfColors.black,
-              fontSize: 8,
-            ),
-          ),
-          pw.SizedBox(height: 2.0),
-          pw.Container(
-            child: pw.Text(
-              textAlign: pw.TextAlign.center,
-              "In Word: ${amountToWords(transactions.totalAmount!.toInt())}",
-              maxLines: 3,
-              style: pw.TextStyle(color: PdfColors.black, fontSize: 8, fontWeight: pw.FontWeight.bold),
-            ),
-          ),
-          pw.Padding(padding: const pw.EdgeInsets.all(5)),
-          pw.SizedBox(height: 10),
-        ]);
+        return pw.Column(
+            mainAxisAlignment: pw.MainAxisAlignment.center,
+            crossAxisAlignment: pw.CrossAxisAlignment.center,
+            children: [
+              pw.Text(
+                textAlign: pw.TextAlign.center,
+                "Payment Method: ${transactions.paymentType}",
+                style: const pw.TextStyle(
+                  color: PdfColors.black,
+                  fontSize: 8,
+                ),
+              ),
+              pw.SizedBox(height: 2.0),
+              pw.Container(
+                child: pw.Text(
+                  textAlign: pw.TextAlign.center,
+                  "In Word: ${amountToWords(transactions.totalAmount!.toInt())}",
+                  maxLines: 3,
+                  style: pw.TextStyle(
+                      color: PdfColors.black,
+                      fontSize: 8,
+                      fontWeight: pw.FontWeight.bold),
+                ),
+              ),
+              // pw.Padding(padding: const pw.EdgeInsets.only(bottom: 20)),
+              pw.Text(
+                textAlign: pw.TextAlign.center,
+                "----------------------------",
+                style: const pw.TextStyle(
+                  color: PdfColors.black,
+                  fontSize: 8,
+                ),
+              ),
+            ]);
       },
     ),
   );
@@ -504,16 +658,18 @@ FutureOr<Uint8List> generateSaleDocument58mm({required SaleTransactionModel tran
   return doc.save();
 }
 
-
-
-FutureOr<Uint8List> generateSaleDocument80mm({required SaleTransactionModel transactions, required PersonalInformationModel personalInformation}) async {
+FutureOr<Uint8List> generateSaleDocument80mm(
+    {required SaleTransactionModel transactions,
+    required PersonalInformationModel personalInformation}) async {
   final pw.Document doc = pw.Document();
   int size = 1;
   double totalAmount({required SaleTransactionModel transactions}) {
     double amount = 0;
 
     for (var element in transactions.productList!) {
-      amount = amount + double.parse(element.subTotal) * double.parse(element.quantity.toString());
+      amount = amount +
+          double.parse(element.subTotal) *
+              double.parse(element.quantity.toString());
     }
 
     return double.parse(amount.toStringAsFixed(2));
@@ -522,11 +678,11 @@ FutureOr<Uint8List> generateSaleDocument80mm({required SaleTransactionModel tran
   getHeight(SaleTransactionModel transactions) {
     int extraValue = 20;
     for (var element in transactions.productList!) {
-      if(element.productName!.length > 15) size++;
+      if (element.productName!.length > 15) size++;
     }
-    if(size > 2) extraValue = 70;
+    if (size > 2) extraValue = 70;
     // if(size > 5) extraValue = 50;
-    return ( 400 + ( transactions.productList!.length.toDouble()  *  extraValue));
+    return (400 + (transactions.productList!.length.toDouble() * extraValue));
   }
 
   doc.addPage(
@@ -534,12 +690,14 @@ FutureOr<Uint8List> generateSaleDocument80mm({required SaleTransactionModel tran
       // pageFormat: PdfPageFormat.roll80,
       // pageFormat: PdfPageFormat(200, 370, marginAll: 5),
       // pageFormat: PdfPageFormat(160, 342, marginAll: 2),
-      pageFormat: PdfPageFormat.letter.copyWith(width: 200, height: getHeight(transactions)),
+      pageFormat: PdfPageFormat.letter
+          .copyWith(width: 200, height: getHeight(transactions)),
       margin: pw.EdgeInsets.zero,
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       header: (pw.Context context) {
         return pw.Padding(
-          padding: const pw.EdgeInsets.only(left: 5, right: 0, bottom: 5, top: 5),
+          padding:
+              const pw.EdgeInsets.only(left: 5, right: 0, bottom: 5, top: 5),
           child: pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
@@ -547,7 +705,10 @@ FutureOr<Uint8List> generateSaleDocument80mm({required SaleTransactionModel tran
               pw.Center(
                 child: pw.Text(
                   personalInformation.companyName,
-                  style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 16, fontWeight: pw.FontWeight.bold),
+                  style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                      color: PdfColors.black,
+                      fontSize: 16,
+                      fontWeight: pw.FontWeight.bold),
                 ),
               ),
 
@@ -557,209 +718,317 @@ FutureOr<Uint8List> generateSaleDocument80mm({required SaleTransactionModel tran
                 child: pw.Center(
                     child: pw.Container(
                         decoration: pw.BoxDecoration(
-                          border: pw.Border.all(color: PdfColors.black, width: 0.5),
-                          borderRadius: const pw.BorderRadius.all(pw.Radius.circular(10)),
+                          border:
+                              pw.Border.all(color: PdfColors.black, width: 0.5),
+                          borderRadius:
+                              const pw.BorderRadius.all(pw.Radius.circular(10)),
                         ),
                         child: pw.Padding(
-                          padding: const pw.EdgeInsets.only(top: 5, bottom: 5, left: 5, right: 5),
+                          padding: const pw.EdgeInsets.only(
+                              top: 5, bottom: 5, left: 5, right: 5),
                           child: pw.Text(
                             'Bill/Invoice',
-                            style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 12, fontWeight: pw.FontWeight.bold),
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 12,
+                                    fontWeight: pw.FontWeight.bold),
                           ),
                         ))),
               ),
 
               ///___________price_section_____________________________________________________
-              pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-                ///_________Left_Side__________________________________________________________
-                pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-                  ///_____Name_______________________________________
-                  pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                    pw.SizedBox(
-                      child: pw.Text(
-                        'Customer',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                    pw.Padding(
-                      padding: pw.EdgeInsets.symmetric(horizontal: 10),
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      child: pw.Text(
-                        textAlign: pw.TextAlign.right,
-                        transactions.customerName,
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                  ]),
+              pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    ///_________Left_Side__________________________________________________________
+                    pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          ///_____Name_______________________________________
+                          pw.Row(
+                              mainAxisAlignment:
+                                  pw.MainAxisAlignment.spaceBetween,
+                              children: [
+                                pw.SizedBox(
+                                  child: pw.Text(
+                                    'Customer',
+                                    style: pw.Theme.of(context)
+                                        .defaultTextStyle
+                                        .copyWith(
+                                            color: PdfColors.black,
+                                            fontSize: 8),
+                                  ),
+                                ),
+                                pw.Padding(
+                                  padding:
+                                      pw.EdgeInsets.symmetric(horizontal: 10),
+                                  child: pw.Text(
+                                    ':',
+                                    style: pw.Theme.of(context)
+                                        .defaultTextStyle
+                                        .copyWith(
+                                            color: PdfColors.black,
+                                            fontSize: 8),
+                                  ),
+                                ),
+                                pw.SizedBox(
+                                  child: pw.Text(
+                                    textAlign: pw.TextAlign.right,
+                                    transactions.customerName,
+                                    style: pw.Theme.of(context)
+                                        .defaultTextStyle
+                                        .copyWith(
+                                            color: PdfColors.black,
+                                            fontSize: 8),
+                                  ),
+                                ),
+                              ]),
 
-                  ///_____Phone_______________________________________
-                  pw.SizedBox(height: 2),
-                  pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                    pw.SizedBox(
-                      child: pw.Text(
-                        'Phone',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                    pw.Padding(
-                      padding: pw.EdgeInsets.symmetric(horizontal: 10),
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      child: pw.Text(
-                        textAlign: pw.TextAlign.right,
-                        transactions.customerPhone,
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                  ]),
+                          ///_____Phone_______________________________________
+                          pw.SizedBox(height: 2),
+                          pw.Row(
+                              mainAxisAlignment:
+                                  pw.MainAxisAlignment.spaceBetween,
+                              children: [
+                                pw.SizedBox(
+                                  child: pw.Text(
+                                    'Phone',
+                                    style: pw.Theme.of(context)
+                                        .defaultTextStyle
+                                        .copyWith(
+                                            color: PdfColors.black,
+                                            fontSize: 8),
+                                  ),
+                                ),
+                                pw.Padding(
+                                  padding:
+                                      pw.EdgeInsets.symmetric(horizontal: 10),
+                                  child: pw.Text(
+                                    ':',
+                                    style: pw.Theme.of(context)
+                                        .defaultTextStyle
+                                        .copyWith(
+                                            color: PdfColors.black,
+                                            fontSize: 8),
+                                  ),
+                                ),
+                                pw.SizedBox(
+                                  child: pw.Text(
+                                    textAlign: pw.TextAlign.right,
+                                    transactions.customerPhone,
+                                    style: pw.Theme.of(context)
+                                        .defaultTextStyle
+                                        .copyWith(
+                                            color: PdfColors.black,
+                                            fontSize: 8),
+                                  ),
+                                ),
+                              ]),
 
-                  ///_____Address_______________________________________
-                  pw.SizedBox(height: 2),
-                  pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                    pw.SizedBox(
-                      child: pw.Text(
-                        'Address',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                    pw.Padding(
-                      padding: pw.EdgeInsets.symmetric(horizontal: 10),
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      child: pw.Text(
-                        textAlign: pw.TextAlign.right,
-                        transactions.customerAddress,
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                  ]),
-                ]),
+                          ///_____Address_______________________________________
+                          pw.SizedBox(height: 2),
+                          pw.Row(
+                              mainAxisAlignment:
+                                  pw.MainAxisAlignment.spaceBetween,
+                              children: [
+                                pw.SizedBox(
+                                  child: pw.Text(
+                                    'Address',
+                                    style: pw.Theme.of(context)
+                                        .defaultTextStyle
+                                        .copyWith(
+                                            color: PdfColors.black,
+                                            fontSize: 8),
+                                  ),
+                                ),
+                                pw.Padding(
+                                  padding:
+                                      pw.EdgeInsets.symmetric(horizontal: 10),
+                                  child: pw.Text(
+                                    ':',
+                                    style: pw.Theme.of(context)
+                                        .defaultTextStyle
+                                        .copyWith(
+                                            color: PdfColors.black,
+                                            fontSize: 8),
+                                  ),
+                                ),
+                                pw.SizedBox(
+                                  child: pw.Text(
+                                    textAlign: pw.TextAlign.right,
+                                    transactions.customerAddress,
+                                    style: pw.Theme.of(context)
+                                        .defaultTextStyle
+                                        .copyWith(
+                                            color: PdfColors.black,
+                                            fontSize: 8),
+                                  ),
+                                ),
+                              ]),
+                        ]),
 
-                ///_________Right_Side___________________________________________________________
+                    ///_________Right_Side___________________________________________________________
 
-                pw.SizedBox(width: 2),
-                pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-                  ///______invoice_number_____________________________________________
-                  pw.Row(children: [
-                    pw.SizedBox(
-                      child: pw.Text(
-                        'Invoice',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                    pw.Padding(
-                      padding: pw.EdgeInsets.symmetric(horizontal: 10),
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      child: pw.Text(
-                        textAlign: pw.TextAlign.right,
-                        '#${transactions.invoiceNumber}',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                  ]),
-                  pw.SizedBox(height: 2),
+                    pw.SizedBox(width: 2),
+                    pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          ///______invoice_number_____________________________________________
+                          pw.Row(children: [
+                            pw.SizedBox(
+                              child: pw.Text(
+                                'Invoice',
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
+                                        color: PdfColors.black, fontSize: 8),
+                              ),
+                            ),
+                            pw.Padding(
+                              padding: pw.EdgeInsets.symmetric(horizontal: 10),
+                              child: pw.Text(
+                                ':',
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
+                                        color: PdfColors.black, fontSize: 8),
+                              ),
+                            ),
+                            pw.SizedBox(
+                              child: pw.Text(
+                                textAlign: pw.TextAlign.right,
+                                '#${transactions.invoiceNumber}',
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
+                                        color: PdfColors.black, fontSize: 8),
+                              ),
+                            ),
+                          ]),
+                          pw.SizedBox(height: 2),
 
-                  ///_________Sells By________________________________________________
-                  pw.Row(children: [
-                    pw.SizedBox(
-                      child: pw.Text(
-                        'Sells By',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                    pw.Padding(
-                      padding: pw.EdgeInsets.symmetric(horizontal: 10),
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      child: pw.Text(
-                        textAlign: pw.TextAlign.right,
-                        'Admin',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                  ]),
-                  pw.SizedBox(height: 2),
+                          ///_________Sells By________________________________________________
+                          pw.Row(children: [
+                            pw.SizedBox(
+                              child: pw.Text(
+                                'Sells By',
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
+                                        color: PdfColors.black, fontSize: 8),
+                              ),
+                            ),
+                            pw.Padding(
+                              padding: pw.EdgeInsets.symmetric(horizontal: 10),
+                              child: pw.Text(
+                                ':',
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
+                                        color: PdfColors.black, fontSize: 8),
+                              ),
+                            ),
+                            pw.SizedBox(
+                              child: pw.Text(
+                                textAlign: pw.TextAlign.right,
+                                'Admin',
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
+                                        color: PdfColors.black, fontSize: 8),
+                              ),
+                            ),
+                          ]),
+                          pw.SizedBox(height: 2),
 
-                  ///______Date__________________________________________________________
-                  pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-                    pw.SizedBox(
-                      child: pw.Text(
-                        'Date',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                    pw.Padding(
-                      padding: pw.EdgeInsets.symmetric(horizontal: 10),
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                    pw.Container(
-                      child: pw.Text(
-                        textAlign: pw.TextAlign.right,
-                        '${DateFormat.yMd().format(DateTime.parse(transactions.purchaseDate))}, ${DateFormat.jm().format(DateTime.parse(transactions.purchaseDate))}',
-                        // DateTimeFormat.format(DateTime.parse(transactions.purchaseDate), format: AmericanDateTimeFormats.),
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                  ]),
-                  pw.SizedBox(height: 2),
+                          ///______Date__________________________________________________________
+                          pw.Row(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.SizedBox(
+                                  child: pw.Text(
+                                    'Date',
+                                    style: pw.Theme.of(context)
+                                        .defaultTextStyle
+                                        .copyWith(
+                                            color: PdfColors.black,
+                                            fontSize: 8),
+                                  ),
+                                ),
+                                pw.Padding(
+                                  padding:
+                                      pw.EdgeInsets.symmetric(horizontal: 10),
+                                  child: pw.Text(
+                                    ':',
+                                    style: pw.Theme.of(context)
+                                        .defaultTextStyle
+                                        .copyWith(
+                                            color: PdfColors.black,
+                                            fontSize: 8),
+                                  ),
+                                ),
+                                pw.Container(
+                                  child: pw.Text(
+                                    textAlign: pw.TextAlign.right,
+                                    '${DateFormat.yMd().format(DateTime.parse(transactions.purchaseDate))}, ${DateFormat.jm().format(DateTime.parse(transactions.purchaseDate))}',
+                                    // DateTimeFormat.format(DateTime.parse(transactions.purchaseDate), format: AmericanDateTimeFormats.),
+                                    style: pw.Theme.of(context)
+                                        .defaultTextStyle
+                                        .copyWith(
+                                            color: PdfColors.black,
+                                            fontSize: 8),
+                                  ),
+                                ),
+                              ]),
+                          pw.SizedBox(height: 2),
 
-                  ///______Status____________________________________________
-                  pw.Row(children: [
-                    pw.SizedBox(
-                      child: pw.Text(
-                        'Status',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                    pw.Padding(
-                      padding: pw.EdgeInsets.symmetric(horizontal: 10),
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 8),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      child: pw.Text(
-                        textAlign: pw.TextAlign.right,
-                        transactions.isPaid! ? 'Paid' : 'Due',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontWeight: pw.FontWeight.bold, fontSize: 8),
-                      ),
-                    ),
+                          ///______Status____________________________________________
+                          pw.Row(children: [
+                            pw.SizedBox(
+                              child: pw.Text(
+                                'Status',
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
+                                        color: PdfColors.black, fontSize: 8),
+                              ),
+                            ),
+                            pw.Padding(
+                              padding: pw.EdgeInsets.symmetric(horizontal: 10),
+                              child: pw.Text(
+                                ':',
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
+                                        color: PdfColors.black, fontSize: 8),
+                              ),
+                            ),
+                            pw.SizedBox(
+                              child: pw.Text(
+                                textAlign: pw.TextAlign.right,
+                                transactions.isPaid! ? 'Paid' : 'Due',
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
+                                        color: PdfColors.black,
+                                        fontWeight: pw.FontWeight.bold,
+                                        fontSize: 8),
+                              ),
+                            ),
+                          ]),
+                        ]),
                   ]),
-                ]),
-              ]),
             ],
           ),
         );
       },
       build: (pw.Context context) => <pw.Widget>[
         pw.Padding(
-          padding: const pw.EdgeInsets.only(top: 5, left: 2.0, right: 2.0, bottom: 5.0),
+          padding: const pw.EdgeInsets.only(
+              top: 5, left: 2.0, right: 2.0, bottom: 5.0),
           child: pw.Column(
             children: [
               ///___________Table__________________________________________________________
@@ -798,7 +1067,10 @@ FutureOr<Uint8List> generateSaleDocument80mm({required SaleTransactionModel tran
                   color: PdfColors.black,
                   fontSize: 8,
                 ),
-                headerStyle: pw.TextStyle(color: PdfColors.black, fontSize: 7, fontWeight: pw.FontWeight.bold),
+                headerStyle: pw.TextStyle(
+                    color: PdfColors.black,
+                    fontSize: 7,
+                    fontWeight: pw.FontWeight.bold),
                 rowDecoration: const pw.BoxDecoration(color: PdfColors.white),
                 // oddRowDecoration: const pw.BoxDecoration(color: PdfColors.grey100),
                 headerAlignments: <int, pw.Alignment>{
@@ -818,246 +1090,364 @@ FutureOr<Uint8List> generateSaleDocument80mm({required SaleTransactionModel tran
                   5: pw.Alignment.center,
                 },
                 data: <List<String>>[
-                  <String>['SL', 'Product Description', 'Warranty', 'Quantity', 'Unit Price', 'Price'],
+                  <String>[
+                    'SL',
+                    'Product Description',
+                    'Warranty',
+                    'Quantity',
+                    'Unit Price',
+                    'Price'
+                  ],
                   for (int i = 0; i < transactions.productList!.length; i++)
                     <String>[
                       ('${i + 1}'),
                       ("${transactions.productList!.elementAt(i).productName.toString()}\n${(transactions.productList!.elementAt(i).serialNumber?.isEmpty ?? true) ? '' : transactions.productList!.elementAt(i).serialNumber.toString()}"),
                       ('${transactions.productList!.elementAt(i).productWarranty.isEmptyOrNull ? '' : transactions.productList!.elementAt(i).productWarranty}'),
-                      (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).quantity.toString()) ?? 0)),
-                      (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).subTotal.toString()) ?? 0)),
-                      (myFormat.format(double.tryParse((double.parse(transactions.productList!.elementAt(i).subTotal) * transactions.productList!.elementAt(i).quantity.toInt()).toStringAsFixed(2)) ?? 0))
+                      (myFormat.format(double.tryParse(transactions.productList!
+                              .elementAt(i)
+                              .quantity
+                              .toString()) ??
+                          0)),
+                      (myFormat.format(double.tryParse(transactions.productList!
+                              .elementAt(i)
+                              .subTotal
+                              .toString()) ??
+                          0)),
+                      (myFormat.format(double.tryParse((double.parse(
+                                      transactions.productList!
+                                          .elementAt(i)
+                                          .subTotal) *
+                                  transactions.productList!
+                                      .elementAt(i)
+                                      .quantity
+                                      .toInt())
+                              .toStringAsFixed(2)) ??
+                          0))
                     ],
                 ],
               ),
               // pw.SizedBox(width: 5),
               pw.Paragraph(text: ""),
-              pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-                ///________Total_Amount_____________________________________
-                pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                  pw.SizedBox(
-                    child: pw.Text(
-                      'Total Amount',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                            color: PdfColors.black,
-                            fontSize: 9,
+              pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    ///________Total_Amount_____________________________________
+                    pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                          pw.SizedBox(
+                            child: pw.Text(
+                              'Total Amount',
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 9,
+                                  ),
+                            ),
                           ),
-                    ),
-                  ),
-                  pw.Container(
-                    alignment: pw.Alignment.centerLeft,
-                    child: pw.Text(
-                      myFormat.format(double.tryParse(totalAmount(transactions: transactions).toString()) ?? 0),
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                            color: PdfColors.black,
-                            fontSize: 9,
+                          pw.Container(
+                            alignment: pw.Alignment.centerLeft,
+                            child: pw.Text(
+                              myFormat.format(double.tryParse(
+                                      totalAmount(transactions: transactions)
+                                          .toString()) ??
+                                  0),
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 9,
+                                  ),
+                            ),
                           ),
-                    ),
-                  ),
-                ]),
-                pw.SizedBox(height: 2),
+                        ]),
+                    pw.SizedBox(height: 2),
 
-                ///________vat_______________________________________________
-                pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                  pw.SizedBox(
-                    child: pw.Text(
-                      'VAT/GST',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                            color: PdfColors.black,
-                            fontSize: 9,
+                    ///________vat_______________________________________________
+                    pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                          pw.SizedBox(
+                            child: pw.Text(
+                              'VAT/GST',
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 9,
+                                  ),
+                            ),
                           ),
-                    ),
-                  ),
-                  pw.Container(
-                    alignment: pw.Alignment.centerLeft,
-                    child: pw.Text(
-                      myFormat.format(double.tryParse(transactions.vat.toString()) ?? 0),
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                            color: PdfColors.black,
-                            fontSize: 9,
+                          pw.Container(
+                            alignment: pw.Alignment.centerLeft,
+                            child: pw.Text(
+                              myFormat.format(double.tryParse(
+                                      transactions.vat.toString()) ??
+                                  0),
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 9,
+                                  ),
+                            ),
                           ),
-                    ),
-                  ),
-                ]),
-                pw.SizedBox(height: 2),
+                        ]),
+                    pw.SizedBox(height: 2),
 
-                ///________Service/Shipping__________________________________
-                pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                  pw.SizedBox(
-                    child: pw.Text(
-                      "Service/Shipping",
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                            color: PdfColors.black,
-                            fontSize: 9,
+                    ///________Service/Shipping__________________________________
+                    pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                          pw.SizedBox(
+                            child: pw.Text(
+                              "Service/Shipping",
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 9,
+                                  ),
+                            ),
                           ),
-                    ),
-                  ),
-                  pw.Container(
-                    alignment: pw.Alignment.centerLeft,
-                    child: pw.Text(
-                      myFormat.format(double.tryParse(transactions.serviceCharge.toString()) ?? 0),
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                            color: PdfColors.black,
-                            fontSize: 9,
+                          pw.Container(
+                            alignment: pw.Alignment.centerLeft,
+                            child: pw.Text(
+                              myFormat.format(double.tryParse(
+                                      transactions.serviceCharge.toString()) ??
+                                  0),
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 9,
+                                  ),
+                            ),
                           ),
-                    ),
-                  ),
-                ]),
-                pw.SizedBox(height: 2),
+                        ]),
+                    pw.SizedBox(height: 2),
 
-                ///_________divider__________________________________________
-                pw.Divider(thickness: .5, height: 0.5, color: PdfColors.black),
-                pw.SizedBox(height: 2),
+                    ///_________divider__________________________________________
+                    pw.Divider(
+                        thickness: .5, height: 0.5, color: PdfColors.black),
+                    pw.SizedBox(height: 2),
 
-                ///________Sub Total Amount_______________________________________________
-                pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                  pw.SizedBox(
-                    child: pw.Text(
-                      'Sub-Total',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                            color: PdfColors.black,
-                            fontSize: 9,
+                    ///________Sub Total Amount_______________________________________________
+                    pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                          pw.SizedBox(
+                            child: pw.Text(
+                              'Sub-Total',
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 9,
+                                  ),
+                            ),
                           ),
-                    ),
-                  ),
-                  pw.Container(
-                    alignment: pw.Alignment.centerLeft,
-                    child: pw.Text(
-                      myFormat.format(double.tryParse((transactions.vat!.toDouble() + transactions.serviceCharge!.toDouble() + totalAmount(transactions: transactions)).toString()) ?? 0),
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                            color: PdfColors.black,
-                            fontSize: 9,
+                          pw.Container(
+                            alignment: pw.Alignment.centerLeft,
+                            child: pw.Text(
+                              myFormat.format(double.tryParse(
+                                      (transactions.vat!.toDouble() +
+                                              transactions.serviceCharge!
+                                                  .toDouble() +
+                                              totalAmount(
+                                                  transactions: transactions))
+                                          .toString()) ??
+                                  0),
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 9,
+                                  ),
+                            ),
                           ),
-                    ),
-                  ),
-                ]),
-                pw.SizedBox(height: 2),
+                        ]),
+                    pw.SizedBox(height: 2),
 
-                ///________Discount_______________________________________________
-                pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                  pw.SizedBox(
-                    child: pw.Text(
-                      'Discount',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                            color: PdfColors.black,
-                            fontSize: 9,
+                    ///________Discount_______________________________________________
+                    pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                          pw.SizedBox(
+                            child: pw.Text(
+                              'Discount',
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 9,
+                                  ),
+                            ),
                           ),
-                    ),
-                  ),
-                  pw.Container(
-                    alignment: pw.Alignment.centerLeft,
-                    child: pw.Text(
-                      '- ${myFormat.format(double.tryParse(transactions.discountAmount.toString()) ?? 0)}',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                            color: PdfColors.black,
-                            fontSize: 9,
+                          pw.Container(
+                            alignment: pw.Alignment.centerLeft,
+                            child: pw.Text(
+                              '- ${myFormat.format(double.tryParse(transactions.discountAmount.toString()) ?? 0)}',
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 9,
+                                  ),
+                            ),
                           ),
-                    ),
-                  ),
-                ]),
-                pw.SizedBox(height: 2),
+                        ]),
+                    pw.SizedBox(height: 2),
 
-                ///_________divider__________________________________________
-                pw.Divider(thickness: .5, height: 0.5, color: PdfColors.black),
-                pw.SizedBox(height: 2),
+                    ///_________divider__________________________________________
+                    pw.Divider(
+                        thickness: .5, height: 0.5, color: PdfColors.black),
+                    pw.SizedBox(height: 2),
 
-                ///________payable_Amount_______________________________________________
-                pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                  pw.SizedBox(
-                    child: pw.Text(
-                      'Net Payable Amount',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 9, fontWeight: pw.FontWeight.bold),
-                    ),
-                  ),
-                  pw.Container(
-                    alignment: pw.Alignment.centerRight,
-                    child: pw.Text(
-                      myFormat.format(double.tryParse(transactions.totalAmount.toString()) ?? 0),
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 9, fontWeight: pw.FontWeight.bold),
-                    ),
-                  ),
-                ]),
-                pw.SizedBox(height: 2),
+                    ///________payable_Amount_______________________________________________
+                    pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                          pw.SizedBox(
+                            child: pw.Text(
+                              'Net Payable Amount',
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 9,
+                                      fontWeight: pw.FontWeight.bold),
+                            ),
+                          ),
+                          pw.Container(
+                            alignment: pw.Alignment.centerRight,
+                            child: pw.Text(
+                              myFormat.format(double.tryParse(
+                                      transactions.totalAmount.toString()) ??
+                                  0),
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                      color: PdfColors.black,
+                                      fontSize: 9,
+                                      fontWeight: pw.FontWeight.bold),
+                            ),
+                          ),
+                        ]),
+                    pw.SizedBox(height: 2),
 
-                ///________Received_Amount_______________________________________________
-                pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                  pw.SizedBox(
-                    child: pw.Text(
-                      'Received Amount',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                            color: PdfColors.black,
-                            fontSize: 9,
+                    ///________Received_Amount_______________________________________________
+                    pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                          pw.SizedBox(
+                            child: pw.Text(
+                              'Received Amount',
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 9,
+                                  ),
+                            ),
                           ),
-                    ),
-                  ),
-                  pw.Container(
-                    alignment: pw.Alignment.centerRight,
-                    child: pw.Text(
-                      myFormat.format(double.tryParse((transactions.totalAmount! - transactions.dueAmount!).toString())),
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                            color: PdfColors.black,
-                            fontSize: 9,
+                          pw.Container(
+                            alignment: pw.Alignment.centerRight,
+                            child: pw.Text(
+                              myFormat.format(double.tryParse(
+                                  (transactions.totalAmount! -
+                                          transactions.dueAmount!)
+                                      .toString())),
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 9,
+                                  ),
+                            ),
                           ),
-                    ),
-                  ),
-                ]),
-                pw.SizedBox(height: 2),
+                        ]),
+                    pw.SizedBox(height: 2),
 
-                ///_________divider__________________________________________
-                pw.Divider(thickness: .5, height: 0.5, color: PdfColors.black),
-                pw.SizedBox(height: 2),
+                    ///_________divider__________________________________________
+                    pw.Divider(
+                        thickness: .5, height: 0.5, color: PdfColors.black),
+                    pw.SizedBox(height: 2),
 
-                ///________Received_Amount_______________________________________________
-                pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                  pw.SizedBox(
-                    child: pw.Text(
-                      'Due Amount',
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                            color: PdfColors.black,
-                            fontSize: 9,
+                    ///________Received_Amount_______________________________________________
+                    pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                          pw.SizedBox(
+                            child: pw.Text(
+                              'Due Amount',
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 9,
+                                  ),
+                            ),
                           ),
-                    ),
-                  ),
-                  pw.Container(
-                    alignment: pw.Alignment.centerRight,
-                    child: pw.Text(
-                      myFormat.format(double.tryParse(transactions.dueAmount!.toString()) ?? 0),
-                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                            color: PdfColors.black,
-                            fontSize: 9,
+                          pw.Container(
+                            alignment: pw.Alignment.centerRight,
+                            child: pw.Text(
+                              myFormat.format(double.tryParse(
+                                      transactions.dueAmount!.toString()) ??
+                                  0),
+                              style: pw.Theme.of(context)
+                                  .defaultTextStyle
+                                  .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 9,
+                                  ),
+                            ),
                           ),
-                    ),
-                  ),
-                ]),
-                pw.SizedBox(height: 2),
-              ]),
+                        ]),
+                    pw.SizedBox(height: 2),
+                  ]),
               pw.SizedBox(height: 10),
             ],
           ),
         ),
       ],
       footer: (pw.Context context) {
-        return pw.Column(mainAxisAlignment: pw.MainAxisAlignment.center, crossAxisAlignment: pw.CrossAxisAlignment.center, children: [
-          pw.Text(
-            textAlign: pw.TextAlign.center,
-            "Payment Method: ${transactions.paymentType}",
-            style: const pw.TextStyle(
-              color: PdfColors.black,
-              fontSize: 10,
-            ),
-          ),
-          pw.SizedBox(height: 2.0),
-          pw.Container(
-            child: pw.Text(
-              textAlign: pw.TextAlign.center,
-              "In Word: ${amountToWords(transactions.totalAmount!.toInt())}",
-              maxLines: 3,
-              style: pw.TextStyle(color: PdfColors.black, fontSize: 10, fontWeight: pw.FontWeight.bold),
-            ),
-          ),
-          pw.Padding(padding: const pw.EdgeInsets.all(5)),
-          pw.SizedBox(height: 10),
-        ]);
+        return pw.Column(
+            mainAxisAlignment: pw.MainAxisAlignment.center,
+            crossAxisAlignment: pw.CrossAxisAlignment.center,
+            children: [
+              pw.Text(
+                textAlign: pw.TextAlign.center,
+                "Payment Method: ${transactions.paymentType}",
+                style: const pw.TextStyle(
+                  color: PdfColors.black,
+                  fontSize: 10,
+                ),
+              ),
+              pw.SizedBox(height: 2.0),
+              pw.Container(
+                child: pw.Text(
+                  textAlign: pw.TextAlign.center,
+                  "In Word: ${amountToWords(transactions.totalAmount!.toInt())}",
+                  maxLines: 3,
+                  style: pw.TextStyle(
+                      color: PdfColors.black,
+                      fontSize: 10,
+                      fontWeight: pw.FontWeight.bold),
+                ),
+              ),
+              pw.Padding(padding: const pw.EdgeInsets.all(5)),
+              pw.SizedBox(height: 10),
+               pw.Text(
+                textAlign: pw.TextAlign.center,
+                "----------------------------",
+                style: const pw.TextStyle(
+                  color: PdfColors.black,
+                  fontSize: 8,
+                ),
+              ),
+            ]);
       },
     ),
   );
@@ -1065,13 +1455,17 @@ FutureOr<Uint8List> generateSaleDocument80mm({required SaleTransactionModel tran
   return doc.save();
 }
 
-FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transactions, required PersonalInformationModel personalInformation}) async {
+FutureOr<Uint8List> generateSaleDocument(
+    {required SaleTransactionModel transactions,
+    required PersonalInformationModel personalInformation}) async {
   final pw.Document doc = pw.Document();
   double totalAmount({required SaleTransactionModel transactions}) {
     double amount = 0;
 
     for (var element in transactions.productList!) {
-      amount = amount + double.parse(element.subTotal) * double.parse(element.quantity.toString());
+      amount = amount +
+          double.parse(element.subTotal) *
+              double.parse(element.quantity.toString());
     }
 
     return double.parse(amount.toStringAsFixed(2));
@@ -1085,7 +1479,8 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       header: (pw.Context context) {
         return pw.Padding(
-          padding: const pw.EdgeInsets.only(left: 20.0, right: 20, bottom: 20, top: 5),
+          padding: const pw.EdgeInsets.only(
+              left: 20.0, right: 20, bottom: 20, top: 5),
           child: pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.center,
             children: [
@@ -1096,7 +1491,10 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                 child: pw.Center(
                   child: pw.Text(
                     personalInformation.companyName,
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 22.0, fontWeight: pw.FontWeight.bold),
+                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                        color: PdfColors.black,
+                        fontSize: 22.0,
+                        fontWeight: pw.FontWeight.bold),
                   ),
                 ),
               ),
@@ -1108,208 +1506,264 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                 child: pw.Center(
                     child: pw.Container(
                         decoration: pw.BoxDecoration(
-                          border: pw.Border.all(color: PdfColors.black, width: 0.5),
-                          borderRadius: const pw.BorderRadius.all(pw.Radius.circular(10)),
+                          border:
+                              pw.Border.all(color: PdfColors.black, width: 0.5),
+                          borderRadius:
+                              const pw.BorderRadius.all(pw.Radius.circular(10)),
                         ),
                         child: pw.Padding(
-                          padding: const pw.EdgeInsets.only(top: 5, bottom: 5, left: 5, right: 5),
+                          padding: const pw.EdgeInsets.only(
+                              top: 5, bottom: 5, left: 5, right: 5),
                           child: pw.Text(
                             'Bill/Invoice',
-                            style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 16.0, fontWeight: pw.FontWeight.bold),
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(
+                                    color: PdfColors.black,
+                                    fontSize: 16.0,
+                                    fontWeight: pw.FontWeight.bold),
                           ),
                         ))),
               ),
 
               ///___________price_section_____________________________________________________
-              pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-                ///_________Left_Side__________________________________________________________
-                pw.Column(children: [
-                  ///_____Name_______________________________________
-                  pw.Row(children: [
-                    pw.SizedBox(
-                      width: 60.0,
-                      child: pw.Text(
-                        'Customer',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 10.0,
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 140.0,
-                      child: pw.Text(
-                        transactions.customerName,
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                  ]),
+              pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    ///_________Left_Side__________________________________________________________
+                    pw.Column(children: [
+                      ///_____Name_______________________________________
+                      pw.Row(children: [
+                        pw.SizedBox(
+                          width: 60.0,
+                          child: pw.Text(
+                            'Customer',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 10.0,
+                          child: pw.Text(
+                            ':',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 140.0,
+                          child: pw.Text(
+                            transactions.customerName,
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                      ]),
 
-                  ///_____Phone_______________________________________
-                  pw.SizedBox(height: 2),
-                  pw.Row(children: [
-                    pw.SizedBox(
-                      width: 60.0,
-                      child: pw.Text(
-                        'Phone',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 10.0,
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 140.0,
-                      child: pw.Text(
-                        transactions.customerPhone,
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                  ]),
+                      ///_____Phone_______________________________________
+                      pw.SizedBox(height: 2),
+                      pw.Row(children: [
+                        pw.SizedBox(
+                          width: 60.0,
+                          child: pw.Text(
+                            'Phone',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 10.0,
+                          child: pw.Text(
+                            ':',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 140.0,
+                          child: pw.Text(
+                            transactions.customerPhone,
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                      ]),
 
-                  ///_____Address_______________________________________
-                  pw.SizedBox(height: 2),
-                  pw.Row(children: [
-                    pw.SizedBox(
-                      width: 60.0,
-                      child: pw.Text(
-                        'Address',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 10.0,
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 140.0,
-                      child: pw.Text(
-                        transactions.customerAddress,
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                  ]),
+                      ///_____Address_______________________________________
+                      pw.SizedBox(height: 2),
+                      pw.Row(children: [
+                        pw.SizedBox(
+                          width: 60.0,
+                          child: pw.Text(
+                            'Address',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 10.0,
+                          child: pw.Text(
+                            ':',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 140.0,
+                          child: pw.Text(
+                            transactions.customerAddress,
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                      ]),
+                    ]),
 
-                ]),
+                    ///_________Right_Side___________________________________________________________
+                    pw.Column(children: [
+                      ///______invoice_number_____________________________________________
+                      pw.Row(children: [
+                        pw.SizedBox(
+                          width: 50.0,
+                          child: pw.Text(
+                            'Invoice',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 10.0,
+                          child: pw.Text(
+                            ':',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 125.0,
+                          child: pw.Text(
+                            '#${transactions.invoiceNumber}',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                      ]),
+                      pw.SizedBox(height: 2),
 
-                ///_________Right_Side___________________________________________________________
-                pw.Column(children: [
-                  ///______invoice_number_____________________________________________
-                  pw.Row(children: [
-                    pw.SizedBox(
-                      width: 50.0,
-                      child: pw.Text(
-                        'Invoice',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 10.0,
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 125.0,
-                      child: pw.Text(
-                        '#${transactions.invoiceNumber}',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                  ]),
-                  pw.SizedBox(height: 2),
+                      ///_________Sells By________________________________________________
+                      pw.Row(children: [
+                        pw.SizedBox(
+                          width: 50.0,
+                          child: pw.Text(
+                            'Sells By',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 10.0,
+                          child: pw.Text(
+                            ':',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 125.0,
+                          child: pw.Text(
+                            'Admin',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                      ]),
+                      pw.SizedBox(height: 2),
 
-                  ///_________Sells By________________________________________________
-                  pw.Row(children: [
-                    pw.SizedBox(
-                      width: 50.0,
-                      child: pw.Text(
-                        'Sells By',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 10.0,
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 125.0,
-                      child: pw.Text(
-                        'Admin',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                  ]),
-                  pw.SizedBox(height: 2),
+                      ///______Date__________________________________________________________
+                      pw.Row(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            pw.SizedBox(
+                              width: 50.0,
+                              child: pw.Text(
+                                'Date',
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(color: PdfColors.black),
+                              ),
+                            ),
+                            pw.SizedBox(
+                              width: 10.0,
+                              child: pw.Text(
+                                ':',
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(color: PdfColors.black),
+                              ),
+                            ),
+                            pw.Container(
+                              width: 125.0,
+                              child: pw.Text(
+                                '${DateFormat.yMd().format(DateTime.parse(transactions.purchaseDate))}, ${DateFormat.jm().format(DateTime.parse(transactions.purchaseDate))}',
+                                // DateTimeFormat.format(DateTime.parse(transactions.purchaseDate), format: AmericanDateTimeFormats.),
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(color: PdfColors.black),
+                              ),
+                            ),
+                          ]),
+                      pw.SizedBox(height: 2),
 
-                  ///______Date__________________________________________________________
-                  pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-                    pw.SizedBox(
-                      width: 50.0,
-                      child: pw.Text(
-                        'Date',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 10.0,
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.Container(
-                      width: 125.0,
-                      child: pw.Text(
-                        '${DateFormat.yMd().format(DateTime.parse(transactions.purchaseDate))}, ${DateFormat.jm().format(DateTime.parse(transactions.purchaseDate))}',
-                        // DateTimeFormat.format(DateTime.parse(transactions.purchaseDate), format: AmericanDateTimeFormats.),
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
+                      ///______Status____________________________________________
+                      pw.Row(children: [
+                        pw.SizedBox(
+                          width: 50.0,
+                          child: pw.Text(
+                            'Status',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 10.0,
+                          child: pw.Text(
+                            ':',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 125.0,
+                          child: pw.Text(
+                            transactions.isPaid! ? 'Paid' : 'Due',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(
+                                    color: PdfColors.black,
+                                    fontWeight: pw.FontWeight.bold),
+                          ),
+                        ),
+                      ]),
+                    ]),
                   ]),
-                  pw.SizedBox(height: 2),
-
-                  ///______Status____________________________________________
-                  pw.Row(children: [
-                    pw.SizedBox(
-                      width: 50.0,
-                      child: pw.Text(
-                        'Status',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 10.0,
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 125.0,
-                      child: pw.Text(
-                        transactions.isPaid! ? 'Paid' : 'Due',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontWeight: pw.FontWeight.bold),
-                      ),
-                    ),
-                  ]),
-                ]),
-              ]),
             ],
           ),
         );
@@ -1318,54 +1772,61 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
         return pw.Column(children: [
           pw.Padding(
             padding: const pw.EdgeInsets.all(10.0),
-            child: pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-              pw.Container(
-                alignment: pw.Alignment.centerRight,
-                margin: const pw.EdgeInsets.only(bottom: 3.0 * PdfPageFormat.mm),
-                padding: const pw.EdgeInsets.only(bottom: 3.0 * PdfPageFormat.mm),
-                child: pw.Column(children: [
+            child: pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
                   pw.Container(
-                    width: 120.0,
-                    height: 1.0,
-                    color: PdfColors.black,
+                    alignment: pw.Alignment.centerRight,
+                    margin: const pw.EdgeInsets.only(
+                        bottom: 3.0 * PdfPageFormat.mm),
+                    padding: const pw.EdgeInsets.only(
+                        bottom: 3.0 * PdfPageFormat.mm),
+                    child: pw.Column(children: [
+                      pw.Container(
+                        width: 120.0,
+                        height: 1.0,
+                        color: PdfColors.black,
+                      ),
+                      pw.SizedBox(height: 4.0),
+                      pw.Text(
+                        'Signature of Customer',
+                        style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                              color: PdfColors.black,
+                              fontSize: 11,
+                            ),
+                      )
+                    ]),
                   ),
-                  pw.SizedBox(height: 4.0),
-                  pw.Text(
-                    'Signature of Customer',
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          color: PdfColors.black,
-                          fontSize: 11,
-                        ),
-                  )
-                ]),
-              ),
-              pw.Container(
-                alignment: pw.Alignment.centerRight,
-                margin: const pw.EdgeInsets.only(bottom: 3.0 * PdfPageFormat.mm),
-                padding: const pw.EdgeInsets.only(bottom: 3.0 * PdfPageFormat.mm),
-                child: pw.Column(children: [
                   pw.Container(
-                    width: 120.0,
-                    height: 1.0,
-                    color: PdfColors.black,
+                    alignment: pw.Alignment.centerRight,
+                    margin: const pw.EdgeInsets.only(
+                        bottom: 3.0 * PdfPageFormat.mm),
+                    padding: const pw.EdgeInsets.only(
+                        bottom: 3.0 * PdfPageFormat.mm),
+                    child: pw.Column(children: [
+                      pw.Container(
+                        width: 120.0,
+                        height: 1.0,
+                        color: PdfColors.black,
+                      ),
+                      pw.SizedBox(height: 4.0),
+                      pw.Text(
+                        'Authorized Signature',
+                        style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                              color: PdfColors.black,
+                              fontSize: 11,
+                            ),
+                      )
+                    ]),
                   ),
-                  pw.SizedBox(height: 4.0),
-                  pw.Text(
-                    'Authorized Signature',
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                          color: PdfColors.black,
-                          fontSize: 11,
-                        ),
-                  )
                 ]),
-              ),
-            ]),
           ),
         ]);
       },
       build: (pw.Context context) => <pw.Widget>[
         pw.Padding(
-          padding: const pw.EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+          padding:
+              const pw.EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
           child: pw.Column(
             children: [
               ///___________Table__________________________________________________________
@@ -1400,7 +1861,10 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                   4: const pw.FlexColumnWidth(1.7),
                   5: const pw.FlexColumnWidth(1.5),
                 },
-                headerStyle: pw.TextStyle(color: PdfColors.black, fontSize: 11, fontWeight: pw.FontWeight.bold),
+                headerStyle: pw.TextStyle(
+                    color: PdfColors.black,
+                    fontSize: 11,
+                    fontWeight: pw.FontWeight.bold),
                 rowDecoration: const pw.BoxDecoration(color: PdfColors.white),
                 // oddRowDecoration: const pw.BoxDecoration(color: PdfColors.grey100),
                 headerAlignments: <int, pw.Alignment>{
@@ -1420,15 +1884,39 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                   5: pw.Alignment.centerRight,
                 },
                 data: <List<String>>[
-                  <String>['SL', 'Product Description', 'Warranty', 'Quantity', 'Unit Price', 'Price'],
+                  <String>[
+                    'SL',
+                    'Product Description',
+                    'Warranty',
+                    'Quantity',
+                    'Unit Price',
+                    'Price'
+                  ],
                   for (int i = 0; i < transactions.productList!.length; i++)
                     <String>[
                       ('${i + 1}'),
                       ("${transactions.productList!.elementAt(i).productName.toString()}\n${(transactions.productList!.elementAt(i).serialNumber?.isEmpty ?? true) ? '' : transactions.productList!.elementAt(i).serialNumber.toString()}"),
                       ('${transactions.productList!.elementAt(i).productWarranty.isEmptyOrNull ? '' : transactions.productList!.elementAt(i).productWarranty}'),
-                      (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).quantity.toString()) ?? 0)),
-                      (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).subTotal.toString()) ?? 0)),
-                      (myFormat.format(double.tryParse((double.parse(transactions.productList!.elementAt(i).subTotal) * transactions.productList!.elementAt(i).quantity.toInt()).toStringAsFixed(2)) ?? 0))
+                      (myFormat.format(double.tryParse(transactions.productList!
+                              .elementAt(i)
+                              .quantity
+                              .toString()) ??
+                          0)),
+                      (myFormat.format(double.tryParse(transactions.productList!
+                              .elementAt(i)
+                              .subTotal
+                              .toString()) ??
+                          0)),
+                      (myFormat.format(double.tryParse((double.parse(
+                                      transactions.productList!
+                                          .elementAt(i)
+                                          .subTotal) *
+                                  transactions.productList!
+                                      .elementAt(i)
+                                      .quantity
+                                      .toInt())
+                              .toStringAsFixed(2)) ??
+                          0))
                     ],
                 ],
               ),
@@ -1437,24 +1925,29 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
               pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                 children: [
-                  pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-                    pw.Text(
-                      "Payment Method: ${transactions.paymentType}",
-                      style: const pw.TextStyle(
-                        color: PdfColors.black,
-                        fontSize: 11,
-                      ),
-                    ),
-                    pw.SizedBox(height: 10.0),
-                    pw.Container(
-                      width: 300,
-                      child: pw.Text(
-                        "In Word: ${amountToWords(transactions.totalAmount!.toInt())}",
-                        maxLines: 3,
-                        style: pw.TextStyle(color: PdfColors.black, fontSize: 11, fontWeight: pw.FontWeight.bold),
-                      ),
-                    )
-                  ]),
+                  pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text(
+                          "Payment Method: ${transactions.paymentType}",
+                          style: const pw.TextStyle(
+                            color: PdfColors.black,
+                            fontSize: 11,
+                          ),
+                        ),
+                        pw.SizedBox(height: 10.0),
+                        pw.Container(
+                          width: 300,
+                          child: pw.Text(
+                            "In Word: ${amountToWords(transactions.totalAmount!.toInt())}",
+                            maxLines: 3,
+                            style: pw.TextStyle(
+                                color: PdfColors.black,
+                                fontSize: 11,
+                                fontWeight: pw.FontWeight.bold),
+                          ),
+                        )
+                      ]),
                   pw.SizedBox(
                     width: 250.0,
                     child: pw.Column(
@@ -1468,7 +1961,9 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                               width: 100.0,
                               child: pw.Text(
                                 'Total Amount',
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
                                       color: PdfColors.black,
                                       fontSize: 11,
                                     ),
@@ -1478,8 +1973,13 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                               alignment: pw.Alignment.centerRight,
                               width: 150.0,
                               child: pw.Text(
-                                myFormat.format(double.tryParse(totalAmount(transactions: transactions).toString()) ?? 0),
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                myFormat.format(double.tryParse(
+                                        totalAmount(transactions: transactions)
+                                            .toString()) ??
+                                    0),
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
                                       color: PdfColors.black,
                                       fontSize: 11,
                                     ),
@@ -1494,7 +1994,9 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                               width: 100.0,
                               child: pw.Text(
                                 'VAT/GST',
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
                                       color: PdfColors.black,
                                       fontSize: 11,
                                     ),
@@ -1504,8 +2006,12 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                               alignment: pw.Alignment.centerRight,
                               width: 150.0,
                               child: pw.Text(
-                                myFormat.format(double.tryParse(transactions.vat.toString()) ?? 0),
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                myFormat.format(double.tryParse(
+                                        transactions.vat.toString()) ??
+                                    0),
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
                                       color: PdfColors.black,
                                       fontSize: 11,
                                     ),
@@ -1520,7 +2026,9 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                               width: 100.0,
                               child: pw.Text(
                                 "Service/Shipping",
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
                                       color: PdfColors.black,
                                       fontSize: 11,
                                     ),
@@ -1530,8 +2038,13 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                               alignment: pw.Alignment.centerRight,
                               width: 150.0,
                               child: pw.Text(
-                                myFormat.format(double.tryParse(transactions.serviceCharge.toString()) ?? 0),
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                myFormat.format(double.tryParse(transactions
+                                        .serviceCharge
+                                        .toString()) ??
+                                    0),
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
                                       color: PdfColors.black,
                                       fontSize: 11,
                                     ),
@@ -1541,7 +2054,10 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                           pw.SizedBox(height: 2),
 
                           ///_________divider__________________________________________
-                          pw.Divider(thickness: .5, height: 0.5, color: PdfColors.black),
+                          pw.Divider(
+                              thickness: .5,
+                              height: 0.5,
+                              color: PdfColors.black),
                           pw.SizedBox(height: 2),
 
                           ///________Sub Total Amount_______________________________________________
@@ -1550,7 +2066,9 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                               width: 100.0,
                               child: pw.Text(
                                 'Sub-Total',
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
                                       color: PdfColors.black,
                                       fontSize: 11,
                                     ),
@@ -1560,8 +2078,18 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                               alignment: pw.Alignment.centerRight,
                               width: 150.0,
                               child: pw.Text(
-                                myFormat.format(double.tryParse((transactions.vat!.toDouble() + transactions.serviceCharge!.toDouble() + totalAmount(transactions: transactions)).toString()) ?? 0),
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                myFormat.format(double.tryParse(
+                                        (transactions.vat!.toDouble() +
+                                                transactions
+                                                    .serviceCharge!
+                                                    .toDouble() +
+                                                totalAmount(
+                                                    transactions: transactions))
+                                            .toString()) ??
+                                    0),
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
                                       color: PdfColors.black,
                                       fontSize: 11,
                                     ),
@@ -1576,7 +2104,9 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                               width: 100.0,
                               child: pw.Text(
                                 'Discount',
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
                                       color: PdfColors.black,
                                       fontSize: 11,
                                     ),
@@ -1587,7 +2117,9 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                               width: 150.0,
                               child: pw.Text(
                                 '- ${myFormat.format(double.tryParse(transactions.discountAmount.toString()) ?? 0)}',
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
                                       color: PdfColors.black,
                                       fontSize: 11,
                                     ),
@@ -1597,7 +2129,10 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                           pw.SizedBox(height: 2),
 
                           ///_________divider__________________________________________
-                          pw.Divider(thickness: .5, height: 0.5, color: PdfColors.black),
+                          pw.Divider(
+                              thickness: .5,
+                              height: 0.5,
+                              color: PdfColors.black),
                           pw.SizedBox(height: 2),
 
                           ///________payable_Amount_______________________________________________
@@ -1606,15 +2141,27 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                               width: 150.0,
                               child: pw.Text(
                                 'Net Payable Amount',
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 11, fontWeight: pw.FontWeight.bold),
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
+                                        color: PdfColors.black,
+                                        fontSize: 11,
+                                        fontWeight: pw.FontWeight.bold),
                               ),
                             ),
                             pw.Container(
                               alignment: pw.Alignment.centerRight,
                               width: 100.0,
                               child: pw.Text(
-                                myFormat.format(double.tryParse(transactions.totalAmount.toString()) ?? 0),
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 11, fontWeight: pw.FontWeight.bold),
+                                myFormat.format(double.tryParse(
+                                        transactions.totalAmount.toString()) ??
+                                    0),
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
+                                        color: PdfColors.black,
+                                        fontSize: 11,
+                                        fontWeight: pw.FontWeight.bold),
                               ),
                             ),
                           ]),
@@ -1626,7 +2173,9 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                               width: 100.0,
                               child: pw.Text(
                                 'Received Amount',
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
                                       color: PdfColors.black,
                                       fontSize: 11,
                                     ),
@@ -1636,8 +2185,13 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                               alignment: pw.Alignment.centerRight,
                               width: 150.0,
                               child: pw.Text(
-                                myFormat.format(double.tryParse((transactions.totalAmount! - transactions.dueAmount!).toString())),
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                myFormat.format(double.tryParse(
+                                    (transactions.totalAmount! -
+                                            transactions.dueAmount!)
+                                        .toString())),
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
                                       color: PdfColors.black,
                                       fontSize: 11,
                                     ),
@@ -1647,7 +2201,10 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                           pw.SizedBox(height: 2),
 
                           ///_________divider__________________________________________
-                          pw.Divider(thickness: .5, height: 0.5, color: PdfColors.black),
+                          pw.Divider(
+                              thickness: .5,
+                              height: 0.5,
+                              color: PdfColors.black),
                           pw.SizedBox(height: 2),
 
                           ///________Received_Amount_______________________________________________
@@ -1656,7 +2213,9 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                               width: 100.0,
                               child: pw.Text(
                                 'Due Amount',
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
                                       color: PdfColors.black,
                                       fontSize: 11,
                                     ),
@@ -1673,8 +2232,12 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
                               alignment: pw.Alignment.centerRight,
                               width: 150.0,
                               child: pw.Text(
-                                myFormat.format(double.tryParse(transactions.dueAmount!.toString()) ?? 0),
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                myFormat.format(double.tryParse(
+                                        transactions.dueAmount!.toString()) ??
+                                    0),
+                                style: pw.Theme.of(context)
+                                    .defaultTextStyle
+                                    .copyWith(
                                       color: PdfColors.black,
                                       fontSize: 11,
                                     ),
@@ -1699,14 +2262,17 @@ FutureOr<Uint8List> generateSaleDocument({required SaleTransactionModel transact
   return doc.save();
 }
 
-FutureOr<Uint8List> generateSaleDocumentStyle2({required SaleTransactionModel transactions, required PersonalInformationModel personalInformation}) async {
+FutureOr<Uint8List> generateSaleDocumentStyle2(
+    {required SaleTransactionModel transactions,
+    required PersonalInformationModel personalInformation}) async {
   final pw.Document doc = pw.Document();
   final netImage = await networkImage(
     'https://www.nfet.net/nfet.jpg',
   );
   doc.addPage(
     pw.MultiPage(
-      pageFormat: PdfPageFormat.letter.copyWith(marginBottom: 1.5 * PdfPageFormat.cm),
+      pageFormat:
+          PdfPageFormat.letter.copyWith(marginBottom: 1.5 * PdfPageFormat.cm),
       margin: pw.EdgeInsets.zero,
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       header: (pw.Context context) {
@@ -1719,25 +2285,38 @@ FutureOr<Uint8List> generateSaleDocumentStyle2({required SaleTransactionModel tr
                   height: 50.0,
                   width: 50.0,
                   alignment: pw.Alignment.centerLeft,
-                  margin: const pw.EdgeInsets.only(bottom: 3.0 * PdfPageFormat.mm),
-                  padding: const pw.EdgeInsets.only(bottom: 3.0 * PdfPageFormat.mm),
-                  decoration: pw.BoxDecoration(image: pw.DecorationImage(image: netImage), shape: pw.BoxShape.circle),
+                  margin:
+                      const pw.EdgeInsets.only(bottom: 3.0 * PdfPageFormat.mm),
+                  padding:
+                      const pw.EdgeInsets.only(bottom: 3.0 * PdfPageFormat.mm),
+                  decoration: pw.BoxDecoration(
+                      image: pw.DecorationImage(image: netImage),
+                      shape: pw.BoxShape.circle),
                 ),
                 pw.SizedBox(width: 10.0),
-                pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-                  pw.Text(
-                    personalInformation.companyName,
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 25.0, fontWeight: pw.FontWeight.bold),
-                  ),
-                  pw.Text(
-                    'Address: ${personalInformation.countryName}',
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.red),
-                  ),
-                  pw.Text(
-                    'Tel: ${personalInformation.phoneNumber!}',
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.red),
-                  ),
-                ]),
+                pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      pw.Text(
+                        personalInformation.companyName,
+                        style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                            color: PdfColors.black,
+                            fontSize: 25.0,
+                            fontWeight: pw.FontWeight.bold),
+                      ),
+                      pw.Text(
+                        'Address: ${personalInformation.countryName}',
+                        style: pw.Theme.of(context)
+                            .defaultTextStyle
+                            .copyWith(color: PdfColors.red),
+                      ),
+                      pw.Text(
+                        'Tel: ${personalInformation.phoneNumber!}',
+                        style: pw.Theme.of(context)
+                            .defaultTextStyle
+                            .copyWith(color: PdfColors.red),
+                      ),
+                    ]),
               ]),
               pw.SizedBox(height: 30.0),
               pw.Row(children: [
@@ -1765,127 +2344,161 @@ FutureOr<Uint8List> generateSaleDocumentStyle2({required SaleTransactionModel tr
                 ),
               ]),
               pw.SizedBox(height: 30.0),
-              pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                pw.Column(children: [
-                  pw.Row(children: [
-                    pw.SizedBox(
-                      width: 100.0,
-                      child: pw.Text(
-                        'Bill To',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 10.0,
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 100.0,
-                      child: pw.Text(
-                        transactions.customerName,
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
+              pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Column(children: [
+                      pw.Row(children: [
+                        pw.SizedBox(
+                          width: 100.0,
+                          child: pw.Text(
+                            'Bill To',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 10.0,
+                          child: pw.Text(
+                            ':',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 100.0,
+                          child: pw.Text(
+                            transactions.customerName,
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                      ]),
+                      pw.Row(children: [
+                        pw.SizedBox(
+                          width: 100.0,
+                          child: pw.Text(
+                            'Phone',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 10.0,
+                          child: pw.Text(
+                            ':',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 100.0,
+                          child: pw.Text(
+                            transactions.customerPhone,
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                      ]),
+                    ]),
+                    pw.Column(children: [
+                      pw.Row(children: [
+                        pw.SizedBox(
+                          width: 100.0,
+                          child: pw.Text(
+                            'Sells By',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 10.0,
+                          child: pw.Text(
+                            ':',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 100.0,
+                          child: pw.Text(
+                            'Admin',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                      ]),
+                      pw.Row(children: [
+                        pw.SizedBox(
+                          width: 100.0,
+                          child: pw.Text(
+                            'Invoice Number',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 10.0,
+                          child: pw.Text(
+                            ':',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 100.0,
+                          child: pw.Text(
+                            '#${transactions.invoiceNumber}',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                      ]),
+                      pw.Row(children: [
+                        pw.SizedBox(
+                          width: 100.0,
+                          child: pw.Text(
+                            'Date',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 10.0,
+                          child: pw.Text(
+                            ':',
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                        pw.SizedBox(
+                          width: 100.0,
+                          child: pw.Text(
+                            DateTimeFormat.format(
+                                DateTime.parse(transactions.purchaseDate),
+                                format: 'D, M j'),
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(color: PdfColors.black),
+                          ),
+                        ),
+                      ]),
+                    ]),
                   ]),
-                  pw.Row(children: [
-                    pw.SizedBox(
-                      width: 100.0,
-                      child: pw.Text(
-                        'Phone',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 10.0,
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 100.0,
-                      child: pw.Text(
-                        transactions.customerPhone,
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                  ]),
-                ]),
-                pw.Column(children: [
-                  pw.Row(children: [
-                    pw.SizedBox(
-                      width: 100.0,
-                      child: pw.Text(
-                        'Sells By',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 10.0,
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 100.0,
-                      child: pw.Text(
-                        'Admin',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                  ]),
-                  pw.Row(children: [
-                    pw.SizedBox(
-                      width: 100.0,
-                      child: pw.Text(
-                        'Invoice Number',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 10.0,
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 100.0,
-                      child: pw.Text(
-                        '#${transactions.invoiceNumber}',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                  ]),
-                  pw.Row(children: [
-                    pw.SizedBox(
-                      width: 100.0,
-                      child: pw.Text(
-                        'Date',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 10.0,
-                      child: pw.Text(
-                        ':',
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                    pw.SizedBox(
-                      width: 100.0,
-                      child: pw.Text(
-                        DateTimeFormat.format(DateTime.parse(transactions.purchaseDate), format: 'D, M j'),
-                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                      ),
-                    ),
-                  ]),
-                ]),
-              ]),
             ],
           ),
         );
@@ -1894,54 +2507,69 @@ FutureOr<Uint8List> generateSaleDocumentStyle2({required SaleTransactionModel tr
         return pw.Column(children: [
           pw.Padding(
             padding: const pw.EdgeInsets.all(10.0),
-            child: pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-              pw.Container(
-                alignment: pw.Alignment.centerLeft,
-                margin: const pw.EdgeInsets.only(bottom: 3.0 * PdfPageFormat.mm),
-                padding: const pw.EdgeInsets.only(bottom: 3.0 * PdfPageFormat.mm),
-                child: pw.Column(children: [
+            child: pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
                   pw.Container(
-                    width: 120.0,
-                    height: 2.0,
-                    color: PdfColors.black,
+                    alignment: pw.Alignment.centerLeft,
+                    margin: const pw.EdgeInsets.only(
+                        bottom: 3.0 * PdfPageFormat.mm),
+                    padding: const pw.EdgeInsets.only(
+                        bottom: 3.0 * PdfPageFormat.mm),
+                    child: pw.Column(children: [
+                      pw.Container(
+                        width: 120.0,
+                        height: 2.0,
+                        color: PdfColors.black,
+                      ),
+                      pw.SizedBox(height: 4.0),
+                      pw.Text(
+                        'Customer Signature',
+                        style: pw.Theme.of(context)
+                            .defaultTextStyle
+                            .copyWith(color: PdfColors.black),
+                      )
+                    ]),
                   ),
-                  pw.SizedBox(height: 4.0),
-                  pw.Text(
-                    'Customer Signature',
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                  )
-                ]),
-              ),
-              pw.Container(
-                alignment: pw.Alignment.centerLeft,
-                margin: const pw.EdgeInsets.only(bottom: 3.0 * PdfPageFormat.mm),
-                padding: const pw.EdgeInsets.only(bottom: 3.0 * PdfPageFormat.mm),
-                child: pw.Column(children: [
                   pw.Container(
-                    width: 120.0,
-                    height: 2.0,
-                    color: PdfColors.black,
+                    alignment: pw.Alignment.centerLeft,
+                    margin: const pw.EdgeInsets.only(
+                        bottom: 3.0 * PdfPageFormat.mm),
+                    padding: const pw.EdgeInsets.only(
+                        bottom: 3.0 * PdfPageFormat.mm),
+                    child: pw.Column(children: [
+                      pw.Container(
+                        width: 120.0,
+                        height: 2.0,
+                        color: PdfColors.black,
+                      ),
+                      pw.SizedBox(height: 4.0),
+                      pw.Text(
+                        'Authorized Signature',
+                        style: pw.Theme.of(context)
+                            .defaultTextStyle
+                            .copyWith(color: PdfColors.black),
+                      )
+                    ]),
                   ),
-                  pw.SizedBox(height: 4.0),
-                  pw.Text(
-                    'Authorized Signature',
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
-                  )
                 ]),
-              ),
-            ]),
           ),
           pw.Container(
             width: double.infinity,
             color: PdfColors.black,
             padding: const pw.EdgeInsets.all(10.0),
-            child: pw.Center(child: pw.Text('Powered By Pix Pos', style: pw.TextStyle(color: PdfColors.white, fontWeight: pw.FontWeight.bold))),
+            child: pw.Center(
+                child: pw.Text('Powered By Pix Pos',
+                    style: pw.TextStyle(
+                        color: PdfColors.white,
+                        fontWeight: pw.FontWeight.bold))),
           ),
         ]);
       },
       build: (pw.Context context) => <pw.Widget>[
         pw.Padding(
-          padding: const pw.EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+          padding:
+              const pw.EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
           child: pw.Column(
             children: [
               pw.Table.fromTextArray(
@@ -1956,7 +2584,8 @@ FutureOr<Uint8List> generateSaleDocumentStyle2({required SaleTransactionModel tr
                       bottom: pw.BorderSide(
                         color: PdfColors.black,
                       )),
-                  headerDecoration: pw.BoxDecoration(color: PdfColor.fromHex('#007AD0')),
+                  headerDecoration:
+                      pw.BoxDecoration(color: PdfColor.fromHex('#007AD0')),
                   columnWidths: <int, pw.TableColumnWidth>{
                     0: const pw.FlexColumnWidth(1),
                     1: const pw.FlexColumnWidth(6),
@@ -1964,9 +2593,11 @@ FutureOr<Uint8List> generateSaleDocumentStyle2({required SaleTransactionModel tr
                     3: const pw.FlexColumnWidth(2),
                     4: const pw.FlexColumnWidth(2),
                   },
-                  headerStyle: pw.TextStyle(color: PdfColors.white, fontWeight: pw.FontWeight.bold),
+                  headerStyle: pw.TextStyle(
+                      color: PdfColors.white, fontWeight: pw.FontWeight.bold),
                   rowDecoration: const pw.BoxDecoration(color: PdfColors.white),
-                  oddRowDecoration: const pw.BoxDecoration(color: PdfColors.grey100),
+                  oddRowDecoration:
+                      const pw.BoxDecoration(color: PdfColors.grey100),
                   headerAlignments: <int, pw.Alignment>{
                     0: pw.Alignment.center,
                     1: pw.Alignment.centerLeft,
@@ -1982,41 +2613,64 @@ FutureOr<Uint8List> generateSaleDocumentStyle2({required SaleTransactionModel tr
                     4: pw.Alignment.centerRight,
                   },
                   data: <List<String>>[
-                    <String>['SL', 'Item', 'Quantity', 'Unit Price', 'Total Price'],
+                    <String>[
+                      'SL',
+                      'Item',
+                      'Quantity',
+                      'Unit Price',
+                      'Total Price'
+                    ],
                     for (int i = 0; i < transactions.productList!.length; i++)
                       <String>[
                         ('${i + 1}'),
-                        (transactions.productList!.elementAt(i).productName.toString()),
-                        (transactions.productList!.elementAt(i).quantity.toString()),
+                        (transactions.productList!
+                            .elementAt(i)
+                            .productName
+                            .toString()),
+                        (transactions.productList!
+                            .elementAt(i)
+                            .quantity
+                            .toString()),
                         (transactions.productList!.elementAt(i).subTotal),
-                        ((int.parse(transactions.productList!.elementAt(i).subTotal) * transactions.productList!.elementAt(i).quantity.toInt()).toString())
+                        ((int.parse(transactions.productList!
+                                    .elementAt(i)
+                                    .subTotal) *
+                                transactions.productList!
+                                    .elementAt(i)
+                                    .quantity
+                                    .toInt())
+                            .toString())
                       ],
                   ]),
               pw.Paragraph(text: ""),
               pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                 children: [
-                  pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-                    pw.Text(
-                      "Payment Method: ${transactions.paymentType}",
-                      style: const pw.TextStyle(
-                        color: PdfColors.black,
-                      ),
-                    ),
-                    pw.SizedBox(height: 10.0),
-                    pw.Text(
-                      "Amount in Word",
-                      style: pw.TextStyle(color: PdfColors.black, fontWeight: pw.FontWeight.bold),
-                    ),
-                    // pw.SizedBox(height: 10.0),
-                    // pw.Text(
-                    //   NumberToCharacterConverter('en').convertDouble(transactions.totalAmount).toUpperCase(),
-                    //   style: pw.TextStyle(
-                    //       color: PdfColors.black,
-                    //       fontWeight: pw.FontWeight.bold
-                    //   ),
-                    // ),
-                  ]),
+                  pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text(
+                          "Payment Method: ${transactions.paymentType}",
+                          style: const pw.TextStyle(
+                            color: PdfColors.black,
+                          ),
+                        ),
+                        pw.SizedBox(height: 10.0),
+                        pw.Text(
+                          "Amount in Word",
+                          style: pw.TextStyle(
+                              color: PdfColors.black,
+                              fontWeight: pw.FontWeight.bold),
+                        ),
+                        // pw.SizedBox(height: 10.0),
+                        // pw.Text(
+                        //   NumberToCharacterConverter('en').convertDouble(transactions.totalAmount).toUpperCase(),
+                        //   style: pw.TextStyle(
+                        //       color: PdfColors.black,
+                        //       fontWeight: pw.FontWeight.bold
+                        //   ),
+                        // ),
+                      ]),
                   pw.SizedBox(
                     width: 150.0,
                     child: pw.Column(
@@ -2024,120 +2678,142 @@ FutureOr<Uint8List> generateSaleDocumentStyle2({required SaleTransactionModel tr
                       mainAxisAlignment: pw.MainAxisAlignment.end,
                       children: [
                         pw.SizedBox(height: 10.0),
-                        pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                          pw.SizedBox(
-                            width: 100.0,
-                            child: pw.Text(
-                              "Service/Shipping:",
-                              style: const pw.TextStyle(
-                                color: PdfColors.black,
+                        pw.Row(
+                            mainAxisAlignment:
+                                pw.MainAxisAlignment.spaceBetween,
+                            children: [
+                              pw.SizedBox(
+                                width: 100.0,
+                                child: pw.Text(
+                                  "Service/Shipping:",
+                                  style: const pw.TextStyle(
+                                    color: PdfColors.black,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          pw.Text(
-                            transactions.serviceCharge.toString(),
-                            style: const pw.TextStyle(
-                              color: PdfColors.black,
-                            ),
-                          ),
-                        ]),
+                              pw.Text(
+                                transactions.serviceCharge.toString(),
+                                style: const pw.TextStyle(
+                                  color: PdfColors.black,
+                                ),
+                              ),
+                            ]),
                         pw.SizedBox(height: 10.0),
-                        pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                          pw.SizedBox(
-                            width: 100.0,
-                            child: pw.Text(
-                              "VAT/GST:",
-                              style: const pw.TextStyle(
-                                color: PdfColors.black,
+                        pw.Row(
+                            mainAxisAlignment:
+                                pw.MainAxisAlignment.spaceBetween,
+                            children: [
+                              pw.SizedBox(
+                                width: 100.0,
+                                child: pw.Text(
+                                  "VAT/GST:",
+                                  style: const pw.TextStyle(
+                                    color: PdfColors.black,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          pw.Text(
-                            transactions.vat.toString(),
-                            style: const pw.TextStyle(
-                              color: PdfColors.black,
-                            ),
-                          ),
-                        ]),
+                              pw.Text(
+                                transactions.vat.toString(),
+                                style: const pw.TextStyle(
+                                  color: PdfColors.black,
+                                ),
+                              ),
+                            ]),
                         pw.SizedBox(height: 10.0),
-                        pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                          pw.SizedBox(
-                            width: 100.0,
-                            child: pw.Text(
-                              "Discount:",
-                              style: const pw.TextStyle(
-                                color: PdfColors.black,
+                        pw.Row(
+                            mainAxisAlignment:
+                                pw.MainAxisAlignment.spaceBetween,
+                            children: [
+                              pw.SizedBox(
+                                width: 100.0,
+                                child: pw.Text(
+                                  "Discount:",
+                                  style: const pw.TextStyle(
+                                    color: PdfColors.black,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          pw.Text(
-                            transactions.discountAmount.toString(),
-                            style: const pw.TextStyle(
-                              color: PdfColors.black,
-                            ),
-                          ),
-                        ]),
+                              pw.Text(
+                                transactions.discountAmount.toString(),
+                                style: const pw.TextStyle(
+                                  color: PdfColors.black,
+                                ),
+                              ),
+                            ]),
                         pw.SizedBox(height: 10.0),
-                        pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                          pw.SizedBox(
-                            width: 100.0,
-                            child: pw.Text(
-                              "Subtotal:",
-                              style: const pw.TextStyle(
-                                color: PdfColors.black,
+                        pw.Row(
+                            mainAxisAlignment:
+                                pw.MainAxisAlignment.spaceBetween,
+                            children: [
+                              pw.SizedBox(
+                                width: 100.0,
+                                child: pw.Text(
+                                  "Subtotal:",
+                                  style: const pw.TextStyle(
+                                    color: PdfColors.black,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          pw.Text(
-                            "${transactions.totalAmount}",
-                            style: const pw.TextStyle(
-                              color: PdfColors.black,
-                            ),
-                          ),
-                        ]),
+                              pw.Text(
+                                "${transactions.totalAmount}",
+                                style: const pw.TextStyle(
+                                  color: PdfColors.black,
+                                ),
+                              ),
+                            ]),
                         pw.SizedBox(height: 10.0),
                         pw.Container(
                           color: PdfColor.fromHex('#007AD0'),
                           width: 150.0,
                           padding: const pw.EdgeInsets.all(10.0),
-                          child: pw.Text("Total Amount: ${transactions.totalAmount}", style: pw.TextStyle(color: PdfColors.white, fontWeight: pw.FontWeight.bold)),
+                          child: pw.Text(
+                              "Total Amount: ${transactions.totalAmount}",
+                              style: pw.TextStyle(
+                                  color: PdfColors.white,
+                                  fontWeight: pw.FontWeight.bold)),
                         ),
                         pw.SizedBox(height: 10.0),
-                        pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                          pw.SizedBox(
-                            width: 100.0,
-                            child: pw.Text(
-                              "Paid:",
-                              style: const pw.TextStyle(
-                                color: PdfColors.black,
+                        pw.Row(
+                            mainAxisAlignment:
+                                pw.MainAxisAlignment.spaceBetween,
+                            children: [
+                              pw.SizedBox(
+                                width: 100.0,
+                                child: pw.Text(
+                                  "Paid:",
+                                  style: const pw.TextStyle(
+                                    color: PdfColors.black,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          pw.Text(
-                            "${transactions.totalAmount! - transactions.dueAmount!}",
-                            style: const pw.TextStyle(
-                              color: PdfColors.black,
-                            ),
-                          ),
-                        ]),
+                              pw.Text(
+                                "${transactions.totalAmount! - transactions.dueAmount!}",
+                                style: const pw.TextStyle(
+                                  color: PdfColors.black,
+                                ),
+                              ),
+                            ]),
                         pw.SizedBox(height: 10.0),
-                        pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-                          pw.SizedBox(
-                            width: 100.0,
-                            child: pw.Text(
-                              "Due:",
-                              style: const pw.TextStyle(
-                                color: PdfColors.black,
+                        pw.Row(
+                            mainAxisAlignment:
+                                pw.MainAxisAlignment.spaceBetween,
+                            children: [
+                              pw.SizedBox(
+                                width: 100.0,
+                                child: pw.Text(
+                                  "Due:",
+                                  style: const pw.TextStyle(
+                                    color: PdfColors.black,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          pw.Text(
-                            transactions.dueAmount.toString(),
-                            style: const pw.TextStyle(
-                              color: PdfColors.black,
-                            ),
-                          ),
-                        ]),
+                              pw.Text(
+                                transactions.dueAmount.toString(),
+                                style: const pw.TextStyle(
+                                  color: PdfColors.black,
+                                ),
+                              ),
+                            ]),
                       ],
                     ),
                   ),
