@@ -114,7 +114,8 @@ List<String> screenList = [
 ];
 
 class SideBarWidget extends StatefulWidget {
-  const SideBarWidget({super.key, required this.index, required this.isTab, this.subManu});
+  const SideBarWidget(
+      {super.key, required this.index, required this.isTab, this.subManu});
   final int index;
   final bool isTab;
 
@@ -125,7 +126,8 @@ class SideBarWidget extends StatefulWidget {
 }
 
 class _SideBarWidgetState extends State<SideBarWidget> {
-  CurrentSubscriptionPlanRepo currentSubscriptionPlanRepo = CurrentSubscriptionPlanRepo();
+  CurrentSubscriptionPlanRepo currentSubscriptionPlanRepo =
+      CurrentSubscriptionPlanRepo();
 
   SubscriptionModel subscriptionModel = SubscriptionModel(
     subscriptionName: '',
@@ -138,7 +140,8 @@ class _SideBarWidgetState extends State<SideBarWidget> {
     products: 0,
   );
   void checkSubscriptionData() async {
-    subscriptionModel = await currentSubscriptionPlanRepo.getCurrentSubscriptionPlans();
+    subscriptionModel =
+        await currentSubscriptionPlanRepo.getCurrentSubscriptionPlans();
 
     setState(() {
       subscriptionModel;
@@ -195,14 +198,17 @@ class _SideBarWidgetState extends State<SideBarWidget> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: titleList.length,
                 itemBuilder: (_, i) {
-                  return titleList[i] == lang.S.of(context).sales || titleList[i] == lang.S.of(context).purchase
-                      ? saleExpandedManu(selected: widget.subManu ?? '', manu: titleList[i])
+                  return titleList[i] == lang.S.of(context).sales ||
+                          titleList[i] == lang.S.of(context).purchase
+                      ? saleExpandedManu(
+                          selected: widget.subManu ?? '', manu: titleList[i])
                       : Container(
                           color: widget.index == i ? kMainColor : null,
                           child: ListTile(
                             selectedTileColor: kBlueTextColor,
                             onTap: (() async {
-                              if (await checkUserRolePermission(type: screenList[i])) {
+                              if (await checkUserRolePermission(
+                                  type: screenList[i])) {
                                 Navigator.of(context).pushNamed(screenList[i]);
                               }
                             }),
@@ -217,14 +223,18 @@ class _SideBarWidgetState extends State<SideBarWidget> {
                               size: 18.0,
                             ),
                           ),
-                        ).visible(!((isSubUser && titleList[i] == 'User Role') || (isSubUser && titleList[i] == 'Subscription')));
+                        ).visible(
+                          !((isSubUser && titleList[i] == 'User Role') ||
+                              (isSubUser && titleList[i] == 'Subscription')));
                 }),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Container(
                 width: MediaQuery.of(context).size.width * .50,
                 padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kMainColor),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: kMainColor),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -242,11 +252,16 @@ class _SideBarWidgetState extends State<SideBarWidget> {
                           style: kTextStyle.copyWith(color: kWhite),
                           maxLines: 3,
                         ),
+                        Text(subscriptionModel.subscriptionDate.toString()),
+                        Text("*****"),
+                        Text(subscriptionModel.duration.toString()),
+                        Text("*****"),
                         Text(
                           'Expires in ${(DateTime.parse(subscriptionModel.subscriptionDate).difference(DateTime.now()).inDays.abs() - subscriptionModel.duration).abs()} Days',
                           style: kTextStyle.copyWith(color: kWhite),
                           maxLines: 3,
-                        ).visible(subscriptionModel.subscriptionName != 'Lifetime'),
+                        ).visible(
+                            subscriptionModel.subscriptionName != 'Lifetime'),
                       ],
                     ),
                     Row(
@@ -254,7 +269,8 @@ class _SideBarWidgetState extends State<SideBarWidget> {
                       children: [
                         Text(
                           lang.S.of(context).upgradeOnMobileApp,
-                          style: kTextStyle.copyWith(color: kYellowColor, fontWeight: FontWeight.bold),
+                          style: kTextStyle.copyWith(
+                              color: kYellowColor, fontWeight: FontWeight.bold),
                         ),
                         const Icon(
                           FontAwesomeIcons.arrowRight,
@@ -298,7 +314,9 @@ class _SideBarWidgetState extends State<SideBarWidget> {
           children: [
             ///_______________POS Sale_________________________________________________
             Container(
-              color: selectedItems == lang.S.of(context).sales ? kBlueTextColor : null,
+              color: selectedItems == lang.S.of(context).sales
+                  ? kBlueTextColor
+                  : null,
               child: ListTile(
                 // leading: const Icon(
                 //   Icons.point_of_sale_sharp,
@@ -321,7 +339,9 @@ class _SideBarWidgetState extends State<SideBarWidget> {
 
             ///----------------inventory sales---------------------
             Container(
-              color: selectedItems == lang.S.of(context).inventorySales ? kBlueTextColor : null,
+              color: selectedItems == lang.S.of(context).inventorySales
+                  ? kBlueTextColor
+                  : null,
               child: ListTile(
                 // leading: const Icon(
                 //   Icons.list,
@@ -344,7 +364,9 @@ class _SideBarWidgetState extends State<SideBarWidget> {
 
             ///_______________Sales List_________________________________________________
             Container(
-              color: selectedItems == lang.S.of(context).saleList ? kBlueTextColor : null,
+              color: selectedItems == lang.S.of(context).saleList
+                  ? kBlueTextColor
+                  : null,
               child: ListTile(
                 // leading: const Icon(
                 //   Icons.list,
@@ -360,14 +382,17 @@ class _SideBarWidgetState extends State<SideBarWidget> {
                 ),
                 onTap: () async {
                   selectedItems = lang.S.of(context).saleList;
-                  if (await checkUserRolePermission(type: 'sale')) Navigator.pushNamed(context, SaleList.route);
+                  if (await checkUserRolePermission(type: 'sale'))
+                    Navigator.pushNamed(context, SaleList.route);
                 },
               ),
             ),
 
             ///_______________sales_returns_________________________________________________
             Container(
-              color: selectedItems == lang.S.of(context).saleReturn ? kBlueTextColor : null,
+              color: selectedItems == lang.S.of(context).saleReturn
+                  ? kBlueTextColor
+                  : null,
               child: ListTile(
                 // leading: const Icon(
                 //   Icons.assignment_return_outlined,
@@ -391,7 +416,9 @@ class _SideBarWidgetState extends State<SideBarWidget> {
             ///_______________Quotation List_________________________________________________
 
             Container(
-              color: selectedItems == lang.S.of(context).quotationList ? kBlueTextColor : null,
+              color: selectedItems == lang.S.of(context).quotationList
+                  ? kBlueTextColor
+                  : null,
               child: ListTile(
                 // leading: const Icon(
                 //   Icons.list_alt_sharp,
@@ -418,7 +445,10 @@ class _SideBarWidgetState extends State<SideBarWidget> {
     } else {
       return StatefulBuilder(builder: (context, manuSetState) {
         return ExpansionTile(
-          initiallyExpanded: selectedItems == lang.S.of(context).purchaseList || selectedItems == 'Purchase Return' ? true : false,
+          initiallyExpanded: selectedItems == lang.S.of(context).purchaseList ||
+                  selectedItems == 'Purchase Return'
+              ? true
+              : false,
           iconColor: Colors.white,
           collapsedIconColor: Colors.white,
           title: Text(
@@ -433,7 +463,9 @@ class _SideBarWidgetState extends State<SideBarWidget> {
           children: [
             ///_____________Purchase_________________________________________________
             Container(
-              color: selectedItems == lang.S.of(context).purchase ? kBlueTextColor : null,
+              color: selectedItems == lang.S.of(context).purchase
+                  ? kBlueTextColor
+                  : null,
               child: ListTile(
                 // leading: const Icon(
                 //   Icons.point_of_sale_sharp,
@@ -449,7 +481,8 @@ class _SideBarWidgetState extends State<SideBarWidget> {
                 ),
                 onTap: () async {
                   selectedItems = lang.S.of(context).purchase;
-                  if (await checkUserRolePermission(type: 'purchase')) Navigator.pushNamed(context, Purchase.route);
+                  if (await checkUserRolePermission(type: 'purchase'))
+                    Navigator.pushNamed(context, Purchase.route);
 
                   //action on press
                 },
@@ -459,7 +492,9 @@ class _SideBarWidgetState extends State<SideBarWidget> {
             ///_______________Purchase_List_________________________________________________
 
             Container(
-              color: selectedItems == lang.S.of(context).purchaseList ? kBlueTextColor : null,
+              color: selectedItems == lang.S.of(context).purchaseList
+                  ? kBlueTextColor
+                  : null,
               child: ListTile(
                 // leading: const Icon(
                 //   Icons.list,
@@ -475,7 +510,8 @@ class _SideBarWidgetState extends State<SideBarWidget> {
                 ),
                 onTap: () async {
                   selectedItems = lang.S.of(context).purchaseList;
-                  if (await checkUserRolePermission(type: 'purchaseList')) Navigator.pushNamed(context, PurchaseList.route);
+                  if (await checkUserRolePermission(type: 'purchaseList'))
+                    Navigator.pushNamed(context, PurchaseList.route);
                 },
               ),
             ),

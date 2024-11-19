@@ -33,13 +33,23 @@ String calculateProductVat({required AddToCartModel product}) {
     //double taxAmount = purchasePrice / (1 + taxRate) * taxRate;
     double taxRate = product.groupTaxRate / 100;
     print(product.groupTaxRate);
-    return (((double.tryParse(product.productPurchasePrice.toString()) ?? 0) / (taxRate + 1) * taxRate) * product.quantity).toStringAsFixed(1);
+    return (((double.tryParse(product.productPurchasePrice.toString()) ?? 0) /
+                (taxRate + 1) *
+                taxRate) *
+            product.quantity)
+        .toStringAsFixed(1);
   } else {
-    return (((product.groupTaxRate * (double.tryParse(product.productPurchasePrice.toString()) ?? 0)) / 100) * product.quantity).toStringAsFixed(1);
+    return (((product.groupTaxRate *
+                    (double.tryParse(product.productPurchasePrice.toString()) ??
+                        0)) /
+                100) *
+            product.quantity)
+        .toStringAsFixed(1);
   }
 }
 
-SaleTransactionModel checkLossProfit({required SaleTransactionModel transitionModel}) {
+SaleTransactionModel checkLossProfit(
+    {required SaleTransactionModel transitionModel}) {
   double calculateAmountFromPercentage(double percentage, double price) {
     return (percentage * price) / 100;
   }
@@ -50,17 +60,22 @@ SaleTransactionModel checkLossProfit({required SaleTransactionModel transitionMo
   double totalSalePrice = 0;
   for (var element in transitionModel.productList!) {
     if (element.taxType == 'Exclusive') {
-      double tax = calculateAmountFromPercentage(element.groupTaxRate.toDouble(), element.productPurchasePrice);
-      totalPurchasePrice = totalPurchasePrice + (((element.productPurchasePrice + tax) * element.quantity));
+      double tax = calculateAmountFromPercentage(
+          element.groupTaxRate.toDouble(), element.productPurchasePrice);
+      totalPurchasePrice = totalPurchasePrice +
+          (((element.productPurchasePrice + tax) * element.quantity));
     } else {
-      totalPurchasePrice = totalPurchasePrice + (element.productPurchasePrice * element.quantity);
+      totalPurchasePrice = totalPurchasePrice +
+          (element.productPurchasePrice * element.quantity);
     }
 
-    totalSalePrice = totalSalePrice + (double.parse(element.subTotal) * element.quantity);
+    totalSalePrice =
+        totalSalePrice + (double.parse(element.subTotal) * element.quantity);
 
     totalQuantity = totalQuantity + element.quantity;
   }
-  lossProfit = ((totalSalePrice - totalPurchasePrice.toDouble()) - double.parse(transitionModel.discountAmount.toString()));
+  lossProfit = ((totalSalePrice - totalPurchasePrice.toDouble()) -
+      double.parse(transitionModel.discountAmount.toString()));
 
   transitionModel.totalQuantity = totalQuantity;
   transitionModel.lossProfit = double.parse(lossProfit.toStringAsFixed(2));
@@ -84,7 +99,8 @@ List<TaxModel> getAllTaxFromCartList({required List<AddToCartModel> cart}) {
   return data;
 }
 
-final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+    GlobalKey<RefreshIndicatorState>();
 
 // String appLogo='images/mobipos.png';
 // String appsName = 'Pos Saas';
@@ -98,7 +114,13 @@ List<String> selectedNumbers = [];
 
 Future<String?> getSaleID({required String id}) async {
   String? key;
-  await FirebaseDatabase.instance.ref().child('Admin Panel').child('Seller List').orderByKey().get().then((value) async {
+  await FirebaseDatabase.instance
+      .ref()
+      .child('Admin Panel')
+      .child('Seller List')
+      .orderByKey()
+      .get()
+      .then((value) async {
     for (var element in value.children) {
       var data = jsonDecode(jsonEncode(element.value));
       if (data['userId'].toString() == id) {
@@ -138,7 +160,10 @@ UserRoleModel finalUserRoleModel = UserRoleModel(
   purchaseListPermission: true,
 );
 
-Future<void> setUserDataOnLocalData({required String uid, required String subUserTitle, required bool isSubUser}) async {
+Future<void> setUserDataOnLocalData(
+    {required String uid,
+    required String subUserTitle,
+    required bool isSubUser}) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setString('userId', uid);
   await prefs.setString('subUserTitle', subUserTitle);
@@ -151,7 +176,9 @@ Future<void> getUserDataFromLocal() async {
   constSubUserTitle = prefs.getString('subUserTitle') ?? '';
   isSubUser = prefs.getBool('isSubUser') ?? false;
   String? data = prefs.getString("userPermission");
-  data != null ? finalUserRoleModel = UserRoleModel.fromJson(jsonDecode(data)) : null;
+  data != null
+      ? finalUserRoleModel = UserRoleModel.fromJson(jsonDecode(data))
+      : null;
 }
 
 String userPermissionErrorText = 'Access not granted';
@@ -220,7 +247,8 @@ Future<String> getUserID() async {
   return uid ?? '';
 }
 
-void putUserDataImidiyate({required String uid, required String title, required bool isSubUse}) {
+void putUserDataImidiyate(
+    {required String uid, required String title, required bool isSubUse}) {
   constUserId = uid;
   constSubUserTitle = title;
   isSubUser = isSubUse;
@@ -271,9 +299,12 @@ String dropdownValue = 'Select Business Category';
 final currentDate = DateTime.now();
 final firstDayOfCurrentMonth = DateTime(currentDate.year, currentDate.month, 1);
 final firstDayOfCurrentYear = DateTime(currentDate.year, 1, 1);
-final firstDayOfPreviousYear = firstDayOfCurrentYear.subtract(const Duration(days: 1));
-final lastDayOfPreviousMonth = firstDayOfCurrentMonth.subtract(const Duration(days: 1));
-final firstDayOfPreviousMonth = DateTime(lastDayOfPreviousMonth.year, lastDayOfPreviousMonth.month, 1);
+final firstDayOfPreviousYear =
+    firstDayOfCurrentYear.subtract(const Duration(days: 1));
+final lastDayOfPreviousMonth =
+    firstDayOfCurrentMonth.subtract(const Duration(days: 1));
+final firstDayOfPreviousMonth =
+    DateTime(lastDayOfPreviousMonth.year, lastDayOfPreviousMonth.month, 1);
 
 DateFormat dataTypeFormat = DateFormat('dd MMM yyyy');
 
@@ -281,5 +312,36 @@ void checkCurrentUserAndRestartApp() {
   final User? user = FirebaseAuth.instance.currentUser;
   if (user?.uid == null) {
     Restart.restartApp();
+  }
+}
+
+DateTime? correctInvalidDate(String input, {String format = 'dd MMM yyyy'}) {
+  try {
+    // Attempt to parse the input date
+    DateFormat dateFormat = DateFormat(format);
+    return dateFormat.parseStrict(input);
+  } catch (e) {
+    // If parsing fails, try correcting the date
+    try {
+      // Replace invalid parts of the date
+      List<String> parts = input.split(RegExp(r'[-/\.]'));
+      if (parts.length < 3) return null;
+
+      int year =
+          int.tryParse(parts[0]) ?? 2000; // Default to year 2000 if invalid
+      int month = (int.tryParse(parts[1]) ?? 1)
+          .clamp(1, 12); // Clamp months between 1-12
+      int day = (int.tryParse(parts[2]) ?? 1);
+
+      // Ensure the day is valid for the month/year
+      DateTime correctedDate = DateTime(year, month, 1);
+      int lastDayOfMonth = DateTime(year, month + 1, 0).day;
+      day = day.clamp(1, lastDayOfMonth);
+
+      return DateTime(year, month, day);
+    } catch (e) {
+      // Return null if correction fails
+      return null;
+    }
   }
 }
